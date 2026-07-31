@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:fcbdab914d848aafb5cecb15fb66368f7354336c25a059fe2565278782711b12",
+  "normalized_text": "Apollo 15 entered lunar orbit on July 29, 1971. David Scott and James Irwin separated the Lunar Module Falcon from Alfred Worden in the Command Module Endeavour. Scott and Irwin touched down at the Hadley-Apennine site. They conducted four spacewalks, including three excursions using the Lunar Roving Vehicle, for a combined total of 19 hours.",
+  "raw_byte_length": 344,
+  "raw_char_length": 344,
+  "raw_content_hash": "sha256:fcbdab914d848aafb5cecb15fb66368f7354336c25a059fe2565278782711b12",
+  "raw_text": "Apollo 15 entered lunar orbit on July 29, 1971. David Scott and James Irwin separated the Lunar Module Falcon from Alfred Worden in the Command Module Endeavour. Scott and Irwin touched down at the Hadley-Apennine site. They conducted four spacewalks, including three excursions using the Lunar Roving Vehicle, for a combined total of 19 hours.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo15_moon",
+  "source_group": "nasa_apollo15_surface",
+  "source_revision": "published_2021-07-29_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/",
+  "title": "Apollo 15 on the Moon at Hadley-Apennine"
+}

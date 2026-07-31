@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:f9b0d74a70ed887a7e1d44f8ee8b2b82d2a841a633d9942d2e1b3d13c86e8757",
+  "normalized_text": "Six Apollo expeditions landed on the Moon, while Apollo 13 returned without landing. Neil Armstrong and Buzz Aldrin touched down in the Sea of Tranquility on July 20, 1969. The Apollo Lunar Module was designed to fly only in a vacuum. A fueled Saturn V weighed more than 2.7 million kilograms at liftoff and stood 110.64 meters high. The Saturn V had three stages.",
+  "raw_byte_length": 364,
+  "raw_char_length": 364,
+  "raw_content_hash": "sha256:f9b0d74a70ed887a7e1d44f8ee8b2b82d2a841a633d9942d2e1b3d13c86e8757",
+  "raw_text": "Six Apollo expeditions landed on the Moon, while Apollo 13 returned without landing. Neil Armstrong and Buzz Aldrin touched down in the Sea of Tranquility on July 20, 1969. The Apollo Lunar Module was designed to fly only in a vacuum. A fueled Saturn V weighed more than 2.7 million kilograms at liftoff and stood 110.64 meters high. The Saturn V had three stages.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_human_spaceflight_record",
+  "source_group": "nasa_human_spaceflight_record",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/SP-4225/documentation/hsf-record/hsf.htm",
+  "title": "Human Space Flight: A Record of Achievement"
+}

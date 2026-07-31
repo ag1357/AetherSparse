@@ -1,0 +1,11 @@
+{
+  "profile_id": "alif_e3_e7_external_storage",
+  "reasoning_backend": true,
+  "estimated": true,
+  "integer_mops": 600.0,
+  "sequential_read_mb_s": 35.0,
+  "fixed_request_overhead_ms": 0.8,
+  "active_power_w": 1.2,
+  "notes": "Provisional CPU/storage estimate; Ethos-U offload is not credited."
+}
+

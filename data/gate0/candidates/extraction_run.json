@@ -1,0 +1,14 @@
+{
+  "cache_hits": 0,
+  "candidate_count": 85,
+  "candidate_set_hash": "sha256:843e1ff10c3da592ac630c83343c43a9bc5c44cfe2f7180814f714f8b6901370",
+  "completed_at": "2026-07-31T03:55:39.362496Z",
+  "configuration_hash": "sha256:fe5499214b77f7b9e9abe25d5258770e6e7367b40db9aeee042c8bf268fcb0db",
+  "estimated_rule_operations": 45348,
+  "run_id": "extract:843e1ff10c3da592ac63",
+  "source_count": 26,
+  "started_at": "2026-07-31T03:55:39.207879Z",
+  "teacher_cost_usd": 0.0,
+  "teacher_tokens": 0,
+  "wall_clock_ms": 154.61894
+}

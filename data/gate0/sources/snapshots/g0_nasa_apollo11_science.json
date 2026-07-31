@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:9a1a645b62d3eee9cfbae19ec6c662b86f362024ca80e37909935651096c63f0",
+  "normalized_text": "Scientists discussed the chemistry, mineralogy, and petrology of Apollo 11 lunar samples. They also discussed sample dating and results returned by instruments left on the Moon.",
+  "raw_byte_length": 177,
+  "raw_char_length": 177,
+  "raw_content_hash": "sha256:9a1a645b62d3eee9cfbae19ec6c662b86f362024ca80e37909935651096c63f0",
+  "raw_text": "Scientists discussed the chemistry, mineralogy, and petrology of Apollo 11 lunar samples. They also discussed sample dating and results returned by instruments left on the Moon.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo11_science",
+  "source_group": "nasa_apollo11_science",
+  "source_revision": "published_2020-01-07_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-11-lunar-science-conference/",
+  "title": "Apollo 11 Lunar Science Conference"
+}

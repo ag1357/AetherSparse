@@ -1,0 +1,12 @@
+{
+  "candidate_count": 85,
+  "completed_at": "2026-07-31T03:55:39.505939Z",
+  "configuration_hash": "sha256:855b889739beff93908c323eec157bece3fc74fe471d8db0a849aaf5cd94f59c",
+  "fail_count": 1,
+  "pass_count": 38,
+  "result_set_hash": "sha256:c84b40698b143293e57fc78b8e146e0347f63b04ee43fff71f427adfe592e42f",
+  "review_count": 46,
+  "run_id": "validate:c84b40698b143293e57f",
+  "started_at": "2026-07-31T03:55:39.362769Z",
+  "wall_clock_ms": 143.190699
+}

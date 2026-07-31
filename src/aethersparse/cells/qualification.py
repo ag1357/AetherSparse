@@ -23,11 +23,15 @@ def topology_metrics(cells: list[CognitiveCell], document_count: int) -> dict[st
 
 
 def evaluate_routes(
-    cells: list[CognitiveCell], questions: Iterable[dict[str, object]]
+    cells: list[CognitiveCell],
+    questions: Iterable[dict[str, object]],
+    *,
+    use_vsa: bool = True,
 ) -> dict[str, float | int]:
     router = CognitiveCellRouter(cells)
     totals = hits1 = hits4 = hits8 = 0
     bytes_at8: list[int] = []
+    candidate_counts: list[int] = []
     cell_by_id = {cell.cell_id: cell for cell in cells}
     for question in questions:
         raw_path = question.get("gold_document_path", ())
@@ -36,7 +40,9 @@ def evaluate_routes(
         )
         if not gold_documents:
             continue
-        routes = router.route(str(question["query"]), limit=8)
+        query = str(question["query"])
+        candidate_counts.append(len(router.candidate_ids(query, use_vsa=use_vsa)))
+        routes = router.route(query, limit=8, use_vsa=use_vsa)
         hit_positions = [
             index
             for index, route in enumerate(routes)
@@ -53,6 +59,10 @@ def evaluate_routes(
         "cell_recall_at_4": hits4 / max(1, totals),
         "cell_recall_at_8": hits8 / max(1, totals),
         "mean_declared_cell_bytes_at_8": statistics.fmean(bytes_at8) if bytes_at8 else 0.0,
+        "mean_routed_cell_candidates": (
+            statistics.fmean(candidate_counts) if candidate_counts else 0.0
+        ),
+        "maximum_routed_cell_candidates": max(candidate_counts, default=0),
     }
 
 
@@ -66,7 +76,8 @@ def compare_topologies(
         cells = builder.build(kind)
         results[kind.value] = {
             **topology_metrics(cells, document_count),
-            **evaluate_routes(cells, frozen_questions),
+            "with_vsa": evaluate_routes(cells, frozen_questions, use_vsa=True),
+            "without_vsa": evaluate_routes(cells, frozen_questions, use_vsa=False),
         }
     return {
         "classification": "COGNITIVE_CELL_TOPOLOGY_QUALIFICATION",

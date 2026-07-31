@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:3849a75fc4e121b0aece6d705ad376ba6eca7b94929e82cf1510a5fc1244b154",
+  "normalized_text": "Apollo 16 entered lunar orbit on April 19, 1972. John Young and Charles Duke separated the Lunar Module Orion from Ken Mattingly in the Command Module Casper. Young and Duke touched down at the Descartes site. They conducted three surface excursions totaling more than 20 hours. They collected 209 pounds of rock and soil samples and set up the first telescope on the Moon.",
+  "raw_byte_length": 373,
+  "raw_char_length": 373,
+  "raw_content_hash": "sha256:3849a75fc4e121b0aece6d705ad376ba6eca7b94929e82cf1510a5fc1244b154",
+  "raw_text": "Apollo 16 entered lunar orbit on April 19, 1972. John Young and Charles Duke separated the Lunar Module Orion from Ken Mattingly in the Command Module Casper. Young and Duke touched down at the Descartes site. They conducted three surface excursions totaling more than 20 hours. They collected 209 pounds of rock and soil samples and set up the first telescope on the Moon.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo16_moon",
+  "source_group": "nasa_apollo16_surface",
+  "source_revision": "published_2022-04-21_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/apollo-16-on-the-moon-at-descartes/",
+  "title": "Apollo 16 on the Moon at Descartes"
+}

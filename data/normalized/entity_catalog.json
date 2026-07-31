@@ -1,0 +1,48 @@
+{
+  "ontology_version": "0.3.0",
+  "entities": [
+    {
+      "concept_id": "as:concept:apollo_11:01JAS000000000000000001",
+      "canonical_name": "Apollo 11",
+      "type": "mission",
+      "aliases": ["Apollo 11", "Apollo XI", "the Apollo 11 mission"],
+      "status": "active"
+    },
+    {
+      "concept_id": "as:concept:moon:01JAS000000000000000002",
+      "canonical_name": "the Moon",
+      "type": "celestial_body",
+      "aliases": ["Moon", "the Moon", "moon", "lunar surface"],
+      "status": "active"
+    },
+    {
+      "concept_id": "as:concept:neil_armstrong:01JAS000000000003",
+      "canonical_name": "Neil Armstrong",
+      "type": "person",
+      "aliases": ["Neil Armstrong", "Armstrong"],
+      "status": "active"
+    },
+    {
+      "concept_id": "as:concept:buzz_aldrin:01JAS00000000000004",
+      "canonical_name": "Buzz Aldrin",
+      "type": "person",
+      "aliases": ["Buzz Aldrin", "Edwin Aldrin", "Aldrin"],
+      "status": "active"
+    },
+    {
+      "concept_id": "as:concept:michael_collins:01JAS000000000005",
+      "canonical_name": "Michael Collins",
+      "type": "person",
+      "aliases": ["Michael Collins", "Collins"],
+      "status": "active"
+    },
+    {
+      "concept_id": "as:concept:eagle_lm:01JAS000000000000006",
+      "canonical_name": "Eagle",
+      "type": "lunar_module",
+      "aliases": ["Eagle", "lunar module Eagle", "the lunar module Eagle"],
+      "status": "active"
+    }
+  ]
+}
+

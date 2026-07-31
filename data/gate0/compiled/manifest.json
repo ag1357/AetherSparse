@@ -1,0 +1,15 @@
+{
+  "component_hashes": {
+    "indexes": "sha256:65aa839cb2f5e4635f89ea3a1fb716315f7b34058e71dbe8746e95586886993c",
+    "packets": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spans": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logical_pack_bytes": 286,
+  "manifest_hash": "sha256:42fe01631a3d236cc23d08ab93843579fe0afe3c53c27addff489eeff3c34fd8",
+  "pack_id": "apollo_gate0_reviewed_v0",
+  "reviewed_packet_count": 0,
+  "schema_version": "0.3.0",
+  "signature": "UNSIGNED_GATE0_QUALIFICATION",
+  "source_manifest_hash": "sha256:3e7388e31499f69abc5e1178c7ac78a0c07a9e11d31706e674e13f814b38e944",
+  "span_count": 0
+}

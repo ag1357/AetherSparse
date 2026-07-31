@@ -1,0 +1,27 @@
+{
+  "baseline_id": "phase0-reference-v0.1.0",
+  "git_commit": "317ce1496989cb7b75cc2c5cceeb498208150f4a",
+  "git_tag": "phase0-reference-v0.1.0",
+  "identity": {
+    "manifest_hash": "sha256:3c382779b59ee0c1df9d04b687794c9c75791c40d29b91eb5bbfde057f231171",
+    "packet_count": 6,
+    "pack_id": "apollo_lunar_missions_smoke_v0_1_0",
+    "source_manifest_hash": "sha256:1e851c16496552e498139723fd5c56299e45e4b104e461a643f68fea492ef83e",
+    "span_count": 5
+  },
+  "public_smoke_oracle": {
+    "case_count": 13,
+    "compiled_program_passed": 13,
+    "expected_outputs_and_cases_sha256": "76fea80e507168d7e8f803a91cfc10d0301cb41a2cc55380643b4596bf93c12d",
+    "frozen_evaluation_report_sha256": "4d734c9296a0456764f07cab1f4bcf1083cf8d59bf381e96b36dd7a811f8b619",
+    "top1_template_passed": 13,
+    "trace_and_benchmark_report_sha256": "20921ce56df255560719d7a7aefb498ddb4bb7a245516dd1862fee62ecade0b4"
+  },
+  "snapshot_sha256": {
+    "data/gold_packets/tier1_reviewed.json": "5e1cbe3b7dde81b3dceca4a355e00fe7c883cf10787da6b7fb81014d1400a64b",
+    "data/raw/nasa_apollo11_gallery.json": "baa2ee67fa4b0888cdd8f8422b98912ccab4bae3a66236974f225a580beb10d4",
+    "data/raw/nasa_apollo11_landing.json": "a35b73f09002989027c71914acaf7b6c07ef752fd95cf183869efcacbcd8a7bc",
+    "data/raw/nasa_apollo_program_students.json": "e01f98eb0c2b6baace4b67e89172ea4f90be36f1aa2647162353ac7569d17b9c",
+    "data/source_manifests/apollo_smoke_domain.json": "8c9f48ca49f78f5877510d5f6a3666ec8bf704f63afc60351c46a217cff4760b"
+  }
+}

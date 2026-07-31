@@ -13,8 +13,11 @@ from pydantic import BaseModel
 from aethersparse.autonomy.qualification import run_qualification
 from aethersparse.autonomy.silver import compile_real_source_silver
 from aethersparse.benchmark import run_benchmark
+from aethersparse.cells.corpus_gate import FrozenCorpusError, qualify_frozen_scales
 from aethersparse.cells.models import CellKind
+from aethersparse.cells.pack import CognitiveCellPack
 from aethersparse.cells.qualification import compare_topologies
+from aethersparse.cells.smoke import canonical_smoke_bytes
 from aethersparse.cells.topology import CognitiveCellBuilder
 from aethersparse.compiler import COMPILED_FILE, compile_pack
 from aethersparse.evaluation import run_evaluation
@@ -73,6 +76,50 @@ cells_app = typer.Typer(
 app.add_typer(cells_app, name="cells")
 
 
+@cells_app.command("qualify-frozen")
+def cells_qualify_frozen(
+    corpus_root: Annotated[Path, typer.Option()] = Path("data/real_corpus"),
+    manifest: Annotated[Path, typer.Option()] = Path("data/real_corpus/manifest.json"),
+    output: Annotated[Path, typer.Option()] = Path(
+        "reports/COGNITIVE_CELL_SCALING_QUALIFICATION.json"
+    ),
+    max_documents: Annotated[int, typer.Option(min=8, max=4096)] = 256,
+) -> None:
+    try:
+        report = qualify_frozen_scales(
+            manifest,
+            corpus_root,
+            max_documents=max_documents,
+            progress=lambda scale: typer.echo(f"qualifying frozen {scale} pack...", err=True),
+        )
+    except FrozenCorpusError as error:
+        typer.echo(str(error), err=True)
+        raise typer.Exit(code=2) from error
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    typer.echo(json.dumps(report, indent=2, sort_keys=True))
+
+
+@cells_app.command("smoke")
+def cells_smoke(
+    output: Annotated[Path, typer.Option()] = Path("reports/COGNITIVE_CELL_SMOKE.json"),
+    check: Annotated[
+        bool, typer.Option(help="Fail if output differs from the checked artifact.")
+    ] = False,
+) -> None:
+    """Reproduce or verify the tiny cognitive-cell contract artifact."""
+    generated = canonical_smoke_bytes()
+    if check:
+        if not output.is_file() or output.read_bytes() != generated:
+            typer.echo(f"deterministic smoke mismatch: {output}", err=True)
+            raise typer.Exit(code=2)
+        typer.echo(f"deterministic smoke verified: {output}")
+        return
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(generated)
+    typer.echo(f"deterministic smoke written: {output}")
+
+
 @cells_app.command("qualify")
 def cells_qualify(
     corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-10k.sqlite"),
@@ -104,6 +151,24 @@ def cells_build(
         encoding="utf-8",
     )
     typer.echo(json.dumps({"kind": kind, "cell_count": len(cells), "output": str(output)}))
+
+
+@cells_app.command("pack")
+def cells_pack(
+    corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-10k.sqlite"),
+    kind: Annotated[CellKind, typer.Option()] = CellKind.HYBRID,
+    output: Annotated[Path, typer.Option()] = Path("data/cells/hybrid-pack"),
+    source_manifest_hash: Annotated[str, typer.Option()] = "sha256:unregistered",
+    max_documents: Annotated[int, typer.Option(min=8, max=4096)] = 256,
+) -> None:
+    cells = CognitiveCellBuilder(CorpusStore(corpus), max_documents=max_documents).build(kind)
+    pack = CognitiveCellPack.compile(
+        cells, topology=kind, source_manifest_hash=source_manifest_hash
+    )
+    stats = pack.write(output)
+    if not pack.verify():
+        raise typer.Exit(code=2)
+    typer.echo(json.dumps(stats, indent=2, sort_keys=True))
 
 
 @selection_app.command("train")

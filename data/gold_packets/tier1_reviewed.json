@@ -1,0 +1,326 @@
+{
+  "pack_id": "apollo_lunar_missions_smoke_v0_1_0",
+  "ontology_version": "0.3.0",
+  "compiler_version": "0.1.0",
+  "review_status": "human_reviewed",
+  "review_note": "Hand-authored smoke pack. This is not the approximately 500-packet Gate 0 corpus.",
+  "extraction_config": {
+    "mode": "manual_gold",
+    "unicode": "NFC",
+    "seed": 20260730
+  },
+  "validator_config": {
+    "exact_substring_alignment": true,
+    "canonical_tiers": [1],
+    "teacher_self_promotion": false
+  },
+  "packets": [
+    {
+      "packet_id": "as:packet:apollo11_landing_event:0001",
+      "packet_type": "EVENT",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo11_landing_2024",
+      "evidence_text": "On July 20, 1969, astronauts Neil Armstrong and Buzz Aldrin landed on the Moon in the lunar module “Eagle.”",
+      "primary_subject": "as:concept:apollo_11:01JAS000000000000000001",
+      "primary_relation": "as:rel:landed_on:01JASR000000000000001",
+      "primary_object": "as:concept:moon:01JAS000000000000000002",
+      "concept_ids": [
+        "as:concept:apollo_11:01JAS000000000000000001",
+        "as:concept:moon:01JAS000000000000000002",
+        "as:concept:neil_armstrong:01JAS000000000003",
+        "as:concept:buzz_aldrin:01JAS00000000000004",
+        "as:concept:eagle_lm:01JAS000000000000006"
+      ],
+      "bucket_id": "apollo11:landing",
+      "recorded_at": "2024-07-19",
+      "packet_quality": 1.0,
+      "key_class": "K1",
+      "payload": {
+        "event_label": "Apollo 11 lunar landing",
+        "participants": ["Neil Armstrong", "Buzz Aldrin"],
+        "location": "the Moon",
+        "vehicle": "Eagle",
+        "occurred_on": "1969-07-20"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:apollo11:landed_on:moon",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:landed_on:01JASR000000000000001",
+          "object_value": "as:concept:moon:01JAS000000000000000002",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "landed on the Moon"
+        },
+        {
+          "claim_unit_id": "cu:apollo11:landing_date",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:occurred_on:01JASR000000000000002",
+          "object_value": "1969-07-20",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "July 20, 1969"
+        },
+        {
+          "claim_unit_id": "cu:apollo11:landing_participant:armstrong",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:landing_participant:01JASR00000000003",
+          "object_value": "as:concept:neil_armstrong:01JAS000000000003",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "Neil Armstrong"
+        },
+        {
+          "claim_unit_id": "cu:apollo11:landing_participant:aldrin",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:landing_participant:01JASR00000000003",
+          "object_value": "as:concept:buzz_aldrin:01JAS00000000000004",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "Buzz Aldrin"
+        },
+        {
+          "claim_unit_id": "cu:apollo11:landing_vehicle:eagle",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:landing_vehicle:01JASR0000000000004",
+          "object_value": "as:concept:eagle_lm:01JAS000000000000006",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "“Eagle.”"
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:apollo11_launch_date:0002",
+      "packet_type": "PROPOSITION",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo11_gallery_2025",
+      "evidence_text": "Apollo 11 launched July 16, 1969 and landed back on Earth on July 24, 1969.",
+      "primary_subject": "as:concept:apollo_11:01JAS000000000000000001",
+      "primary_relation": "as:rel:launched_on:01JASR000000000000005",
+      "primary_object": "1969-07-16",
+      "concept_ids": ["as:concept:apollo_11:01JAS000000000000000001"],
+      "bucket_id": "apollo11:timeline",
+      "recorded_at": "2025-04-23",
+      "packet_quality": 1.0,
+      "key_class": "K0",
+      "payload": {
+        "subject_label": "Apollo 11",
+        "predicate_label": "launched on",
+        "object_label": "July 16, 1969",
+        "normalized_value": "1969-07-16",
+        "answer_kind": "date"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:apollo11:launch_date",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:launched_on:01JASR000000000000005",
+          "object_value": "1969-07-16",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "launched July 16, 1969"
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:apollo11_return_date:0003",
+      "packet_type": "PROPOSITION",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo11_gallery_2025",
+      "evidence_text": "Apollo 11 launched July 16, 1969 and landed back on Earth on July 24, 1969.",
+      "primary_subject": "as:concept:apollo_11:01JAS000000000000000001",
+      "primary_relation": "as:rel:returned_on:01JASR000000000000006",
+      "primary_object": "1969-07-24",
+      "concept_ids": ["as:concept:apollo_11:01JAS000000000000000001"],
+      "bucket_id": "apollo11:timeline",
+      "recorded_at": "2025-04-23",
+      "packet_quality": 1.0,
+      "key_class": "K0",
+      "payload": {
+        "subject_label": "Apollo 11",
+        "predicate_label": "returned to Earth on",
+        "object_label": "July 24, 1969",
+        "normalized_value": "1969-07-24",
+        "answer_kind": "date"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:apollo11:return_date",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:returned_on:01JASR000000000000006",
+          "object_value": "1969-07-24",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "landed back on Earth on July 24, 1969"
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:apollo11_crew:0004",
+      "packet_type": "PROPOSITION",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo_program_students",
+      "evidence_text": "The crew of Apollo 11 was Neil Armstrong, Michael Collins and Buzz Aldrin.",
+      "primary_subject": "as:concept:apollo_11:01JAS000000000000000001",
+      "primary_relation": "as:rel:crew_members:01JASR000000000000007",
+      "primary_object": "Neil Armstrong|Michael Collins|Buzz Aldrin",
+      "concept_ids": [
+        "as:concept:apollo_11:01JAS000000000000000001",
+        "as:concept:neil_armstrong:01JAS000000000003",
+        "as:concept:michael_collins:01JAS000000000005",
+        "as:concept:buzz_aldrin:01JAS00000000000004"
+      ],
+      "bucket_id": "apollo11:crew",
+      "recorded_at": "2019-07-16",
+      "packet_quality": 1.0,
+      "key_class": "K0",
+      "payload": {
+        "subject_label": "Apollo 11",
+        "predicate_label": "had crew members",
+        "object_label": "Neil Armstrong, Michael Collins, and Buzz Aldrin",
+        "normalized_value": null,
+        "answer_kind": "entity"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:apollo11:crew",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:crew_members:01JASR000000000000007",
+          "object_value": "Neil Armstrong|Michael Collins|Buzz Aldrin",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "Neil Armstrong, Michael Collins and Buzz Aldrin"
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:collins_orbit:0005",
+      "packet_type": "PROPOSITION",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo_program_students",
+      "evidence_text": "Armstrong and Aldrin walked on the lunar surface while Collins remained in orbit around the moon.",
+      "primary_subject": "as:concept:michael_collins:01JAS000000000005",
+      "primary_relation": "as:rel:remained_in_lunar_orbit:01JASR000000008",
+      "primary_object": "as:concept:moon:01JAS000000000000000002",
+      "concept_ids": [
+        "as:concept:michael_collins:01JAS000000000005",
+        "as:concept:moon:01JAS000000000000000002"
+      ],
+      "bucket_id": "apollo11:crew",
+      "recorded_at": "2019-07-16",
+      "packet_quality": 1.0,
+      "key_class": "K0",
+      "payload": {
+        "subject_label": "Michael Collins",
+        "predicate_label": "remained in orbit around",
+        "object_label": "the Moon",
+        "normalized_value": null,
+        "answer_kind": "location"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:collins:lunar_orbit",
+          "subject_id": "as:concept:michael_collins:01JAS000000000005",
+          "relation_id": "as:rel:remained_in_lunar_orbit:01JASR000000008",
+          "object_value": "as:concept:moon:01JAS000000000000000002",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "Collins remained in orbit around the moon"
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:armstrong_quote:0006",
+      "packet_type": "QUOTATION",
+      "status": "CANONICAL",
+      "tier": 1,
+      "derivation": "manual",
+      "source_doc_id": "src_nasa_apollo_program_students",
+      "evidence_text": "When Neil Armstrong became the first person to walk on the moon, he said, “That’s one small step for (a) man; one giant leap for mankind.”",
+      "primary_subject": "as:concept:neil_armstrong:01JAS000000000003",
+      "primary_relation": "as:rel:said:01JASR000000000000009",
+      "primary_object": "That’s one small step for (a) man; one giant leap for mankind.",
+      "concept_ids": [
+        "as:concept:neil_armstrong:01JAS000000000003",
+        "as:concept:moon:01JAS000000000000000002"
+      ],
+      "bucket_id": "apollo11:quotations",
+      "recorded_at": "2019-07-16",
+      "packet_quality": 1.0,
+      "key_class": "K1",
+      "modality": "quoted",
+      "perspective": "Neil Armstrong",
+      "payload": {
+        "speaker_id": "as:concept:neil_armstrong:01JAS000000000003",
+        "speaker_label": "Neil Armstrong",
+        "quotation": "That’s one small step for (a) man; one giant leap for mankind."
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:armstrong:quote_attribution",
+          "subject_id": "as:concept:neil_armstrong:01JAS000000000003",
+          "relation_id": "as:rel:said:01JASR000000000000009",
+          "object_value": "That’s one small step for (a) man; one giant leap for mankind.",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "Neil Armstrong"
+        },
+        {
+          "claim_unit_id": "cu:armstrong:quote_text",
+          "subject_id": "as:concept:neil_armstrong:01JAS000000000003",
+          "relation_id": "as:rel:said:01JASR000000000000009",
+          "object_value": "That’s one small step for (a) man; one giant leap for mankind.",
+          "alignment_score": 1.0,
+          "alignment_method": "human",
+          "evidence_surface": "That’s one small step for (a) man; one giant leap for mankind."
+        }
+      ]
+    },
+    {
+      "packet_id": "as:packet:teacher_candidate_must_not_compile:9000",
+      "packet_type": "PROPOSITION",
+      "status": "QUARANTINE",
+      "tier": 3,
+      "derivation": "teacher_candidate",
+      "source_doc_id": "src_nasa_apollo11_landing_2024",
+      "evidence_text": "On July 20, 1969, astronauts Neil Armstrong and Buzz Aldrin landed on the Moon in the lunar module “Eagle.”",
+      "primary_subject": "as:concept:apollo_11:01JAS000000000000000001",
+      "primary_relation": "as:rel:historic_significance:quarantine",
+      "primary_object": "symbolic_victory",
+      "concept_ids": ["as:concept:apollo_11:01JAS000000000000000001"],
+      "bucket_id": "quarantine",
+      "recorded_at": "2024-07-19",
+      "packet_quality": 0.2,
+      "key_class": "K3",
+      "payload": {
+        "subject_label": "Apollo 11",
+        "predicate_label": "symbolized",
+        "object_label": "a political victory",
+        "normalized_value": null,
+        "answer_kind": "text"
+      },
+      "atomic_claims": [
+        {
+          "claim_unit_id": "cu:quarantine:not_supported",
+          "subject_id": "as:concept:apollo_11:01JAS000000000000000001",
+          "relation_id": "as:rel:historic_significance:quarantine",
+          "object_value": "symbolic_victory",
+          "alignment_score": 0.1,
+          "alignment_method": "teacher",
+          "evidence_surface": "Apollo 11"
+        }
+      ]
+    }
+  ]
+}

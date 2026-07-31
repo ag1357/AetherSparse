@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:5c59c869c8bd7e7adcdf21246e3ae4c80cf8459d6bc4e349c87338c66a7f7041",
+  "normalized_text": "Apollo 14 entered lunar orbit on February 4, 1971. Alan Shepard and Edgar Mitchell separated the Lunar Module Antares from the Command Module Kitty Hawk. Stuart Roosa remained in orbit. Shepard and Mitchell touched down in the Fra Mauro highlands and conducted two lunar surface excursions lasting more than nine hours.",
+  "raw_byte_length": 319,
+  "raw_char_length": 319,
+  "raw_content_hash": "sha256:5c59c869c8bd7e7adcdf21246e3ae4c80cf8459d6bc4e349c87338c66a7f7041",
+  "raw_text": "Apollo 14 entered lunar orbit on February 4, 1971. Alan Shepard and Edgar Mitchell separated the Lunar Module Antares from the Command Module Kitty Hawk. Stuart Roosa remained in orbit. Shepard and Mitchell touched down in the Fra Mauro highlands and conducted two lunar surface excursions lasting more than nine hours.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo14_landing",
+  "source_group": "nasa_apollo14",
+  "source_revision": "published_2021-02-04_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-14-lands-at-fra-mauro/",
+  "title": "Apollo 14 Lands at Fra Mauro"
+}

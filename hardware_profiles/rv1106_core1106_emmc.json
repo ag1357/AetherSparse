@@ -1,0 +1,11 @@
+{
+  "profile_id": "rv1106_core1106_emmc",
+  "reasoning_backend": true,
+  "estimated": true,
+  "integer_mops": 900.0,
+  "sequential_read_mb_s": 100.0,
+  "fixed_request_overhead_ms": 0.8,
+  "active_power_w": 1.8,
+  "notes": "CPU/storage path estimate; NPU benefit is not assumed."
+}
+

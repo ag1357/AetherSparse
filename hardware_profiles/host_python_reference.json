@@ -1,0 +1,11 @@
+{
+  "profile_id": "host_python_reference",
+  "reasoning_backend": true,
+  "estimated": true,
+  "integer_mops": 1000.0,
+  "sequential_read_mb_s": 500.0,
+  "fixed_request_overhead_ms": 0.05,
+  "active_power_w": 15.0,
+  "notes": "Coefficient model only; per-operation host latency is measured directly in traces."
+}
+

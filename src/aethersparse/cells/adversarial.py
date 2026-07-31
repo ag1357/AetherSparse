@@ -45,21 +45,33 @@ class AdversarialMutator:
     def _id(claim: BoundClaim, kind: MutationKind) -> str:
         return "mutation:" + hashlib.sha256(f"{claim.claim_id}:{kind}".encode()).hexdigest()[:20]
 
+    @staticmethod
+    def _different(value: str, replacement: str) -> str:
+        return replacement if value != replacement else replacement + ":alt"
+
     def mutate(self, claim: BoundClaim) -> tuple[MutatedClaim, ...]:
         replacements = {
             MutationKind.ENTITY_SWAP: claim.model_copy(
                 update={"subject_id": claim.subject_id + ":wrong"}
             ),
-            MutationKind.DATE_SWAP: claim.model_copy(update={"object_value": "2099"}),
-            MutationKind.QUANTITY_SWAP: claim.model_copy(
-                update={"object_value": "999 wrong-units"}
+            MutationKind.DATE_SWAP: claim.model_copy(
+                update={"object_value": self._different(claim.object_value, "2099")}
             ),
-            MutationKind.NEGATION: claim.model_copy(update={"polarity": -claim.polarity}),
+            MutationKind.QUANTITY_SWAP: claim.model_copy(
+                update={"object_value": self._different(claim.object_value, "999 wrong-units")}
+            ),
+            MutationKind.NEGATION: claim.model_copy(
+                update={"polarity": -1 if claim.polarity >= 0 else 1}
+            ),
             MutationKind.RELATION_REVERSAL: claim.model_copy(
                 update={"relation_id": claim.relation_id + ":reversed"}
             ),
             MutationKind.ATTRIBUTION_SWAP: claim.model_copy(
-                update={"attribution_id": "entity:wrong-speaker"}
+                update={
+                    "attribution_id": self._different(
+                        claim.attribution_id or "", "entity:wrong-speaker"
+                    )
+                }
             ),
             MutationKind.UNSUPPORTED_ADDITION: claim.model_copy(
                 update={"object_value": claim.object_value + " unsupported"}
@@ -94,3 +106,24 @@ class ExactClaimVerifier:
         if canonical.source_text not in candidate.source_text:
             failures.append("source_text")
         return not failures, tuple(failures)
+
+
+def mutation_rejection_report(claims: tuple[BoundClaim, ...]) -> dict[str, object]:
+    mutator = AdversarialMutator()
+    verifier = ExactClaimVerifier()
+    counts = {kind.value: {"tested": 0, "rejected": 0} for kind in MutationKind}
+    for claim in claims:
+        for mutation in mutator.mutate(claim):
+            passed, _failures = verifier.verify(mutation.candidate, claim)
+            counts[mutation.kind.value]["tested"] += 1
+            counts[mutation.kind.value]["rejected"] += int(not passed)
+    tested = sum(int(value["tested"]) for value in counts.values())
+    rejected = sum(int(value["rejected"]) for value in counts.values())
+    return {
+        "claim_count": len(claims),
+        "mutation_count": tested,
+        "rejection_rate": rejected / max(1, tested),
+        "by_kind": counts,
+        "learned_verifier_present": False,
+        "exact_verifier_authoritative": True,
+    }

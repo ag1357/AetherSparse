@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:79ec328d58eaf65745335290dc53fd50bb33134f3fffa46dcead4e18e0611005",
+  "normalized_text": "On January 27, 1967, Apollo 1 astronauts Virgil Grissom, Edward White, and Roger Chaffee died in a flash fire during a ground test. The capsule was pressurized with pure oxygen at 16.7 psi. At 6:31 p.m., a flash fire broke out inside the cabin. NASA established an investigative board and later redesigned the Apollo spacecraft.",
+  "raw_byte_length": 328,
+  "raw_char_length": 328,
+  "raw_content_hash": "sha256:79ec328d58eaf65745335290dc53fd50bb33134f3fffa46dcead4e18e0611005",
+  "raw_text": "On January 27, 1967, Apollo 1 astronauts Virgil Grissom, Edward White, and Roger Chaffee died in a flash fire during a ground test. The capsule was pressurized with pure oxygen at 16.7 psi. At 6:31 p.m., a flash fire broke out inside the cabin. NASA established an investigative board and later redesigned the Apollo spacecraft.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo1_fire",
+  "source_group": "nasa_apollo1_fire",
+  "source_revision": "published_2022-02-03_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/55-years-ago-the-apollo-1-fire-and-its-aftermath/",
+  "title": "The Apollo 1 Fire and its Aftermath"
+}

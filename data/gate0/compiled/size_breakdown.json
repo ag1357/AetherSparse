@@ -1,0 +1,26 @@
+{
+  "actual_compiled_bytes_per_source_byte": 0.08993120700437773,
+  "actual_index_bytes": 30,
+  "actual_manifest_fixed_overhead_bytes": 689,
+  "actual_packet_bytes": 0,
+  "actual_serialized_pack_bytes": 719,
+  "actual_source_span_bytes": 0,
+  "component_hashes": {
+    "indexes": "sha256:65aa839cb2f5e4635f89ea3a1fb716315f7b34058e71dbe8746e95586886993c",
+    "packets": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "spans": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "logical_compiled_bytes_per_source_byte": 0.03577235772357724,
+  "logical_fixed_overhead_bytes": 256,
+  "logical_header_bytes": 0,
+  "logical_index_bytes": 30,
+  "logical_key_bytes": 0,
+  "logical_pack_bytes": 286,
+  "logical_payload_bytes": 0,
+  "logical_source_span_bytes": 0,
+  "manifest_hash": "sha256:42fe01631a3d236cc23d08ab93843579fe0afe3c53c27addff489eeff3c34fd8",
+  "normalized_source_bytes": 7995,
+  "raw_source_bytes": 8001,
+  "reviewed_packet_count": 0,
+  "span_count": 0
+}

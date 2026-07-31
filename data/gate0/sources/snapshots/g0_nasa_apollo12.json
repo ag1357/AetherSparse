@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:a61869723c36e16a44dd7d4d6f8659ee9badf1741f74c5d60de6dcb5a1581a8d",
+  "normalized_text": "Apollo 12 completed a pinpoint landing on the Moon. The next mission, Apollo 13, was planned to visit the Fra Mauro highlands. The Apollo 13 prime crew included Commander James Lovell, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Fred Haise.",
+  "raw_byte_length": 255,
+  "raw_char_length": 255,
+  "raw_content_hash": "sha256:a61869723c36e16a44dd7d4d6f8659ee9badf1741f74c5d60de6dcb5a1581a8d",
+  "raw_text": "Apollo 12 completed a pinpoint landing on the Moon. The next mission, Apollo 13, was planned to visit the Fra Mauro highlands. The Apollo 13 prime crew included Commander James Lovell, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Fred Haise.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo12",
+  "source_group": "nasa_apollo12",
+  "source_revision": "published_2024-11-14_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/55-years-ago-apollo-12-makes-a-pinpoint-landing-on-the-moon/",
+  "title": "Apollo 12 Makes a Pinpoint Landing"
+}

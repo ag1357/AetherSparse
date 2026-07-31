@@ -1,0 +1,4208 @@
+{
+  "corpus_sha256": "3adebd4168e31fb9e1ceb72cf5cb07e2b4a9024648cab69792a86a5ca218f719",
+  "count": 300,
+  "questions": [
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e7c056428cb074c37e590a40"
+      ],
+      "gold_document_path": [
+        "mw:185:10861274:406084817670"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about December, which section discusses netherlands sinterklaas celebrated december?",
+      "question_id": "real:a248f1ed74c1e30dfd9d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1734b99a271be73ad2c7c223"
+      ],
+      "gold_document_path": [
+        "mw:3190:38483:22bdbd07de4c",
+        "mw:3189:10111755:40e2cb7bd9d1"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Asteroid field, identify the linked topic whose article discusses asteroids between jupiter located.",
+      "question_id": "real:bc8536debfc6800e55d2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:efd16b072383c9fa4ed54fb8"
+      ],
+      "gold_document_path": [
+        "mw:896:10813274:2e246b63eb4b",
+        "mw:2899:10833732:3712ccad7f4d",
+        "mw:408:10819009:9311748be448"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Venus through a related article and identify the next topic characterized by astronomical image_alt telescope shrunken.",
+      "question_id": "real:110bbc70fc7eef8e9291"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:4f8777ab7aa00bcfd93ff9e9"
+      ],
+      "gold_document_path": [
+        "mw:2983:10343526:f47e82eb85ef"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about 1965, which section discusses corbusier minister august hayato?",
+      "question_id": "real:fd7208c2892da857cbd1"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:08f9fa9c70fea581b9f05a1f"
+      ],
+      "gold_document_path": [
+        "mw:3596:10755257:e7be6b69309a",
+        "mw:2843:10900958:d46e45d919c9"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Central America, identify the linked topic whose article discusses pronunciation language english infobox.",
+      "question_id": "real:f985204e6ad9ec50e32b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:5d40e5e6095d891c788bd9ff"
+      ],
+      "gold_document_path": [
+        "mw:280:10868559:38c40a39bef5",
+        "mw:293:10691094:ceddc06dbc8d",
+        "mw:765:8876694:576523411df2"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Food through a related article and identify the next topic characterized by \u0440\u0430\u0437\u043d\u043e\u043e\u0431\u0440\u0430\u0437\u0438\u0435 various plants 240px.",
+      "question_id": "real:5b978317cfbcd910737b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:2afb06e74dd7cb8f212be3f3"
+      ],
+      "gold_document_path": [
+        "mw:3065:10880647:0e08f7da9412"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Aston Villa F.C., which section discusses championship premier league?",
+      "question_id": "real:60b3008b274c31151231"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:176fae5a0a9677c26b824cb9"
+      ],
+      "gold_document_path": [
+        "mw:3035:10865781:cadc35f7792f",
+        "mw:3715:10850041:81b8e5356b77"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Yellow, identify the linked topic whose article discusses unranked_classis unranked_divisio image_caption unranked_ordo.",
+      "question_id": "real:044303c851e5393805d8"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:cb36fc3974322dc9a5be12d2"
+      ],
+      "gold_document_path": [
+        "mw:3219:10856158:44282cc61a0c",
+        "mw:3539:10821197:eb00faf43422",
+        "mw:530:10861272:2959800b6ae9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Time through a related article and identify the next topic characterized by gregorian calendar december eleventh.",
+      "question_id": "real:190fd7d0a72471924ec3"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0f57e18ccdbdc6e9d691e6d5"
+      ],
+      "gold_document_path": [
+        "mw:3317:10891091:82cd7015b908"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Christmas, which section discusses christmas families together members?",
+      "question_id": "real:77ea639bff9ec934df76"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:7f0a374e13051e0a8a5a32d4"
+      ],
+      "gold_document_path": [
+        "mw:3011:10592164:8e779035edf3",
+        "mw:3695:38896:cb311c278cf9"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Topology, identify the linked topic whose article discusses mathematics redirect.",
+      "question_id": "real:4411e50035ec02a3f8a2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:08f9fa9c70fea581b9f05a1f"
+      ],
+      "gold_document_path": [
+        "mw:3476:10868558:c33f019b556d",
+        "mw:120:10892882:caada1658e5c",
+        "mw:2843:10900958:d46e45d919c9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Culture through a related article and identify the next topic characterized by pronunciation language english infobox.",
+      "question_id": "real:86001a7e9555c31bd706"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ff76c6093aab78391c5ae19c"
+      ],
+      "gold_document_path": [
+        "mw:3077:10871429:e8e212093ec3"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Manchester United F.C., which section discusses manchester-united premierleague archive-date access-date?",
+      "question_id": "real:fec518600055441caf38"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:de47a5460504a2456009d57c"
+      ],
+      "gold_document_path": [
+        "mw:529:10003278:6baeadef439b",
+        "mw:529:10003278:6baeadef439b"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Numeral, identify the linked topic whose article discusses redirect numeral system.",
+      "question_id": "real:74abeb2f6ddc910134ff"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:7db4fa8b5206642a6611c437"
+      ],
+      "gold_document_path": [
+        "mw:445:10878679:57902df055f4",
+        "mw:495:10843963:c57dcb0d2c8c",
+        "mw:961:9912666:b0936afcade9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Link through a related article and identify the next topic characterized by main_page redirect.",
+      "question_id": "real:c0c86015d21c857f0f07"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ec3f4a7129e89de3fc2a9f5b"
+      ],
+      "gold_document_path": [
+        "mw:577:10872071:9addc03743f1"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Orthography, which section discusses alphabets difficult represent therefore?",
+      "question_id": "real:10274141774775e4dad7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:7a762c14b9324cd539370ace"
+      ],
+      "gold_document_path": [
+        "mw:359:10809374:4979f66a383f",
+        "mw:770:206515:7e553af43a09"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Hair, identify the linked topic whose article discusses redirectdomestic sheep.",
+      "question_id": "real:c44100680db5e2e7c102"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:dfd7fa4f3b3a1c759df1db73"
+      ],
+      "gold_document_path": [
+        "mw:469:10861259:52a14e8b475f",
+        "mw:1942:10823118:2a8fdac996e6",
+        "mw:2:10861263:d6e93c570fd9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from May through a related article and identify the next topic characterized by gregorian september calendar between.",
+      "question_id": "real:eee50be0bbaddc63ba7a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e6febe94357721e116f7e3b2"
+      ],
+      "gold_document_path": [
+        "mw:219:10878877:7eab8f298bef"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Earth, which section discusses 20030410215144 15_tanimoto archive-url url-status?",
+      "question_id": "real:e6b4865fe47dfb5b6624"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:3bd5c80aec87d3e30289d7f9"
+      ],
+      "gold_document_path": [
+        "mw:3715:10850041:81b8e5356b77",
+        "mw:3476:10868558:c33f019b556d"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Banana, identify the linked topic whose article discusses traditional macedonian macedonia clothing.",
+      "question_id": "real:3660cb7d8d836ce57880"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:fb43d2038059110e3aa2c5e7"
+      ],
+      "gold_document_path": [
+        "mw:1603:46465:c5da31693d0d",
+        "mw:1603:46465:c5da31693d0d",
+        "mw:1603:46465:c5da31693d0d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Dissolution Of The Monasteries through a related article and identify the next topic characterized by dissolution monasteries redirect.",
+      "question_id": "real:746f7bc5534cfcb92418"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:81279a7972eb484574ed35f5"
+      ],
+      "gold_document_path": [
+        "mw:3538:9594394:a71d605a1805"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Richter scale, which section discusses earthquake francisco indonesia megatons?",
+      "question_id": "real:e85fe115771ef27b92dc"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1d8b1571202197049ea0d6e0"
+      ],
+      "gold_document_path": [
+        "mw:3432:9246321:0138b6d7b7e3",
+        "mw:429:4704273:1e24670bc430"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Ulster, identify the linked topic whose article discusses redirect latin.",
+      "question_id": "real:24f4cb80430a4657f9a4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4c2e2d7321fd62b9a51a8798"
+      ],
+      "gold_document_path": [
+        "mw:3266:10843960:ba496edf8c42",
+        "mw:3263:9369232:e5e96838ca7e",
+        "mw:3263:9369232:e5e96838ca7e"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Second through a related article and identify the next topic characterized by redirect metre.",
+      "question_id": "real:28931cc6f701cf35cafd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0f51cc18aac563426c6049cc"
+      ],
+      "gold_document_path": [
+        "mw:400:10861252:96ed861a4159"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about January, which section discusses transition capricorn occurring aquarius?",
+      "question_id": "real:96696489c57657477e99"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:2312274aa3c168d914f840aa"
+      ],
+      "gold_document_path": [
+        "mw:52:10784447:a687518a6a33",
+        "mw:3600:10886230:525ec2b0eeff"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Afghanistan, identify the linked topic whose article discusses conventional_long_name common_name native_name languages.",
+      "question_id": "real:b325d2fb7470b4259e44"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4444b4d48ddd9f6b918c22c2"
+      ],
+      "gold_document_path": [
+        "mw:280:10868559:38c40a39bef5",
+        "mw:3705:10185619:2632f71e2947",
+        "mw:3705:10185619:2632f71e2947"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Food through a related article and identify the next topic characterized by redirect animal.",
+      "question_id": "real:214e8c40b8fbc4c50ccb"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:3dfb5c178140e4c06ebfbcce"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Water, which section discusses read-ancient-agrarian-societies-nubia-and-ancient-egypt-beta worldhistory access-date khanacademy?",
+      "question_id": "real:73fece1c02d9c0a1d7fb"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:773b77ca1391188afa144f19"
+      ],
+      "gold_document_path": [
+        "mw:314:10900011:b0351d705a9b",
+        "mw:3283:10791731:2cc8c7cd88fe"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Galaxy, identify the linked topic whose article discusses illustration molecules attached without.",
+      "question_id": "real:0de89bb6d2f00214f0d2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:b49fd885546d9c1563ffb844"
+      ],
+      "gold_document_path": [
+        "mw:219:10878877:7eab8f298bef",
+        "mw:2899:10833732:3712ccad7f4d",
+        "mw:357:10741391:097640b845bc"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Earth through a related article and identify the next topic characterized by airships goodyear because choice.",
+      "question_id": "real:25f01eb03133c275e58e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:58bd771fe527e42a596b353a"
+      ],
+      "gold_document_path": [
+        "mw:3077:10871429:e8e212093ec3"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Manchester United F.C., which section discusses player-manager accessdate 27273510 football?",
+      "question_id": "real:7a5caed969dd646e4fb5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:36cf0d7e70d38d84daf34cb0"
+      ],
+      "gold_document_path": [
+        "mw:2979:10858995:fff5270f5452",
+        "mw:3460:10891498:d27b3b8cd31e"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Iceland, identify the linked topic whose article discusses conventional_long_name collapsible line-height native_name.",
+      "question_id": "real:e295b2ecb963e1aa62c4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:109795d4cc90efabe2327510"
+      ],
+      "gold_document_path": [
+        "mw:2913:9816715:2136e8049033",
+        "mw:911:10795455:ee6696951076",
+        "mw:2913:9816715:2136e8049033"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Homonym through a related article and identify the next topic characterized by homonym meaning.",
+      "question_id": "real:65ebe80709fe490cf19b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f9083f9caa91200a065e61fe"
+      ],
+      "gold_document_path": [
+        "mw:3066:10397640:37fbf164ed77"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Birmingham City F.C., which section discusses champions division second first?",
+      "question_id": "real:71ec190a425c4214ea12"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:6149727210012d9d7273cb60"
+      ],
+      "gold_document_path": [
+        "mw:3687:10850887:4878bfbaea7b",
+        "mw:248:10892650:4a8403c7e478"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Sundial, identify the linked topic whose article discusses conventional_long_name common_name republic country.",
+      "question_id": "real:668afabc6eeaf939ef20"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:073aaa37f15fb738fef8a472"
+      ],
+      "gold_document_path": [
+        "mw:597:10840793:2ec1a205a9ae",
+        "mw:893:10848639:a768f3a33859",
+        "mw:543:10892263:ea29b00e8138"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Profanity through a related article and identify the next topic characterized by grammarian described dionysios sanskrit.",
+      "question_id": "real:1fcd14849188fd438c8a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:10a50650c20a6339a5ef9113"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Water, which section discusses southwestern groundwater 2025-05-23 language?",
+      "question_id": "real:75dcc38d0b383171f054"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:773b77ca1391188afa144f19"
+      ],
+      "gold_document_path": [
+        "mw:2896:10817041:733ff57683cc",
+        "mw:3283:10791731:2cc8c7cd88fe"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from 1924, identify the linked topic whose article discusses illustration molecules attached without.",
+      "question_id": "real:bd792f9f61c0bf45eb00"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:122201d1a6fbcac89a646e87"
+      ],
+      "gold_document_path": [
+        "mw:3463:10898633:815fefec90c9",
+        "mw:3487:9118082:e213f798c9cc",
+        "mw:856:10892791:a5167263f997"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Netherlands through a related article and identify the next topic characterized by conventional_long_name linking_name common_name northern.",
+      "question_id": "real:c1662ad09a4c45520355"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:71819cd0c2ff2cdfd2a3b5a4"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Chemistry, which section discusses substances mixtures grouped matter?",
+      "question_id": "real:5e77b7a7191d8121d121"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:694aef2ab3efe5a8cb3f5b44"
+      ],
+      "gold_document_path": [
+        "mw:101:10819968:24fdeb9db0f4",
+        "mw:2110:10839487:1be9172905b2"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Biology, identify the linked topic whose article discusses anthropology present beings human.",
+      "question_id": "real:481da66c489f6942cc41"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:378f536d8bc338bca6b0c286"
+      ],
+      "gold_document_path": [
+        "mw:858:10899667:8cf8dba385fb",
+        "mw:219:10878877:7eab8f298bef",
+        "mw:3632:10880135:85e5e57641ea"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Universe through a related article and identify the next topic characterized by fossil_range pleistocene speciesbox.",
+      "question_id": "real:fad2e13208fd0290ba49"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ca7b106b1bbf532e292a7d05"
+      ],
+      "gold_document_path": [
+        "mw:3111:9781487:86c9190a391b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Wigan Athletic F.C., which section discusses wikitable saunders 1966-67 1967-68?",
+      "question_id": "real:1451d90e0bdbd9ab9aa6"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1ebd12e6d42aa5777fce196d"
+      ],
+      "gold_document_path": [
+        "mw:896:10813274:2e246b63eb4b",
+        "mw:800:10856984:3eb7e88a3a47"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Venus, identify the linked topic whose article discusses planets system 400px dwarf.",
+      "question_id": "real:d8b2544c8cc83ca33b1f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a7efde6723923336971ec0ab"
+      ],
+      "gold_document_path": [
+        "mw:428:10294984:cfb013cbeebe",
+        "mw:3597:10901695:1cef18696f1e",
+        "mw:2888:10872806:1bc3bafe38fc"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from L. L. Zamenhof through a related article and identify the next topic characterized by conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:2ecb4e3474ce26ce765a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0363e183bcc9a45af6af6b8d"
+      ],
+      "gold_document_path": [
+        "mw:3581:10830953:9d8aeac6c7a9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Schizophrenia, which section discusses conditionsinoccu0000unse_y0e2 occupational performance conditions?",
+      "question_id": "real:a7c5f1d6d14a3a44a384"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:39ab32b7684f03b140c04aac"
+      ],
+      "gold_document_path": [
+        "mw:3684:10626887:640a6cdb306e",
+        "mw:2133:10700184:0c87a9034b92"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Plato, identify the linked topic whose article discusses conventional_long_name languages_type coordinates native_name.",
+      "question_id": "real:83eed20873f12a63c689"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:15fc2a1f4ec6124becc61417"
+      ],
+      "gold_document_path": [
+        "mw:90:10470877:a5440710a4e4",
+        "mw:939:10901009:720c8db4b4be",
+        "mw:3599:10792887:9154d282fdf3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Bottle through a related article and identify the next topic characterized by settlement_type native_name autonomous dependency.",
+      "question_id": "real:8cd52bd7df300d264d17"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:d6d61be7ab109430f4ddca10"
+      ],
+      "gold_document_path": [
+        "mw:3697:10894918:e3420b649889"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Blue, which section discusses background-color ultramarine westminster electric?",
+      "question_id": "real:60d68c991416e6f156e7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:0cad7eeb05115c719e52a79a"
+      ],
+      "gold_document_path": [
+        "mw:468:10861256:b3f9f3a09195",
+        "mw:262:10861254:78f618554ccc"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from March, identify the linked topic whose article discusses calendars gregorian february between.",
+      "question_id": "real:7cf09ab6aaf9a7ce8368"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:32514af1130fcb926aafc4be"
+      ],
+      "gold_document_path": [
+        "mw:3283:10791731:2cc8c7cd88fe",
+        "mw:3257:10423695:15ff91c47534",
+        "mw:682:10851877:b1b4b5b9d22a"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Gas through a related article and identify the next topic characterized by something substance material matter.",
+      "question_id": "real:a590befbc39fc5c3c5c0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:21c3bc6e0e43e89a9e58b09b"
+      ],
+      "gold_document_path": [
+        "mw:558:10889013:9ad0b5c5a4d0"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Neptune, which section discusses header_align horizontal direction caption1?",
+      "question_id": "real:465d36b3080d7e7c91ca"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:36cf0d7e70d38d84daf34cb0"
+      ],
+      "gold_document_path": [
+        "mw:501:10785762:a4899edd63c2",
+        "mw:3460:10891498:d27b3b8cd31e"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Mile, identify the linked topic whose article discusses conventional_long_name collapsible line-height native_name.",
+      "question_id": "real:becc975740108f6734b3"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:9b3c4ac8b316bf153e74e6b2"
+      ],
+      "gold_document_path": [
+        "mw:1:10861257:f1215603124b",
+        "mw:2136:10865799:cea6549159d2",
+        "mw:3598:10866222:6323b575075b"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from April through a related article and identify the next topic characterized by government minister politics country.",
+      "question_id": "real:4451b21a9f21b233d0ef"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0ccfce4dfb551f4b4c2e3ca9"
+      ],
+      "gold_document_path": [
+        "mw:530:10861272:2959800b6ae9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about November, which section discusses november ottoman empire leaves?",
+      "question_id": "real:bc1f51604437052af6be"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1b55a1f1643fefeb18e3a9f2"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:3035:10865781:cadc35f7792f"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Water, identify the linked topic whose article discusses flowers sunrise africa around.",
+      "question_id": "real:091e02e7e544557f7d8f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:05b05acf6f077c1f7747a944"
+      ],
+      "gold_document_path": [
+        "mw:122:10671824:6f85359a1c7c",
+        "mw:3047:10897293:e9989cd3ab6b",
+        "mw:121:10885729:95ce8f9677a3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Colchester through a related article and identify the next topic characterized by countries political division current.",
+      "question_id": "real:14d502c4ba7da3a64c50"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:47a160b4e07e5d4805c64515"
+      ],
+      "gold_document_path": [
+        "mw:856:10892791:a5167263f997"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about United Kingdom, which section discusses parliament education devolved scotland?",
+      "question_id": "real:081837347e90f4894582"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:bf6c14c2f1023cea9e32a1dd"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51",
+        "mw:590:10904150:972bf35a9f88"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Science, identify the linked topic whose article discusses socrates thumb.",
+      "question_id": "real:cf6c13d886c147c25ccd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4488dc0ac6755f43e9ab465a"
+      ],
+      "gold_document_path": [
+        "mw:57:10905245:f5fc9afbab1b",
+        "mw:819:10835552:48ebfa242ef2",
+        "mw:3608:38818:df958b1cc39d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Archaeology through a related article and identify the next topic characterized by shakespeare redirect william.",
+      "question_id": "real:30713d0c73e9a701fc37"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:a5b809e9cb21371989bf4a64"
+      ],
+      "gold_document_path": [
+        "mw:27:10903860:47791478a664"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Australia, which section discusses australia different indonesia merchants?",
+      "question_id": "real:bdb62446698561f850bb"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:55c4e92f10fc20eccb51aafa"
+      ],
+      "gold_document_path": [
+        "mw:2985:9536646:65db63897cba",
+        "mw:3597:10901695:1cef18696f1e"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Saarbr\u00fccken, identify the linked topic whose article discusses pronunciation francophonie nativename fran\u00e7ais.",
+      "question_id": "real:667b940f8b949987597a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:291fe0185df083c3bfc7f3b7"
+      ],
+      "gold_document_path": [
+        "mw:48:10892839:207449134988",
+        "mw:3285:10872099:17cd96c11db3",
+        "mw:3335:6781239:f0ba2aa8e1d3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Astronomy through a related article and identify the next topic characterized by property redirect.",
+      "question_id": "real:601fc1cba114f01aea1f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:7ed2e99630f676a0fdffb7b0"
+      ],
+      "gold_document_path": [
+        "mw:52:10784447:a687518a6a33"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Afghanistan, which section discusses 070830_ws-aep-pt-national-anthem access-date afghanistan 2021-08-18?",
+      "question_id": "real:9430773515f4fe42d885"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:469a1c1582c1af1e1f425609"
+      ],
+      "gold_document_path": [
+        "mw:525:10677889:3d960a71536d",
+        "mw:27:10903860:47791478a664"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Mammal, identify the linked topic whose article discusses conventional_long_name commonwealth common_name image_flag.",
+      "question_id": "real:97806df918b97cd5cd77"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:8726c496e0537c454ff0e2bc"
+      ],
+      "gold_document_path": [
+        "mw:3464:10901724:83a90e8cdd38",
+        "mw:2124:10897901:8f54669a6cf9",
+        "mw:47:10898381:9e8e44dc304f"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Ukraine through a related article and identify the next topic characterized by simplified electrons neutrons picture.",
+      "question_id": "real:bc79ff9478b503bb61f4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:a29511f4405e83f3af5205a0"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Science, which section discusses mind-control-prosthesis intelligence access-date 2025-07-17?",
+      "question_id": "real:2fd711c9cba3644667f4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:518f8de96a65b196a9b1bd66"
+      ],
+      "gold_document_path": [
+        "mw:2960:10859668:15ba63397f27",
+        "mw:178:10902107:424e52e8c951"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from 2000s (decade), identify the linked topic whose article discusses conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:a244aacc2fac9df1e1be"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:6bce39874417ae21a4dd71f2"
+      ],
+      "gold_document_path": [
+        "mw:70:10001767:01dadd5f6b49",
+        "mw:2136:10865799:cea6549159d2",
+        "mw:312:10740790:588abb8b28ef"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Boot through a related article and identify the next topic characterized by administrative government according territory.",
+      "question_id": "real:a5d82d7d436313f929a8"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:742ebe6205f3d716d0e24c6c"
+      ],
+      "gold_document_path": [
+        "mw:3424:10698764:c2dd760c0cfd"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Saxony, which section discusses erzgebirgskreis mittelsachsen nordsachsen g\u00f6rlitz?",
+      "question_id": "real:5f28bfaf66e756804452"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:36cf0d7e70d38d84daf34cb0"
+      ],
+      "gold_document_path": [
+        "mw:469:10861259:52a14e8b475f",
+        "mw:3460:10891498:d27b3b8cd31e"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from May, identify the linked topic whose article discusses conventional_long_name collapsible line-height native_name.",
+      "question_id": "real:7ab775313ff8d9a78e4d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:27a62bbdb6bed85020d6ba21"
+      ],
+      "gold_document_path": [
+        "mw:628:10898012:1c3fa44f416a",
+        "mw:765:8876694:576523411df2",
+        "mw:3459:10796471:f9397b54a625"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Plant through a related article and identify the next topic characterized by surrounded protected cranium brain.",
+      "question_id": "real:082a7cc4896e27b14689"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ff7104c6e84a378e82ce7a49"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Science, which section discusses observation scientists combining medicine?",
+      "question_id": "real:813f81d59d1c9e8cb55c"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:f3313c99e5b8a8739db6344b"
+      ],
+      "gold_document_path": [
+        "mw:3078:10058850:46db8ebca2b2",
+        "mw:2062:10903075:2799caafb241"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Middlesbrough F.C., identify the linked topic whose article discusses american football sport.",
+      "question_id": "real:beb53d49ea0da641a51b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:78d02cb1f37b803961eabddb"
+      ],
+      "gold_document_path": [
+        "mw:2923:9771763:78dd4c3b403d",
+        "mw:3013:10851127:2b028de9a22e",
+        "mw:391:10898732:059b55f295ad"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from 1930s through a related article and identify the next topic characterized by conventional_long_name common_name republic country.",
+      "question_id": "real:32c3e924aa61ea090008"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e9b0b3f21da63a3711e028d3"
+      ],
+      "gold_document_path": [
+        "mw:469:10861259:52a14e8b475f"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about May, which section discusses christianity ascension pentecost orthodox?",
+      "question_id": "real:9bae40c0cf1733ae0005"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:5e8e701849c1ce8c15627cf1"
+      ],
+      "gold_document_path": [
+        "mw:14:10857923:43c8bc9f9da3",
+        "mw:305:10859722:fc4cc2f83232"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Alanis Morissette, identify the linked topic whose article discusses representation zoroastrianism christianity balinese.",
+      "question_id": "real:569841e3e539a03daa02"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:311d502c15879237f4c71a57"
+      ],
+      "gold_document_path": [
+        "mw:3528:10877353:b72d745f9c94",
+        "mw:381:10626424:ae3d26a9d013",
+        "mw:41:4691442:3b585fba7827"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from South Africa through a related article and identify the next topic characterized by customary redirect states united.",
+      "question_id": "real:bb7062302aebd2512a11"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:2113afca02c8eefc28a8b8c5"
+      ],
+      "gold_document_path": [
+        "mw:858:10899667:8cf8dba385fb"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Universe, which section discusses largest-scale structures clusters galaxies?",
+      "question_id": "real:0d761806494d7c52fbdb"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:469a1c1582c1af1e1f425609"
+      ],
+      "gold_document_path": [
+        "mw:2998:10885312:29e13fb8f451",
+        "mw:27:10903860:47791478a664"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from 1978, identify the linked topic whose article discusses conventional_long_name commonwealth common_name image_flag.",
+      "question_id": "real:caba9a9f1b733da34342"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:d2ecdee9908aaa47c0d1e79d"
+      ],
+      "gold_document_path": [
+        "mw:3729:10486034:ed410293a602",
+        "mw:304:10696910:2237dd0d535e",
+        "mw:403:10899959:f48c8739fed7"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Beaker through a related article and identify the next topic characterized by conventional_long_name linking_name common_name country.",
+      "question_id": "real:41a425f548db147dbd58"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:6f592494afdb312f4bec687f"
+      ],
+      "gold_document_path": [
+        "mw:3681:10852388:f27c88c79db4"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Writing, which section discusses hieroglyphs scripts writing behind?",
+      "question_id": "real:8f6eb32423ed3ed314a5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:47e15dc9c6a2513c553cc0d5"
+      ],
+      "gold_document_path": [
+        "mw:400:10861252:96ed861a4159",
+        "mw:2979:10858995:fff5270f5452"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from January, identify the linked topic whose article discusses conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:bfa7621ffeec4edb01bd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:2fd4fbc0db1ced2d1604895e"
+      ],
+      "gold_document_path": [
+        "mw:1999:10696800:07786607a0b2",
+        "mw:112:10897768:bdec43c2cff0",
+        "mw:1987:10730468:3365af4a5559"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Television through a related article and identify the next topic characterized by documentation instructions libreoffice computer.",
+      "question_id": "real:3849afb4a091a435cd01"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:c32c579217aa7eaba0eb3131"
+      ],
+      "gold_document_path": [
+        "mw:3035:10865781:cadc35f7792f"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Yellow, which section discusses camouflage 78866b acb78e green?",
+      "question_id": "real:7214016fc403c0bafabd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:ba3a440e5bf8f3a99bf4d6a8"
+      ],
+      "gold_document_path": [
+        "mw:293:10691094:ceddc06dbc8d",
+        "mw:102:9612836:863b2b332bdf"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Fruit, identify the linked topic whose article discusses transects quadrats botany plants.",
+      "question_id": "real:3401897f1370187087d5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:05b05acf6f077c1f7747a944"
+      ],
+      "gold_document_path": [
+        "mw:666:4353980:5d71169beca5",
+        "mw:2127:10400601:5d8dc2139c11",
+        "mw:121:10885729:95ce8f9677a3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Regime through a related article and identify the next topic characterized by countries political division current.",
+      "question_id": "real:d3a1cf9ff5d66b7516d3"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f0814729cdc3ee82017c6736"
+      ],
+      "gold_document_path": [
+        "mw:3697:10894918:e3420b649889"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Blue, which section discusses background-color blizzard crayola 87cefa?",
+      "question_id": "real:c4f1959680f38cf03818"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:f2b7a2a5d3861accace44b47"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51",
+        "mw:638:9781471:ed94a916f65c"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Science, identify the linked topic whose article discusses physiology living things study.",
+      "question_id": "real:dac33d976858d7cda16f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:518f8de96a65b196a9b1bd66"
+      ],
+      "gold_document_path": [
+        "mw:3599:10792887:9154d282fdf3",
+        "mw:557:10793364:1fa1c84ff97d",
+        "mw:178:10902107:424e52e8c951"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Greenland through a related article and identify the next topic characterized by conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:7e11e92c88521629d109"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e5d0a72d6cf68fe2e4372f51"
+      ],
+      "gold_document_path": [
+        "mw:89:10764439:937962155b96"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Beijing, which section discusses jesuits' brother popular french?",
+      "question_id": "real:0294685ab0ecdee812e5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:8f203f5e8794f4de40436ade"
+      ],
+      "gold_document_path": [
+        "mw:216:10756564:8f9b49776552",
+        "mw:1980:10773409:0328717b87ed"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Europe, identify the linked topic whose article discusses surrounding arctic around lands.",
+      "question_id": "real:62c851334c5913008faa"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ccc8beb2d23e8fe90dc24d49"
+      ],
+      "gold_document_path": [
+        "mw:47:10898381:9e8e44dc304f",
+        "mw:939:10901009:720c8db4b4be",
+        "mw:285:10905618:b4fc4ee81b7f"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Atom through a related article and identify the next topic characterized by lion-fish head-on 200px right.",
+      "question_id": "real:b06b2c222e92c4571e84"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:64a951aeb9b721bf620e5d7e"
+      ],
+      "gold_document_path": [
+        "mw:1:10861257:f1215603124b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about April, which section discusses celebration cosmonauts' jefferson's cambodian?",
+      "question_id": "real:d6ecd6721fa6ab43efe0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1b55a1f1643fefeb18e3a9f2"
+      ],
+      "gold_document_path": [
+        "mw:626:10852805:013813e86123",
+        "mw:3035:10865781:cadc35f7792f"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Potato, identify the linked topic whose article discusses flowers sunrise africa around.",
+      "question_id": "real:b4a94666a6a0b5d9cf84"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a25dea121a1c65d9f5732609"
+      ],
+      "gold_document_path": [
+        "mw:606:10179394:05793740a128",
+        "mw:120:10892882:caada1658e5c",
+        "mw:173:10669518:9062325970df"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Political party through a related article and identify the next topic characterized by hammurabi's receiving thumbnail babylon.",
+      "question_id": "real:143bf06e567f21a890c4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ffa019dd1f2a28f1d0c1ecb1"
+      ],
+      "gold_document_path": [
+        "mw:3318:10587695:62f35b61e9c2"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Adjective, which section discusses comprehensive conscientious intelligent adjectives?",
+      "question_id": "real:a454dd9466710a285523"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:72a3da2e0565dae590ee1126"
+      ],
+      "gold_document_path": [
+        "mw:504:8531857:19a9ba83ef6b",
+        "mw:1943:10557819:04e1591ac506"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Margarine, identify the linked topic whose article discusses schooten butter floris 200px.",
+      "question_id": "real:27b6c6a9c4486edd2007"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:cf71c9e884d0250911b31453"
+      ],
+      "gold_document_path": [
+        "mw:401:10861261:978b4db533e8",
+        "mw:403:10899959:f48c8739fed7",
+        "mw:114:9769303:3ac56b019f69"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from June through a related article and identify the next topic characterized by characters languages anything japanese.",
+      "question_id": "real:1c4d9b76c032b8bfb4eb"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:79421e9f8211bdbd31822bb3"
+      ],
+      "gold_document_path": [
+        "mw:3038:10868634:98ad28548de9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Plymouth Argyle F.C., which section discusses plymouth-argyle-championship-football archive-date access-date second-tier?",
+      "question_id": "real:ac2b9abf3b99d5f5cfaf"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a9859c104685a2c9f1d855c6"
+      ],
+      "gold_document_path": [
+        "mw:161:10879827:51272983ce33",
+        "mw:1775:4814398:3d9230a01ea4"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Calculus, identify the linked topic whose article discusses redirect physics.",
+      "question_id": "real:b3e0c06b904e14d4ea4f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4444b4d48ddd9f6b918c22c2"
+      ],
+      "gold_document_path": [
+        "mw:2817:10437501:103eb1b3ecf3",
+        "mw:3705:10185619:2632f71e2947",
+        "mw:3705:10185619:2632f71e2947"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Communication through a related article and identify the next topic characterized by redirect animal.",
+      "question_id": "real:8f0f831bcf93b2b9d04d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e96b429394bd89063c22bb71"
+      ],
+      "gold_document_path": [
+        "mw:3077:10871429:e8e212093ec3"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Manchester United F.C., which section discusses manchester airlines official strength?",
+      "question_id": "real:fce423194321c6227df4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:47e15dc9c6a2513c553cc0d5"
+      ],
+      "gold_document_path": [
+        "mw:208:10777479:2d74cd870b80",
+        "mw:2979:10858995:fff5270f5452"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Denmark, identify the linked topic whose article discusses conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:1137755e5bf38b8b74fa"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:08f9fa9c70fea581b9f05a1f"
+      ],
+      "gold_document_path": [
+        "mw:765:8876694:576523411df2",
+        "mw:3459:10796471:f9397b54a625",
+        "mw:2843:10900958:d46e45d919c9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Seed through a related article and identify the next topic characterized by pronunciation language english infobox.",
+      "question_id": "real:c443d5b51b3f26e07b4d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f6824fe87a81b5868cce0c96"
+      ],
+      "gold_document_path": [
+        "mw:3620:10876209:e27bada6850a"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Linux, which section discusses pronounced pronounces explained torvalds?",
+      "question_id": "real:57398294d354b6dcc0dc"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:08b3f2e53bef88bfc00f4d67"
+      ],
+      "gold_document_path": [
+        "mw:30:9966299:83b329638b5b",
+        "mw:19:10897725:ca17776c8aa8"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Aquaculture, identify the linked topic whose article discusses materials ancient animals farming.",
+      "question_id": "real:77d4f0eb166f3abd452e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:621215bfebd47090c0e8b535"
+      ],
+      "gold_document_path": [
+        "mw:101:10819968:24fdeb9db0f4",
+        "mw:849:10867641:17b2622eda75",
+        "mw:3707:10878629:6264b33ddfa4"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Biology through a related article and identify the next topic characterized by cretaceous-present fossil_range red-crested automatic.",
+      "question_id": "real:123251e7c6a747833bf7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:380c00fba178928025aeb384"
+      ],
+      "gold_document_path": [
+        "mw:3077:10871429:e8e212093ec3"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Manchester United F.C., which section discusses manchester rchivedate against august?",
+      "question_id": "real:aacc7faa1f84fb193a79"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a005dafbe6119cccd113a457"
+      ],
+      "gold_document_path": [
+        "mw:3437:10892825:c1d9f96dae30",
+        "mw:2029:10686587:ef27b0fae716"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Platypus, identify the linked topic whose article discusses grammatical linguistics phrases number.",
+      "question_id": "real:9e6d058d56431e59a5d0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:965dc434b89774d4fb53f8f7"
+      ],
+      "gold_document_path": [
+        "mw:3399:10316384:c9cd7aad97d7",
+        "mw:219:10878877:7eab8f298bef",
+        "mw:3332:10782149:21573978a69d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Weather through a related article and identify the next topic characterized by chemical elements called metals.",
+      "question_id": "real:eba9d114b1acaaa4323a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f561ce6a1992e2c1ba9b76bc"
+      ],
+      "gold_document_path": [
+        "mw:3427:10884655:ceca9d7837d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Internet Explorer, which section discusses international accessdate available microsoft?",
+      "question_id": "real:1c8c579b377999221631"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:eb4b43f027d265271072bc85"
+      ],
+      "gold_document_path": [
+        "mw:445:10878679:57902df055f4",
+        "mw:112:10897768:bdec43c2cff0"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Link, identify the linked topic whose article discusses system thumb.",
+      "question_id": "real:b2d8266398cae34eb177"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:11acc55526eaabba195c65ba"
+      ],
+      "gold_document_path": [
+        "mw:408:10819009:9311748be448",
+        "mw:3640:10418603:bc676edaf965",
+        "mw:3614:10906214:2157d66562e2"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Jupiter through a related article and identify the next topic characterized by dedicated activity traveler another.",
+      "question_id": "real:70537ec00894fc6b4895"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:1ed73d4b7dcc33e639427df4"
+      ],
+      "gold_document_path": [
+        "mw:3463:10898633:815fefec90c9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Netherlands, which section discusses netherlands occupation liberated american?",
+      "question_id": "real:db5c08a2d7b879bba34f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:f0ead94f217c620b6fa80277"
+      ],
+      "gold_document_path": [
+        "mw:351:4577175:e5a39c59a448",
+        "mw:2038:6021961:deae97f3cebc"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Human death, identify the linked topic whose article discusses redirect death.",
+      "question_id": "real:f2e78bb9087c5fda3904"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4488dc0ac6755f43e9ab465a"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:882:10898398:a2c0587870f3",
+        "mw:3608:38818:df958b1cc39d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Water through a related article and identify the next topic characterized by shakespeare redirect william.",
+      "question_id": "real:e259fc6c3a5443348584"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:b87f904b2df35fba81520d02"
+      ],
+      "gold_document_path": [
+        "mw:3049:10900801:3fceed7d5408"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Scotland, which section discusses strengthened bothwell stirling castles?",
+      "question_id": "real:1384744ab99ad5f6ea7a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:89f46ac38900e0f46f9e006f"
+      ],
+      "gold_document_path": [
+        "mw:2964:10896996:7845356958ef",
+        "mw:120:10892882:caada1658e5c"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Russia, identify the linked topic whose article discusses chinaimg zh\u014dnggu\u00f3 chinese infobox.",
+      "question_id": "real:542815dd20687f981b72"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ab6095dd939fe939ae42f2bd"
+      ],
+      "gold_document_path": [
+        "mw:955:10803359:d3b4a89f93e3",
+        "mw:2949:10833857:3a7d3fd042ec",
+        "mw:3634:38841:c2dd99196d5e"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Zinc through a related article and identify the next topic characterized by blindness redirect.",
+      "question_id": "real:ffacbbf302a02119a434"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:035948011fdd72c24b9977b6"
+      ],
+      "gold_document_path": [
+        "mw:794:10722288:828288449f0f"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Server, which section discusses accessing resulting people server?",
+      "question_id": "real:bde91b6ca88fcc7878e3"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:89f46ac38900e0f46f9e006f"
+      ],
+      "gold_document_path": [
+        "mw:30:9966299:83b329638b5b",
+        "mw:120:10892882:caada1658e5c"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Aquaculture, identify the linked topic whose article discusses chinaimg zh\u014dnggu\u00f3 chinese infobox.",
+      "question_id": "real:22f51b1001f6cd5d730e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:965dc434b89774d4fb53f8f7"
+      ],
+      "gold_document_path": [
+        "mw:3735:10417773:6c3eeafeefb6",
+        "mw:955:10803359:d3b4a89f93e3",
+        "mw:3332:10782149:21573978a69d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Lithium through a related article and identify the next topic characterized by chemical elements called metals.",
+      "question_id": "real:867bcb31331dec669298"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:57291ec96a82d5ab0121961f"
+      ],
+      "gold_document_path": [
+        "mw:884:10899429:4483c37bb28c"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about University, which section discusses metropolitana metropolitan technologic tecnol\u00f3gica?",
+      "question_id": "real:eaf2c5c730f277cd5437"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:08f9fa9c70fea581b9f05a1f"
+      ],
+      "gold_document_path": [
+        "mw:926:10229861:832cb0536977",
+        "mw:2843:10900958:d46e45d919c9"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Wiktionary, identify the linked topic whose article discusses pronunciation language english infobox.",
+      "question_id": "real:81d3e8ec083875665b9e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a6436371d0811a78624e6b1b"
+      ],
+      "gold_document_path": [
+        "mw:35:10021523:47fa1b26c3eb",
+        "mw:2106:10357116:df3d1ccae6c6",
+        "mw:2106:10357116:df3d1ccae6c6"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Ad hominem through a related article and identify the next topic characterized by redirect human.",
+      "question_id": "real:fdd32a4438781a072131"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:cde17f02c4613c1eed194247"
+      ],
+      "gold_document_path": [
+        "mw:2871:10836454:cc91e1fd023f"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Bavaria, which section discusses 20121209002243 statistikdaten archive-date archive-url?",
+      "question_id": "real:973db1982257001d77d0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a25dea121a1c65d9f5732609"
+      ],
+      "gold_document_path": [
+        "mw:3195:10779390:52f6ed5aa55d",
+        "mw:173:10669518:9062325970df"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Democracy, identify the linked topic whose article discusses hammurabi's receiving thumbnail babylon.",
+      "question_id": "real:ccb4762cb6c738f9b483"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e73a7830f91ac248fe32d1a1"
+      ],
+      "gold_document_path": [
+        "mw:927:10874461:734cf11f584c",
+        "mw:1836:6784976:0f60921f6734",
+        "mw:1836:6784976:0f60921f6734"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Microsoft Windows through a related article and identify the next topic characterized by redirect states united.",
+      "question_id": "real:47986b0d42c220d6e498"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:1fa9840be9a264354f97bd44"
+      ],
+      "gold_document_path": [
+        "mw:950:10879591:21f89c8f6125"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about 0, which section discusses 0022-4812 rationals 27232089 integers?",
+      "question_id": "real:98b849cc4d1f03c5b781"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:b3a4cf8e4dfd4f06d2eecb60"
+      ],
+      "gold_document_path": [
+        "mw:590:10904150:972bf35a9f88",
+        "mw:411:10873891:237be7c4a3df"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Philosophy, identify the linked topic whose article discusses knowledge showing upright western.",
+      "question_id": "real:4292b79771e7c47ce094"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:15fc2a1f4ec6124becc61417"
+      ],
+      "gold_document_path": [
+        "mw:3466:10891092:cefeef2681e5",
+        "mw:2132:10861805:81e79e0f930e",
+        "mw:3599:10792887:9154d282fdf3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Portugal through a related article and identify the next topic characterized by settlement_type native_name autonomous dependency.",
+      "question_id": "real:2963a9ee259f208dbe7e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:bf87a225678b3a14bfbf188d"
+      ],
+      "gold_document_path": [
+        "mw:955:10803359:d3b4a89f93e3"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Zinc, which section discusses 20180225064857 myb1-2006-zinc archive-date archive-url?",
+      "question_id": "real:be107c5a1c4f1f3fde28"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:38d83d176326d42f23ac546c"
+      ],
+      "gold_document_path": [
+        "mw:802:10813293:f27c8b2a1344",
+        "mw:2958:10870909:1e57ccff7aeb"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Saturn, identify the linked topic whose article discusses definition wiktionary 120x120px english.",
+      "question_id": "real:6e58fba5d953a5f7f6a6"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e73a7830f91ac248fe32d1a1"
+      ],
+      "gold_document_path": [
+        "mw:2984:10343532:fcc2eef4454a",
+        "mw:1836:6784976:0f60921f6734",
+        "mw:1836:6784976:0f60921f6734"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from 1969 through a related article and identify the next topic characterized by redirect states united.",
+      "question_id": "real:2aaf98066ced60608016"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0d15d58e975c9ff6428b8ff2"
+      ],
+      "gold_document_path": [
+        "mw:673:10645133:d1132998d15d"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about River, which section discusses tobacco cotton rivers crops?",
+      "question_id": "real:ae781d4668ed753302cc"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:ea516f6e963f31fc604193f9"
+      ],
+      "gold_document_path": [
+        "mw:62:10606925:b15559b47f98",
+        "mw:954:10480768:38d284eac5b2"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Animal, identify the linked topic whose article discusses studying science zoology animal.",
+      "question_id": "real:0d5fe08aecdd532993ed"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:65d43cc2e2383ded7d0726e3"
+      ],
+      "gold_document_path": [
+        "mw:828:7723987:4c0019bc62ef",
+        "mw:190:8133862:2f58e064f623",
+        "mw:547:8926398:5c81c462ea2c"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Time limit through a related article and identify the next topic characterized by galunggung 270x270px lightning waterfall.",
+      "question_id": "real:a08cbc49545c2b2fae57"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:792ff43046a2d71d5a44e171"
+      ],
+      "gold_document_path": [
+        "mw:528:10863224:c0a135671966"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Number, which section discusses math-symbols access-date higher-math 2020-10-12?",
+      "question_id": "real:9684105d1711a40323ee"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:469a1c1582c1af1e1f425609"
+      ],
+      "gold_document_path": [
+        "mw:683:10500263:3b7e452e660b",
+        "mw:27:10903860:47791478a664"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Symbol, identify the linked topic whose article discusses conventional_long_name commonwealth common_name image_flag.",
+      "question_id": "real:526c93992c59bc626403"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:50d7dba3efc5e2098e5bd0b2"
+      ],
+      "gold_document_path": [
+        "mw:800:10856984:3eb7e88a3a47",
+        "mw:939:10901009:720c8db4b4be",
+        "mw:1970:10901873:caeecd34dc73"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Solar System through a related article and identify the next topic characterized by influenced dividing latitude climate.",
+      "question_id": "real:de45460b1278a654171c"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:3150bea123a29b410d1c84dc"
+      ],
+      "gold_document_path": [
+        "mw:525:10677889:3d960a71536d"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Mammal, which section discusses vertebrae features skeleton mammals?",
+      "question_id": "real:ac02b11e3011be26f514"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:0d4b665e4e3aa28f59fb5aea"
+      ],
+      "gold_document_path": [
+        "mw:3665:8976446:9d09e6e10874",
+        "mw:3541:10567839:6de755611e56"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Soap bubble, identify the linked topic whose article discusses three-dimensional sphere right round.",
+      "question_id": "real:5a675510345c495cc1e2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a46eb02e343a04d3cb120467"
+      ],
+      "gold_document_path": [
+        "mw:3463:10898633:815fefec90c9",
+        "mw:3195:10779390:52f6ed5aa55d",
+        "mw:1625:37710:4fc4a9ad7bf5"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Netherlands through a related article and identify the next topic characterized by political_party redirect.",
+      "question_id": "real:31f9847a1bfdce8871c4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:fb987533cca0a6f98b02270b"
+      ],
+      "gold_document_path": [
+        "mw:306:10075845:db951f6923db"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Ghost, which section discusses appears there's samuel second?",
+      "question_id": "real:03377847729444472f98"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:081d67710ee0f46b2bd7a64b"
+      ],
+      "gold_document_path": [
+        "mw:2898:10473313:3b5462b5ca86",
+        "mw:2138:10892007:21b1fe74e97b"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from 1920s, identify the linked topic whose article discusses birth_place restoration w\u00fcrttemberg birth_date.",
+      "question_id": "real:0e7d14122a9fbcabe934"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:f48a9ef05a3ceff5f81906b3"
+      ],
+      "gold_document_path": [
+        "mw:68:10624999:ac31ffef8296",
+        "mw:280:10868559:38c40a39bef5",
+        "mw:628:10898012:1c3fa44f416a"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Black pudding through a related article and identify the next topic characterized by display_parents mesoproterozoic image_caption fossil_range.",
+      "question_id": "real:6df92f201e8e029c7bf4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:9e5f56089c2320e21e008d48"
+      ],
+      "gold_document_path": [
+        "mw:3506:10871411:aae92f1cbc63"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Black hole, which section discusses properties basically physical measure?",
+      "question_id": "real:4f1669a2d8bc37c23aaa"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a7efde6723923336971ec0ab"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:2888:10872806:1bc3bafe38fc"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Water, identify the linked topic whose article discusses conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:09deaf5c293e81983b9f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:d1e28efc18556855e6597681"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:3349:10771490:889e59181e87",
+        "mw:3357:9075292:9e44911ad265"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Water through a related article and identify the next topic characterized by minnesotarivermap mendotabridge8 image_caption name_native.",
+      "question_id": "real:449776f7a44a0a57827f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:53d82189c66318a7ba05abc5"
+      ],
+      "gold_document_path": [
+        "mw:798:10375363:3a8b9d5cba97"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about State, which section discusses military-based controlled empire little?",
+      "question_id": "real:6a7116e7a5a949d6c386"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:4a413a4f3da82ffee1a0fa69"
+      ],
+      "gold_document_path": [
+        "mw:2957:10732765:c56ac75923cd",
+        "mw:110:10858868:329523033925"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Computer program, identify the linked topic whose article discusses programming language capital border.",
+      "question_id": "real:e14995a99bba4ed4c171"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a8f2f5a6dea38f975c7ab5af"
+      ],
+      "gold_document_path": [
+        "mw:2898:10473313:3b5462b5ca86",
+        "mw:3600:10886230:525ec2b0eeff",
+        "mw:2860:10901475:4433aeea291c"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from 1920s through a related article and identify the next topic characterized by conventional_long_name common_name republic country.",
+      "question_id": "real:91e73b548a7b40f1034a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:d7d688179bb70c13efdebb29"
+      ],
+      "gold_document_path": [
+        "mw:219:10878877:7eab8f298bef"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Earth, which section discusses continents scientists 0036-8075 figuring?",
+      "question_id": "real:56b4b2f93aa475ed62b7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:d1a961a77552cf0994fb3eb5"
+      ],
+      "gold_document_path": [
+        "mw:684:10861265:94df4f9b46fe",
+        "mw:460:10880199:2f53326472d7"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from September, identify the linked topic whose article discusses image_skyline settlement infobox london.",
+      "question_id": "real:e72a98614c160f04b876"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ab60bc476f332c3410a5097b"
+      ],
+      "gold_document_path": [
+        "mw:3193:10615507:0dce43ae1e95",
+        "mw:2955:10886848:ddcafa2ee31c",
+        "mw:2916:9461267:23150c24b549"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Essen through a related article and identify the next topic characterized by republic federal germany german.",
+      "question_id": "real:da9d7469eeebac12607e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:5fe29b581fc27776bee04257"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Science, which section discusses philosophical exoplanets scientists directly?",
+      "question_id": "real:c0db1048ae9201f95b6b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:08f9fa9c70fea581b9f05a1f"
+      ],
+      "gold_document_path": [
+        "mw:299:10903016:871efa0c6afc",
+        "mw:2843:10900958:d46e45d919c9"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Grammar, identify the linked topic whose article discusses pronunciation language english infobox.",
+      "question_id": "real:88653026406640ce527f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:31811d05a5f086668b8357b7"
+      ],
+      "gold_document_path": [
+        "mw:3599:10792887:9154d282fdf3",
+        "mw:3460:10891498:d27b3b8cd31e",
+        "mw:52:10784447:a687518a6a33"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Greenland through a related article and identify the next topic characterized by conventional_long_name transliteration afghanistan common_name.",
+      "question_id": "real:a91d06f08bbbbd7a6776"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:0ef5dfdec6a4e84eb9c0fff6"
+      ],
+      "gold_document_path": [
+        "mw:566:10901144:623f5fb1ee64"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about New York City, which section discusses 2010_place_list_36 gazetteer maps-data bureau?",
+      "question_id": "real:edcb382a0064584987a0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:0079f2ce38f4cc97a2bf090e"
+      ],
+      "gold_document_path": [
+        "mw:3403:10903799:446f676e6a5b",
+        "mw:3658:10904014:dd607ed7af59"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from British Columbia, identify the linked topic whose article discusses settlement_type image_shield image_flag territory.",
+      "question_id": "real:d052ab93f5206da54e40"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:8f203f5e8794f4de40436ade"
+      ],
+      "gold_document_path": [
+        "mw:431:10843362:de1af97424b4",
+        "mw:557:10793364:1fa1c84ff97d",
+        "mw:1980:10773409:0328717b87ed"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Provinces and territories of Canada through a related article and identify the next topic characterized by surrounding arctic around lands.",
+      "question_id": "real:38b97e78ee80b426d50b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f852ad58d14efde0e6567854"
+      ],
+      "gold_document_path": [
+        "mw:2819:10514301:35a4777443d0"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Miracle, which section discusses nebuchadnezzar abednego shadrach burning?",
+      "question_id": "real:772d86ba59630df94136"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:b49fd885546d9c1563ffb844"
+      ],
+      "gold_document_path": [
+        "mw:896:10813274:2e246b63eb4b",
+        "mw:357:10741391:097640b845bc"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Venus, identify the linked topic whose article discusses airships goodyear because choice.",
+      "question_id": "real:24b308ab612b611331d3"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4bff35fed6fb389e349da2bb"
+      ],
+      "gold_document_path": [
+        "mw:394:8059108:252722585561",
+        "mw:396:36693:544e1d7f155a",
+        "mw:394:8059108:252722585561"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Immunology through a related article and identify the next topic characterized by immunology immune system study.",
+      "question_id": "real:89f3372108a21ff3ca3b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:5ece9ea121b46e2a68b03c20"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Chemistry, which section discusses 978-0-8412-7413-6 editor-first mesopotamian editor-last?",
+      "question_id": "real:ba4faff58c3c01e08b9b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:bc9c69df5664941beaac3e0f"
+      ],
+      "gold_document_path": [
+        "mw:3260:10759952:f08fec6c9552",
+        "mw:2083:10890501:07024a020915"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Gold, identify the linked topic whose article discusses classification drawings physical pigment.",
+      "question_id": "real:d2f7410f05bbf3483291"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a2a5f94c7604030aa55abb4e"
+      ],
+      "gold_document_path": [
+        "mw:461:10601703:bf015f23db52",
+        "mw:895:10870822:4c8bf0ce422d",
+        "mw:513:10898963:362366045b1a"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Litre through a related article and identify the next topic characterized by measure object there.",
+      "question_id": "real:81124aaa97f66b02d4ed"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:31928590e3f76f87190630c2"
+      ],
+      "gold_document_path": [
+        "mw:2139:10830380:716a99e87e3b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Euro, which section discusses countries' currencies although france's?",
+      "question_id": "real:54cdf49c5097ab8181b9"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:f5d09ce09e7f00c4806ba2ee"
+      ],
+      "gold_document_path": [
+        "mw:818:10606167:f59d48915b3a",
+        "mw:889:10903026:c3baec2f0185"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Readability, identify the linked topic whose article discusses dictionary english printed version.",
+      "question_id": "real:2041c5cab6727ce36051"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:0524797990979deddcbda92e"
+      ],
+      "gold_document_path": [
+        "mw:3407:10800655:6037bcb1754a",
+        "mw:2971:10874167:8b0112c04054",
+        "mw:14:10857923:43c8bc9f9da3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from 20th century through a related article and identify the next topic characterized by solo_singer background birth_date birth_name.",
+      "question_id": "real:b00da52886d05d942c02"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:7247b5267d71570a42e66ce0"
+      ],
+      "gold_document_path": [
+        "mw:3496:10558177:97c7b45403a2"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Buddhism, which section discusses understand eightfold special buddha?",
+      "question_id": "real:03052445fd5c12eb020d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:02874b0f96c0cfdffacf2404"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8",
+        "mw:48:10892839:207449134988"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Chemistry, identify the linked topic whose article discusses observatory milky silla thumb.",
+      "question_id": "real:93a5225605af7c89bb61"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e756d796a7e0811244083b6b"
+      ],
+      "gold_document_path": [
+        "mw:91:10173682:89f82136eeb7",
+        "mw:2843:10900958:d46e45d919c9",
+        "mw:542:10622172:7d1c68afd447"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Berry through a related article and identify the next topic characterized by conventional_long_name national_motto common_name native_name.",
+      "question_id": "real:e91dd4ee8b237ae23db5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:39cefbc4cee187f05a2a081a"
+      ],
+      "gold_document_path": [
+        "mw:3075:10871431:4926dbb654d1"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Liverpool F.C., which section discusses 1900-01 1905-06 1921-22 1922-23?",
+      "question_id": "real:9c8c059e88e1aef37a82"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:89b392494ff4315b1ef48375"
+      ],
+      "gold_document_path": [
+        "mw:3193:10615507:0dce43ae1e95",
+        "mw:687:6757440:b5814eedccec"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Essen, identify the linked topic whose article discusses redirect sport.",
+      "question_id": "real:63a264ba31a42132c161"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:5a5a0abd399abac46701028b"
+      ],
+      "gold_document_path": [
+        "mw:554:10057834:be06230e7250",
+        "mw:425:10869849:3eaccb7db47c",
+        "mw:280:10868559:38c40a39bef5"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Negentropy through a related article and identify the next topic characterized by different 200px foods kinds.",
+      "question_id": "real:567204733edd21c971dc"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:9fdcb00edec711d5b725b0f9"
+      ],
+      "gold_document_path": [
+        "mw:3065:10880647:0e08f7da9412"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Aston Villa F.C., which section discusses champions division first?",
+      "question_id": "real:076e7f560d26cf994ffd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:3bd5c80aec87d3e30289d7f9"
+      ],
+      "gold_document_path": [
+        "mw:216:10756564:8f9b49776552",
+        "mw:3476:10868558:c33f019b556d"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Europe, identify the linked topic whose article discusses traditional macedonian macedonia clothing.",
+      "question_id": "real:1a54d15507d5c14fdeaf"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e73a7830f91ac248fe32d1a1"
+      ],
+      "gold_document_path": [
+        "mw:3299:10710908:e56c270b003f",
+        "mw:566:10901144:623f5fb1ee64",
+        "mw:1836:6784976:0f60921f6734"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from City of London through a related article and identify the next topic characterized by redirect states united.",
+      "question_id": "real:5e191b401eb6572bb7f8"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:bcad49b6f32c5f47a085c3ff"
+      ],
+      "gold_document_path": [
+        "mw:361:10865884:6968d566519b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Ireland, which section discusses attracting url-status football r_report?",
+      "question_id": "real:fdb855b00f6d715500bd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:5dfde238687f12dfdd56f3f4"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8",
+        "mw:452:4482208:82219fb10935"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Chemistry, identify the linked topic whose article discusses elements redirect.",
+      "question_id": "real:4cf3fbc593cc32a55ca2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e589c51d26d255b9b4bebd39"
+      ],
+      "gold_document_path": [
+        "mw:2900:10876669:21f59aba0936",
+        "mw:3318:10587695:62f35b61e9c2",
+        "mw:660:10896006:6f736564e9ea"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Natural satellite through a related article and identify the next topic characterized by kumbakonam dyeing india tamil.",
+      "question_id": "real:a3a8101b3a432059de6e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:800931f1fa109e65b071dc08"
+      ],
+      "gold_document_path": [
+        "mw:3544:10686738:35a891625025"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Advertising, which section discusses advertisements advertising increasing newspaper?",
+      "question_id": "real:cecd7f66efe48052f2e4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:6197a3a3d69504fec92edd67"
+      ],
+      "gold_document_path": [
+        "mw:803:10835987:b45f33caa109",
+        "mw:152:7733203:7836e6227f8e"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Slavery, identify the linked topic whose article discusses redirect country.",
+      "question_id": "real:4115130052a27d43277c"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:773b77ca1391188afa144f19"
+      ],
+      "gold_document_path": [
+        "mw:637:10858682:f19c77ed7c10",
+        "mw:357:10741391:097640b845bc",
+        "mw:3283:10791731:2cc8c7cd88fe"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Periodic table through a related article and identify the next topic characterized by illustration molecules attached without.",
+      "question_id": "real:b3336376c0236c311453"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:8832a32587d95924bb32b64f"
+      ],
+      "gold_document_path": [
+        "mw:52:10784447:a687518a6a33"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Afghanistan, which section discusses encyclopedia indo-aryens migration identity?",
+      "question_id": "real:601891fd1ea3d4ddbcc2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:2d43d76454ae462c7efeb1ee"
+      ],
+      "gold_document_path": [
+        "mw:927:10874461:734cf11f584c",
+        "mw:483:10868240:344ffafd0327"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Microsoft Windows, identify the linked topic whose article discusses corporation sub-squares appearing clockwise.",
+      "question_id": "real:11abc177a2c9d1fb32d0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:dc1749e7150de9c699af02ea"
+      ],
+      "gold_document_path": [
+        "mw:3625:10875222:c8139ad55d8b",
+        "mw:1586:10871865:46d4a997958e",
+        "mw:2132:10861805:81e79e0f930e"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Download through a related article and identify the next topic characterized by geopolitical organisation collapsible font-weight.",
+      "question_id": "real:fb604a4677a8ed165751"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:aa28d9834e3e3a018ea8dc44"
+      ],
+      "gold_document_path": [
+        "mw:3518:10903963:1f1bedd0e137"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Photosynthesis, which section discusses increased absorbed adapted surface?",
+      "question_id": "real:a54bd728f3c5cfaa8bc9"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a141ba1cc47d3f19f40da4a8"
+      ],
+      "gold_document_path": [
+        "mw:304:10696910:2237dd0d535e",
+        "mw:90:10470877:a5440710a4e4"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Glass, identify the linked topic whose article discusses different thumbnail bottles bottle.",
+      "question_id": "real:fff3732127b0d0cea6d1"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:fb1a8367f7229fb5da5c6b4f"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51",
+        "mw:748:10147442:48de730e9e65",
+        "mw:2118:1425998:c6885a432bef"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Science through a related article and identify the next topic characterized by pedagogy redirect.",
+      "question_id": "real:57254e0e9ff95d886e05"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:7f4038517a576ed2f2892da9"
+      ],
+      "gold_document_path": [
+        "mw:3070:10871437:8da364cf1445"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Chelsea F.C., which section discusses division first?",
+      "question_id": "real:826b2ebe229be7449bad"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:6cecbd6625d55a99bf4fb8a5"
+      ],
+      "gold_document_path": [
+        "mw:3038:10868634:98ad28548de9",
+        "mw:3095:10871124:9e4af34e66db"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Plymouth Argyle F.C., identify the linked topic whose article discusses clubname football current infobox.",
+      "question_id": "real:3e1fd571670c9bef4f6c"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:320dbf802cf52d5ebcd97b43"
+      ],
+      "gold_document_path": [
+        "mw:460:10880199:2f53326472d7",
+        "mw:2875:10532562:272deb934232",
+        "mw:673:10645133:d1132998d15d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from London through a related article and identify the next topic characterized by england london thames 300px.",
+      "question_id": "real:d91ea9ec0864379dd3ad"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ef7db0d901c7aef780cd1b4d"
+      ],
+      "gold_document_path": [
+        "mw:803:10835987:b45f33caa109"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Slavery, which section discusses indentured centuries europeans contract?",
+      "question_id": "real:fa496359383da9ccd21c"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:9f53a3b55704aed27ecac1fb"
+      ],
+      "gold_document_path": [
+        "mw:3622:10651943:0707f7e8eba8",
+        "mw:39:10881418:dc0516422504"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Desktop environment, identify the linked topic whose article discusses northwestern kazakhstan kyrgyzstan uzbekistan.",
+      "question_id": "real:964755980b0b78a3ff7d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:535c3ae53be1d53e6eea4b2e"
+      ],
+      "gold_document_path": [
+        "mw:569:10861268:15bf9b3237eb",
+        "mw:55:10768273:209edce45685",
+        "mw:798:10375363:3a8b9d5cba97"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from October through a related article and identify the next topic characterized by illustration leviathan hobbes thomas.",
+      "question_id": "real:553135f0fa4649b3a181"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:3e23342593d07267c15609ef"
+      ],
+      "gold_document_path": [
+        "mw:3496:10558177:97c7b45403a2"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Buddhism, which section discusses reincarnation dhammap\u0101da teaching buddhas?",
+      "question_id": "real:b0032d406dccd983ee58"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:2d43d76454ae462c7efeb1ee"
+      ],
+      "gold_document_path": [
+        "mw:112:10897768:bdec43c2cff0",
+        "mw:483:10868240:344ffafd0327"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Computer, identify the linked topic whose article discusses corporation sub-squares appearing clockwise.",
+      "question_id": "real:c50d6897502f2e0bb7ad"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:15fc2a1f4ec6124becc61417"
+      ],
+      "gold_document_path": [
+        "mw:542:10622172:7d1c68afd447",
+        "mw:367:10841268:efbfee57b7c0",
+        "mw:3599:10792887:9154d282fdf3"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Nauru through a related article and identify the next topic characterized by settlement_type native_name autonomous dependency.",
+      "question_id": "real:f694824d24156ce98b09"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:3539641a752b2f70c2875bd9"
+      ],
+      "gold_document_path": [
+        "mw:52:10784447:a687518a6a33"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Afghanistan, which section discusses afghanistan-situation-worsen-humanitarian-crisis-lack-of-governance-india-ready-shringla-4305527 humanitarian access-date governance?",
+      "question_id": "real:a25cde19740352dbb26b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:678fabedc0cbdfc3be29e96f"
+      ],
+      "gold_document_path": [
+        "mw:3464:10901724:83a90e8cdd38",
+        "mw:2124:10897901:8f54669a6cf9"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Ukraine, identify the linked topic whose article discusses conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:63e7494f19e38a89ef84"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ca7c83066f2a2df853481958"
+      ],
+      "gold_document_path": [
+        "mw:3597:10901695:1cef18696f1e",
+        "mw:1942:10823118:2a8fdac996e6",
+        "mw:942:10852098:51adf1b6aafb"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from French language through a related article and identify the next topic characterized by fighting jelckama painting country.",
+      "question_id": "real:0310eafe286398f34a4f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:bfeed1d30f9695f3dbfaae90"
+      ],
+      "gold_document_path": [
+        "mw:3427:10884655:ceca9d7837d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Internet Explorer, which section discusses discontinued installers standalone microsoft?",
+      "question_id": "real:3729a5a1c13ea9a91e24"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:4f0ae81414829ec35f588b10"
+      ],
+      "gold_document_path": [
+        "mw:2004:10898411:4d5520141280",
+        "mw:3399:10316384:c9cd7aad97d7"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Sky, identify the linked topic whose article discusses hour-to-hour atmosphere day-to-day weather.",
+      "question_id": "real:8d9cb19462ee4a76f0d2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:1d8b1571202197049ea0d6e0"
+      ],
+      "gold_document_path": [
+        "mw:2965:10894532:bce2ea6c8f02",
+        "mw:856:10892791:a5167263f997",
+        "mw:429:4704273:1e24670bc430"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Moscow through a related article and identify the next topic characterized by redirect latin.",
+      "question_id": "real:76ead301c6757ac7f293"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:3faf4a73e82ceabef92e4948"
+      ],
+      "gold_document_path": [
+        "mw:3075:10871431:4926dbb654d1"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Liverpool F.C., which section discusses 1898-1899 1899-1909 1909-1912 1912-1913?",
+      "question_id": "real:278f6c04275c5b84372f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:9dde8ba0aedbf961e2ec0500"
+      ],
+      "gold_document_path": [
+        "mw:3106:10907405:dde479f5fe86",
+        "mw:3076:10871428:4aaa132ac105"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Sunderland A.F.C., identify the linked topic whose article discusses manchester clubname football fullname.",
+      "question_id": "real:a72f82101199e3a2e481"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:f53162ab00302164d9cdc19c"
+      ],
+      "gold_document_path": [
+        "mw:567:7518664:1ffdc8b09542",
+        "mw:567:7518664:1ffdc8b09542",
+        "mw:567:7518664:1ffdc8b09542"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Nonsense through a related article and identify the next topic characterized by redirect salad.",
+      "question_id": "real:d0cb996052691259a937"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ee047e6843fdbe4efe38c567"
+      ],
+      "gold_document_path": [
+        "mw:175:10839423:7e1880b05a88"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Circle, which section discusses gregory-leibniz calculate frac41- frac45-?",
+      "question_id": "real:0d0b988193d2b4ff8516"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:e73a7830f91ac248fe32d1a1"
+      ],
+      "gold_document_path": [
+        "mw:403:10899959:f48c8739fed7",
+        "mw:1836:6784976:0f60921f6734"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Japan, identify the linked topic whose article discusses redirect states united.",
+      "question_id": "real:7267e7817934f0cd28d4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:9dde8ba0aedbf961e2ec0500"
+      ],
+      "gold_document_path": [
+        "mw:3110:10871448:0d3487198e45",
+        "mw:3070:10871437:8da364cf1445",
+        "mw:3076:10871428:4aaa132ac105"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from West Ham United F.C. through a related article and identify the next topic characterized by manchester clubname football fullname.",
+      "question_id": "real:0e3f332ef76464c5d707"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f9ca13231b581b0039da7364"
+      ],
+      "gold_document_path": [
+        "mw:833:10862786:e601a19888f6"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Taiwan, which section discusses county-controlled provincial changhua center?",
+      "question_id": "real:267d6c9d6829040a68c7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:01dc885a14160b9d91cad74a"
+      ],
+      "gold_document_path": [
+        "mw:1983:10725448:9c15986720c6",
+        "mw:1917:37861:670fcd729102"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Inuit, identify the linked topic whose article discusses native_american redirect.",
+      "question_id": "real:4cc2e6e435a6a3fdeb08"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:54db6cf80acc5be1376d7a9a"
+      ],
+      "gold_document_path": [
+        "mw:537:10395916:f728e2ce9430",
+        "mw:131:6020529:4ea62a716eb4",
+        "mw:3493:8677734:a44fb0b8cec5"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Network through a related article and identify the next topic characterized by contact members network people.",
+      "question_id": "real:aa24fde2b482dbaf792a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:380e03e307083a3ce8ab8e0f"
+      ],
+      "gold_document_path": [
+        "mw:3628:10696297:5c6ec364c141"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about GNOME, which section discusses application development environment attractive?",
+      "question_id": "real:823901195d4fe3d8af91"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:95a2dcb7c4331ba89f2078d1"
+      ],
+      "gold_document_path": [
+        "mw:3097:10829203:f8bb2b341ed9",
+        "mw:3064:10871423:a6a1e276afa2"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Ipswich Town F.C., identify the linked topic whose article discusses image_size 2001-2002 clubname football.",
+      "question_id": "real:dbd2cf7754b60d2cafda"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:975f285e1dad9995b0d03c10"
+      ],
+      "gold_document_path": [
+        "mw:292:10758886:9bf07e56ac34",
+        "mw:2136:10865799:cea6549159d2",
+        "mw:3317:10891091:82cd7015b908"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Finland through a related article and identify the next topic characterized by celebrates 244x244px christian christmas.",
+      "question_id": "real:a53d6f5098e457903d0f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:612cf462e23372a8a3c8b560"
+      ],
+      "gold_document_path": [
+        "mw:485:10771179:90e2e71d402b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Islamic world, which section discusses muslim-majority population excluding indonesia?",
+      "question_id": "real:0cb334c76047e9d29448"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:4444b4d48ddd9f6b918c22c2"
+      ],
+      "gold_document_path": [
+        "mw:807:9019393:eabf206222d5",
+        "mw:3705:10185619:2632f71e2947"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Soap, identify the linked topic whose article discusses redirect animal.",
+      "question_id": "real:28b5d43b698f36f7f7ff"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a25dea121a1c65d9f5732609"
+      ],
+      "gold_document_path": [
+        "mw:2966:7939101:c28a80de0fbc",
+        "mw:2161:10882019:7eda27f6bbda",
+        "mw:173:10669518:9062325970df"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Canton of St. Gallen through a related article and identify the next topic characterized by hammurabi's receiving thumbnail babylon.",
+      "question_id": "real:1c26b1d0b96c2047f13f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:36a76e46f1f15c61b0548f6e"
+      ],
+      "gold_document_path": [
+        "mw:248:10892650:4a8403c7e478"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Egypt, which section discusses christians remained thousand despite?",
+      "question_id": "real:5f52d56b889365a09b74"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a8f2f5a6dea38f975c7ab5af"
+      ],
+      "gold_document_path": [
+        "mw:569:10861268:15bf9b3237eb",
+        "mw:2860:10901475:4433aeea291c"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from October, identify the linked topic whose article discusses conventional_long_name common_name republic country.",
+      "question_id": "real:70946497b58c1a69a1db"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4ccd573b76bceda843029e8a"
+      ],
+      "gold_document_path": [
+        "mw:325:10906159:6352d355f3e7",
+        "mw:688:36949:6f5acacf5d10",
+        "mw:688:36949:6f5acacf5d10"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Health through a related article and identify the next topic characterized by redirect society.",
+      "question_id": "real:668aadf27e64c76ad251"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:2c4e29d86d9444dc76b45a0f"
+      ],
+      "gold_document_path": [
+        "mw:400:10861252:96ed861a4159"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about January, which section discusses revolution american tanzania zanzibar?",
+      "question_id": "real:b21aad5099461eb8ccf0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:b4253534f33c83416dfdae40"
+      ],
+      "gold_document_path": [
+        "mw:540:10905578:1223b35c6a5f",
+        "mw:3406:8558841:ff9480bca5bd"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Internet slang, identify the linked topic whose article discusses redirect e-mail.",
+      "question_id": "real:7c22f3b54eca0470a915"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:3a64adba4bf8c4d452f7a837"
+      ],
+      "gold_document_path": [
+        "mw:673:10645133:d1132998d15d",
+        "mw:248:10892650:4a8403c7e478",
+        "mw:3346:10902838:a16c65d89ced"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from River through a related article and identify the next topic characterized by german-speaking pronunciation nativename primarily.",
+      "question_id": "real:d0876212961b1fa7adcd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:b7cc384b588bc947fc8e5e09"
+      ],
+      "gold_document_path": [
+        "mw:3424:10698764:c2dd760c0cfd"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Saxony, which section discusses district glauchau g\u00f6rlitz zwickau?",
+      "question_id": "real:05ac302aaa45e53bb0bc"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:ca7c83066f2a2df853481958"
+      ],
+      "gold_document_path": [
+        "mw:3332:10782149:21573978a69d",
+        "mw:942:10852098:51adf1b6aafb"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Metal, identify the linked topic whose article discusses fighting jelckama painting country.",
+      "question_id": "real:6322cabf5c9cd0c59596"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:d0a8f635f9ef4960827ed071"
+      ],
+      "gold_document_path": [
+        "mw:209:10259335:99cc2afd8f81",
+        "mw:798:10375363:3a8b9d5cba97",
+        "mw:2964:10896996:7845356958ef"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Death through a related article and identify the next topic characterized by conventional_long_name linking_name common_name native_name.",
+      "question_id": "real:3a44cdc42dab3f13b98f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:438604b3dfcaff6f953779a1"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Water, which section discusses japanese kanagawa example hokusai?",
+      "question_id": "real:0317caf6e17d0fae6ae8"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1d8b1571202197049ea0d6e0"
+      ],
+      "gold_document_path": [
+        "mw:2876:10850762:b2e2840b0f39",
+        "mw:429:4704273:1e24670bc430"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Carnivore, identify the linked topic whose article discusses redirect latin.",
+      "question_id": "real:4fb3c5e3cac460240410"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ebc7131f26e6a5b26823d7e1"
+      ],
+      "gold_document_path": [
+        "mw:218:10902081:fe8109c6d33f",
+        "mw:117:10697958:e15c26a2febf",
+        "mw:171:10906035:1e5af1f4212f"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Earth science through a related article and identify the next topic characterized by international sometimes animals cheeses.",
+      "question_id": "real:f3e7a53a05c529184a42"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:98f1234ab64c1b088245b77b"
+      ],
+      "gold_document_path": [
+        "mw:3334:10759571:006b1c3934b0"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Indonesia, which section discusses yogyakarta istimewa semarang surabaya?",
+      "question_id": "real:2ead222115e20ccc1f46"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:291fe0185df083c3bfc7f3b7"
+      ],
+      "gold_document_path": [
+        "mw:1586:10871865:46d4a997958e",
+        "mw:3335:6781239:f0ba2aa8e1d3"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Copyright, identify the linked topic whose article discusses property redirect.",
+      "question_id": "real:3450d6607996d6097f19"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e35607d3700df45777a8c359"
+      ],
+      "gold_document_path": [
+        "mw:3468:10866338:4cfd39d2e4bc",
+        "mw:3462:10850255:f78a957ea6f6",
+        "mw:3468:10866338:4cfd39d2e4bc"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Slovenia through a related article and identify the next topic characterized by conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:b8474a01af2a4a7b70dd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:6f1e090d956ad4e3b73b989f"
+      ],
+      "gold_document_path": [
+        "mw:508:10644075:5c0c1a607198"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Movement, which section discusses neuroscience integrative prefrontal 11283309?",
+      "question_id": "real:716c38c455ce910f39a5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:e73a7830f91ac248fe32d1a1"
+      ],
+      "gold_document_path": [
+        "mw:2951:10903041:c22ea90ec75c",
+        "mw:1836:6784976:0f60921f6734"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from 1960s, identify the linked topic whose article discusses redirect states united.",
+      "question_id": "real:1d473ebb4598ebe9e730"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:70bc91c335f04bb7efa78b09"
+      ],
+      "gold_document_path": [
+        "mw:3597:10901695:1cef18696f1e",
+        "mw:3346:10902838:a16c65d89ced",
+        "mw:2161:10882019:7eda27f6bbda"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from French language through a related article and identify the next topic characterized by conventional_long_name confederation collapsible common_name.",
+      "question_id": "real:06d650d442e8c793e04a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:49ef4b1e2af840a88ea18884"
+      ],
+      "gold_document_path": [
+        "mw:246:10871525:ea8319f2356c"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Economics, which section discusses economists sentiments history include?",
+      "question_id": "real:da5b255568f7d561e3b2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:9bb6b43e96da904e0cc2cbc1"
+      ],
+      "gold_document_path": [
+        "mw:828:7723987:4c0019bc62ef",
+        "mw:190:8133862:2f58e064f623"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Time limit, identify the linked topic whose article discusses completed deadline.",
+      "question_id": "real:a05efc929424e5c9ce93"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:0d4b665e4e3aa28f59fb5aea"
+      ],
+      "gold_document_path": [
+        "mw:2899:10833732:3712ccad7f4d",
+        "mw:48:10892839:207449134988",
+        "mw:3541:10567839:6de755611e56"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Outer space through a related article and identify the next topic characterized by three-dimensional sphere right round.",
+      "question_id": "real:01f168d3c4b27cda8bb9"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:409cb3b935be8969c84b4fdf"
+      ],
+      "gold_document_path": [
+        "mw:3067:10138420:9e46f283337d"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Blackburn Rovers F.C., which section discusses premier league?",
+      "question_id": "real:34d200268940b8736aa5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:4444b4d48ddd9f6b918c22c2"
+      ],
+      "gold_document_path": [
+        "mw:3639:9652159:08548389b73b",
+        "mw:3705:10185619:2632f71e2947"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Sin, identify the linked topic whose article discusses redirect animal.",
+      "question_id": "real:dbcaaae3c6837fb3d4ed"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:f7e1908b432ac8f7c231815c"
+      ],
+      "gold_document_path": [
+        "mw:104:10888645:10849e802106",
+        "mw:121:10885729:95ce8f9677a3",
+        "mw:3463:10898633:815fefec90c9"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Brazil through a related article and identify the next topic characterized by conventional_long_name native_name netherlands country.",
+      "question_id": "real:6e7e9261d0d80956c8e4"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ad6b9c0fb792596f070d795c"
+      ],
+      "gold_document_path": [
+        "mw:2061:10782331:65e81a5c3250"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Nitrogen, which section discusses discovered rutherford nitrogen noxious?",
+      "question_id": "real:151553ab14fbbf310668"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:01d8f79af82c9c3d906869af"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:3486:10724136:987106e97701"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Water, identify the linked topic whose article discusses influential greatest horror listed.",
+      "question_id": "real:e488d7bd90121039f6e1"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:a480d5337046ef9d8b49e1df"
+      ],
+      "gold_document_path": [
+        "mw:954:10480768:38d284eac5b2",
+        "mw:512:10132341:10e538b66364",
+        "mw:101:10819968:24fdeb9db0f4"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Zoology through a related article and identify the next topic characterized by bacteriophage inflorescence compositae esculenta.",
+      "question_id": "real:c88fbaf2286f2fa5fd70"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:08a6898f984121e811f55bd9"
+      ],
+      "gold_document_path": [
+        "mw:641:10486966:c51af938eb8d"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Political problems of China, which section discusses mainland websites blocked banned?",
+      "question_id": "real:e64792292b6413995de1"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:cdc015d759fe88683e4d46c9"
+      ],
+      "gold_document_path": [
+        "mw:3686:10861998:2551a4a4dfb2",
+        "mw:2018:8739772:e99c7647ea1f"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Book, identify the linked topic whose article discusses encyclopedia redirect shell.",
+      "question_id": "real:851a8f422efc0b2c46f5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:7479889a7a96f5b4068bc0b3"
+      ],
+      "gold_document_path": [
+        "mw:33:10617008:9b320d0dec86",
+        "mw:845:10795127:76f349fd1879",
+        "mw:226:10875370:4bb1e778c0dc"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Angel through a related article and identify the next topic characterized by behavior ethics study.",
+      "question_id": "real:3645ed873c69b0278e0d"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:74856768eda7a5aa858f1566"
+      ],
+      "gold_document_path": [
+        "mw:2124:10897901:8f54669a6cf9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Romania, which section discusses romanian-parliament-committee-sets-retirement-age-at-60-for-women-64-for-men romania-insider 20150924092323 url-status?",
+      "question_id": "real:167af9d1aaebae008a0b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a9598e7a2247d436e67273a3"
+      ],
+      "gold_document_path": [
+        "mw:6:10779802:0cc8d9005fed",
+        "mw:472:10887830:e1fa128c61ed"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Art, identify the linked topic whose article discusses 19th-century guitarist orchestra stockholm.",
+      "question_id": "real:9971ebddb235ab2855cd"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:ab28617825607bbade5a85b0"
+      ],
+      "gold_document_path": [
+        "mw:700:10900826:eb53f34e6a51",
+        "mw:472:10887830:e1fa128c61ed",
+        "mw:6:10779802:0cc8d9005fed"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Science through a related article and identify the next topic characterized by 300x300px activity creative painting.",
+      "question_id": "real:59757430ffe0de2d2607"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:6e87ead6adaa7c81f307c531"
+      ],
+      "gold_document_path": [
+        "mw:408:10819009:9311748be448"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Jupiter, which section discusses 20080219045637 url-status 1981jgr archive?",
+      "question_id": "real:bdab99dfeaef2444d0f6"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:fae6a53e59bc0d5e6d6bd1f9"
+      ],
+      "gold_document_path": [
+        "mw:3521:9097426:bd431b428110",
+        "mw:508:10644075:5c0c1a607198"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Plate, identify the linked topic whose article discusses something's something changing movement.",
+      "question_id": "real:fbdd71007525a73a0ef0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:968a34d699dd1c75177318f1"
+      ],
+      "gold_document_path": [
+        "mw:577:10872071:9addc03743f1",
+        "mw:176:10448218:07fc515f8a83",
+        "mw:3366:38621:d83ee77608ed"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Orthography through a related article and identify the next topic characterized by redirect british english.",
+      "question_id": "real:e7b6986df7e862b18495"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:f5cb3b82800ca47684f99815"
+      ],
+      "gold_document_path": [
+        "mw:3581:10830953:9d8aeac6c7a9"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Schizophrenia, which section discusses schizophrenia 2006-03-30 depression emedicine?",
+      "question_id": "real:16fcfc1645df2b644f17"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:e10d4fb9285db2869708ef5d"
+      ],
+      "gold_document_path": [
+        "mw:2878:10616979:33f107d7d7a0",
+        "mw:142:10897154:0122115808e8"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Cologne, identify the linked topic whose article discusses ethiopia church thumb.",
+      "question_id": "real:9c9e1441489e8ac641c5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:78bf1dbd8d335ce8418d381d"
+      ],
+      "gold_document_path": [
+        "mw:2012:10436294:017af3d921a8",
+        "mw:911:10795455:ee6696951076",
+        "mw:3681:10852388:f27c88c79db4"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Tone language through a related article and identify the next topic characterized by surviving document surgical papyrus.",
+      "question_id": "real:02a0220e350840c25fde"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e0517b2d94471e006b6fe0e3"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Chemistry, which section discusses chemistry improved science setting?",
+      "question_id": "real:6e9d3401652f40301855"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:35cc9dbd3804f9cf9cd59be7"
+      ],
+      "gold_document_path": [
+        "mw:884:10899429:4483c37bb28c",
+        "mw:299:10903016:871efa0c6afc"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from University, identify the linked topic whose article discusses situations different sentences grammar.",
+      "question_id": "real:1b15efa553f0874c0176"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4465fd866a9544ce9fc4c43b"
+      ],
+      "gold_document_path": [
+        "mw:2953:10169623:abce90501cbf",
+        "mw:3464:10901724:83a90e8cdd38",
+        "mw:3467:10856041:32532620dade"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from 1980s through a related article and identify the next topic characterized by conventional_long_name common_name native_name image_coat.",
+      "question_id": "real:bda8f12a172368d12978"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:db31c64d00a62dcdc59f9df6"
+      ],
+      "gold_document_path": [
+        "mw:45:10875451:877fdd4a30ea"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Algebra, which section discusses multiplication associative multiplying property?",
+      "question_id": "real:d14e7870e37372b1f17e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a480d5337046ef9d8b49e1df"
+      ],
+      "gold_document_path": [
+        "mw:243:10901097:3cd3109ffe6c",
+        "mw:101:10819968:24fdeb9db0f4"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Ecology, identify the linked topic whose article discusses bacteriophage inflorescence compositae esculenta.",
+      "question_id": "real:7f28a3bce0ceb5dcbce5"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:122201d1a6fbcac89a646e87"
+      ],
+      "gold_document_path": [
+        "mw:3048:10892795:65333cc464b6",
+        "mw:871:10645587:95a6a0266262",
+        "mw:856:10892791:a5167263f997"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Wales through a related article and identify the next topic characterized by conventional_long_name linking_name common_name northern.",
+      "question_id": "real:fc4cf895b3821c0728cf"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:bd812c6049a3339c6122f7a7"
+      ],
+      "gold_document_path": [
+        "mw:3106:10907405:dde479f5fe86"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Sunderland A.F.C., which section discusses 1912-13 1913-14 bgcolor charlie?",
+      "question_id": "real:f65505e6614fdec80ea9"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:4b061ed3b7204403c5f61612"
+      ],
+      "gold_document_path": [
+        "mw:744:10443290:eeb0b009c82e",
+        "mw:199:10824187:f2e0d953ffeb"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from String theory, identify the linked topic whose article discusses tesseract geometry square 385px.",
+      "question_id": "real:11c80882bc195098bf19"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:c3ca1200ed81963cbd2a6161"
+      ],
+      "gold_document_path": [
+        "mw:400:10861252:96ed861a4159",
+        "mw:1718:8636026:bd1bea93ab51",
+        "mw:1718:8636026:bd1bea93ab51"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from January through a related article and identify the next topic characterized by redirect taiwan.",
+      "question_id": "real:db0cb0742023b55160de"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:e58e136d154a4d3a9c907b05"
+      ],
+      "gold_document_path": [
+        "mw:3072:10871438:8de12f9a488b"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Fulham F.C., which section discusses division second third?",
+      "question_id": "real:f6347229f0792285634f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:5597e3cae76eae293648a4d9"
+      ],
+      "gold_document_path": [
+        "mw:2878:10616979:33f107d7d7a0",
+        "mw:664:10901072:e92692060286"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Cologne, identify the linked topic whose article discusses conventional_long_name common_name item3_style line-height.",
+      "question_id": "real:27e6286a917fae5f3ce6"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:7eb08fe6a0188b019c391a88"
+      ],
+      "gold_document_path": [
+        "mw:136:10834303:0b7e39cfa5f5",
+        "mw:513:10898963:362366045b1a",
+        "mw:895:10870822:4c8bf0ce422d"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Cosmology through a related article and identify the next topic characterized by loudness physical meaning object.",
+      "question_id": "real:49727bc678c449eac244"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:41b1ee3baf421495f5630c82"
+      ],
+      "gold_document_path": [
+        "mw:108:10858616:2015617551d8"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Chemistry, which section discusses scientists important chemists european?",
+      "question_id": "real:c11c5f6f5a322fb72473"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:51f161240654996aa81a52b4"
+      ],
+      "gold_document_path": [
+        "mw:3600:10886230:525ec2b0eeff",
+        "mw:2965:10894532:bce2ea6c8f02"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Soviet Union, identify the linked topic whose article discusses image_caption image_skyline cathedral clockwise.",
+      "question_id": "real:555b9b245c28ead852b0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:5544451cf0a3e844e5d69157"
+      ],
+      "gold_document_path": [
+        "mw:2028:10750455:866b7e211411",
+        "mw:1977:10789761:501474d3efda",
+        "mw:117:10697958:e15c26a2febf"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from North Pole through a related article and identify the next topic characterized by models-australia continental continent animated.",
+      "question_id": "real:4d5f4e7b53a5a7539880"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:6dbe91838c9ff398d331c163"
+      ],
+      "gold_document_path": [
+        "mw:3049:10900801:3fceed7d5408"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Scotland, which section discusses clydesdale currently sponsored division?",
+      "question_id": "real:f8547fcbcdb65418191a"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1afcb5de782918c2f31c8bc6"
+      ],
+      "gold_document_path": [
+        "mw:845:10795127:76f349fd1879",
+        "mw:653:10657566:c47aba51ab33"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Ten Commandments, identify the linked topic whose article discusses social-cultural supernatural worldviews including.",
+      "question_id": "real:41804ba2501b342b9292"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:dc02b2ca3a3afed96d2a9ef0"
+      ],
+      "gold_document_path": [
+        "mw:2132:10861805:81e79e0f930e",
+        "mw:3422:10243901:91df9f634d48",
+        "mw:103:10870191:e3a751202072"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from European Union through a related article and identify the next topic characterized by conventional_long_name common_name native_name item_style.",
+      "question_id": "real:3fb8fd91223bae7d68c0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:afcad619deb562cc676ea8eb"
+      ],
+      "gold_document_path": [
+        "mw:3266:10843960:ba496edf8c42"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Second, which section discusses multiples commonly prefixes shorter?",
+      "question_id": "real:a34e8887324037a04c59"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a6436371d0811a78624e6b1b"
+      ],
+      "gold_document_path": [
+        "mw:219:10878877:7eab8f298bef",
+        "mw:2106:10357116:df3d1ccae6c6"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Earth, identify the linked topic whose article discusses redirect human.",
+      "question_id": "real:42a03c5af878f9695a9b"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:3eeb486c8259ee28aa5f3067"
+      ],
+      "gold_document_path": [
+        "mw:1712:4733240:db62b88e8820",
+        "mw:1712:4733240:db62b88e8820",
+        "mw:1712:4733240:db62b88e8820"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Metric System through a related article and identify the next topic characterized by redirect metric system.",
+      "question_id": "real:5862416bda3f8460b7b7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:520b5b2bc9b3f3924aac7f53"
+      ],
+      "gold_document_path": [
+        "mw:2960:10859668:15ba63397f27"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about 2000s (decade), which section discusses underground chancellor earthquake hurricane?",
+      "question_id": "real:7e36f3704de8f39695b2"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:cd079a04c83daf7f8d44173e"
+      ],
+      "gold_document_path": [
+        "mw:2103:38024:c330208cfda4",
+        "mw:1615:37706:72d4f6fce27f"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from IMHO, identify the linked topic whose article discusses internet_slang redirect.",
+      "question_id": "real:ebef5b2b7accfa9b47b1"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:b4bea8388d55c33c66b5ae3c"
+      ],
+      "gold_document_path": [
+        "mw:2901:10897276:769352c8939d",
+        "mw:315:10769483:e5a980b2e8a1",
+        "mw:294:9944648:e80caa2671db"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Gravity through a related article and identify the next topic characterized by malaysia animals melaka crops.",
+      "question_id": "real:78bc969c2f75a94d5e2f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:c09d9a0168073eb5db52eb45"
+      ],
+      "gold_document_path": [
+        "mw:400:10861252:96ed861a4159"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about January, which section discusses constitution revolution ancestry scotland?",
+      "question_id": "real:7525904b803cd3f69fb0"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:1ffd8403c48c5e50ef30148b"
+      ],
+      "gold_document_path": [
+        "mw:803:10835987:b45f33caa109",
+        "mw:257:10807684:63400c37ffb7"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Slavery, identify the linked topic whose article discusses authorities especially punishment committed.",
+      "question_id": "real:78a0391e0045a6c5aeb7"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:4ccd573b76bceda843029e8a"
+      ],
+      "gold_document_path": [
+        "mw:3607:10788191:596e42f3611a",
+        "mw:120:10892882:caada1658e5c",
+        "mw:688:36949:6f5acacf5d10"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Uncle through a related article and identify the next topic characterized by redirect society.",
+      "question_id": "real:925549897df5bdd3c988"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:b401e1495c6957fe195684c5"
+      ],
+      "gold_document_path": [
+        "mw:535:10824751:b603d270d077"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Ni\u02bbihau, which section discusses classified beaches island shells?",
+      "question_id": "real:125cbf9976b4e9980845"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:e32b01565f2c90a287216ed4"
+      ],
+      "gold_document_path": [
+        "mw:803:10835987:b45f33caa109",
+        "mw:1942:10823118:2a8fdac996e6"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Slavery, identify the linked topic whose article discusses orthographic projection continent infobox.",
+      "question_id": "real:591368cd066d085d845f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:5a93689792381cfa8b9513c8"
+      ],
+      "gold_document_path": [
+        "mw:135:10512876:6a127d7dbedb",
+        "mw:285:10905618:b4fc4ee81b7f",
+        "mw:636:10878431:f0d879c510bc"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Catharism through a related article and identify the next topic characterized by myoglobin turquoise diagram helices.",
+      "question_id": "real:64e946c7734daff65863"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:a828fba0f07b2843217885a7"
+      ],
+      "gold_document_path": [
+        "mw:3106:10907405:dde479f5fe86"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about Sunderland A.F.C., which section discusses finishing penalties athletic charlton?",
+      "question_id": "real:8b63bbd7356af8dabf08"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:b7197dce3dc3aa1c735c41af"
+      ],
+      "gold_document_path": [
+        "mw:3285:10872099:17cd96c11db3",
+        "mw:2081:10804440:8a842c9031fd"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Wave (physics), identify the linked topic whose article discusses california earthquake francisco sometime.",
+      "question_id": "real:63b11c92001acc98b3fe"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:501e218a2f5114d51f041a53"
+      ],
+      "gold_document_path": [
+        "mw:636:10878431:f0d879c510bc",
+        "mw:520:10589030:8b02bf82e9f7",
+        "mw:2061:10782331:65e81a5c3250"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Protein through a related article and identify the next topic characterized by chemical nitrogen nonmetal element.",
+      "question_id": "real:5dd70a808d2ba47a3432"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:bf22a1052861eec8067027b3"
+      ],
+      "gold_document_path": [
+        "mw:391:10898732:059b55f295ad"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about India, which section discusses traditionally developments subcontinent mathematics?",
+      "question_id": "real:9ec2b9247db4c6e0ca76"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:a0086910a67a03de3fb17791"
+      ],
+      "gold_document_path": [
+        "mw:479:10770702:f5e44f480458",
+        "mw:162:10239574:42c5d9774740"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Money, identify the linked topic whose article discusses currency century french metal.",
+      "question_id": "real:209d202e7049e33f504f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:e32b01565f2c90a287216ed4"
+      ],
+      "gold_document_path": [
+        "mw:939:10901009:720c8db4b4be",
+        "mw:219:10878877:7eab8f298bef",
+        "mw:1942:10823118:2a8fdac996e6"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Water through a related article and identify the next topic characterized by orthographic projection continent infobox.",
+      "question_id": "real:c64c60a1701269bbf721"
+    },
+    {
+      "author_seed": 91827,
+      "category": "cross_section",
+      "gold_chunk_ids": [
+        "chunk:ea965c67b447525a7bc8215f"
+      ],
+      "gold_document_path": [
+        "mw:684:10861265:94df4f9b46fe"
+      ],
+      "method": "graph_strategy_1",
+      "query": "In the article about September, which section discusses oktoberfest paralympics september sometimes?",
+      "question_id": "real:fb1f6b69e18d3ce8482e"
+    },
+    {
+      "author_seed": 91827,
+      "category": "two_article",
+      "gold_chunk_ids": [
+        "chunk:01d8f79af82c9c3d906869af"
+      ],
+      "gold_document_path": [
+        "mw:3544:10686738:35a891625025",
+        "mw:3486:10724136:987106e97701"
+      ],
+      "method": "graph_strategy_2",
+      "query": "Starting from Advertising, identify the linked topic whose article discusses influential greatest horror listed.",
+      "question_id": "real:ce4de0f9deacd589287f"
+    },
+    {
+      "author_seed": 91827,
+      "category": "three_article",
+      "gold_chunk_ids": [
+        "chunk:c3ca1200ed81963cbd2a6161"
+      ],
+      "gold_document_path": [
+        "mw:1961:10409313:e961e8508e4f",
+        "mw:1718:8636026:bd1bea93ab51",
+        "mw:1718:8636026:bd1bea93ab51"
+      ],
+      "method": "graph_strategy_3",
+      "query": "Traverse from Mainland China through a related article and identify the next topic characterized by redirect taiwan.",
+      "question_id": "real:76360d58ca1724c42b81"
+    }
+  ],
+  "schema_version": "1.0",
+  "seed": 91827
+}

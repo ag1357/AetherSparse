@@ -80,7 +80,27 @@ the canonical registry and may only act as hints.
 ```bash
 uv run aethersparse cells build --kind hybrid
 uv run aethersparse cells qualify
+uv run aethersparse cells smoke --check
 ```
 
 The topology gate remains pending until those commands are rerun over the frozen
 1k, 10k, and 50k corpus packs. Tiny-corpus tests validate contracts only.
+
+## Clean-install CI gate
+
+The repository CI installs exclusively from `uv.lock`, runs the focused
+cognitive-cell contracts and complete regression suite on Python 3.11 and 3.12,
+then runs lint, strict typing, and a byte-for-byte deterministic smoke check:
+
+```bash
+uv sync --frozen --extra dev
+uv run pytest -q tests/cells
+uv run pytest -q
+uv run ruff check src tests
+uv run mypy src
+uv run aethersparse cells smoke --check
+```
+
+`reports/COGNITIVE_CELL_SMOKE.json` is only a tiny deterministic contract oracle.
+It cannot qualify the real-corpus topology. All cognition and knowledge remain in
+the external accessory service; the Waveshare P4/C6 remains an API terminal.

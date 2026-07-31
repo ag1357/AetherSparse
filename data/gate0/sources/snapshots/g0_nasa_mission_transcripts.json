@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:7492c925a70d38bf68da02ee111dea51e43c859b8501b393c6a3e2eafcfc7548",
+  "normalized_text": "The Mission Transcript Collection includes scanned transcripts from recorded air-to-ground transmissions and onboard astronaut recordings. The collection contains 80 transcripts and approximately 45,000 pages of text. Most Apollo missions produced several transcript types, including onboard and air-to-ground technical transcripts.",
+  "raw_byte_length": 332,
+  "raw_char_length": 332,
+  "raw_content_hash": "sha256:7492c925a70d38bf68da02ee111dea51e43c859b8501b393c6a3e2eafcfc7548",
+  "raw_text": "The Mission Transcript Collection includes scanned transcripts from recorded air-to-ground transmissions and onboard astronaut recordings. The collection contains 80 transcripts and approximately 45,000 pages of text. Most Apollo missions produced several transcript types, including onboard and air-to-ground technical transcripts.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_mission_transcripts",
+  "source_group": "nasa_mission_transcript_collection",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/mission-transcripts-mercury-gemini-and-apollo/",
+  "title": "Mission Transcripts: Mercury, Gemini, and Apollo"
+}

@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:ee376e7c92a8f5a629114e1ab18f78bf963ca490b132f534ed50161010c4a12e",
+  "normalized_text": "On May 7, 1970, NASA announced that Apollo 14 would launch no earlier than December 3. Apollo 14 would target the Fra Mauro highlands. The prime crew included Commander Alan Shepard, Command Module Pilot Stuart Roosa, and Lunar Module Pilot Edgar Mitchell. The Apollo 15 crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin.",
+  "raw_byte_length": 379,
+  "raw_char_length": 379,
+  "raw_content_hash": "sha256:ee376e7c92a8f5a629114e1ab18f78bf963ca490b132f534ed50161010c4a12e",
+  "raw_text": "On May 7, 1970, NASA announced that Apollo 14 would launch no earlier than December 3. Apollo 14 would target the Fra Mauro highlands. The prime crew included Commander Alan Shepard, Command Module Pilot Stuart Roosa, and Lunar Module Pilot Edgar Mitchell. The Apollo 15 crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo14_15_preparations",
+  "source_group": "nasa_apollo14_15_preparations",
+  "source_revision": "published_2020-05-08_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-14-and-15-preparations-2/",
+  "title": "Apollo 14 and 15 Preparations"
+}

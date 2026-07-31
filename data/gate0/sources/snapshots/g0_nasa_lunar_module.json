@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:1458400206e20776a0d65308eaa5e9e31921b1e7f7321b76569137629bca835f",
+  "normalized_text": "The Lunar Module was built by the Grumman Corporation in Bethpage, New York. It was the vehicle that would take two astronauts to the lunar surface and return them to the waiting Command Module in lunar orbit. Grumman delivered the first flight unit, LM-1, to Kennedy Space Center in June 1967. Apollo 5 launched on January 22, 1968, for an eleven-hour mission.",
+  "raw_byte_length": 361,
+  "raw_char_length": 361,
+  "raw_content_hash": "sha256:1458400206e20776a0d65308eaa5e9e31921b1e7f7321b76569137629bca835f",
+  "raw_text": "The Lunar Module was built by the Grumman Corporation in Bethpage, New York. It was the vehicle that would take two astronauts to the lunar surface and return them to the waiting Command Module in lunar orbit. Grumman delivered the first flight unit, LM-1, to Kennedy Space Center in June 1967. Apollo 5 launched on January 22, 1968, for an eleven-hour mission.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_lunar_module",
+  "source_group": "nasa_lunar_module",
+  "source_revision": "published_2018-01-22_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-the-apollo-lunar-module/",
+  "title": "The Apollo Lunar Module"
+}

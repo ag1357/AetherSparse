@@ -1,0 +1,112 @@
+{
+  "baseline_preserved": "REAL_CORPUS_ARCHITECTURE_FAILED",
+  "classification": "COGNITIVE_CELL_TOPOLOGY_QUALIFICATION",
+  "decision": "NOT_QUALIFIED_WITHOUT_FROZEN_REAL_CORPUS_RUN",
+  "fixture": "tiny_mediawiki_v1",
+  "hybrid_pack_blocks": 2,
+  "hybrid_pack_root": "sha256:275fa24c544d8ed78678446168bc0ae8e904eec932e8d02e3ce774f9e8b45364",
+  "scope": "CONTRACT_SMOKE_ONLY_NOT_REAL_CORPUS_EVIDENCE",
+  "terminal_role": "EXTERNAL_API_CLIENT_ONLY",
+  "topologies": {
+    "category": {
+      "average_cell_size": 1.0,
+      "cell_count": 2,
+      "maximum_cell_size": 1,
+      "overlap_factor": 1.0,
+      "total_declared_source_bytes": 151,
+      "with_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 1,
+        "mean_declared_cell_bytes_at_8": 75.5,
+        "mean_routed_cell_candidates": 1.0,
+        "question_count": 2
+      },
+      "without_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 1,
+        "mean_declared_cell_bytes_at_8": 75.5,
+        "mean_routed_cell_candidates": 1.0,
+        "question_count": 2
+      }
+    },
+    "entity_community": {
+      "average_cell_size": 2.0,
+      "cell_count": 2,
+      "maximum_cell_size": 2,
+      "overlap_factor": 2.0,
+      "total_declared_source_bytes": 302,
+      "with_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 2,
+        "mean_declared_cell_bytes_at_8": 302.0,
+        "mean_routed_cell_candidates": 2.0,
+        "question_count": 2
+      },
+      "without_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 2,
+        "mean_declared_cell_bytes_at_8": 302.0,
+        "mean_routed_cell_candidates": 2.0,
+        "question_count": 2
+      }
+    },
+    "hybrid": {
+      "average_cell_size": 2.0,
+      "cell_count": 2,
+      "maximum_cell_size": 2,
+      "overlap_factor": 2.0,
+      "total_declared_source_bytes": 302,
+      "with_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 2,
+        "mean_declared_cell_bytes_at_8": 302.0,
+        "mean_routed_cell_candidates": 2.0,
+        "question_count": 2
+      },
+      "without_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 2,
+        "mean_declared_cell_bytes_at_8": 302.0,
+        "mean_routed_cell_candidates": 2.0,
+        "question_count": 2
+      }
+    },
+    "semantic_bucket": {
+      "average_cell_size": 1.0,
+      "cell_count": 2,
+      "maximum_cell_size": 1,
+      "overlap_factor": 1.0,
+      "total_declared_source_bytes": 151,
+      "with_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 1,
+        "mean_declared_cell_bytes_at_8": 75.5,
+        "mean_routed_cell_candidates": 1.0,
+        "question_count": 2
+      },
+      "without_vsa": {
+        "cell_recall_at_1": 1.0,
+        "cell_recall_at_4": 1.0,
+        "cell_recall_at_8": 1.0,
+        "maximum_routed_cell_candidates": 1,
+        "mean_declared_cell_bytes_at_8": 75.5,
+        "mean_routed_cell_candidates": 1.0,
+        "question_count": 2
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:afae506e7b1538d6350e036650ec70918135b2f6dc98a4d69f27a16637f1f910",
+  "normalized_text": "On July 16, 1969, Apollo 11 astronauts Neil Armstrong, Buzz Aldrin and Michael Collins sat atop a Saturn V at Launch Complex 39A. The three-stage 363-foot rocket used 7.5 million pounds of thrust to propel them into space.",
+  "raw_byte_length": 222,
+  "raw_char_length": 222,
+  "raw_content_hash": "sha256:afae506e7b1538d6350e036650ec70918135b2f6dc98a4d69f27a16637f1f910",
+  "raw_text": "On July 16, 1969, Apollo 11 astronauts Neil Armstrong, Buzz Aldrin and Michael Collins sat atop a Saturn V at Launch Complex 39A. The three-stage 363-foot rocket used 7.5 million pounds of thrust to propel them into space.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_one_giant_leap",
+  "source_group": "nasa_apollo11_giant_leap",
+  "source_revision": "published_2009-07-17_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/july-20-1969-one-giant-leap-for-mankind/",
+  "title": "July 20, 1969: One Giant Leap For Mankind"
+}

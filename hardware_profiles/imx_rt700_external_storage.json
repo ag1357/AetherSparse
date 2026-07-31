@@ -1,0 +1,11 @@
+{
+  "profile_id": "imx_rt700_external_storage",
+  "reasoning_backend": true,
+  "estimated": true,
+  "integer_mops": 400.0,
+  "sequential_read_mb_s": 35.0,
+  "fixed_request_overhead_ms": 0.9,
+  "active_power_w": 1.0,
+  "notes": "Provisional MCU/DSP and external-storage coefficient model."
+}
+

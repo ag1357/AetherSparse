@@ -1,0 +1,1358 @@
+{
+  "cases": [
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q001",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_overview"
+      ],
+      "expected_contains": [
+        "July 16, 1969"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "When did Apollo 11 launch?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q002",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_overview"
+      ],
+      "expected_contains": [
+        "July 20, 1969"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "On what day did Apollo 11 touch down on the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "landed_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q003",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_overview"
+      ],
+      "expected_contains": [
+        "Armstrong",
+        "Collins",
+        "Aldrin"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Name the three Apollo 11 astronauts.",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "had_crew"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q004",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_card"
+      ],
+      "expected_contains": [
+        "Eagle"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Which lunar module carried the Apollo 11 landing crew?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "used_vehicle"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q005",
+      "categories": [
+        "quotation",
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_card"
+      ],
+      "expected_contains": [
+        "Neil Armstrong",
+        "one small step"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Who spoke the words about one small step?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "neil_armstrong",
+        "intent": "QUOTE_WHO_SAID",
+        "relation_id": "said"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q006",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_recovery"
+      ],
+      "expected_contains": [
+        "July 24, 1969"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "When did Apollo 11 splash down?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "returned_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q007",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_saturn_v"
+      ],
+      "expected_contains": [
+        "Saturn V"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What launch vehicle sent Apollo 11 toward the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "used_vehicle"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q008",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_lunar_module"
+      ],
+      "expected_contains": [
+        "lunar surface"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What was the lunar module designed to do?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "lunar_module",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "purpose"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q009",
+      "categories": [
+        "negation"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo4"
+      ],
+      "expected_contains": [
+        "uncrewed"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "crewed mission"
+      ],
+      "hard_subset": true,
+      "question": "Was Apollo 4 crewed?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_4",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "crew_status"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q010",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo5"
+      ],
+      "expected_contains": [
+        "lunar module"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What did Apollo 5 test in Earth orbit?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_5",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "tested"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q011",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo12"
+      ],
+      "expected_contains": [
+        "Surveyor III"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Which earlier spacecraft did Apollo 12 visit?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_12",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "visited"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q012",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo12"
+      ],
+      "expected_contains": [
+        "lightning"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What happened during Apollo 12's launch?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_12",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "launch_event"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q013",
+      "categories": [
+        "incorrect_premise",
+        "negation"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo13_review"
+      ],
+      "expected_contains": [
+        "did not"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "landed on the Moon"
+      ],
+      "hard_subset": true,
+      "question": "Did Apollo 13 land on the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_13",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "landed_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q014",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo13_review"
+      ],
+      "expected_contains": [
+        "oxygen tank"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What forced Apollo 13 to abandon its landing?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_13",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "aborted_because"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q015",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo13_return"
+      ],
+      "expected_contains": [
+        "safely"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Did the Apollo 13 crew return safely?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_13",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "crew_return"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q016",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo14_landing"
+      ],
+      "expected_contains": [
+        "Fra Mauro"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Where did Apollo 14 land?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_14",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "landed_at"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q017",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo15_moon"
+      ],
+      "expected_contains": [
+        "Apollo 15"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Which mission carried the first lunar roving vehicle?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "lunar_roving_vehicle",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "first_used_by"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q018",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo15_launch"
+      ],
+      "expected_contains": [
+        "July 26, 1971"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "When did Apollo 15 lift off?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_15",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q019",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo16_moon"
+      ],
+      "expected_contains": [
+        "Descartes"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Where did Apollo 16 land?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_16",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "landed_at"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q020",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo16_launch"
+      ],
+      "expected_contains": [
+        "April 16, 1972"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "When was Apollo 16 launched?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_16",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q021",
+      "categories": [
+        "paraphrase"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo17_launch"
+      ],
+      "expected_contains": [
+        "Apollo 17"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Which Apollo mission was the final lunar landing mission?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_program",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "final_lunar_mission"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q022",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo17_launch"
+      ],
+      "expected_contains": [
+        "December 7, 1972"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What date did Apollo 17 launch?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_17",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q023",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo1_fire"
+      ],
+      "expected_contains": [
+        "fire"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What happened to the Apollo 1 crew?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_1",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "crew_event"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q024",
+      "categories": [
+        "negation"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo1_fire"
+      ],
+      "expected_contains": [
+        "ground"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "in flight"
+      ],
+      "hard_subset": true,
+      "question": "Was the Apollo 1 accident in flight?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_1",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "accident_context"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q025",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_armstrong_llrv"
+      ],
+      "expected_contains": [
+        "Lunar Landing Research Vehicle"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "What vehicle did Armstrong eject from during training?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "neil_armstrong",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "ejected_from"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q026",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_recovery"
+      ],
+      "expected_contains": [
+        "helicopter"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "How was the Apollo 11 crew recovered after splashdown?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "recovered_by"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q027",
+      "categories": [
+        "missing_evidence"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "evidence"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What science instruments did Apollo 11 leave on the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "left_instruments"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q028",
+      "categories": [
+        "quantity"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_science"
+      ],
+      "expected_contains": [
+        "47.5"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "How many pounds of lunar samples did Apollo 11 collect?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "sample_mass"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q029",
+      "categories": [
+        "fact"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_human_spaceflight_record"
+      ],
+      "expected_contains": [
+        "United States"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "Which nation first landed humans on the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "united_states",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "first_human_lunar_landing"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q030",
+      "categories": [
+        "quantity"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo_program"
+      ],
+      "expected_contains": [
+        "12"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": false,
+      "question": "How many people walked on the Moon during Apollo?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_program",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "moonwalker_count"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q031",
+      "categories": [
+        "incorrect_premise",
+        "negation"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_overview"
+      ],
+      "expected_contains": [
+        "lunar orbit"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "walked on the Moon"
+      ],
+      "hard_subset": true,
+      "question": "Did Michael Collins walk on the lunar surface?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "michael_collins",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "role"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q032",
+      "categories": [
+        "entity_substitution",
+        "incorrect_premise"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Apollo 13"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [
+        "Apollo 11 used Eagle"
+      ],
+      "hard_subset": true,
+      "question": "Was Eagle the Apollo 13 lunar module?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_13",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "used_vehicle"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q033",
+      "categories": [
+        "entity_substitution",
+        "unknown_span"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Apollo 18"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "When did Apollo 18 land on the Moon?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_18",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "landed_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q034",
+      "categories": [
+        "entity_substitution",
+        "incorrect_premise"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Surveyor II"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [
+        "Surveyor III"
+      ],
+      "hard_subset": true,
+      "question": "Did Apollo 12 visit Surveyor II?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_12",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "visited"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q035",
+      "categories": [
+        "incorrect_premise",
+        "temporal"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo15_launch"
+      ],
+      "expected_contains": [
+        "1971"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "1972"
+      ],
+      "hard_subset": true,
+      "question": "Was Apollo 15 launched in 1972?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_15",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q036",
+      "categories": [
+        "entity_substitution",
+        "incorrect_premise"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo16_moon"
+      ],
+      "expected_contains": [
+        "Descartes"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [
+        "Fra Mauro"
+      ],
+      "hard_subset": true,
+      "question": "Did Apollo 16 land at Fra Mauro?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_16",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "landed_at"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q037",
+      "categories": [
+        "entity_substitution",
+        "unknown_span"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Apollo 19"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Who commanded Apollo 19?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_19",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "had_commander"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q038",
+      "categories": [
+        "unknown_span"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "RV1106"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Did Apollo 11 use an RV1106 processor?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "used_processor"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q039",
+      "categories": [
+        "unknown_span"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Zephyr"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What did the Zephyr valve do on Apollo 14?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "zephyr_valve",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "purpose"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q040",
+      "categories": [
+        "unknown_span"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Tranquility Engine 9"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Where is Tranquility Engine 9 documented?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "tranquility_engine_9",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "documented_at"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q041",
+      "categories": [
+        "out_of_domain"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Outside"
+      ],
+      "expected_disposition": "out_of_domain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Who won the 1972 World Series?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": null,
+        "intent": "UNKNOWN",
+        "relation_id": null
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q042",
+      "categories": [
+        "out_of_domain"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Outside"
+      ],
+      "expected_disposition": "out_of_domain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What is the capital of Mongolia?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": null,
+        "intent": "UNKNOWN",
+        "relation_id": null
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q043",
+      "categories": [
+        "out_of_domain"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Outside"
+      ],
+      "expected_disposition": "out_of_domain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "How do I bake sourdough bread?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": null,
+        "intent": "UNKNOWN",
+        "relation_id": null
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q044",
+      "categories": [
+        "out_of_domain"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Outside"
+      ],
+      "expected_disposition": "out_of_domain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What was yesterday's weather in Denver?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": null,
+        "intent": "UNKNOWN",
+        "relation_id": null
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q045",
+      "categories": [
+        "out_of_domain"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "Outside"
+      ],
+      "expected_disposition": "out_of_domain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Which stock gained the most today?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": null,
+        "intent": "UNKNOWN",
+        "relation_id": null
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q046",
+      "categories": [
+        "missing_evidence"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "ontology"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What fuel ratio did the Apollo 11 engine use?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "fuel_ratio"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q047",
+      "categories": [
+        "missing_evidence",
+        "quantity"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [],
+      "expected_contains": [
+        "evidence"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "What was Apollo 14's exact cabin pressure at landing?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_14",
+        "intent": "FACT_LOOKUP",
+        "relation_id": "cabin_pressure"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q048",
+      "categories": [
+        "duplicated_source_evidence"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_mission_overview",
+        "g0_nasa_apollo11_mission_card"
+      ],
+      "expected_contains": [
+        "July 20, 1969"
+      ],
+      "expected_disposition": "answer",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Two NASA pages repeat Apollo 11's landing date; when was it?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "landed_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q049",
+      "categories": [
+        "conflicting_source"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo11_recovery"
+      ],
+      "expected_contains": [
+        "conflicting"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "If two source revisions disagree on Apollo 11's return date, which date is supported?",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_11",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "returned_on"
+      },
+      "reviewer_id": null
+    },
+    {
+      "author_identity": "gate0-query-author-manual-v1",
+      "authoring_process": "Manually authored challenge cases independent of the deterministic rule extractor; every case remains pending human review.",
+      "case_id": "q050",
+      "categories": [
+        "conflicting_source",
+        "temporal"
+      ],
+      "evidence_candidate_ids": [],
+      "evidence_source_ids": [
+        "g0_nasa_apollo16_launch"
+      ],
+      "expected_contains": [
+        "conflicting"
+      ],
+      "expected_disposition": "abstain",
+      "forbidden_contains": [],
+      "hard_subset": true,
+      "question": "Resolve the conflicting reported launch dates for Apollo 16.",
+      "review_entry_hash": null,
+      "review_status": "PENDING_HUMAN_REVIEW",
+      "reviewed_frame": {
+        "entity_id": "apollo_16",
+        "intent": "TEMPORAL_WHEN",
+        "relation_id": "launched_on"
+      },
+      "reviewer_id": null
+    }
+  ],
+  "independence_statement": "These cases were authored separately from the deterministic rule extractor. They are candidates, not a reviewed or opened sealed test.",
+  "query_set_id": "apollo_gate0_sealed_candidates_v1",
+  "schema_version": "1.0.0"
+}

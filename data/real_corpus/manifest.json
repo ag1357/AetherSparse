@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "source": {
+    "name": "Simple English Wikipedia pages-articles",
+    "snapshot": "2026-07",
+    "license": "CC-BY-SA-4.0",
+    "url": "https://dumps.wikimedia.org/simplewiki/latest/simplewiki-latest-pages-articles.xml.bz2",
+    "sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d"
+  },
+  "packs": {
+    "1k": {
+      "articles": 1163,
+      "chunks": 32808,
+      "bytes": 76546048,
+      "sha256": "3adebd4168e31fb9e1ceb72cf5cb07e2b4a9024648cab69792a86a5ca218f719"
+    },
+    "10k": {
+      "articles": 10527,
+      "chunks": 220378,
+      "bytes": 557326336,
+      "sha256": "7c0eafd970c6e69f2f9f6d5b2bbc55c2e9990cf48e08046fe76bbfebc89b159e"
+    },
+    "50k": {
+      "articles": 51040,
+      "chunks": 664403,
+      "bytes": 1591808000,
+      "sha256": "7ff42a493f72487c76127ac936f782d79621624631e8e7ca5fc3b71877704af8"
+    }
+  },
+  "questions": {
+    "held_out_count": 2000,
+    "held_out_sha256": "77565d8fa6416a11ed3e5079c173e6d14348836162782699543a3608d0ba440a",
+    "scaling_count": 300,
+    "scaling_sha256": "6aebb09c9272d9e046cff7e614de4edbc86147c1823a0bf5e32c38647c8d99e7"
+  },
+  "qualification_note": "Generated SQLite pack bytes are excluded from Git and reproduced from this manifest."
+}

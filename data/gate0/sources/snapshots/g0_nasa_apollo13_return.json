@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:8dc01764ce44ee638498eaa7cc175ef1aafb0ee8a00dabf2dde7c0fb9bc2687d",
+  "normalized_text": "Apollo 13 reached a top velocity of 24,689 miles per hour as it approached Earth. Two drogue parachutes deployed at an altitude of 24,000 feet. Three main parachutes opened at 10,000 feet. Splashdown occurred after a flight of 142 hours 54 minutes and 41 seconds. The splashdown point was about one mile from the predicted target and four miles from the USS Iwo Jima.",
+  "raw_byte_length": 367,
+  "raw_char_length": 367,
+  "raw_content_hash": "sha256:8dc01764ce44ee638498eaa7cc175ef1aafb0ee8a00dabf2dde7c0fb9bc2687d",
+  "raw_text": "Apollo 13 reached a top velocity of 24,689 miles per hour as it approached Earth. Two drogue parachutes deployed at an altitude of 24,000 feet. Three main parachutes opened at 10,000 feet. Splashdown occurred after a flight of 142 hours 54 minutes and 41 seconds. The splashdown point was about one mile from the predicted target and four miles from the USS Iwo Jima.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo13_return",
+  "source_group": "nasa_apollo13_return",
+  "source_revision": "published_2020-04-17_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/apollo-13-crew-returns-safely-to-earth/",
+  "title": "Apollo 13 Crew Returns Safely to Earth"
+}

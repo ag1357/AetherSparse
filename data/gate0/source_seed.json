@@ -1,0 +1,242 @@
+{
+  "manifest_id": "apollo_gate0_official_nasa_excerpts_v1",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "scope_warning": "Frozen official-page excerpts for infrastructure qualification. Full-document acquisition remains required before the approximately 500-packet Gate 0 corpus can be certified.",
+  "sources": [
+    {
+      "source_doc_id": "g0_nasa_apollo11_mission_overview",
+      "title": "Apollo 11 Mission Overview",
+      "source_url": "https://www.nasa.gov/history/apollo-11-mission-overview/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo11_mission_overview",
+      "raw_text": "Apollo 11 launched on July 16, 1969, carrying Neil Armstrong, Michael Collins and Edwin “Buzz” Aldrin for the first crewed lunar landing mission. The first color TV transmission to Earth from Apollo 11 occurred during the translunar coast of the CSM/LM. On July 18, Armstrong and Aldrin climbed through the docking tunnel from Columbia to Eagle to check out the Lunar Module."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo11_mission_card",
+      "title": "Apollo 11",
+      "source_url": "https://www.nasa.gov/mission/apollo-11/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo11_mission_card",
+      "raw_text": "The primary objective of Apollo 11 was to perform a crewed lunar landing and return to Earth. Apollo 11 launched on July 16, 1969. The mission splashed down on July 24, 1969. The astronauts were Neil Armstrong, Buzz Aldrin, and Michael Collins."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo_program",
+      "title": "The Apollo Program",
+      "source_url": "https://www.nasa.gov/the-apollo-program/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo_program",
+      "raw_text": "Apollo 4 was the first all-up test of the three-stage Saturn V rocket. Apollo 5 was the first test flight of the Lunar Module. Apollo 6 was the final qualification of the Saturn V launch vehicle and Apollo spacecraft for crewed missions. Apollo 7 lifted off on October 11, 1968, for a ten-day flight in Earth orbit. Frank Borman, James Lovell, and William Anders made the first crewed mission to the vicinity of the Moon on Apollo 8."
+    },
+    {
+      "source_doc_id": "g0_nasa_saturn_v",
+      "title": "What Was the Saturn V?",
+      "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/",
+      "source_revision": "published_2010-09-17_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_saturn_v_overview",
+      "raw_text": "The Saturn V was a rocket NASA built to send people to the moon. It was developed at NASA’s Marshall Space Flight Center in Huntsville, Alabama. The first Saturn V was launched in 1967 and was called Apollo 4. Apollo 6 followed in 1968. The first Saturn V launched with a crew was Apollo 8. Saturn V rockets made it possible for astronauts to land on the moon on Apollo 11, 12, 14, 15, 16, and 17. The Apollo mission Saturn V rockets had three stages."
+    },
+    {
+      "source_doc_id": "g0_nasa_one_giant_leap",
+      "title": "July 20, 1969: One Giant Leap For Mankind",
+      "source_url": "https://www.nasa.gov/history/july-20-1969-one-giant-leap-for-mankind/",
+      "source_revision": "published_2009-07-17_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo11_giant_leap",
+      "raw_text": "On July 16, 1969, Apollo 11 astronauts Neil Armstrong, Buzz Aldrin and Michael Collins sat atop a Saturn V at Launch Complex 39A. The three-stage 363-foot rocket used 7.5 million pounds of thrust to propel them into space."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo5",
+      "title": "Apollo 5",
+      "source_url": "https://www.nasa.gov/mission/apollo-5/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo5",
+      "raw_text": "The uncrewed Saturn/Apollo 5 was the first test flight of the Lunar Module. Its objectives were to verify the ascent and descent stages, propulsion systems, restart operations, spacecraft structure, and Lunar Module staging."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo4",
+      "title": "Apollo 4, the First Flight of the Saturn V",
+      "source_url": "https://www.nasa.gov/history/55-years-ago-apollo-4-the-first-flight-of-the-saturn-v/",
+      "source_revision": "published_2022-11-09_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo4",
+      "raw_text": "On November 9, 1967, NASA launched the first flight of the Saturn V Moon rocket. For Apollo 4, the 363-foot Saturn V had rolled out to Launch Pad 39A on August 26, 1967."
+    },
+    {
+      "source_doc_id": "g0_nasa_lunar_module",
+      "title": "The Apollo Lunar Module",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-the-apollo-lunar-module/",
+      "source_revision": "published_2018-01-22_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_lunar_module",
+      "raw_text": "The Lunar Module was built by the Grumman Corporation in Bethpage, New York. It was the vehicle that would take two astronauts to the lunar surface and return them to the waiting Command Module in lunar orbit. Grumman delivered the first flight unit, LM-1, to Kennedy Space Center in June 1967. Apollo 5 launched on January 22, 1968, for an eleven-hour mission."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo12",
+      "title": "Apollo 12 Makes a Pinpoint Landing",
+      "source_url": "https://www.nasa.gov/history/55-years-ago-apollo-12-makes-a-pinpoint-landing-on-the-moon/",
+      "source_revision": "published_2024-11-14_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo12",
+      "raw_text": "Apollo 12 completed a pinpoint landing on the Moon. The next mission, Apollo 13, was planned to visit the Fra Mauro highlands. The Apollo 13 prime crew included Commander James Lovell, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Fred Haise."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo13_review",
+      "title": "Apollo 13 Review Board Report",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-13-review-board-report/",
+      "source_revision": "published_2020-06-15_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo13_review",
+      "raw_text": "On April 13, 1970, an explosion rocked Apollo 13 while it was 205,000 miles from Earth. The spacecraft carried James Lovell, Jack Swigert and Fred Haise. The astronauts used the Lunar Module as a lifeboat and splashed down in the Pacific Ocean on April 17, 1970. NASA established the Apollo 13 Review Board to investigate the accident."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo13_return",
+      "title": "Apollo 13 Crew Returns Safely to Earth",
+      "source_url": "https://www.nasa.gov/history/apollo-13-crew-returns-safely-to-earth/",
+      "source_revision": "published_2020-04-17_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo13_return",
+      "raw_text": "Apollo 13 reached a top velocity of 24,689 miles per hour as it approached Earth. Two drogue parachutes deployed at an altitude of 24,000 feet. Three main parachutes opened at 10,000 feet. Splashdown occurred after a flight of 142 hours 54 minutes and 41 seconds. The splashdown point was about one mile from the predicted target and four miles from the USS Iwo Jima."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo14_landing",
+      "title": "Apollo 14 Lands at Fra Mauro",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-14-lands-at-fra-mauro/",
+      "source_revision": "published_2021-02-04_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo14",
+      "raw_text": "Apollo 14 entered lunar orbit on February 4, 1971. Alan Shepard and Edgar Mitchell separated the Lunar Module Antares from the Command Module Kitty Hawk. Stuart Roosa remained in orbit. Shepard and Mitchell touched down in the Fra Mauro highlands and conducted two lunar surface excursions lasting more than nine hours."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo15_launch",
+      "title": "Apollo 15 Launches to the Moon",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-launches-to-the-moon/",
+      "source_revision": "published_2021-07-26_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo15_launch",
+      "raw_text": "Apollo 15 launched on July 26, 1971, from Kennedy Space Center. The crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin. The Saturn V third stage reignited to send them toward the Moon."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo15_moon",
+      "title": "Apollo 15 on the Moon at Hadley-Apennine",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/",
+      "source_revision": "published_2021-07-29_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo15_surface",
+      "raw_text": "Apollo 15 entered lunar orbit on July 29, 1971. David Scott and James Irwin separated the Lunar Module Falcon from Alfred Worden in the Command Module Endeavour. Scott and Irwin touched down at the Hadley-Apennine site. They conducted four spacewalks, including three excursions using the Lunar Roving Vehicle, for a combined total of 19 hours."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo16_launch",
+      "title": "Apollo 16 Launches to the Moon",
+      "source_url": "https://www.nasa.gov/history/apollo-16-launches-to-the-moon/",
+      "source_revision": "published_2022-04-15_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo16_launch",
+      "raw_text": "Apollo 16 launched on April 16, 1972, from Launch Pad 39A. The crew included Commander John Young, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Charles Duke. The Saturn V third stage reignited to send the spacecraft toward the Moon."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo16_moon",
+      "title": "Apollo 16 on the Moon at Descartes",
+      "source_url": "https://www.nasa.gov/history/apollo-16-on-the-moon-at-descartes/",
+      "source_revision": "published_2022-04-21_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo16_surface",
+      "raw_text": "Apollo 16 entered lunar orbit on April 19, 1972. John Young and Charles Duke separated the Lunar Module Orion from Ken Mattingly in the Command Module Casper. Young and Duke touched down at the Descartes site. They conducted three surface excursions totaling more than 20 hours. They collected 209 pounds of rock and soil samples and set up the first telescope on the Moon."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo16_splashdown",
+      "title": "Apollo 16 Splashes Down",
+      "source_url": "https://www.nasa.gov/history/apollo-16-splashes-down/",
+      "source_revision": "published_2022-04-29_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo16_return",
+      "raw_text": "On April 27, 1972, Apollo 16 astronauts John Young, Ken Mattingly and Charles Duke successfully ended their eleven-day Moon mission with splashdown."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo17_launch",
+      "title": "Apollo 17 Lights Up the Night Sky",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-17-lights-up-the-night-sky-on-its-way-to-the-moon/",
+      "source_revision": "published_2022-12-06_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo17_launch",
+      "raw_text": "The sixth and final Apollo Moon landing mission began with the December 7, 1972, launch of Apollo 17. A Saturn V lifted off from Launch Pad 39A during the first night launch of the American human spaceflight program. The crew included Commander Eugene Cernan, Command Module Pilot Ronald Evans, and Lunar Module Pilot Harrison Schmitt."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo1_fire",
+      "title": "The Apollo 1 Fire and its Aftermath",
+      "source_url": "https://www.nasa.gov/history/55-years-ago-the-apollo-1-fire-and-its-aftermath/",
+      "source_revision": "published_2022-02-03_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo1_fire",
+      "raw_text": "On January 27, 1967, Apollo 1 astronauts Virgil Grissom, Edward White, and Roger Chaffee died in a flash fire during a ground test. The capsule was pressurized with pure oxygen at 16.7 psi. At 6:31 p.m., a flash fire broke out inside the cabin. NASA established an investigative board and later redesigned the Apollo spacecraft."
+    },
+    {
+      "source_doc_id": "g0_nasa_armstrong_llrv",
+      "title": "Astronaut Armstrong Survives LLRV Crash",
+      "source_url": "https://www.nasa.gov/history/astronaut-armstrong-survives-llrv-crash/",
+      "source_revision": "published_2023-05-04_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_armstrong_llrv",
+      "raw_text": "On May 6, 1968, Neil Armstrong took off on a simulated lunar landing mission in a Lunar Landing Research Vehicle. After about five minutes, the vehicle went out of control. About 200 feet above the ground, Armstrong ejected. The vehicle crashed, while Armstrong parachuted safely and suffered no injuries. An investigation determined that a loss of helium pressure caused depletion of hydrogen peroxide used for reserve attitude thrusters."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo11_recovery",
+      "title": "The Recovery of Apollo 11",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-hornet-3-the-recovery-of-apollo-11/",
+      "source_revision": "published_2019-07-24_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo11_recovery",
+      "raw_text": "On July 24, 1969, Apollo 11 was 47,000 miles from Earth as the crew prepared for splashdown. The planned splashdown point moved 250 miles because of inclement weather. The spacecraft splashed down in the Pacific Ocean southwest of Hawaii."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo11_science",
+      "title": "Apollo 11 Lunar Science Conference",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-11-lunar-science-conference/",
+      "source_revision": "published_2020-01-07_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo11_science",
+      "raw_text": "Scientists discussed the chemistry, mineralogy, and petrology of Apollo 11 lunar samples. They also discussed sample dating and results returned by instruments left on the Moon."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo14_15_preparations",
+      "title": "Apollo 14 and 15 Preparations",
+      "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-14-and-15-preparations-2/",
+      "source_revision": "published_2020-05-08_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo14_15_preparations",
+      "raw_text": "On May 7, 1970, NASA announced that Apollo 14 would launch no earlier than December 3. Apollo 14 would target the Fra Mauro highlands. The prime crew included Commander Alan Shepard, Command Module Pilot Stuart Roosa, and Lunar Module Pilot Edgar Mitchell. The Apollo 15 crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin."
+    },
+    {
+      "source_doc_id": "g0_nasa_mission_transcripts",
+      "title": "Mission Transcripts: Mercury, Gemini, and Apollo",
+      "source_url": "https://www.nasa.gov/history/mission-transcripts-mercury-gemini-and-apollo/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_mission_transcript_collection",
+      "raw_text": "The Mission Transcript Collection includes scanned transcripts from recorded air-to-ground transmissions and onboard astronaut recordings. The collection contains 80 transcripts and approximately 45,000 pages of text. Most Apollo missions produced several transcript types, including onboard and air-to-ground technical transcripts."
+    },
+    {
+      "source_doc_id": "g0_nasa_human_spaceflight_record",
+      "title": "Human Space Flight: A Record of Achievement",
+      "source_url": "https://www.nasa.gov/history/SP-4225/documentation/hsf-record/hsf.htm",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_human_spaceflight_record",
+      "raw_text": "Six Apollo expeditions landed on the Moon, while Apollo 13 returned without landing. Neil Armstrong and Buzz Aldrin touched down in the Sea of Tranquility on July 20, 1969. The Apollo Lunar Module was designed to fly only in a vacuum. A fueled Saturn V weighed more than 2.7 million kilograms at liftoff and stood 110.64 meters high. The Saturn V had three stages."
+    },
+    {
+      "source_doc_id": "g0_nasa_apollo_program_students",
+      "title": "What Was the Apollo Program?",
+      "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-apollo-program-grades-5-8/",
+      "source_revision": "page_snapshot_2026-07-30",
+      "license": "public_domain",
+      "source_group": "nasa_apollo_program_students",
+      "raw_text": "Apollo spacecraft launched on top of Saturn V rockets. The Saturn V had three stages. The third stage pushed the Command Module and Lunar Module toward the Moon. Two astronauts in the Lunar Module landed on the lunar surface, while the third astronaut stayed in the Command Module in lunar orbit."
+    }
+  ]
+}
+

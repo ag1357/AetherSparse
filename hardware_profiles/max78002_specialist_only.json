@@ -1,0 +1,11 @@
+{
+  "profile_id": "max78002_specialist_only",
+  "reasoning_backend": false,
+  "estimated": true,
+  "integer_mops": 120.0,
+  "sequential_read_mb_s": 8.0,
+  "fixed_request_overhead_ms": 1.2,
+  "active_power_w": 0.5,
+  "notes": "Specialist neural coprocessor candidate, not a complete symbolic accessory backend."
+}
+

@@ -22,9 +22,12 @@
 | `src/aethersparse/cells/router.py` | Alias + lexical + VSA routing and generated-ID validation |
 | `src/aethersparse/cells/qualification.py` | Cell recall, size, overlap, and byte metrics |
 | `src/aethersparse/cells/adversarial.py` | Seven mutation families and exact-ledger verifier |
+| `src/aethersparse/cells/pack.py` | Content-addressed blocks, root manifest, verification, and deltas |
+| `src/aethersparse/cells/retrieval.py` | Bounded cell→article→chunk retrieval with VSA ablation |
+| `src/aethersparse/cells/address.py` | Registry-validated generative-address experiment gate |
 | `tests/cells/` | Contract, fail-closed, VSA, topology, and mutation tests |
 | `/v3/cells/route` | Browser-accessible external-service routing trace |
-| `aethersparse cells build/qualify` | Reproducible pack and comparison commands |
+| `aethersparse cells build/pack/qualify` | Reproducible topology, pack, and comparison commands |
 
 ## Explicitly not added
 

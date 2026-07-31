@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:dcf1651c052fad4afe0ea1051ccdd237e1d16162307100f949c6dbc4579281a8",
+  "normalized_text": "Apollo 15 launched on July 26, 1971, from Kennedy Space Center. The crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin. The Saturn V third stage reignited to send them toward the Moon.",
+  "raw_byte_length": 241,
+  "raw_char_length": 241,
+  "raw_content_hash": "sha256:dcf1651c052fad4afe0ea1051ccdd237e1d16162307100f949c6dbc4579281a8",
+  "raw_text": "Apollo 15 launched on July 26, 1971, from Kennedy Space Center. The crew included Commander David Scott, Command Module Pilot Alfred Worden, and Lunar Module Pilot James Irwin. The Saturn V third stage reignited to send them toward the Moon.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo15_launch",
+  "source_group": "nasa_apollo15_launch",
+  "source_revision": "published_2021-07-26_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-launches-to-the-moon/",
+  "title": "Apollo 15 Launches to the Moon"
+}

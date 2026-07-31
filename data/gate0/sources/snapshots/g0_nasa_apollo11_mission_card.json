@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:a6a6f00fe7af7b64d05d13c929a8d015d9c0e7199b754d7b03bdfee44cffedc6",
+  "normalized_text": "The primary objective of Apollo 11 was to perform a crewed lunar landing and return to Earth. Apollo 11 launched on July 16, 1969. The mission splashed down on July 24, 1969. The astronauts were Neil Armstrong, Buzz Aldrin, and Michael Collins.",
+  "raw_byte_length": 244,
+  "raw_char_length": 244,
+  "raw_content_hash": "sha256:a6a6f00fe7af7b64d05d13c929a8d015d9c0e7199b754d7b03bdfee44cffedc6",
+  "raw_text": "The primary objective of Apollo 11 was to perform a crewed lunar landing and return to Earth. Apollo 11 launched on July 16, 1969. The mission splashed down on July 24, 1969. The astronauts were Neil Armstrong, Buzz Aldrin, and Michael Collins.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo11_mission_card",
+  "source_group": "nasa_apollo11_mission_card",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/mission/apollo-11/",
+  "title": "Apollo 11"
+}

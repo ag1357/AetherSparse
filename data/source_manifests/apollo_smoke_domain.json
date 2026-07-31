@@ -1,0 +1,17 @@
+{
+  "domain": {
+    "id": "apollo_lunar_missions_smoke_v0",
+    "scope": "bounded_smoke_test",
+    "ontology_version": "0.3.0",
+    "license_allowlist": [
+      "public_domain",
+      "compatible_open_license"
+    ],
+    "safety_policy": "core_policy_v1",
+    "personal_memory_policy": "isolated",
+    "compiler_version": "0.1.0",
+    "teacher_cache": "none",
+    "evaluation_set": "public_smoke"
+  }
+}
+

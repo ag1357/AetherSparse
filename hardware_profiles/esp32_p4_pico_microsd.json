@@ -1,0 +1,11 @@
+{
+  "profile_id": "esp32_p4_pico_microsd",
+  "reasoning_backend": true,
+  "estimated": true,
+  "integer_mops": 100.0,
+  "sequential_read_mb_s": 12.0,
+  "fixed_request_overhead_ms": 1.5,
+  "active_power_w": 0.8,
+  "notes": "Dedicated accessory P4 Pico only; not the Waveshare touchscreen P4/C6."
+}
+

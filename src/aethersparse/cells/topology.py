@@ -35,20 +35,23 @@ class CognitiveCellBuilder:
             if bounded
             else []
         )
-        aliases = (
+        titles = tuple(sorted({str(row["title"]) for row in rows}))
+        redirects = (
             tuple(
                 sorted(
                     {
-                        row[0]
+                        str(row[0])
                         for row in self.store.db.execute(
                             f"SELECT alias FROM aliases WHERE document_id IN ({marks})", bounded
                         )
                     }
+                    - set(titles)
                 )
             )
             if bounded
             else ()
         )
+        aliases = (*titles, *redirects[: max(0, 512 - len(titles))])
         terms = _tokens(label)
         source_bytes = 0
         for row in rows:
@@ -60,7 +63,7 @@ class CognitiveCellBuilder:
             kind=kind,
             label=label,
             document_ids=bounded,
-            entity_aliases=aliases[:512],
+            entity_aliases=aliases,
             relation_terms=tuple(sorted(terms)[:512]),
             signature_hex=encode_terms(terms).to_bytes(128).hex(),
             source_bytes=source_bytes,
@@ -93,12 +96,16 @@ class CognitiveCellBuilder:
         ]
 
     def semantic_bucket_cells(self, *, prefix_bits: int = 10) -> list[CognitiveCell]:
+        if not 1 <= prefix_bits <= 256:
+            raise ValueError("prefix_bits must be between 1 and 256")
         groups: dict[str, set[str]] = defaultdict(set)
-        hex_chars = max(1, prefix_bits // 4)
         for document_id, semantic_key in self.store.db.execute(
             "SELECT document_id,min(semantic_key) FROM chunks GROUP BY document_id"
         ):
-            groups[semantic_key[:hex_chars]].add(document_id)
+            key = int(semantic_key, 16)
+            total_bits = len(semantic_key) * 4
+            prefix = key >> max(0, total_bits - prefix_bits)
+            groups[f"{prefix_bits}:{prefix:0{(prefix_bits + 3) // 4}x}"].add(document_id)
         return [
             self._cell(CellKind.SEMANTIC_BUCKET, label, docs)
             for label, docs in sorted(groups.items())
@@ -110,7 +117,17 @@ class CognitiveCellBuilder:
         cells: list[CognitiveCell] = []
         for cell in source:
             if 2 <= len(cell.document_ids) <= self.max_documents:
-                cells.append(cell.model_copy(update={"kind": CellKind.HYBRID}))
+                identity = hashlib.sha256(f"{CellKind.HYBRID}:{cell.cell_id}".encode()).hexdigest()[
+                    :20
+                ]
+                cells.append(
+                    cell.model_copy(
+                        update={
+                            "cell_id": f"cell:{CellKind.HYBRID}:{identity}",
+                            "kind": CellKind.HYBRID,
+                        }
+                    )
+                )
         return cells
 
     def build(self, kind: CellKind) -> list[CognitiveCell]:

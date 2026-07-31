@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 
 from aethersparse.cells.models import CellKind
+from aethersparse.cells.retrieval import TwoLevelCellRetriever
 from aethersparse.cells.router import CognitiveCellRouter
 from aethersparse.cells.topology import CognitiveCellBuilder
 from aethersparse.gate0.review_service import create_review_router
@@ -50,6 +51,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
     )
     application.include_router(create_review_router())
     cell_router_cache: dict[CellKind, CognitiveCellRouter] = {}
+    cell_retriever_cache: dict[CellKind, TwoLevelCellRetriever] = {}
 
     def traversal() -> TraversalRuntime:
         if not DEFAULT_CORPUS.exists():
@@ -68,6 +70,14 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
             store = traversal().store
             cell_router_cache[kind] = CognitiveCellRouter(CognitiveCellBuilder(store).build(kind))
         return cell_router_cache[kind]
+
+    def cell_retriever(kind: CellKind) -> TwoLevelCellRetriever:
+        if kind not in cell_retriever_cache:
+            store = traversal().store
+            cell_retriever_cache[kind] = TwoLevelCellRetriever(
+                store, CognitiveCellBuilder(store).build(kind)
+            )
+        return cell_retriever_cache[kind]
 
     @application.get("/review", include_in_schema=False)
     def review_ui() -> FileResponse:
@@ -248,6 +258,29 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
             "rejected_predicted_cell_ids": sorted(set(predictions) - set(valid_predictions)),
             "generated_address_is_hint_only": True,
             "exact_evidence_graph_is_authoritative": True,
+            "external_service_boundary": True,
+        }
+
+    @application.post("/v3/cells/retrieve")
+    def retrieve_cells(payload: dict[str, object]) -> dict[str, object]:
+        text = str(payload.get("text", "")).strip()
+        if not text:
+            raise HTTPException(status_code=422, detail="text is required")
+        kind = CellKind(str(payload.get("kind", CellKind.HYBRID)))
+        raw_predictions = payload.get("predicted_cell_ids", [])
+        predictions = (
+            tuple(str(item) for item in raw_predictions)
+            if isinstance(raw_predictions, list)
+            else ()
+        )
+        use_vsa = payload.get("use_vsa", True) is not False
+        trace = cell_retriever(kind).retrieve(text, predicted_cell_ids=predictions, use_vsa=use_vsa)
+        return {
+            **trace.model_dump(mode="json"),
+            "topology": kind,
+            "exact_evidence_graph_is_authoritative": True,
+            "answer_emission_enabled": False,
+            "stop_reason": "TOPOLOGY_QUALIFICATION_ONLY",
             "external_service_boundary": True,
         }
 

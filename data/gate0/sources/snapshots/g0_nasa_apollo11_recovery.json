@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:14479c67c53d8bc870b97f65b4e1570f2829b8b31297c965f2ad2a83bddac946",
+  "normalized_text": "On July 24, 1969, Apollo 11 was 47,000 miles from Earth as the crew prepared for splashdown. The planned splashdown point moved 250 miles because of inclement weather. The spacecraft splashed down in the Pacific Ocean southwest of Hawaii.",
+  "raw_byte_length": 238,
+  "raw_char_length": 238,
+  "raw_content_hash": "sha256:14479c67c53d8bc870b97f65b4e1570f2829b8b31297c965f2ad2a83bddac946",
+  "raw_text": "On July 24, 1969, Apollo 11 was 47,000 miles from Earth as the crew prepared for splashdown. The planned splashdown point moved 250 miles because of inclement weather. The spacecraft splashed down in the Pacific Ocean southwest of Hawaii.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo11_recovery",
+  "source_group": "nasa_apollo11_recovery",
+  "source_revision": "published_2019-07-24_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-hornet-3-the-recovery-of-apollo-11/",
+  "title": "The Recovery of Apollo 11"
+}

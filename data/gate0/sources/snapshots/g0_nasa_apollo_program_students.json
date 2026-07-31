@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:aa5413ddf65888fb001bfc83e8d6bf2c009d1c87d295577e91bd772f10a43619",
+  "normalized_text": "Apollo spacecraft launched on top of Saturn V rockets. The Saturn V had three stages. The third stage pushed the Command Module and Lunar Module toward the Moon. Two astronauts in the Lunar Module landed on the lunar surface, while the third astronaut stayed in the Command Module in lunar orbit.",
+  "raw_byte_length": 296,
+  "raw_char_length": 296,
+  "raw_content_hash": "sha256:aa5413ddf65888fb001bfc83e8d6bf2c009d1c87d295577e91bd772f10a43619",
+  "raw_text": "Apollo spacecraft launched on top of Saturn V rockets. The Saturn V had three stages. The third stage pushed the Command Module and Lunar Module toward the Moon. Two astronauts in the Lunar Module landed on the lunar surface, while the third astronaut stayed in the Command Module in lunar orbit.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo_program_students",
+  "source_group": "nasa_apollo_program_students",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-apollo-program-grades-5-8/",
+  "title": "What Was the Apollo Program?"
+}

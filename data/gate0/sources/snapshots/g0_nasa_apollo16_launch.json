@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:6abc61891183b919e08fbaac3ccd1be6cf7673d9465839d7fa2c11f1bcd229d8",
+  "normalized_text": "Apollo 16 launched on April 16, 1972, from Launch Pad 39A. The crew included Commander John Young, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Charles Duke. The Saturn V third stage reignited to send the spacecraft toward the Moon.",
+  "raw_byte_length": 246,
+  "raw_char_length": 246,
+  "raw_content_hash": "sha256:6abc61891183b919e08fbaac3ccd1be6cf7673d9465839d7fa2c11f1bcd229d8",
+  "raw_text": "Apollo 16 launched on April 16, 1972, from Launch Pad 39A. The crew included Commander John Young, Command Module Pilot Ken Mattingly, and Lunar Module Pilot Charles Duke. The Saturn V third stage reignited to send the spacecraft toward the Moon.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo16_launch",
+  "source_group": "nasa_apollo16_launch",
+  "source_revision": "published_2022-04-15_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/apollo-16-launches-to-the-moon/",
+  "title": "Apollo 16 Launches to the Moon"
+}

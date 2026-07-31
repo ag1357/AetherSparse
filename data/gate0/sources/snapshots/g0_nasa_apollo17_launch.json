@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:a722225d8d25fb347d9b25fccb84248c9b5d18fe681416a67fb6456d9e2d5db8",
+  "normalized_text": "The sixth and final Apollo Moon landing mission began with the December 7, 1972, launch of Apollo 17. A Saturn V lifted off from Launch Pad 39A during the first night launch of the American human spaceflight program. The crew included Commander Eugene Cernan, Command Module Pilot Ronald Evans, and Lunar Module Pilot Harrison Schmitt.",
+  "raw_byte_length": 335,
+  "raw_char_length": 335,
+  "raw_content_hash": "sha256:a722225d8d25fb347d9b25fccb84248c9b5d18fe681416a67fb6456d9e2d5db8",
+  "raw_text": "The sixth and final Apollo Moon landing mission began with the December 7, 1972, launch of Apollo 17. A Saturn V lifted off from Launch Pad 39A during the first night launch of the American human spaceflight program. The crew included Commander Eugene Cernan, Command Module Pilot Ronald Evans, and Lunar Module Pilot Harrison Schmitt.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo17_launch",
+  "source_group": "nasa_apollo17_launch",
+  "source_revision": "published_2022-12-06_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-17-lights-up-the-night-sky-on-its-way-to-the-moon/",
+  "title": "Apollo 17 Lights Up the Night Sky"
+}

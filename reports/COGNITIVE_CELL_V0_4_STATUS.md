@@ -15,6 +15,11 @@ Validated locally:
 - exact evidence ledger remains authoritative;
 - seven adversarial mutation types are rejected by exact verification;
 - mobile route inspection occurs through the external accessory API.
+- deterministic content-addressed blocks, root manifests, integrity checks, and
+  update deltas;
+- bounded cell→article→chunk retrieval and VSA-on/VSA-off ablation.
+- generated-address validation, confidence and ambiguity fallback, unknown-entity
+  fallback, and invalid-ID exclusion.
 
 Not yet evidenced:
 

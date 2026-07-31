@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:71e5621014e996aad8dbce3b467255294bf711c76f2c78826bc657540fe613ec",
+  "normalized_text": "Apollo 11 launched on July 16, 1969, carrying Neil Armstrong, Michael Collins and Edwin \"Buzz\" Aldrin for the first crewed lunar landing mission. The first color TV transmission to Earth from Apollo 11 occurred during the translunar coast of the CSM/LM. On July 18, Armstrong and Aldrin climbed through the docking tunnel from Columbia to Eagle to check out the Lunar Module.",
+  "raw_byte_length": 379,
+  "raw_char_length": 375,
+  "raw_content_hash": "sha256:3a2da7f87134512ab5d807fd6524e92eb7c5ceb907a22d3b52288e0ef36d8c30",
+  "raw_text": "Apollo 11 launched on July 16, 1969, carrying Neil Armstrong, Michael Collins and Edwin “Buzz” Aldrin for the first crewed lunar landing mission. The first color TV transmission to Earth from Apollo 11 occurred during the translunar coast of the CSM/LM. On July 18, Armstrong and Aldrin climbed through the docking tunnel from Columbia to Eagle to check out the Lunar Module.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo11_mission_overview",
+  "source_group": "nasa_apollo11_mission_overview",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/apollo-11-mission-overview/",
+  "title": "Apollo 11 Mission Overview"
+}

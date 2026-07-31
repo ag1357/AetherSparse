@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:945dd157c39bab23aea10094ffd55286f061373ab04a6be1c100d7a74e626dad",
+  "normalized_text": "The Saturn V was a rocket NASA built to send people to the moon. It was developed at NASA's Marshall Space Flight Center in Huntsville, Alabama. The first Saturn V was launched in 1967 and was called Apollo 4. Apollo 6 followed in 1968. The first Saturn V launched with a crew was Apollo 8. Saturn V rockets made it possible for astronauts to land on the moon on Apollo 11, 12, 14, 15, 16, and 17. The Apollo mission Saturn V rockets had three stages.",
+  "raw_byte_length": 453,
+  "raw_char_length": 451,
+  "raw_content_hash": "sha256:65334f814cfaddc5eac67c18a11065129d940830c4f4d4c07038d70a33a91bee",
+  "raw_text": "The Saturn V was a rocket NASA built to send people to the moon. It was developed at NASA’s Marshall Space Flight Center in Huntsville, Alabama. The first Saturn V was launched in 1967 and was called Apollo 4. Apollo 6 followed in 1968. The first Saturn V launched with a crew was Apollo 8. Saturn V rockets made it possible for astronauts to land on the moon on Apollo 11, 12, 14, 15, 16, and 17. The Apollo mission Saturn V rockets had three stages.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_saturn_v",
+  "source_group": "nasa_saturn_v_overview",
+  "source_revision": "published_2010-09-17_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/",
+  "title": "What Was the Saturn V?"
+}

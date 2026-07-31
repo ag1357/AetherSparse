@@ -24,8 +24,12 @@ TOKEN_RE = re.compile(r"[\w'-]{2,}", re.UNICODE)
 def normalize_text(value: str) -> str:
     value = html.unescape(unicodedata.normalize("NFKC", value))
     punctuation: dict[str | int, str | int | None] = {
-        "\u201c": '"', "\u201d": '"', "\u2018": "'", "\u2019": "'",
-        "\u2013": "-", "\u2014": "-",
+        "\u201c": '"',
+        "\u201d": '"',
+        "\u2018": "'",
+        "\u2019": "'",
+        "\u2013": "-",
+        "\u2014": "-",
     }
     value = value.translate(str.maketrans(punctuation))
     return re.sub(r"\s+", " ", value).strip()
@@ -85,14 +89,23 @@ def iter_mediawiki_pages(path: Path, limit: int | None = None) -> Iterator[Page]
 class CorpusStore:
     """SQLite store whose source rows are content-addressed and never updated."""
 
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, *, read_only: bool = False):
         self.path = path
-        path.parent.mkdir(parents=True, exist_ok=True)
-        self.db = sqlite3.connect(path)
+        if read_only:
+            if not path.is_file():
+                raise FileNotFoundError(path)
+            self.db = sqlite3.connect(f"file:{path.resolve()}?mode=ro&immutable=1", uri=True)
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            self.db = sqlite3.connect(path)
         self.db.row_factory = sqlite3.Row
-        self.db.execute("PRAGMA journal_mode=WAL")
-        self.db.execute("PRAGMA synchronous=NORMAL")
-        self._schema()
+        if not read_only:
+            self.db.execute("PRAGMA journal_mode=WAL")
+            self.db.execute("PRAGMA synchronous=NORMAL")
+            self._schema()
+
+    def close(self) -> None:
+        self.db.close()
 
     def _schema(self) -> None:
         self.db.executescript(
@@ -139,10 +152,17 @@ class CorpusStore:
             self.db.execute(
                 "INSERT OR IGNORE INTO documents VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                 (
-                    document_id, page.title, normalize_text(page.title).casefold(), page.revision,
-                    f"https://simple.wikipedia.org/?curid={page.page_id}", "CC-BY-SA-4.0",
-                    "Wikimedia Simple English Wikipedia XML dump", raw_hash, page.raw,
-                    normalized, page.redirect,
+                    document_id,
+                    page.title,
+                    normalize_text(page.title).casefold(),
+                    page.revision,
+                    f"https://simple.wikipedia.org/?curid={page.page_id}",
+                    "CC-BY-SA-4.0",
+                    "Wikimedia Simple English Wikipedia XML dump",
+                    raw_hash,
+                    page.raw,
+                    normalized,
+                    page.redirect,
                 ),
             )
             if self.db.execute("SELECT changes()").fetchone()[0] == 0:
@@ -186,8 +206,16 @@ class CorpusStore:
                         self.db.execute(
                             "INSERT OR IGNORE INTO chunks VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                             (
-                                chunk_id, document_id, heading, block, cursor, raw_end, raw_block,
-                                body, hashlib.sha256(raw_block.encode()).hexdigest(), summary,
+                                chunk_id,
+                                document_id,
+                                heading,
+                                block,
+                                cursor,
+                                raw_end,
+                                raw_block,
+                                body,
+                                hashlib.sha256(raw_block.encode()).hexdigest(),
+                                summary,
                                 semantic_key,
                             ),
                         )

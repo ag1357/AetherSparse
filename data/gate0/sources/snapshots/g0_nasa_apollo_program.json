@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:03330322de1d937f1a63e7b200c198b84b19e8c8da95e01772667a003950c2b1",
+  "normalized_text": "Apollo 4 was the first all-up test of the three-stage Saturn V rocket. Apollo 5 was the first test flight of the Lunar Module. Apollo 6 was the final qualification of the Saturn V launch vehicle and Apollo spacecraft for crewed missions. Apollo 7 lifted off on October 11, 1968, for a ten-day flight in Earth orbit. Frank Borman, James Lovell, and William Anders made the first crewed mission to the vicinity of the Moon on Apollo 8.",
+  "raw_byte_length": 433,
+  "raw_char_length": 433,
+  "raw_content_hash": "sha256:03330322de1d937f1a63e7b200c198b84b19e8c8da95e01772667a003950c2b1",
+  "raw_text": "Apollo 4 was the first all-up test of the three-stage Saturn V rocket. Apollo 5 was the first test flight of the Lunar Module. Apollo 6 was the final qualification of the Saturn V launch vehicle and Apollo spacecraft for crewed missions. Apollo 7 lifted off on October 11, 1968, for a ten-day flight in Earth orbit. Frank Borman, James Lovell, and William Anders made the first crewed mission to the vicinity of the Moon on Apollo 8.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo_program",
+  "source_group": "nasa_apollo_program",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/the-apollo-program/",
+  "title": "The Apollo Program"
+}

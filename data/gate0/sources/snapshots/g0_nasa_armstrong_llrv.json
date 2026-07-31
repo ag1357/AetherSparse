@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:db5012f1c5a96ae021220f76942dc1e80537deeb6a022c5b4f281521035042ec",
+  "normalized_text": "On May 6, 1968, Neil Armstrong took off on a simulated lunar landing mission in a Lunar Landing Research Vehicle. After about five minutes, the vehicle went out of control. About 200 feet above the ground, Armstrong ejected. The vehicle crashed, while Armstrong parachuted safely and suffered no injuries. An investigation determined that a loss of helium pressure caused depletion of hydrogen peroxide used for reserve attitude thrusters.",
+  "raw_byte_length": 439,
+  "raw_char_length": 439,
+  "raw_content_hash": "sha256:db5012f1c5a96ae021220f76942dc1e80537deeb6a022c5b4f281521035042ec",
+  "raw_text": "On May 6, 1968, Neil Armstrong took off on a simulated lunar landing mission in a Lunar Landing Research Vehicle. After about five minutes, the vehicle went out of control. About 200 feet above the ground, Armstrong ejected. The vehicle crashed, while Armstrong parachuted safely and suffered no injuries. An investigation determined that a loss of helium pressure caused depletion of hydrogen peroxide used for reserve attitude thrusters.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_armstrong_llrv",
+  "source_group": "nasa_armstrong_llrv",
+  "source_revision": "published_2023-05-04_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/astronaut-armstrong-survives-llrv-crash/",
+  "title": "Astronaut Armstrong Survives LLRV Crash"
+}

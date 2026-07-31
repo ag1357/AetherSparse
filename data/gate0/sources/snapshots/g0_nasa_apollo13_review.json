@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:ff50d96fddc2a3f2b53209e2422ac3c065f137dc7b4a907299bc86775fc08bf0",
+  "normalized_text": "On April 13, 1970, an explosion rocked Apollo 13 while it was 205,000 miles from Earth. The spacecraft carried James Lovell, Jack Swigert and Fred Haise. The astronauts used the Lunar Module as a lifeboat and splashed down in the Pacific Ocean on April 17, 1970. NASA established the Apollo 13 Review Board to investigate the accident.",
+  "raw_byte_length": 335,
+  "raw_char_length": 335,
+  "raw_content_hash": "sha256:ff50d96fddc2a3f2b53209e2422ac3c065f137dc7b4a907299bc86775fc08bf0",
+  "raw_text": "On April 13, 1970, an explosion rocked Apollo 13 while it was 205,000 miles from Earth. The spacecraft carried James Lovell, Jack Swigert and Fred Haise. The astronauts used the Lunar Module as a lifeboat and splashed down in the Pacific Ocean on April 17, 1970. NASA established the Apollo 13 Review Board to investigate the accident.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo13_review",
+  "source_group": "nasa_apollo13_review",
+  "source_revision": "published_2020-06-15_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-13-review-board-report/",
+  "title": "Apollo 13 Review Board Report"
+}

@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:21bb13906f0b13aca1408c8e349729302642731753acc1bda757215bc872feaf",
+  "normalized_text": "On November 9, 1967, NASA launched the first flight of the Saturn V Moon rocket. For Apollo 4, the 363-foot Saturn V had rolled out to Launch Pad 39A on August 26, 1967.",
+  "raw_byte_length": 169,
+  "raw_char_length": 169,
+  "raw_content_hash": "sha256:21bb13906f0b13aca1408c8e349729302642731753acc1bda757215bc872feaf",
+  "raw_text": "On November 9, 1967, NASA launched the first flight of the Saturn V Moon rocket. For Apollo 4, the 363-foot Saturn V had rolled out to Launch Pad 39A on August 26, 1967.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo4",
+  "source_group": "nasa_apollo4",
+  "source_revision": "published_2022-11-09_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/55-years-ago-apollo-4-the-first-flight-of-the-saturn-v/",
+  "title": "Apollo 4, the First Flight of the Saturn V"
+}

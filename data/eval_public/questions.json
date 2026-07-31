@@ -1,0 +1,110 @@
+{
+  "set_id": "apollo_smoke_public_v0.1",
+  "cases": [
+    {
+      "case_id": "landing_when",
+      "category": "temporal",
+      "question": "When did Apollo 11 land on the Moon?",
+      "expected_disposition": "answer",
+      "expected_contains": ["July 20, 1969"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "landing_date_paraphrase",
+      "category": "paraphrase",
+      "question": "On what date was the Apollo 11 lunar landing?",
+      "expected_disposition": "answer",
+      "expected_contains": ["July 20, 1969"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "landing_people",
+      "category": "fact",
+      "question": "Who landed on the Moon during Apollo 11?",
+      "expected_disposition": "answer",
+      "expected_contains": ["Neil Armstrong", "Buzz Aldrin"],
+      "forbidden_contains": ["Michael Collins"]
+    },
+    {
+      "case_id": "landing_vehicle",
+      "category": "fact",
+      "question": "Which lunar module did Apollo 11 use to land?",
+      "expected_disposition": "answer",
+      "expected_contains": ["Eagle"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "launch_when",
+      "category": "temporal",
+      "question": "When did Apollo 11 launch?",
+      "expected_disposition": "answer",
+      "expected_contains": ["July 16, 1969"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "return_when",
+      "category": "temporal",
+      "question": "When did Apollo 11 return to Earth?",
+      "expected_disposition": "answer",
+      "expected_contains": ["July 24, 1969"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "crew",
+      "category": "fact",
+      "question": "Who were the Apollo 11 crew members?",
+      "expected_disposition": "answer",
+      "expected_contains": ["Neil Armstrong", "Michael Collins", "Buzz Aldrin"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "collins",
+      "category": "fact",
+      "question": "What did Michael Collins do during the lunar landing?",
+      "expected_disposition": "answer",
+      "expected_contains": ["lunar orbit"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "quotation",
+      "category": "quotation",
+      "question": "Who said one small step for a man?",
+      "expected_disposition": "answer",
+      "expected_contains": ["Neil Armstrong", "one small step"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "unknown_mission_no_substitution",
+      "category": "entity_substitution",
+      "question": "When did Apollo 13 land on the Moon?",
+      "expected_disposition": "abstain",
+      "expected_contains": ["Apollo 13"],
+      "forbidden_contains": ["July 20, 1969"]
+    },
+    {
+      "case_id": "unknown_part_copy",
+      "category": "unknown_copy",
+      "question": "Did Apollo 11 use RV1106?",
+      "expected_disposition": "abstain",
+      "expected_contains": ["RV1106"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "missing_evidence",
+      "category": "abstention",
+      "question": "What fuel mixture did Apollo 11 use?",
+      "expected_disposition": "abstain",
+      "expected_contains": ["outside the current ontology"],
+      "forbidden_contains": []
+    },
+    {
+      "case_id": "out_of_domain",
+      "category": "out_of_domain",
+      "question": "Who won the 1969 World Series?",
+      "expected_disposition": "out_of_domain",
+      "expected_contains": ["Outside compiled domain"],
+      "forbidden_contains": []
+    }
+  ]
+}
+

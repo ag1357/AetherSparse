@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:7ce9c77f447d38c7bdac323375cc0c2fc66b4a8cb03ece410e447087f8fd13de",
+  "normalized_text": "On April 27, 1972, Apollo 16 astronauts John Young, Ken Mattingly and Charles Duke successfully ended their eleven-day Moon mission with splashdown.",
+  "raw_byte_length": 148,
+  "raw_char_length": 148,
+  "raw_content_hash": "sha256:7ce9c77f447d38c7bdac323375cc0c2fc66b4a8cb03ece410e447087f8fd13de",
+  "raw_text": "On April 27, 1972, Apollo 16 astronauts John Young, Ken Mattingly and Charles Duke successfully ended their eleven-day Moon mission with splashdown.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo16_splashdown",
+  "source_group": "nasa_apollo16_return",
+  "source_revision": "published_2022-04-29_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/history/apollo-16-splashes-down/",
+  "title": "Apollo 16 Splashes Down"
+}

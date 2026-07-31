@@ -1,0 +1,16 @@
+{
+  "license": "public_domain",
+  "normalization_version": "gate0-normalization-v1",
+  "normalized_content_hash": "sha256:d13e79aea0e408a83234c3a9e6b26de5922400ef6e0f339c6900a2b6ebc3c754",
+  "normalized_text": "The uncrewed Saturn/Apollo 5 was the first test flight of the Lunar Module. Its objectives were to verify the ascent and descent stages, propulsion systems, restart operations, spacecraft structure, and Lunar Module staging.",
+  "raw_byte_length": 224,
+  "raw_char_length": 224,
+  "raw_content_hash": "sha256:d13e79aea0e408a83234c3a9e6b26de5922400ef6e0f339c6900a2b6ebc3c754",
+  "raw_text": "The uncrewed Saturn/Apollo 5 was the first test flight of the Lunar Module. Its objectives were to verify the ascent and descent stages, propulsion systems, restart operations, spacecraft structure, and Lunar Module staging.",
+  "retrieved_at": "2026-07-30T00:00:00Z",
+  "source_doc_id": "g0_nasa_apollo5",
+  "source_group": "nasa_apollo5",
+  "source_revision": "page_snapshot_2026-07-30",
+  "source_url": "https://www.nasa.gov/mission/apollo-5/",
+  "title": "Apollo 5"
+}

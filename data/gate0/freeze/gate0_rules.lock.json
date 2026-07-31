@@ -1,0 +1,11 @@
+{
+  "candidate_count": 85,
+  "candidate_set_hash": "sha256:843e1ff10c3da592ac630c83343c43a9bc5c44cfe2f7180814f714f8b6901370",
+  "extractor_configuration_hash": "sha256:fe5499214b77f7b9e9abe25d5258770e6e7367b40db9aeee042c8bf268fcb0db",
+  "git_commit": "9e711dac021800d9fa4dfc75cb78b9050cb3f85f",
+  "lock_hash": "sha256:7e026b9bce6a5399a5ab7d787739bee085d36e6ac04ffe782e562414322aca48",
+  "lock_version": "1",
+  "policy": "Set sealed_evaluation_permitted only after extractor and validator rules are frozen and calibration/development review is complete.",
+  "sealed_evaluation_permitted": false,
+  "validator_configuration_hash": "sha256:855b889739beff93908c323eec157bece3fc74fe471d8db0a849aaf5cd94f59c"
+}
