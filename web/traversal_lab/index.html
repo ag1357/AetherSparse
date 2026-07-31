@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081316"><title>AetherSparse Traversal Lab</title>
+  <style>
+    :root{color-scheme:dark;--bg:#081316;--panel:#102126;--line:#28444a;--text:#ecf8f5;
+      --muted:#91acaa;--cyan:#55e1d0;--lime:#c7ef75;--amber:#ffc45c}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,#164247,transparent 30rem),var(--bg);
+      color:var(--text);font:15px system-ui,sans-serif}header{position:sticky;top:0;z-index:5;padding:.8rem 1rem;
+      background:#081316ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+    header b,header small{display:block}header small,.muted{color:var(--muted)}main{width:min(1100px,calc(100% - 1rem));margin:auto}
+    .hero{padding:2rem 0 1rem}h1{font-size:clamp(2rem,9vw,4rem);line-height:.98;letter-spacing:-.05em;margin:.4rem 0}
+    .eyebrow{color:var(--cyan);font:700 11px ui-monospace;letter-spacing:.12em;text-transform:uppercase}
+    .tabs{display:flex;gap:.5rem;margin:1rem 0}.tabs button{flex:1}.tab{display:none}.tab.active{display:block}
+    form,.card{background:#102126e8;border:1px solid var(--line);border-radius:18px;padding:1rem;margin:.7rem 0}
+    textarea,input{width:100%;padding:.85rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);font:inherit}
+    textarea{min-height:100px}button{min-height:46px;border:1px solid var(--line);border-radius:12px;background:#163038;color:var(--text);
+      font-weight:750;padding:.65rem;touch-action:manipulation}form button{width:100%;margin-top:.55rem;background:var(--cyan);color:#041412}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+    .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:.7rem}.stat b{display:block;color:var(--cyan);font:1.2rem ui-monospace}
+    .answer{font-size:clamp(1.2rem,5vw,1.8rem);line-height:1.35}.cite,.step,.result{border:1px solid var(--line);border-radius:12px;padding:.7rem;margin:.45rem 0;background:#0a181c}
+    .cite b,.result b{color:var(--cyan)}.step{display:grid;grid-template-columns:2rem 1fr auto;gap:.5rem}.step small{color:var(--muted)}
+    pre{white-space:pre-wrap;overflow:auto;font-size:.72rem;background:var(--bg);padding:.7rem;border-radius:10px}.badge{font:700 11px ui-monospace;color:var(--lime)}
+    details summary{min-height:44px;padding:.7rem 0;font-weight:700}.article{max-height:60vh;overflow:auto;white-space:pre-wrap;line-height:1.5}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.step{grid-template-columns:2rem 1fr}.step>small{grid-column:2}}
+  </style>
+</head>
+<body><header><b>AetherSparse</b><small>Real-corpus traversal · external accessory</small></header>
+<main><section class="hero"><div class="eyebrow">Android qualification console</div><h1>Follow the evidence, not a script.</h1>
+  <p class="muted">The P4/C6 is a terminal only. Corpus, ranking, targeted traversal and verification run behind this API.</p></section>
+  <div class="tabs"><button data-tab="ask">Ask corpus</button><button data-tab="explore">Corpus explorer</button></div>
+  <section id="ask" class="tab active"><form id="query"><textarea id="question">How are the Moon and tides related?</textarea>
+    <button>Rank and verify evidence</button></form><div id="answer"></div></section>
+  <section id="explore" class="tab"><form id="search"><input id="term" placeholder="Search article titles" value="Moon">
+    <button>Search corpus</button></form><div id="results"></div><div id="article"></div></section>
+</main>
+<script>
+const api=new URLSearchParams(location.search).get("api")||location.origin,esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelector("#"+b.dataset.tab).classList.add("active")});
+async function get(path,options){const r=await fetch(api+path,options);if(!r.ok)throw Error((await r.text())||r.status);return r.json()}
+const qf=document.querySelector("#query"),q=document.querySelector("#question"),answer=document.querySelector("#answer");
+qf.onsubmit=async e=>{e.preventDefault();answer.innerHTML='<div class="card muted">Selecting evidence…</div>';try{const r=await get("/v2/selection/query",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({text:q.value})});
+ answer.innerHTML=`<article class="card"><span class="badge">${esc(r.disposition)} · ${esc(r.stop_reason)}</span><p class="answer">${esc(r.answer||r.failure_reason)}</p>
+ <div class="stats"><div class="stat"><b>${r.initial_candidates.length}</b>candidates</div><div class="stat"><b>${r.source_bytes}</b>bytes</div><div class="stat"><b>${r.model_macs}</b>MACs</div><div class="stat"><b>${r.latency_ms}</b>ms</div></div></article>
+ <div class="grid"><article class="card"><h3>Selected evidence</h3>${r.selected_evidence.map(c=>`<div class="cite"><b>${esc(c.title)} · ${esc(c.section_path)}</b><p>${esc(c.normalized_text)}</p><small>final ${c.final_score.toFixed(4)} · revision ${esc(c.source_revision)}</small></div>`).join("")||'<p class="muted">No verified evidence; output withheld.</p>'}</article>
+ <article class="card"><h3>Facet gate</h3><b>Missing facets</b><pre>${esc(JSON.stringify(r.missing_facets))}</pre><b>Targeted traversal</b><pre>${esc(JSON.stringify(r.targeted_traversal,null,2))}</pre><b>Evidence path</b><pre>${esc(JSON.stringify(r.final_evidence_path,null,2))}</pre></article></div>
+ <article class="card"><details open><summary>Reranked candidates (${r.reranked_candidates.length})</summary>${r.reranked_candidates.slice(0,16).map((c,i)=>`<div class="cite"><b>${i+1}. ${esc(c.title)} · ${esc(c.section_path)}</b><p>${esc(c.normalized_text)}</p><small>lexical position ${c.lexical_position} · fusion ${c.fusion_score.toFixed(4)} · reranker ${c.reranker_score.toFixed(4)} · final ${c.final_score.toFixed(4)}</small><details><summary>Score components</summary><pre>${esc(JSON.stringify(c.score_components,null,2))}</pre></details></div>`).join("")}</details></article>
+ <article class="card"><details><summary>Initial lexical ranking (${r.initial_candidates.length})</summary>${r.initial_candidates.slice(0,16).map((c,i)=>`<div class="cite"><b>${i+1}. ${esc(c.title)}</b><small>lexical position ${c.lexical_position}</small></div>`).join("")}</details></article>`}catch(err){answer.innerHTML=`<div class="card">${esc(err.message)}</div>`}};
+const sf=document.querySelector("#search"),term=document.querySelector("#term"),results=document.querySelector("#results"),article=document.querySelector("#article");
+sf.onsubmit=async e=>{e.preventDefault();results.innerHTML='<div class="card muted">Searching…</div>';try{const r=await get("/v2/corpus/search?q="+encodeURIComponent(term.value));results.innerHTML=r.articles.map(a=>`<button class="result" data-id="${esc(a.document_id)}"><b>${esc(a.title)}</b><small>${esc(a.normalized_preview)}</small></button>`).join("");results.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>openArticle(b.dataset.id))}catch(err){results.textContent=err.message}};
+async function openArticle(id){const r=await get("/v2/corpus/article/"+encodeURIComponent(id));article.innerHTML=`<article class="card"><div class="eyebrow">${esc(r.document.license)} · revision ${esc(r.document.revision)}</div><h2>${esc(r.document.title)}</h2><div class="stats"><div class="stat"><b>${r.sections.length}</b>blocks</div><div class="stat"><b>${r.hyperlinks.length}</b>links shown</div></div><details open><summary>Normalized source</summary><div class="article">${esc(r.document.normalized_text)}</div></details><details><summary>Sections and block offsets</summary><pre>${esc(JSON.stringify(r.sections,null,2))}</pre></details><details><summary>Hyperlinks</summary><pre>${esc(JSON.stringify(r.hyperlinks,null,2))}</pre></details></article>`}
+</script></body></html>

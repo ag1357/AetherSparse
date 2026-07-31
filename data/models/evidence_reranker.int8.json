@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "semantic_similarity",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "source_independence"
+  ],
+  "int8_weights": [
+    127,
+    22,
+    23,
+    -62,
+    -26,
+    53,
+    82,
+    13,
+    20,
+    57,
+    127,
+    0,
+    16,
+    0
+  ],
+  "weight_scale": 0.04149262544779594,
+  "bias": 0.0,
+  "parameter_count": 15,
+  "int8_model_bytes": 18,
+  "macs_per_candidate": 14,
+  "training_identity": "84d6503ed3d132b5208c87b2e3111ccdc776e9fbffda52d3c4ad71c183a9c3bd"
+}

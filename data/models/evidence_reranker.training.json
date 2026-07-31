@@ -1,0 +1,40 @@
+{
+  "corpus_manifest": {
+    "aliases": 1345,
+    "categories": 1838,
+    "chunks": 32808,
+    "database_bytes": 76439552,
+    "documents": 1163,
+    "links": 64966
+  },
+  "development_questions_sha256": "6aebb09c9272d9e046cff7e614de4edbc86147c1823a0bf5e32c38647c8d99e7",
+  "epochs": 24,
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "semantic_similarity",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "source_independence"
+  ],
+  "hard_negative_counts": {
+    "correct_entity_wrong_relation": 121,
+    "correct_relation_wrong_entity": 292,
+    "duplicated_source_lineage_or_other": 953,
+    "first_hop_missing_second_facet": 428,
+    "lexically_strong_distractor": 252,
+    "quotation_without_attribution": 3,
+    "related_article_without_answer": 242,
+    "same_terms_wrong_time": 69
+  },
+  "pair_count": 2360,
+  "usable_questions": 295
+}

@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: aethersparse-autonomous-lab
+    runtime: docker
+    dockerfilePath: ./deploy/Dockerfile
+    plan: free
+    healthCheckPath: /v1/health
+    autoDeploy: false
