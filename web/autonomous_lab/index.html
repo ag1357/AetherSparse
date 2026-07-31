@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071015">
+  <title>AetherSparse Autonomous Lab</title>
+  <style>
+    :root{color-scheme:dark;--bg:#071015;--p:#0d1a21;--p2:#11242d;--l:#23404b;
+      --t:#e9f6f6;--m:#8aa8ad;--c:#45e2d2;--g:#bbf26d;--a:#ffc857;--r:#ff7b72}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -5%,
+      #153f42 0,transparent 30rem),var(--bg);color:var(--t);font-family:system-ui,sans-serif}
+    header{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;
+      padding:.8rem 1rem;background:#071015e8;border-bottom:1px solid var(--l);
+      backdrop-filter:blur(12px)}header strong,header small{display:block}header small{color:var(--m)}
+    .online{color:var(--g);font:12px monospace}.wrap{width:min(1080px,calc(100% - 1rem));
+      margin:auto}.hero{padding:2.5rem 0 1rem}.eyebrow{color:var(--c);font:700 11px monospace;
+      letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(2.2rem,8vw,4.5rem);
+      line-height:.96;letter-spacing:-.05em;margin:.5rem 0}p{line-height:1.55}.muted{color:var(--m)}
+    form,.card{background:#0d1a21ed;border:1px solid var(--l);border-radius:18px;padding:1rem}
+    textarea{width:100%;min-height:85px;resize:vertical;padding:.8rem;background:#071015;
+      color:var(--t);border:1px solid var(--l);border-radius:12px;font:inherit}
+    button{min-height:46px;padding:.65rem .8rem;border:1px solid var(--l);border-radius:12px;
+      color:var(--t);background:var(--p2);font-weight:750;touch-action:manipulation}
+    form button{width:100%;margin-top:.55rem;background:var(--c);color:#041311}
+    .samples{display:flex;gap:.45rem;overflow:auto;padding:.6rem 0}.samples button{flex:0 0 auto;
+      max-width:80vw;font-size:.75rem}.grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;
+      margin:.8rem 0}.head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}
+    h2{margin:.2rem 0 .8rem;font-size:1rem}.answer{font-size:clamp(1.2rem,4vw,1.8rem)}
+    .badge{padding:.3rem .5rem;border:1px solid var(--l);border-radius:999px;font:700 11px monospace}
+    .pass{color:var(--g)}.withheld{color:var(--a)}.citation{display:grid;gap:.2rem;padding:.7rem;
+      border:1px solid var(--l);border-radius:12px;background:var(--bg)}.citation q{color:#bfd3d5}
+    .citation small{color:var(--m)}.metrics{display:grid;gap:.55rem}.metric label{display:flex;
+      justify-content:space-between;color:var(--m);font-size:.72rem}.bar{height:5px;background:var(--bg);
+      border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,
+      var(--c),var(--g))}.variants{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+    .variant{padding:.7rem;border:1px solid var(--l);border-radius:12px;background:#09161c}
+    .variant b{color:var(--c)}dl{margin:0}dl div{display:flex;justify-content:space-between;
+      gap:.6rem;font-size:.7rem}dt{color:var(--m)}dd{margin:0;font-family:monospace}
+    pre{overflow:auto;white-space:pre-wrap;padding:.7rem;border:1px solid var(--l);border-radius:10px;
+      background:var(--bg);color:#bed1d3;font-size:.7rem}.trace{display:grid;gap:.4rem}
+    .trace div{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;padding:.6rem;
+      border:1px solid var(--l);border-radius:10px}.trace b{color:var(--c);font:700 .7rem monospace}
+    .trace small{color:var(--m)}footer{padding:2rem 0;color:var(--m);font-size:.75rem}
+    @media(max-width:720px){.grid{grid-template-columns:1fr}.variants{grid-template-columns:1fr 1fr}}
+    @media(max-width:440px){.variants{grid-template-columns:1fr}.trace div{grid-template-columns:auto 1fr}}
+  </style>
+</head>
+<body>
+<header><div><strong>AetherSparse</strong><small>Autonomous Architecture Lab</small></div>
+  <span id="mode" class="online">● detecting API</span></header>
+<main class="wrap">
+  <section class="hero"><div class="eyebrow">Android qualification console</div>
+    <h1>Ask it. Inspect every decision.</h1>
+    <p class="muted">This file works by itself on a phone and uses the external accessory API
+      whenever one is available. The P4/C6 remains a terminal only.</p>
+    <form id="query"><textarea id="question" aria-label="Question">When did Apollo 11 land on the Moon?</textarea>
+      <button>Run all runtime variants</button></form>
+    <div class="samples" id="samples"></div>
+  </section>
+  <section id="result"></section>
+  <footer>Phase 0 identity is preserved. Offline mode is an explicitly labeled transport
+    demonstration; qualification claims are accepted only from frozen autonomous reports.</footer>
+</main>
+<script>
+const qs=["When did Apollo 11 land on the Moon?","Who said one small step for a man?",
+  "When did Apollo 13 land on the Moon?","What fuel ratio did Apollo 11 use?",
+  "Who won the 1969 World Series?"];
+const api=new URLSearchParams(location.search).get("api")||
+  (location.protocol.startsWith("http")?location.origin:"");
+const samples=document.querySelector("#samples"),form=document.querySelector("#query"),
+  input=document.querySelector("#question"),out=document.querySelector("#result"),mode=document.querySelector("#mode");
+qs.forEach(q=>{const b=document.createElement("button");b.type="button";b.textContent=q;
+  b.onclick=()=>{input.value=q;run(q)};samples.append(b)});
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function offline(q){
+  const land=/apollo 11/i.test(q)&&/(when|date|land)/i.test(q),quote=/small step/i.test(q),
+    unknown=/apollo (?!11\b)\d+/i.test(q),ood=/world series|weather|capital|stock/i.test(q);
+  const answer=land?"Apollo 11 landed on the Moon on July 20, 1969.":quote?
+    "Neil Armstrong said, “That’s one small step for a man, one giant leap for mankind.”":
+    ood?"Outside the compiled AetherSparse reference domain.":unknown?
+    `Insufficient compiled evidence for ${q.match(/apollo \d+/i)?.[0]}.`:
+    "The requested relation is not supported by the compiled evidence.";
+  const ok=land||quote,disp=ok?"ANSWER":ood?"OUT_OF_DOMAIN":"ABSTAIN";
+  const names=["Top-1 + template","Compiled microprogram","Bounded LRVM","Tiny constrained RAG"];
+  return {request_id:"offline:phase0",final:{disposition:disp,answer,reason:ok?null:
+    ood?"OUT_OF_DOMAIN":"INSUFFICIENT_EVIDENCE",citations:ok?[{title:"NASA Apollo 11",
+    revision:"phase0-reference-v0.1.0",quote:land?"On July 20, 1969, Neil Armstrong and Edwin Buzz Aldrin became the first humans to land on the Moon.":"That’s one small step for a man, one giant leap for mankind."}]:[]},
+    confidence:{factual_support:ok?1:0,query_relevance:ok?.98:.45,source_reliability:ok?1:0,
+    realization_fidelity:1,safety_clearance:1},parse:{provisional:{intent:ok?"FACT_LOOKUP":"UNKNOWN",
+    confidence:ok?.93:.35},refined:{disposition:disp,relation_id:land?"as:rel:occurred_on":
+    quote?"as:rel:said":null}},retrieved_candidates:ok?[{packet_id:land?
+    "as:packet:apollo11_landing_event":"as:packet:armstrong_quote",relation:land?
+    "as:rel:occurred_on":"as:rel:said",score:1,source:"NASA Apollo 11"}]:[],
+    verification:{status:ok?"PASS":"WITHHELD",checks:ok?["entity binding","relation binding",
+    "exact source provenance","surface realization"]:["unsupported-output sentinel",
+    "unknown span preserved","no fabricated citation"]},variants:names.map((name,i)=>({id:"ABCD"[i],
+    name,disposition:disp,answer,grounded:ok,verified:true,bytes_read:ok?295:96,
+    estimated_macs:[0,0,1024,18432][i],estimated_latency_ms:[.22,.31,.48,1.42][i],
+    estimated_energy_mj:[.019,.026,.041,.121][i]})),operations:[
+    {name:"NORMALIZE_INPUT",detail:"Unicode and whitespace",bytes:q.length,macs:0,latency_us:18},
+    {name:"PARSE_PROVISIONAL",detail:"Intent/entity/relation frame",bytes:0,macs:6144,latency_us:73},
+    {name:"RETRIEVE_FACTS",detail:ok?"Bounded relation bucket":"No canonical match",bytes:ok?295:96,macs:0,latency_us:61},
+    {name:"VERIFY_CLAIM",detail:ok?"Bindings and provenance pass":"Output withheld",bytes:ok?142:0,macs:0,latency_us:44}]};
+}
+async function request(q){if(api){try{const r=await fetch(api+"/v1/autonomy/query",{method:"POST",
+  headers:{"content-type":"application/json"},body:JSON.stringify({text:q,request_id:"mobile",
+  session_id:"android"})});if(r.ok){mode.textContent="● external API";return await r.json()}}catch{}}
+  mode.textContent="● offline demonstration";return offline(q)}
+function render(r){const c=r.final.citations||[],vars=r.variants||[],ops=r.operations||[];
+  out.innerHTML=`<article class="card"><div class="head"><div><div class="eyebrow">Final response</div>
+  <h2>${esc(r.final.disposition)}</h2></div><span class="badge ${r.verification.status==="PASS"?"pass":"withheld"}">
+  ${esc(r.verification.status)}</span></div><p class="answer">${esc(r.final.answer)}</p>
+  ${r.final.reason?`<p class="muted">${esc(r.final.reason)}</p>`:""}${c.map(x=>`<div class="citation">
+  <b>${esc(x.title)}</b><q>${esc(x.quote)}</q><small>${esc(x.revision)}</small></div>`).join("")}</article>
+  <div class="grid"><article class="card"><h2>Confidence</h2><div class="metrics">${Object.entries(r.confidence)
+  .map(([k,v])=>`<div class="metric"><label><span>${esc(k)}</span><b>${Math.round(v*100)}%</b></label>
+  <div class="bar"><i style="width:${Math.round(v*100)}%"></i></div></div>`).join("")}</div></article>
+  <article class="card"><h2>Verification</h2>${r.verification.checks.map(x=>`<p class="pass">✓ ${esc(x)}</p>`).join("")}</article></div>
+  <article class="card"><h2>Matched systems</h2><div class="variants">${vars.map(v=>`<section class="variant">
+  <b>${esc(v.id)} · ${esc(v.name)}</b><p>${esc(v.answer)}</p><dl><div><dt>grounded</dt><dd>${v.grounded}</dd></div>
+  <div><dt>bytes</dt><dd>${v.bytes_read}</dd></div><div><dt>MACs</dt><dd>${v.estimated_macs}</dd></div>
+  <div><dt>latency</dt><dd>${v.estimated_latency_ms} ms</dd></div><div><dt>energy</dt><dd>${v.estimated_energy_mj} mJ</dd></div>
+  </dl></section>`).join("")}</div></article>
+  <div class="grid"><article class="card"><h2>Parse evolution</h2><pre>${esc(JSON.stringify(r.parse,null,2))}</pre></article>
+  <article class="card"><h2>Retrieved candidates</h2><pre>${esc(JSON.stringify(r.retrieved_candidates,null,2))}</pre></article></div>
+  <article class="card"><h2>Reasoning operations</h2><div class="trace">${ops.map((o,i)=>`<div><b>${String(i+1).padStart(2,"0")}</b>
+  <span><strong>${esc(o.name)}</strong><small>${esc(o.detail)}</small></span><small>${o.bytes} B · ${o.macs} MAC · ${o.latency_us} μs</small>
+  </div>`).join("")}</div></article>`}
+async function run(q){out.innerHTML='<article class="card muted">Running external variants…</article>';render(await request(q))}
+form.onsubmit=e=>{e.preventDefault();run(input.value.trim())};run(input.value);
+</script>
+</body>
+</html>

@@ -29,9 +29,11 @@
 <body><header><b>AetherSparse</b><small>Real-corpus traversal · external accessory</small></header>
 <main><section class="hero"><div class="eyebrow">Android qualification console</div><h1>Follow the evidence, not a script.</h1>
   <p class="muted">The P4/C6 is a terminal only. Corpus, ranking, targeted traversal and verification run behind this API.</p></section>
-  <div class="tabs"><button data-tab="ask">Ask corpus</button><button data-tab="explore">Corpus explorer</button></div>
+  <div class="tabs"><button data-tab="ask">Ask corpus</button><button data-tab="cells">Cell routing</button><button data-tab="explore">Corpus explorer</button></div>
   <section id="ask" class="tab active"><form id="query"><textarea id="question">How are the Moon and tides related?</textarea>
     <button>Rank and verify evidence</button></form><div id="answer"></div></section>
+  <section id="cells" class="tab"><form id="cell-route"><textarea id="cell-question">How are the Moon and tides related?</textarea>
+    <button>Route through cognitive cells</button></form><div id="cell-results"></div></section>
   <section id="explore" class="tab"><form id="search"><input id="term" placeholder="Search article titles" value="Moon">
     <button>Search corpus</button></form><div id="results"></div><div id="article"></div></section>
 </main>
@@ -39,6 +41,8 @@
 const api=new URLSearchParams(location.search).get("api")||location.origin,esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelector("#"+b.dataset.tab).classList.add("active")});
 async function get(path,options){const r=await fetch(api+path,options);if(!r.ok)throw Error((await r.text())||r.status);return r.json()}
+const cf=document.querySelector("#cell-route"),cq=document.querySelector("#cell-question"),cr=document.querySelector("#cell-results");
+cf.onsubmit=async e=>{e.preventDefault();cr.innerHTML='<div class="card muted">Routing…</div>';try{const r=await get("/v3/cells/route",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({text:cq.value,kind:"hybrid",limit:8})});cr.innerHTML=`<article class="card"><span class="badge">${esc(r.topology)} · exact ledger authoritative</span><p class="muted">Generated addresses are hints only. Invalid IDs fail closed.</p></article><article class="card"><h3>Selected cells</h3>${r.routes.map((x,i)=>`<div class="cite"><b>${i+1}. ${esc(x.cell_id)}</b><small>score ${x.score.toFixed(4)} · alias ${x.exact_alias.toFixed(3)} · lexical ${x.lexical.toFixed(3)} · VSA ${x.vsa_similarity.toFixed(3)}</small></div>`).join("")}</article><article class="card"><h3>Address validation</h3><pre>${esc(JSON.stringify({accepted:r.valid_predicted_cell_ids,rejected:r.rejected_predicted_cell_ids},null,2))}</pre></article>`}catch(err){cr.innerHTML=`<div class="card">${esc(err.message)}</div>`}};
 const qf=document.querySelector("#query"),q=document.querySelector("#question"),answer=document.querySelector("#answer");
 qf.onsubmit=async e=>{e.preventDefault();answer.innerHTML='<div class="card muted">Selecting evidence…</div>';try{const r=await get("/v2/selection/query",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({text:q.value})});
  answer.innerHTML=`<article class="card"><span class="badge">${esc(r.disposition)} · ${esc(r.stop_reason)}</span><p class="answer">${esc(r.answer||r.failure_reason)}</p>

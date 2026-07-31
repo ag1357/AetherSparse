@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AetherSparse Gate 0 Review</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, -apple-system, sans-serif;
+      --bg: #090d12;
+      --panel: #111821;
+      --line: #293443;
+      --text: #e6edf3;
+      --muted: #91a0b2;
+      --blue: #3b82f6;
+      --green: #2ea043;
+      --amber: #d29922;
+      --red: #f85149;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); }
+    header {
+      position: sticky; top: 0; z-index: 2; padding: .75rem 1rem;
+      background: rgba(9,13,18,.96); border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-size: 1.15rem; }
+    header p { margin: .3rem 0 0; color: var(--muted); font-size: .82rem; }
+    main { display: grid; grid-template-columns: minmax(250px, 32%) 1fr; min-height: calc(100vh - 74px); }
+    aside { border-right: 1px solid var(--line); padding: .75rem; }
+    article { padding: 1rem; min-width: 0; }
+    .toolbar { display: grid; gap: .5rem; grid-template-columns: 1fr auto; margin-bottom: .7rem; }
+    input, select, textarea, button {
+      width: 100%; border: 1px solid var(--line); border-radius: 9px;
+      background: #0d141d; color: var(--text); padding: .7rem; font: inherit;
+    }
+    button { cursor: pointer; font-weight: 700; }
+    button.primary { background: var(--blue); border-color: var(--blue); }
+    button.accept { background: var(--green); border-color: var(--green); }
+    button.warn { background: var(--amber); border-color: var(--amber); color: #111; }
+    button.reject { background: var(--red); border-color: var(--red); }
+    button:disabled { opacity: .45; cursor: wait; }
+    #candidate-list { display: grid; gap: .5rem; }
+    .candidate {
+      text-align: left; background: var(--panel); padding: .7rem;
+      border: 1px solid var(--line); border-radius: 10px;
+    }
+    .candidate.selected { border-color: var(--blue); }
+    .candidate small { display: block; color: var(--muted); margin-top: .25rem; overflow-wrap: anywhere; }
+    .badge { display: inline-block; border: 1px solid var(--line); border-radius: 999px;
+      padding: .15rem .45rem; font-size: .72rem; margin-right: .25rem; }
+    .PASS, .ACCEPTED { color: #6ee7a0; }
+    .REVIEW, .QUARANTINED { color: #f3c969; }
+    .FAIL, .REJECTED { color: #ff7b72; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+      padding: .85rem; margin-bottom: .8rem; }
+    section h2 { font-size: 1rem; margin: 0 0 .65rem; }
+    dl { display: grid; grid-template-columns: minmax(120px, 25%) 1fr; gap: .35rem .8rem; margin: 0; }
+    dt { color: var(--muted); }
+    dd { margin: 0; overflow-wrap: anywhere; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #090d12;
+      border: 1px solid var(--line); padding: .7rem; border-radius: 8px; }
+    mark { background: #755c15; color: white; }
+    .checks { display: grid; gap: .4rem; }
+    .check { border-left: 3px solid var(--line); padding-left: .55rem; }
+    .check.PASS { border-color: var(--green); }
+    .check.REVIEW { border-color: var(--amber); }
+    .check.FAIL { border-color: var(--red); }
+    .actions { display: grid; gap: .6rem; grid-template-columns: repeat(5, minmax(90px, 1fr)); }
+    .review-fields { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .6rem; }
+    #editor { min-height: 18rem; font-family: ui-monospace, monospace; font-size: .78rem; }
+    .muted { color: var(--muted); }
+    #toast { position: fixed; right: 1rem; bottom: 1rem; max-width: min(90vw, 480px);
+      padding: .8rem; border-radius: 10px; background: #1d2733; border: 1px solid var(--line);
+      display: none; }
+    @media (max-width: 760px) {
+      main { display: block; }
+      aside { border-right: 0; border-bottom: 1px solid var(--line); max-height: 42vh; overflow: auto; }
+      article { padding: .75rem; }
+      .actions { grid-template-columns: 1fr 1fr; }
+      .review-fields { grid-template-columns: 1fr; }
+      dl { grid-template-columns: 1fr; }
+      dt { margin-top: .35rem; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>AetherSparse Gate 0 review</h1>
+  <p id="status">Loading external accessory review state…</p>
+</header>
+<main>
+  <aside>
+    <div class="toolbar">
+      <select id="state-filter" aria-label="Review state">
+        <option value="">All states</option>
+        <option>CANDIDATE</option>
+        <option>ACCEPTED</option>
+        <option>EDITED</option>
+        <option>QUARANTINED</option>
+        <option>REJECTED</option>
+        <option>MERGED_DUPLICATE</option>
+      </select>
+      <button id="refresh">↻</button>
+    </div>
+    <div id="candidate-list"></div>
+    <button id="more" style="margin-top:.7rem">Load more</button>
+  </aside>
+  <article>
+    <p id="empty" class="muted">Choose a candidate to inspect its immutable evidence and validation.</p>
+    <div id="detail" hidden>
+      <section>
+        <h2>Candidate summary</h2>
+        <dl id="summary"></dl>
+      </section>
+      <section>
+        <h2>Immutable raw source span</h2>
+        <pre id="raw-span"></pre>
+        <h2>Normalized span</h2>
+        <pre id="normalized-span"></pre>
+      </section>
+      <section>
+        <h2>Atomic claim-unit alignments</h2>
+        <div id="claims"></div>
+      </section>
+      <section>
+        <h2>Independent validator</h2>
+        <div id="validator-summary"></div>
+        <div id="checks" class="checks"></div>
+      </section>
+      <section>
+        <h2>Typed candidate packet</h2>
+        <textarea id="editor" spellcheck="false"></textarea>
+      </section>
+      <section>
+        <h2>Append-only review action</h2>
+        <div class="review-fields">
+          <input id="reviewer" placeholder="Reviewer ID" autocomplete="name">
+          <select id="reason">
+            <option value="">Reason code (required except ACCEPT)</option>
+            <option>ALIGNMENT_FIX</option><option>ENTITY_FIX</option>
+            <option>RELATION_FIX</option><option>NEGATION_FIX</option>
+            <option>TEMPORAL_FIX</option><option>QUANTITY_UNIT_FIX</option>
+            <option>ATTRIBUTION_FIX</option><option>TYPE_FIX</option>
+            <option>DUPLICATE</option><option>CONTRADICTION</option>
+            <option>UNSUPPORTED</option><option>LICENSE_POLICY</option>
+            <option>OUT_OF_SCOPE</option><option>OTHER</option>
+          </select>
+          <input id="merge-target" placeholder="Merge target candidate ID">
+          <textarea id="reason-detail" placeholder="Reason detail"></textarea>
+        </div>
+        <div class="actions">
+          <button class="accept" data-action="ACCEPT">ACCEPT</button>
+          <button class="primary" data-action="EDIT">EDIT</button>
+          <button class="warn" data-action="QUARANTINE">QUARANTINE</button>
+          <button class="reject" data-action="REJECT">REJECT</button>
+          <button data-action="MERGE_DUPLICATE">MERGE DUPLICATE</button>
+        </div>
+      </section>
+    </div>
+  </article>
+</main>
+<div id="toast" role="status"></div>
+<script>
+const configuredApi = new URLSearchParams(location.search).get("api");
+const api = configuredApi || (
+  location.pathname === "/review"
+    ? location.origin
+    : `${location.protocol}//${location.hostname || "127.0.0.1"}:8000`
+);
+const list = document.querySelector("#candidate-list");
+const statusText = document.querySelector("#status");
+const detail = document.querySelector("#detail");
+const empty = document.querySelector("#empty");
+const editor = document.querySelector("#editor");
+const reviewer = document.querySelector("#reviewer");
+const stateFilter = document.querySelector("#state-filter");
+const toast = document.querySelector("#toast");
+let selected = null;
+let offset = 0;
+let total = 0;
+reviewer.value = localStorage.getItem("aethersparse-reviewer") || "";
+
+function notify(message, error=false) {
+  toast.textContent = message;
+  toast.style.display = "block";
+  toast.style.borderColor = error ? "var(--red)" : "var(--green)";
+  setTimeout(() => toast.style.display = "none", 3500);
+}
+async function getJson(path, options={}) {
+  const response = await fetch(`${api}${path}`, options);
+  if (!response.ok) throw new Error(`${response.status}: ${await response.text()}`);
+  return response.json();
+}
+function addTerm(dl, name, value) {
+  const dt = document.createElement("dt");
+  const dd = document.createElement("dd");
+  dt.textContent = name; dd.textContent = value ?? "—";
+  dl.append(dt, dd);
+}
+async function refreshStatus() {
+  const data = await getJson("/v1/review/status");
+  statusText.textContent = `${data.candidate_count} candidates · ${data.human_reviewed_count} human reviewed · journal ${data.journal_entries} entries`;
+}
+async function loadCandidates(reset=false) {
+  if (reset) { offset = 0; list.replaceChildren(); }
+  const state = stateFilter.value ? `&state=${encodeURIComponent(stateFilter.value)}` : "";
+  const data = await getJson(`/v1/review/candidates?offset=${offset}&limit=25${state}`);
+  total = data.total;
+  for (const item of data.items) {
+    const button = document.createElement("button");
+    button.className = "candidate";
+    button.dataset.id = item.candidate_id;
+    const badges = document.createElement("div");
+    for (const text of [item.packet_type, item.validator_decision || "UNVALIDATED", item.state]) {
+      const badge = document.createElement("span");
+      badge.className = `badge ${text}`;
+      badge.textContent = text;
+      badges.append(badge);
+    }
+    const object = document.createElement("small");
+    object.textContent = item.primary_object;
+    const source = document.createElement("small");
+    source.textContent = item.source_doc_id;
+    button.append(badges, object, source);
+    button.addEventListener("click", () => openCandidate(item.candidate_id, button));
+    list.append(button);
+  }
+  offset += data.items.length;
+  document.querySelector("#more").disabled = offset >= total;
+}
+async function openCandidate(id, button) {
+  selected = await getJson(`/v1/review/candidates/${encodeURIComponent(id)}`);
+  document.querySelectorAll(".candidate").forEach(node => node.classList.remove("selected"));
+  button?.classList.add("selected");
+  empty.hidden = true; detail.hidden = false;
+  const c = selected.candidate;
+  const dl = document.querySelector("#summary"); dl.replaceChildren();
+  addTerm(dl, "Candidate", c.candidate_id);
+  addTerm(dl, "State", selected.state);
+  addTerm(dl, "Source / revision", `${c.source_doc_id} / ${c.source_revision}`);
+  addTerm(dl, "Type", c.packet_type);
+  addTerm(dl, "Entities", c.entity_ids.join(", "));
+  addTerm(dl, "Relation", c.primary_relation);
+  addTerm(dl, "Dates", c.temporal_values.join(", ") || "—");
+  addTerm(dl, "Quantities", c.quantities.map(q => `${q.normalized_value} ${q.normalized_unit}`).join(", ") || "—");
+  addTerm(dl, "Polarity", c.polarity);
+  addTerm(dl, "Attribution", c.attribution || "—");
+  addTerm(dl, "Extractor", `${c.extractor.extractor_identity} ${c.extractor.extractor_version}`);
+  addTerm(dl, "Extractor confidence", c.extractor_confidence);
+  const first = c.atomic_claims[0].alignment;
+  const rawBox = document.querySelector("#raw-span"); rawBox.replaceChildren();
+  const before = document.createTextNode(selected.source.raw_text.slice(0, first.raw_char_start));
+  const mark = document.createElement("mark"); mark.textContent = selected.source.raw_text.slice(first.raw_char_start, first.raw_char_end);
+  const after = document.createTextNode(selected.source.raw_text.slice(first.raw_char_end));
+  rawBox.append(before, mark, after);
+  document.querySelector("#normalized-span").textContent = first.normalized_text;
+  const claims = document.querySelector("#claims"); claims.replaceChildren();
+  for (const claim of c.atomic_claims) {
+    const pre = document.createElement("pre");
+    pre.textContent = JSON.stringify(claim, null, 2);
+    claims.append(pre);
+  }
+  const validation = selected.validator;
+  const validationSummary = document.querySelector("#validator-summary");
+  validationSummary.textContent = validation
+    ? `${validation.validator_identity}: ${validation.decision} · duplicates ${validation.duplicate_candidate_ids.length} · near duplicates ${validation.near_duplicate_candidate_ids.length} · contradictions ${validation.contradiction_candidate_ids.length}`
+    : "No independent validation result.";
+  validationSummary.className = validation?.decision || "";
+  const checks = document.querySelector("#checks"); checks.replaceChildren();
+  for (const check of validation?.checks || []) {
+    const row = document.createElement("div"); row.className = `check ${check.status}`;
+    row.textContent = `${check.status} · ${check.check_id}: ${check.detail}`;
+    checks.append(row);
+  }
+  editor.value = JSON.stringify(c, null, 2);
+}
+async function submitAction(action) {
+  if (!selected) return;
+  const reviewerId = reviewer.value.trim();
+  const reason = document.querySelector("#reason").value;
+  if (!reviewerId) return notify("Reviewer ID is required.", true);
+  if (action !== "ACCEPT" && !reason) return notify(`${action} requires a reason code.`, true);
+  localStorage.setItem("aethersparse-reviewer", reviewerId);
+  const body = {
+    candidate_id: selected.candidate.candidate_id,
+    action,
+    reviewer_id: reviewerId,
+    reviewer_kind: "human",
+    reason_code: reason || null,
+    reason_detail: document.querySelector("#reason-detail").value || null,
+    edited_candidate: action === "EDIT" ? JSON.parse(editor.value) : null,
+    merge_target_candidate_id: action === "MERGE_DUPLICATE"
+      ? document.querySelector("#merge-target").value.trim() : null
+  };
+  document.querySelectorAll(".actions button").forEach(button => button.disabled = true);
+  try {
+    await getJson("/v1/review/actions", {
+      method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(body)
+    });
+    notify(`${action} recorded in append-only journal.`);
+    await refreshStatus();
+    await loadCandidates(true);
+    detail.hidden = true; empty.hidden = false;
+  } catch (error) {
+    notify(error.message, true);
+  } finally {
+    document.querySelectorAll(".actions button").forEach(button => button.disabled = false);
+  }
+}
+document.querySelector("#refresh").addEventListener("click", () => loadCandidates(true));
+document.querySelector("#more").addEventListener("click", () => loadCandidates(false));
+stateFilter.addEventListener("change", () => loadCandidates(true));
+document.querySelectorAll("[data-action]").forEach(button =>
+  button.addEventListener("click", () => submitAction(button.dataset.action))
+);
+Promise.all([refreshStatus(), loadCandidates(true)]).catch(error => notify(error.message, true));
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AetherSparse Terminal</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #0d1117; color: #e6edf3; }
+    main { max-width: 760px; margin: 0 auto; padding: 2rem 1rem; }
+    .panel { border: 1px solid #30363d; border-radius: 14px; padding: 1rem; background: #161b22; }
+    label { display: block; color: #8b949e; margin-bottom: .5rem; }
+    textarea { box-sizing: border-box; width: 100%; min-height: 7rem; resize: vertical;
+      background: #0d1117; color: #e6edf3; border: 1px solid #30363d;
+      border-radius: 10px; padding: .8rem; font: inherit; }
+    button { margin-top: .8rem; border: 0; border-radius: 10px; padding: .75rem 1rem;
+      background: #2f81f7; color: white; font-weight: 700; }
+    button:disabled { opacity: .5; }
+    #answer { white-space: pre-wrap; line-height: 1.5; }
+    .muted { color: #8b949e; font-size: .9rem; }
+    a { color: #58a6ff; }
+    details { margin-top: 1rem; }
+    pre { overflow: auto; font-size: .78rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>AetherSparse terminal</h1>
+  <p class="muted">Presentation and transport only. All cognitive work remains in the external accessory service.</p>
+  <section class="panel">
+    <label for="question">Question</label>
+    <textarea id="question">When did Apollo 11 land on the Moon?</textarea>
+    <button id="send">Ask accessory</button>
+  </section>
+  <section class="panel" style="margin-top: 1rem" aria-live="polite">
+    <div id="answer">Ready.</div>
+    <div id="citations"></div>
+    <details>
+      <summary>Trace and confidence</summary>
+      <pre id="trace"></pre>
+    </details>
+  </section>
+</main>
+<script>
+const endpoint = new URLSearchParams(location.search).get("api") || "http://127.0.0.1:8000";
+const send = document.querySelector("#send");
+const question = document.querySelector("#question");
+const answer = document.querySelector("#answer");
+const citations = document.querySelector("#citations");
+const trace = document.querySelector("#trace");
+send.addEventListener("click", async () => {
+  send.disabled = true;
+  answer.textContent = "Contacting accessory…";
+  citations.replaceChildren();
+  trace.textContent = "";
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 6000);
+  try {
+    const response = await fetch(`${endpoint}/v1/query`, {
+      method: "POST",
+      headers: {"content-type": "application/json"},
+      signal: controller.signal,
+      body: JSON.stringify({
+        request_id: crypto.randomUUID(),
+        session_id: "browser-terminal",
+        text: question.value,
+        trace: true
+      })
+    });
+    if (!response.ok) throw new Error(`Accessory returned HTTP ${response.status}`);
+    const data = await response.json();
+    answer.textContent = data.sentence || `${data.reason_code}: ${data.reason}`;
+    for (const citation of data.citations) {
+      const p = document.createElement("p");
+      const link = document.createElement("a");
+      link.href = citation.source_url;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = citation.source_title;
+      p.append("Source: ", link, ` — “${citation.quoted_text}”`);
+      citations.append(p);
+    }
+    trace.textContent = JSON.stringify({
+      confidence: data.confidence,
+      cost: data.cost,
+      operations: data.trace,
+      pack_manifest_hash: data.pack_manifest_hash
+    }, null, 2);
+  } catch (error) {
+    answer.textContent = error.name === "AbortError"
+      ? "Accessory request timed out."
+      : `Accessory unavailable: ${error.message}`;
+  } finally {
+    clearTimeout(timer);
+    send.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
+

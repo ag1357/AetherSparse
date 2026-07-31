@@ -13,6 +13,9 @@ from pydantic import BaseModel
 from aethersparse.autonomy.qualification import run_qualification
 from aethersparse.autonomy.silver import compile_real_source_silver
 from aethersparse.benchmark import run_benchmark
+from aethersparse.cells.models import CellKind
+from aethersparse.cells.qualification import compare_topologies
+from aethersparse.cells.topology import CognitiveCellBuilder
 from aethersparse.compiler import COMPILED_FILE, compile_pack
 from aethersparse.evaluation import run_evaluation
 from aethersparse.gate0.pipeline import (
@@ -62,24 +65,57 @@ selection_app = typer.Typer(
     help="Compact evidence-selection qualification workflows.",
 )
 app.add_typer(selection_app, name="selection")
+cells_app = typer.Typer(
+    no_args_is_help=True,
+    pretty_exceptions_enable=False,
+    help="Cognitive-cell topology qualification workflows.",
+)
+app.add_typer(cells_app, name="cells")
+
+
+@cells_app.command("qualify")
+def cells_qualify(
+    corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-10k.sqlite"),
+    questions: Annotated[Path, typer.Option()] = Path("data/real_corpus/questions.json"),
+    output: Annotated[Path, typer.Option()] = Path("reports/COGNITIVE_CELL_QUALIFICATION.json"),
+    max_documents: Annotated[int, typer.Option(min=8, max=4096)] = 256,
+) -> None:
+    payload = json.loads(questions.read_text(encoding="utf-8"))
+    report = compare_topologies(
+        CognitiveCellBuilder(CorpusStore(corpus), max_documents=max_documents),
+        payload["questions"],
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    typer.echo(json.dumps(report, indent=2, sort_keys=True))
+
+
+@cells_app.command("build")
+def cells_build(
+    corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-10k.sqlite"),
+    kind: Annotated[CellKind, typer.Option()] = CellKind.HYBRID,
+    output: Annotated[Path, typer.Option()] = Path("data/cells/cells.json"),
+    max_documents: Annotated[int, typer.Option(min=8, max=4096)] = 256,
+) -> None:
+    cells = CognitiveCellBuilder(CorpusStore(corpus), max_documents=max_documents).build(kind)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        json.dumps([cell.model_dump(mode="json") for cell in cells], indent=2) + "\n",
+        encoding="utf-8",
+    )
+    typer.echo(json.dumps({"kind": kind, "cell_count": len(cells), "output": str(output)}))
 
 
 @selection_app.command("train")
 def selection_train(
     corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-1k.sqlite"),
-    questions: Annotated[Path, typer.Option()] = Path(
-        "data/real_corpus/scaling_questions.json"
-    ),
-    output_model: Annotated[Path, typer.Option()] = Path(
-        "data/models/evidence_reranker.int8.json"
-    ),
+    questions: Annotated[Path, typer.Option()] = Path("data/real_corpus/scaling_questions.json"),
+    output_model: Annotated[Path, typer.Option()] = Path("data/models/evidence_reranker.int8.json"),
     output_manifest: Annotated[Path, typer.Option()] = Path(
         "data/models/evidence_reranker.training.json"
     ),
 ) -> None:
-    result = train_reranker(
-        corpus, questions, output_model, output_manifest
-    )
+    result = train_reranker(corpus, questions, output_model, output_manifest)
     typer.echo(json.dumps(result, indent=2, sort_keys=True))
 
 
@@ -87,12 +123,8 @@ def selection_train(
 def selection_evaluate(
     corpus: Annotated[Path, typer.Option()] = Path("data/real_corpus/simplewiki-10k.sqlite"),
     questions: Annotated[Path, typer.Option()] = Path("data/real_corpus/questions.json"),
-    model: Annotated[Path, typer.Option()] = Path(
-        "data/models/evidence_reranker.int8.json"
-    ),
-    output: Annotated[Path, typer.Option()] = Path(
-        "reports/EVIDENCE_SELECTION_10K.json"
-    ),
+    model: Annotated[Path, typer.Option()] = Path("data/models/evidence_reranker.int8.json"),
+    output: Annotated[Path, typer.Option()] = Path("reports/EVIDENCE_SELECTION_10K.json"),
     limit: Annotated[int | None, typer.Option(min=1)] = None,
 ) -> None:
     result = evaluate_selection(corpus, questions, model, output, limit=limit)
@@ -137,10 +169,13 @@ def corpus_evaluate(
     output: Annotated[Path, typer.Option()] = Path("reports/REAL_CORPUS_EVALUATION.json"),
     limit: Annotated[int | None, typer.Option(min=1)] = None,
 ) -> None:
-    typer.echo(json.dumps(
-        evaluate_retrieval(corpus, questions, output, limit=limit),
-        indent=2, sort_keys=True,
-    ))
+    typer.echo(
+        json.dumps(
+            evaluate_retrieval(corpus, questions, output, limit=limit),
+            indent=2,
+            sort_keys=True,
+        )
+    )
 
 
 @app.command("compile")

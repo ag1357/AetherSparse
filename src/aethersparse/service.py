@@ -10,6 +10,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, StreamingResponse
 
+from aethersparse.cells.models import CellKind
+from aethersparse.cells.router import CognitiveCellRouter
+from aethersparse.cells.topology import CognitiveCellBuilder
 from aethersparse.gate0.review_service import create_review_router
 from aethersparse.models import QueryRequest, QueryResponse
 from aethersparse.runtime import AetherSparseRuntime
@@ -46,6 +49,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
         allow_headers=["content-type"],
     )
     application.include_router(create_review_router())
+    cell_router_cache: dict[CellKind, CognitiveCellRouter] = {}
 
     def traversal() -> TraversalRuntime:
         if not DEFAULT_CORPUS.exists():
@@ -58,6 +62,12 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
                 status_code=503, detail="Corpus pack or evidence selector is not registered"
             )
         return EvidenceSelector.from_model_file(DEFAULT_CORPUS, DEFAULT_RERANKER)
+
+    def cell_router(kind: CellKind) -> CognitiveCellRouter:
+        if kind not in cell_router_cache:
+            store = traversal().store
+            cell_router_cache[kind] = CognitiveCellRouter(CognitiveCellBuilder(store).build(kind))
+        return cell_router_cache[kind]
 
     @application.get("/review", include_in_schema=False)
     def review_ui() -> FileResponse:
@@ -119,9 +129,12 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
         ).fetchall()
         return {
             "document": {
-                "document_id": doc["document_id"], "title": doc["title"],
-                "revision": doc["revision"], "source_url": doc["source_url"],
-                "license": doc["license"], "content_hash": doc["content_hash"],
+                "document_id": doc["document_id"],
+                "title": doc["title"],
+                "revision": doc["revision"],
+                "source_url": doc["source_url"],
+                "license": doc["license"],
+                "content_hash": doc["content_hash"],
                 "normalized_text": doc["normalized_text"],
             },
             "sections": [dict(row) for row in chunks],
@@ -139,9 +152,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
         budget = TraversalBudget.model_validate(requested) if requested else TraversalBudget()
         raw_discourse = payload.get("discourse", [])
         discourse = (
-            tuple(str(item) for item in raw_discourse)
-            if isinstance(raw_discourse, list)
-            else ()
+            tuple(str(item) for item in raw_discourse) if isinstance(raw_discourse, list) else ()
         )
         result = traversal().query(text, budget=budget, discourse=discourse)
         return result.model_dump(mode="json")
@@ -152,9 +163,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
         if not text:
             raise HTTPException(status_code=422, detail="text is required")
         engine = selector()
-        trace = engine.select(
-            text, stage="reranker", permit_targeted_traversal=True
-        )
+        trace = engine.select(text, stage="reranker", permit_targeted_traversal=True)
         selected = trace.selected_evidence
         # Qualification found that score-only answer emission exceeds the
         # unsupported-claim and wrong-entity ceilings. Keep the evidence
@@ -183,12 +192,8 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
             "disposition": "ANSWER" if answer else "ABSTAIN",
             "answer": answer,
             "failure_reason": "UNQUALIFIED_ANSWER_VERIFIER",
-            "initial_candidates": [
-                projection(item) for item in trace.initial_candidates
-            ],
-            "reranked_candidates": [
-                projection(item) for item in trace.reranked_candidates
-            ],
+            "initial_candidates": [projection(item) for item in trace.initial_candidates],
+            "reranked_candidates": [projection(item) for item in trace.reranked_candidates],
             "selected_evidence": [projection(item) for item in selected],
             "missing_facets": trace.missing_facets,
             "targeted_traversal": {
@@ -211,6 +216,38 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
             "model_macs": trace.model_macs,
             "model_parameters": engine.model.parameter_count,
             "int8_model_bytes": engine.model.int8_model_bytes,
+            "external_service_boundary": True,
+        }
+
+    @application.post("/v3/cells/route")
+    def route_cells(payload: dict[str, object]) -> dict[str, object]:
+        text = str(payload.get("text", "")).strip()
+        if not text:
+            raise HTTPException(status_code=422, detail="text is required")
+        kind = CellKind(str(payload.get("kind", CellKind.HYBRID)))
+        raw_predictions = payload.get("predicted_cell_ids", [])
+        predictions = (
+            tuple(str(item) for item in raw_predictions)
+            if isinstance(raw_predictions, list)
+            else ()
+        )
+        router = cell_router(kind)
+        valid_predictions = router.validate_predictions(predictions)
+        raw_limit = payload.get("limit", 8)
+        limit = int(raw_limit) if isinstance(raw_limit, (str, int)) else 8
+        routes = router.route(
+            text,
+            limit=max(1, min(limit, 16)),
+            predicted_cell_ids=valid_predictions,
+        )
+        return {
+            "query": text,
+            "topology": kind,
+            "routes": [route.model_dump(mode="json") for route in routes],
+            "valid_predicted_cell_ids": valid_predictions,
+            "rejected_predicted_cell_ids": sorted(set(predictions) - set(valid_predictions)),
+            "generated_address_is_hint_only": True,
+            "exact_evidence_graph_is_authoritative": True,
             "external_service_boundary": True,
         }
 
@@ -256,9 +293,8 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
                 "safety_clearance": 1.0,
             }
         )
-        verification_passed = (
-            compiled.disposition.value != "answer"
-            or bool(compiled.citations and compiled.bindings)
+        verification_passed = compiled.disposition.value != "answer" or bool(
+            compiled.citations and compiled.bindings
         )
         variants: list[dict[str, object]] = []
         variant_specs = (
@@ -302,9 +338,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
                 "disposition": compiled.disposition.value.upper(),
                 "answer": compiled.sentence or compiled.reason,
                 "reason": (
-                    compiled.reason_code.value
-                    if compiled.reason_code is not None
-                    else None
+                    compiled.reason_code.value if compiled.reason_code is not None else None
                 ),
                 "citations": citations,
             },

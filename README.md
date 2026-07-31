@@ -3,7 +3,9 @@
 > Current classification: `DETERMINISTIC_RUNTIME_VALIDATED` /
 > `SCALABLE_KNOWLEDGE_ARCHITECTURE_UNVALIDATED`.
 >
-> Current evidence-selection decision: `REAL_CORPUS_ARCHITECTURE_FAILED`.
+> Frozen flat evidence-selection baseline: `REAL_CORPUS_ARCHITECTURE_FAILED`.
+>
+> Current v0.4 gate: `COGNITIVE_CELL_TOPOLOGY_QUALIFICATION_PENDING`.
 >
 > Current hardware action: no purchase.
 
@@ -65,3 +67,20 @@ Phase 0 is frozen under tag `phase0-reference-v0.1.0`.
 
 Earlier synthetic results validate deterministic execution only; they do not
 override the failed real-corpus evidence-selection result.
+
+## v0.4 cognitive-cell realignment
+
+The failed flat-index result is retained as the matched baseline, not generalized
+to an untested HKC topology. v0.4 adds four comparative cell constructions:
+category-derived, entity/link communities, semantic buckets, and a bounded
+overlapping hybrid. A 1,024-bit binary VSA supports approximate routing beside
+an authoritative exact evidence ledger. Generated cell IDs are validated against
+the canonical registry and may only act as hints.
+
+```bash
+uv run aethersparse cells build --kind hybrid
+uv run aethersparse cells qualify
+```
+
+The topology gate remains pending until those commands are rerun over the frozen
+1k, 10k, and 50k corpus packs. Tiny-corpus tests validate contracts only.
