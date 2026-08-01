@@ -72,6 +72,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--evidence-limit", type=int, default=32)
     parser.add_argument("--case-limit", type=int)
     parser.add_argument(
+        "--case-shard",
+        metavar="INDEX/COUNT",
+        help="Evaluate one deterministic zero-based strided shard for later exact merge.",
+    )
+    parser.add_argument(
         "--skip-pack-sha256",
         action="store_true",
         help="Skip the streaming pack hash check (qualification reports should not use this).",
@@ -85,6 +90,19 @@ def _sha256_file(path: Path) -> str:
         while block := handle.read(8 * 1024 * 1024):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _parse_case_shard(value: str | None) -> tuple[int, int] | None:
+    if value is None:
+        return None
+    raw_index, separator, raw_count = value.partition("/")
+    if not separator:
+        raise ValueError("case-shard must use INDEX/COUNT")
+    index = int(raw_index)
+    count = int(raw_count)
+    if count < 2 or index < 0 or index >= count:
+        raise ValueError("case-shard requires COUNT>=2 and 0<=INDEX<COUNT")
+    return index, count
 
 
 def _load_benchmark(path: Path) -> FrozenBenchmark:
@@ -357,12 +375,21 @@ def _run(
     *,
     evidence_limit: int,
     case_limit: int | None,
+    case_shard: tuple[int, int] | None = None,
 ) -> tuple[tuple[EvaluationOutcome, ...], tuple[tuple[str, ControllerResult], ...]]:
     if not 1 <= evidence_limit <= 64:
         raise ValueError("evidence-limit must be in [1,64]")
     if case_limit is not None and case_limit < 1:
         raise ValueError("case-limit must be positive")
-    cases = benchmark.cases[:case_limit] if case_limit is not None else benchmark.cases
+    if case_limit is not None and case_shard is not None:
+        raise ValueError("case-limit and case-shard are mutually exclusive")
+    if case_limit is not None:
+        cases = benchmark.cases[:case_limit]
+    elif case_shard is not None:
+        index, count = case_shard
+        cases = benchmark.cases[index::count]
+    else:
+        cases = benchmark.cases
     outcomes: list[EvaluationOutcome] = []
     full_results: list[tuple[str, ControllerResult]] = []
     framer = QueryFramer()
@@ -469,6 +496,7 @@ def _run(
 
 def main() -> int:
     args = _parse_args()
+    case_shard = _parse_case_shard(args.case_shard)
     manifest_path = _manifest_path(args.pack, args.pack_manifest)
     benchmark = _load_benchmark(args.benchmark)
     pack_report = _verify_pack(
@@ -482,13 +510,19 @@ def main() -> int:
         args.pack,
         evidence_limit=args.evidence_limit,
         case_limit=args.case_limit,
+        case_shard=case_shard,
     )
-    complete = args.case_limit is None
+    complete = args.case_limit is None and case_shard is None
     matrix = evaluate_ablation(benchmark, outcomes, require_complete=complete)
     report: dict[str, Any] = {
         "qualification_id": "AETHERSPARSE_V050_SQLITE_CONTROLLER_QUALIFICATION_R2",
         "qualification_complete": complete,
         "case_limit": args.case_limit,
+        "case_shard": (
+            {"index": case_shard[0], "count": case_shard[1]}
+            if case_shard is not None
+            else None
+        ),
         "elapsed_seconds": time.time() - started,
         "pack": pack_report,
         "benchmark": {

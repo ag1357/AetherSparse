@@ -413,3 +413,19 @@ def test_qualification_replays_parent_context_when_child_is_serialized_first(
         and row.system is AblationSystem.FULL_EXTRACTIVE_CONTROLLER
     )
     assert child_full.linked_entity_ids == (_canonical_entity_id("Ada Lovelace"),)
+
+    sharded = tuple(
+        row
+        for shard_index in range(2)
+        for row in runner["_run"](
+            benchmark,
+            tmp_path / "v050.sqlite",
+            evidence_limit=8,
+            case_limit=None,
+            case_shard=(shard_index, 2),
+        )[0]
+    )
+    assert len(sharded) == len(outcomes)
+    assert {(row.case_id, row.system) for row in sharded} == {
+        (row.case_id, row.system) for row in outcomes
+    }
