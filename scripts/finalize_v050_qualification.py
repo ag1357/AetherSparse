@@ -219,6 +219,7 @@ def main() -> int:
         edge.get("operation_counter_instrumented", False)
     )
     credible_edge = board_measurements and operation_counter_instrumented
+    baseline10 = systems10[AblationSystem.DETERMINISTIC_FEATURE_FUSION.value]
     metrics = MetricSnapshot(
         article_recall_at_8=_as_float(full50, "article_recall_at_8"),
         evidence_recall_at_8=_as_float(full50, "evidence_recall_at_8"),
@@ -242,6 +243,18 @@ def main() -> int:
         stable_10k_to_50k=stable,
         credible_edge_backend=credible_edge,
         verified_rag_exact_accuracy=None,
+        retained_baseline_article_recall_at_8=_as_float(
+            baseline10, "article_recall_at_8"
+        ),
+        retained_baseline_evidence_recall_at_8=_as_float(
+            baseline10, "evidence_recall_at_8"
+        ),
+        retained_baseline_exact_answerable_accuracy=_as_float(
+            baseline10, "exact_supported_answer_accuracy"
+        ),
+        retained_baseline_unsupported_claim_rate=_as_float(
+            baseline10, "unsupported_claim_rate"
+        ),
     )
     gates = evaluate_gates(metrics)
     architecture = select_architecture(metrics)
@@ -289,13 +302,7 @@ def main() -> int:
         }
         for name, metrics_by_system in systems50.items()
     }
-    baseline10 = systems10[AblationSystem.DETERMINISTIC_FEATURE_FUSION.value]
-    baseline_recovered = (
-        _as_float(baseline10, "article_recall_at_8") >= 0.84
-        and _as_float(baseline10, "evidence_recall_at_8") >= 0.79
-        and _as_float(baseline10, "exact_supported_answer_accuracy") >= 0.49
-        and _as_float(baseline10, "unsupported_claim_rate") == 0.0
-    )
+    baseline_recovered = gates.retained_baseline
     payload = {
         "qualification_id": "AETHERSPARSE_V050_FINAL_QUALIFICATION_R1",
         "benchmark_identity": benchmark.benchmark_identity,

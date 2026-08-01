@@ -80,3 +80,16 @@ def test_failed_retained_baseline_is_falsified() -> None:
         credible_edge_backend=False,
     )
     assert select_architecture(metrics) is ArchitectureDecision.FALSIFIED
+
+
+def test_downstream_controller_cannot_mask_failed_retained_baseline() -> None:
+    metrics = _snapshot(
+        retained_baseline_article_recall_at_8=0.60,
+        retained_baseline_evidence_recall_at_8=0.50,
+        retained_baseline_exact_answerable_accuracy=0.30,
+        retained_baseline_unsupported_claim_rate=0.0,
+    )
+    gates = evaluate_gates(metrics)
+    assert gates.full_qualification
+    assert gates.retained_baseline is False
+    assert select_architecture(metrics) is ArchitectureDecision.FALSIFIED

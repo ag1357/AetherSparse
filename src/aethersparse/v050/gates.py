@@ -49,6 +49,18 @@ class MetricSnapshot(FrozenModel):
     stable_10k_to_50k: bool
     credible_edge_backend: bool
     verified_rag_exact_accuracy: float | None = Field(default=None, ge=0.0, le=1.0)
+    retained_baseline_article_recall_at_8: float | None = Field(
+        default=None, ge=0.0, le=1.0
+    )
+    retained_baseline_evidence_recall_at_8: float | None = Field(
+        default=None, ge=0.0, le=1.0
+    )
+    retained_baseline_exact_answerable_accuracy: float | None = Field(
+        default=None, ge=0.0, le=1.0
+    )
+    retained_baseline_unsupported_claim_rate: float | None = Field(
+        default=None, ge=0.0, le=1.0
+    )
 
 
 class GateEvaluation(FrozenModel):
@@ -62,11 +74,31 @@ class GateEvaluation(FrozenModel):
 def evaluate_gates(metrics: MetricSnapshot) -> GateEvaluation:
     """Evaluate the published R/E/C/Q gates without discretionary adjustment."""
 
+    baseline_article = (
+        metrics.retained_baseline_article_recall_at_8
+        if metrics.retained_baseline_article_recall_at_8 is not None
+        else metrics.article_recall_at_8
+    )
+    baseline_evidence = (
+        metrics.retained_baseline_evidence_recall_at_8
+        if metrics.retained_baseline_evidence_recall_at_8 is not None
+        else metrics.evidence_recall_at_8
+    )
+    baseline_exact = (
+        metrics.retained_baseline_exact_answerable_accuracy
+        if metrics.retained_baseline_exact_answerable_accuracy is not None
+        else metrics.exact_answerable_accuracy
+    )
+    baseline_unsupported = (
+        metrics.retained_baseline_unsupported_claim_rate
+        if metrics.retained_baseline_unsupported_claim_rate is not None
+        else metrics.unsupported_claim_rate
+    )
     checks = {
-        "R_ARTICLE_RECALL": metrics.article_recall_at_8 >= 0.84,
-        "R_EVIDENCE_RECALL": metrics.evidence_recall_at_8 >= 0.79,
-        "R_EXACT_ANSWER": metrics.exact_answerable_accuracy >= 0.49,
-        "R_UNSUPPORTED_ZERO": metrics.unsupported_claim_rate == 0.0,
+        "R_ARTICLE_RECALL": baseline_article >= 0.84,
+        "R_EVIDENCE_RECALL": baseline_evidence >= 0.79,
+        "R_EXACT_ANSWER": baseline_exact >= 0.49,
+        "R_UNSUPPORTED_ZERO": baseline_unsupported == 0.0,
         "R_SOURCE_BINDING": metrics.exact_binding_reproducible,
         "E_ENTITY_LINK": metrics.entity_link_accuracy >= 0.95,
         "E_WRONG_ENTITY": metrics.silent_wrong_entity_rate < 0.01,
@@ -107,10 +139,16 @@ def select_architecture(metrics: MetricSnapshot) -> ArchitectureDecision:
 
     gates = evaluate_gates(metrics)
     comparator = metrics.verified_rag_exact_accuracy
-    if gates.full_qualification:
+    if (
+        gates.retained_baseline
+        and gates.entity_and_query
+        and gates.cognitive_answering
+        and gates.full_qualification
+    ):
         return ArchitectureDecision.EDGE_AI
     if (
-        gates.entity_and_query
+        gates.retained_baseline
+        and gates.entity_and_query
         and gates.cognitive_answering
         and metrics.stable_10k_to_50k
         and not metrics.credible_edge_backend
