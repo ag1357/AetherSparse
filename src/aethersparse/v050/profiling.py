@@ -165,6 +165,7 @@ class EdgeQualificationReport(FrozenModel):
     criteria_sha256: str
     hardware_outcome: HardwareOutcome
     board_measurements_present: bool
+    operation_counter_instrumented: bool
     topology_excluded: Literal[True] = True
 
 
@@ -542,6 +543,7 @@ def build_edge_qualification_report(
         criteria_sha256=criteria_sha256,
         hardware_outcome=outcome,
         board_measurements_present=criteria.p4_board_measured,
+        operation_counter_instrumented=False,
     )
 
 

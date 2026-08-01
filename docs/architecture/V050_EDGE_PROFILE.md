@@ -43,7 +43,10 @@ full.
 
 Deterministic operation counts, model bytes, and neural MACs come from the
 frozen query/runtime manifest. They are not inferred from advertised accelerator
-TOPS.
+TOPS. The v0.5 qualification query set does not instrument deterministic CPU
+operations, so its report sets `operation_counter_instrumented` to `false` and
+the purchase gate fails closed. A zero operation count must not be interpreted
+as zero-cost CPU work.
 
 ## Query and criteria inputs
 

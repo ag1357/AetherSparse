@@ -156,6 +156,7 @@ def test_hardware_report_fails_closed_without_frozen_architecture_gate(
     assert report.hardware_outcome.decision is HardwareDecision.NO_PURCHASE
     assert "ARCHITECTURE_GATE_NOT_MET" in report.hardware_outcome.reasons
     assert report.board_measurements_present is False
+    assert report.operation_counter_instrumented is False
     assert report.topology_excluded is True
     assert all(
         projection.evidence_class
