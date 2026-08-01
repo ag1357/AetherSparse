@@ -82,6 +82,30 @@ Do not pass `--skip-pack-sha256` for qualification evidence. A complete run
 contains one outcome for every benchmark-case/system pair across all eight
 frozen systems.
 
+For a read-only parallel 50k run, launch deterministic shards with
+`--case-shard 0/4` through `--case-shard 3/4`, giving every shard distinct
+report and outcome paths. Merge only after every shard succeeds:
+
+```bash
+uv run python scripts/merge_v050_qualification_shards.py \
+  --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json \
+  --report /artifacts/qualification/V050_50K_SHARD_0_OF_4_QUALIFICATION_R2.json \
+  --report /artifacts/qualification/V050_50K_SHARD_1_OF_4_QUALIFICATION_R2.json \
+  --report /artifacts/qualification/V050_50K_SHARD_2_OF_4_QUALIFICATION_R2.json \
+  --report /artifacts/qualification/V050_50K_SHARD_3_OF_4_QUALIFICATION_R2.json \
+  --outcomes /artifacts/qualification/V050_50K_SHARD_0_OF_4_OUTCOMES_R2.json \
+  --outcomes /artifacts/qualification/V050_50K_SHARD_1_OF_4_OUTCOMES_R2.json \
+  --outcomes /artifacts/qualification/V050_50K_SHARD_2_OF_4_OUTCOMES_R2.json \
+  --outcomes /artifacts/qualification/V050_50K_SHARD_3_OF_4_OUTCOMES_R2.json \
+  --output /artifacts/qualification/V050_50K_QUALIFICATION_R2.json \
+  --merged-outcomes /artifacts/qualification/V050_50K_OUTCOMES_R2.json
+```
+
+The merger rejects missing shard indexes, unverified packs, benchmark/pack hash
+differences, duplicate outcomes, and any matrix that lacks exactly one row per
+case/system pair. Merged latency rows are labeled as concurrent-host
+measurements; the separate edge profiler supplies the workload decision input.
+
 ## 4. Hard-negative and edge ablations
 
 ```bash
