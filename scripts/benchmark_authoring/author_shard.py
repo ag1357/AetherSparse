@@ -82,11 +82,11 @@ def _misspell(title: str) -> str:
 
 def _author_alpha(connection: Any) -> list[dict[str, Any]]:
     definitions = list(iter_definition_candidates(connection))
-    if len(definitions) < 360:
-        raise ValueError("corpus lacks 360 clean definition candidates")
+    if len(definitions) < 220:
+        raise ValueError("corpus lacks 220 subject-matched definition candidates")
     drafts: list[dict[str, Any]] = []
     direct_by_document: dict[str, str] = {}
-    for candidate in definitions[:360]:
+    for candidate in definitions[:220]:
         title = str(candidate["title"])
         item = _draft(
             "alpha",
@@ -123,9 +123,9 @@ def _author_alpha(connection: Any) -> list[dict[str, Any]]:
             continue
         seen_aliases.add(key)
         aliases.append((surface, alias_candidate))
-    if len(aliases) < 110:
-        raise ValueError("corpus lacks 110 exact anchor aliases with answerable targets")
-    for surface, candidate in aliases[:110]:
+    if len(aliases) < 90:
+        raise ValueError("corpus lacks 90 exact anchor aliases with answerable targets")
+    for surface, candidate in aliases[:90]:
         title = str(candidate["title"])
         drafts.append(
             _draft(
@@ -160,9 +160,9 @@ def _author_alpha(connection: Any) -> list[dict[str, Any]]:
             continue
         seen_redirects.add(normalize_surface(redirect_title))
         redirects.append((redirect_title, redirect_candidate))
-    if len(redirects) < 110:
-        raise ValueError("corpus lacks 110 answerable redirects")
-    for redirect_title, candidate in redirects[:110]:
+    if len(redirects) < 50:
+        raise ValueError("corpus lacks 50 subject-matched answerable redirects")
+    for redirect_title, candidate in redirects[:50]:
         title = str(candidate["title"])
         drafts.append(
             _draft(
@@ -181,7 +181,7 @@ def _author_alpha(connection: Any) -> list[dict[str, Any]]:
             )
         )
 
-    for candidate in definitions[110:220]:
+    for candidate in definitions[100:200]:
         title = str(candidate["title"])
         misspelled = _misspell(title)
         drafts.append(
@@ -198,7 +198,7 @@ def _author_alpha(connection: Any) -> list[dict[str, Any]]:
             )
         )
 
-    direct_sources = definitions[:110]
+    direct_sources = definitions[:100]
     for index, candidate in enumerate(direct_sources, start=1):
         title = str(candidate["title"])
         prior = direct_by_document[str(candidate["document_id"])]

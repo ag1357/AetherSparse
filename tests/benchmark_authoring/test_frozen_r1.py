@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
+import unicodedata
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +46,11 @@ REQUIRED_CATEGORIES = {
     "clarification",
     "abstention",
 }
+DEFINITION_SUBJECT_RE = re.compile(
+    r"'''(?P<subject>[^'\n]{1,100})'''\s+(?:is|are|was|were)\s+"
+    r"(?P<answer>[^\n.]{15,260})\.",
+    re.IGNORECASE,
+)
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -58,11 +65,16 @@ def _sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _normalize(value: str) -> str:
+    normalized = unicodedata.normalize("NFKC", value.replace("_", " "))
+    return " ".join(normalized.strip().split()).casefold()
+
+
 def test_frozen_benchmark_has_full_independent_contract() -> None:
     benchmark = _read(BENCHMARK_PATH)
     cases = benchmark["cases"]
     assert benchmark["benchmark_identity"] == "INDEPENDENT_NATURAL_QUERY_SET_V050_R1"
-    assert len(cases) == 2_300
+    assert len(cases) == 2_050
     assert {category for case in cases for category in case["categories"]} == (
         REQUIRED_CATEGORIES
     )
@@ -109,6 +121,27 @@ def test_case_content_and_exact_span_hashes_are_frozen() -> None:
             assert not case["accepted_answers"]
 
 
+def test_direct_fact_gold_defines_the_question_subject() -> None:
+    benchmark = _read(BENCHMARK_PATH)
+    direct_cases = [
+        case for case in benchmark["cases"] if case["categories"] == ["direct_fact"]
+    ]
+    assert len(direct_cases) == 220
+    for case in direct_cases:
+        title = _normalize(case["question"].removeprefix("What is ").removesuffix("?"))
+        matching_subjects = [
+            _normalize(match.group("subject"))
+            for match in DEFINITION_SUBJECT_RE.finditer(
+                case["gold_evidence"][0]["exact_text"]
+            )
+            if match.group("answer").strip() in case["accepted_answers"]
+        ]
+        assert any(
+            subject == title or title.startswith(f"{subject} (")
+            for subject in matching_subjects
+        )
+
+
 def test_tuning_and_evaluation_articles_are_disjoint() -> None:
     benchmark = _read(BENCHMARK_PATH)
     articles: dict[str, set[str]] = {
@@ -132,7 +165,7 @@ def test_source_map_and_audit_cover_all_evidence() -> None:
     evidence = [
         item for case in benchmark["cases"] for item in case["gold_evidence"]
     ]
-    assert len(evidence) == 2_020
+    assert len(evidence) == 1_770
     assert {item["document_id"] for item in evidence} == set(source_map["documents"])
     for item in evidence:
         metadata = source_map["documents"][item["document_id"]]
@@ -171,7 +204,7 @@ def test_manifest_does_not_claim_lost_r4_identity() -> None:
     assert manifest["source_pack_sha256"] == (
         "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5"
     )
-    assert manifest["case_count"] == 2_300
+    assert manifest["case_count"] == 2_050
 
 
 def test_recorded_output_hashes_match_committed_bytes() -> None:

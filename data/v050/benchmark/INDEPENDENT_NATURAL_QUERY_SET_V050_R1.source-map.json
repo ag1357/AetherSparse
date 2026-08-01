@@ -91,11 +91,6 @@
       "source_revision": "10892048",
       "source_url": "https://simple.wikipedia.org/?curid=10291"
     },
-    "simplewiki:10317:10860067": {
-      "document_hash": "sha256:ce855b07f9d3b4a775863fa4707308fc82cd1e3ab07c4d3efce7a810961d10f4",
-      "source_revision": "10860067",
-      "source_url": "https://simple.wikipedia.org/?curid=10317"
-    },
     "simplewiki:10333:10899892": {
       "document_hash": "sha256:b0dcdd9932756c0ed3ee091122fc8f46df8f083187bcd8f159803f75938976d8",
       "source_revision": "10899892",
@@ -110,11 +105,6 @@
       "document_hash": "sha256:f65287e0c4417aa58b9f0d37e8fdbae4802df8006d819c6aa17d9dcae3187d1e",
       "source_revision": "10833541",
       "source_url": "https://simple.wikipedia.org/?curid=10341"
-    },
-    "simplewiki:10369:10828299": {
-      "document_hash": "sha256:23d365bb73e4fff68a6142e1b510abf976f1b96eb149fbccdaf8def21c16a4d5",
-      "source_revision": "10828299",
-      "source_url": "https://simple.wikipedia.org/?curid=10369"
     },
     "simplewiki:10454:10755328": {
       "document_hash": "sha256:e6867a1790b40e48c4606b690fc11386836416f7f1d5beec3f6bd24634261b3d",
@@ -135,11 +125,6 @@
       "document_hash": "sha256:f79234e9cac3064e7129fb1627c458fc8bb5742d97e196cd3ea6130379468031",
       "source_revision": "10886304",
       "source_url": "https://simple.wikipedia.org/?curid=10519"
-    },
-    "simplewiki:10520:10724072": {
-      "document_hash": "sha256:cc311803d1af3ed1a588583b63a98068b1d571f55259ab36369936d811f7e265",
-      "source_revision": "10724072",
-      "source_url": "https://simple.wikipedia.org/?curid=10520"
     },
     "simplewiki:10601:10904575": {
       "document_hash": "sha256:3969f88ffbf3e1368ac16253e8de8db4884f11fafbb5c06b01ef138e802999c5",
@@ -211,11 +196,6 @@
       "source_revision": "9814008",
       "source_url": "https://simple.wikipedia.org/?curid=11109"
     },
-    "simplewiki:11125:10319185": {
-      "document_hash": "sha256:ae0611eb014ba9fce907a47e197b7c929408b408881550326586016623a94e1e",
-      "source_revision": "10319185",
-      "source_url": "https://simple.wikipedia.org/?curid=11125"
-    },
     "simplewiki:11129:10498447": {
       "document_hash": "sha256:4e1031db864f230f550a4ffb52330130d01c60d629aaa5c87bf9fc024592bc00",
       "source_revision": "10498447",
@@ -230,16 +210,6 @@
       "document_hash": "sha256:cf829c03c44070ee56a01346cfecd0f6062bf9740b2df88fad0fb99e5dad17b7",
       "source_revision": "10703521",
       "source_url": "https://simple.wikipedia.org/?curid=11192"
-    },
-    "simplewiki:11211:10862827": {
-      "document_hash": "sha256:fb3d08b71a50970f9034fdb7138f195e816b7374dfba101bfac855c648b40f5c",
-      "source_revision": "10862827",
-      "source_url": "https://simple.wikipedia.org/?curid=11211"
-    },
-    "simplewiki:11218:10520509": {
-      "document_hash": "sha256:0c2ef82f5e5119ead2717334bbb008c347db4182b88f4cfdb78c58ccdcd9ec76",
-      "source_revision": "10520509",
-      "source_url": "https://simple.wikipedia.org/?curid=11218"
     },
     "simplewiki:11232:10803278": {
       "document_hash": "sha256:c75181b74ed7f36e39cab59536e84f0fd81f6ac12a9e835a2a9d8da4bd16e126",
@@ -351,35 +321,15 @@
       "source_revision": "10899164",
       "source_url": "https://simple.wikipedia.org/?curid=11678"
     },
-    "simplewiki:119:10650270": {
-      "document_hash": "sha256:a1fdc90fe247b269eff03790601e837a3263252e32393d588b67b3e44a25b299",
-      "source_revision": "10650270",
-      "source_url": "https://simple.wikipedia.org/?curid=119"
-    },
-    "simplewiki:12262:9676762": {
-      "document_hash": "sha256:7b322f7e2a65b3b1cb9d5ccca454c3f13d3a53b4141fd154fbfe5d9706d63326",
-      "source_revision": "9676762",
-      "source_url": "https://simple.wikipedia.org/?curid=12262"
-    },
     "simplewiki:12263:10898639": {
       "document_hash": "sha256:b0118e7cb46e2cef98e8c984a1ed54b982d84c4f0e7ae6bd66e63362eb899deb",
       "source_revision": "10898639",
       "source_url": "https://simple.wikipedia.org/?curid=12263"
     },
-    "simplewiki:12288:10868174": {
-      "document_hash": "sha256:3c6fd8c9d237301a721045eeb9f2465ae25842574582fdcd5fd078c16cce7b83",
-      "source_revision": "10868174",
-      "source_url": "https://simple.wikipedia.org/?curid=12288"
-    },
     "simplewiki:12293:8763260": {
       "document_hash": "sha256:79cd97129a3a4bd6dbf6b2ee2b038e0676be2ecf29fd5f430a76d0bd5db66c07",
       "source_revision": "8763260",
       "source_url": "https://simple.wikipedia.org/?curid=12293"
-    },
-    "simplewiki:12300:10907553": {
-      "document_hash": "sha256:ae5ef2f77920a0b173f24e3ac70ed34c928d13f9cf9387707e3cf3bbf325ff61",
-      "source_revision": "10907553",
-      "source_url": "https://simple.wikipedia.org/?curid=12300"
     },
     "simplewiki:12332:10626693": {
       "document_hash": "sha256:b566cf247ded49cf52a2b9e3895eaa71444d7e6c707d324cdd817a4e13fd7e7a",
@@ -526,11 +476,6 @@
       "source_revision": "10868095",
       "source_url": "https://simple.wikipedia.org/?curid=13189"
     },
-    "simplewiki:13191:7982764": {
-      "document_hash": "sha256:4a0c24173bc97b1a758d113cc61bcc88bf6ecdb82b91b37d9c7af64d73c12b13",
-      "source_revision": "7982764",
-      "source_url": "https://simple.wikipedia.org/?curid=13191"
-    },
     "simplewiki:13226:10867347": {
       "document_hash": "sha256:6e43dfb85cad305407d1b8f0266fff8bfff02ca0065ae27b1a23e98647504eff",
       "source_revision": "10867347",
@@ -561,25 +506,10 @@
       "source_revision": "10790926",
       "source_url": "https://simple.wikipedia.org/?curid=13324"
     },
-    "simplewiki:13325:10509289": {
-      "document_hash": "sha256:ec5e89cbbbd116de85e14818b24286f3bdaf29dd5b02997e3508e5aeac09ee1b",
-      "source_revision": "10509289",
-      "source_url": "https://simple.wikipedia.org/?curid=13325"
-    },
-    "simplewiki:13326:10878031": {
-      "document_hash": "sha256:7b1043d9f00c28956a9c34b1025998b8bd07b30448d07ec4af2ff04378a475f7",
-      "source_revision": "10878031",
-      "source_url": "https://simple.wikipedia.org/?curid=13326"
-    },
     "simplewiki:13329:10790272": {
       "document_hash": "sha256:91bc2d586cccb699f816cb43107fad76eb5254996de7ab82ed3ae849f14b0db5",
       "source_revision": "10790272",
       "source_url": "https://simple.wikipedia.org/?curid=13329"
-    },
-    "simplewiki:13331:10871687": {
-      "document_hash": "sha256:70a29f5f2fe4d32323a25901a9bc98914cc5d33c9d0e6eb7b755555ef6a60410",
-      "source_revision": "10871687",
-      "source_url": "https://simple.wikipedia.org/?curid=13331"
     },
     "simplewiki:13332:10867332": {
       "document_hash": "sha256:1b7f4bc2d445f41455150dfc11cf8bf82435d05c6a9a1db21e48dcaf33595d7a",
@@ -595,11 +525,6 @@
       "document_hash": "sha256:6f8dfcaefcb5f87f6424926aebd0311483d731cd7a37f33aee68a12c1e14cbd7",
       "source_revision": "10887391",
       "source_url": "https://simple.wikipedia.org/?curid=13403"
-    },
-    "simplewiki:13432:10721763": {
-      "document_hash": "sha256:cf43e933a9b622490a9d256bd4adc991af686d8f652d7082bd93870a28906bd0",
-      "source_revision": "10721763",
-      "source_url": "https://simple.wikipedia.org/?curid=13432"
     },
     "simplewiki:13448:10897410": {
       "document_hash": "sha256:b61a39cc54fbf32a4e4fc69cda65fb1b9f2e47022863a135f61da8ea653bf23c",
@@ -651,11 +576,6 @@
       "source_revision": "10844624",
       "source_url": "https://simple.wikipedia.org/?curid=13536"
     },
-    "simplewiki:13638:10831869": {
-      "document_hash": "sha256:129929e1a4d08ed781995ccafa35507a5cfe7aa86524a292b505ce5d5259fb06",
-      "source_revision": "10831869",
-      "source_url": "https://simple.wikipedia.org/?curid=13638"
-    },
     "simplewiki:13670:10895060": {
       "document_hash": "sha256:e7bee22f2d348ec1bb753d1fded2738763caea0df003111eeffaec0661d9ed3a",
       "source_revision": "10895060",
@@ -670,11 +590,6 @@
       "document_hash": "sha256:852d76c6eaa215d25cc93a2981c225daa2cd41a403ebbca6f60f4bfc76d54140",
       "source_revision": "10898428",
       "source_url": "https://simple.wikipedia.org/?curid=13707"
-    },
-    "simplewiki:13735:10486050": {
-      "document_hash": "sha256:61caeab6e30c79343d52e483fddcb19bdebec8bbcf6663655e182f4c75fd42ae",
-      "source_revision": "10486050",
-      "source_url": "https://simple.wikipedia.org/?curid=13735"
     },
     "simplewiki:13809:10899759": {
       "document_hash": "sha256:9b91c7093c15c8bf45cc6dddc433618f4ef041eeda36662fd9fc450dfa449678",
@@ -731,11 +646,6 @@
       "source_revision": "10782122",
       "source_url": "https://simple.wikipedia.org/?curid=13993"
     },
-    "simplewiki:14013:10644032": {
-      "document_hash": "sha256:e953b01bb077a2d0a8c78d9fcb120c0ea7565085c4b1df1a7dcc08ad7307222c",
-      "source_revision": "10644032",
-      "source_url": "https://simple.wikipedia.org/?curid=14013"
-    },
     "simplewiki:14048:10406489": {
       "document_hash": "sha256:b850f4aa93ebc963340f29e6e30735b1d9050a0ff8ade0c8e517843248998118",
       "source_revision": "10406489",
@@ -751,11 +661,6 @@
       "source_revision": "10881461",
       "source_url": "https://simple.wikipedia.org/?curid=14175"
     },
-    "simplewiki:14185:10886649": {
-      "document_hash": "sha256:1fdb2c46e8e46f0fac1b74bc110ea4cc76fe0ea89396fc4d3cc831436b04ae47",
-      "source_revision": "10886649",
-      "source_url": "https://simple.wikipedia.org/?curid=14185"
-    },
     "simplewiki:14189:8918966": {
       "document_hash": "sha256:def606ed433744db3a448ba49f8cb7a41cd33dcff26e1ef7967e870a99969685",
       "source_revision": "8918966",
@@ -765,11 +670,6 @@
       "document_hash": "sha256:59d2c8a2726852430a279cd68982a381e88fae226657c6b7e6152e7bfd2b7f18",
       "source_revision": "10863101",
       "source_url": "https://simple.wikipedia.org/?curid=14199"
-    },
-    "simplewiki:14377:10877054": {
-      "document_hash": "sha256:9f7b4271bf026b6c5ea4689bcd1b7ecf9fdc22bce5d0756cd81cd304aacca339",
-      "source_revision": "10877054",
-      "source_url": "https://simple.wikipedia.org/?curid=14377"
     },
     "simplewiki:14411:10796851": {
       "document_hash": "sha256:20ecbbd70e2b82623a1b0e13c0aad899b35608ee7739206118cd2a5d31fea5cc",
@@ -786,11 +686,6 @@
       "source_revision": "10510815",
       "source_url": "https://simple.wikipedia.org/?curid=14449"
     },
-    "simplewiki:14472:10524858": {
-      "document_hash": "sha256:88096aad7370282d3baf35fd246ab2ecbeff5d90a3a3a26fce22afff31d3811a",
-      "source_revision": "10524858",
-      "source_url": "https://simple.wikipedia.org/?curid=14472"
-    },
     "simplewiki:144:10902662": {
       "document_hash": "sha256:f5baff8fcdb16d034864b4bce95024cab353f8df08579a380976b96bd49044f9",
       "source_revision": "10902662",
@@ -800,11 +695,6 @@
       "document_hash": "sha256:b6777ef9c440538f75618c4bd02af652a933ac90e1becc41cc491b537ec66150",
       "source_revision": "10859458",
       "source_url": "https://simple.wikipedia.org/?curid=14528"
-    },
-    "simplewiki:14530:10686946": {
-      "document_hash": "sha256:c9a56c4b50634d2bc235c31c141c7b08211290bfe7164d15db00a6cac8afdd88",
-      "source_revision": "10686946",
-      "source_url": "https://simple.wikipedia.org/?curid=14530"
     },
     "simplewiki:14535:10806604": {
       "document_hash": "sha256:3a4396d1f1330fb58bb9d3f025177e214d2e13eb64a6dfdb3ad7ff9d5f822567",
@@ -820,11 +710,6 @@
       "document_hash": "sha256:58723dd56a68f198af41380cc5a415d0f0495b9e587ca7a830cd1ca76e10fbcb",
       "source_revision": "10798791",
       "source_url": "https://simple.wikipedia.org/?curid=14657"
-    },
-    "simplewiki:14701:10847518": {
-      "document_hash": "sha256:bce4f91f0ca47e67143bedcbca5c79b42d2745a5f40b4b0e22875ce72d7dd165",
-      "source_revision": "10847518",
-      "source_url": "https://simple.wikipedia.org/?curid=14701"
     },
     "simplewiki:14726:10787985": {
       "document_hash": "sha256:91bbfe024534b8bb0e3713c2e0348428b4e2b5ef518edef3fe60c67e734ff810",
@@ -886,11 +771,6 @@
       "source_revision": "10688687",
       "source_url": "https://simple.wikipedia.org/?curid=15037"
     },
-    "simplewiki:15044:10894287": {
-      "document_hash": "sha256:2b0f689dd257307e499107cdd87d43666d8a78d7dfb1a4d0a3eb25dd8466d77c",
-      "source_revision": "10894287",
-      "source_url": "https://simple.wikipedia.org/?curid=15044"
-    },
     "simplewiki:15047:10819272": {
       "document_hash": "sha256:b0e2c348546356532c9ffe10942653388807c5ffe1b08a801832de99d2a4da0c",
       "source_revision": "10819272",
@@ -905,11 +785,6 @@
       "document_hash": "sha256:1be373165fd09347bbc499fef106e8d30d8b96309d0903f4280c6c681fd82f2e",
       "source_revision": "10701416",
       "source_url": "https://simple.wikipedia.org/?curid=15199"
-    },
-    "simplewiki:15209:10901444": {
-      "document_hash": "sha256:c1c1225785e0979d8a5123a441fe1ad8fde5a702ca652e2144a0efe9132aa4b8",
-      "source_revision": "10901444",
-      "source_url": "https://simple.wikipedia.org/?curid=15209"
     },
     "simplewiki:15222:10875626": {
       "document_hash": "sha256:f55d6643c6e6722dec82fd3bb9f70642da498b5a7d946b70751eed089f648f72",
@@ -966,16 +841,6 @@
       "source_revision": "10868271",
       "source_url": "https://simple.wikipedia.org/?curid=15644"
     },
-    "simplewiki:15666:10884083": {
-      "document_hash": "sha256:4a9517d873c1914b391fbdeb2bc1b727c24ce74696ce7cc89e5bd630a64d2a2a",
-      "source_revision": "10884083",
-      "source_url": "https://simple.wikipedia.org/?curid=15666"
-    },
-    "simplewiki:15667:10869716": {
-      "document_hash": "sha256:f15bbb143ea521980f6993922e23059a27a9b28e98732169d9fd210bd211897d",
-      "source_revision": "10869716",
-      "source_url": "https://simple.wikipedia.org/?curid=15667"
-    },
     "simplewiki:15712:10857983": {
       "document_hash": "sha256:e0bbbdef344a0f5314aee0ce8afe2140cad4799fa2267279f25a678e900c0051",
       "source_revision": "10857983",
@@ -985,11 +850,6 @@
       "document_hash": "sha256:b7927b04bde2fbead86b34026fdbbc7a3b1c3b010415edb501fd844393787fcb",
       "source_revision": "10862180",
       "source_url": "https://simple.wikipedia.org/?curid=15723"
-    },
-    "simplewiki:15743:10644043": {
-      "document_hash": "sha256:703e488291175f727868977a18c2787e25d70e79570f63e43b804dc606daeeda",
-      "source_revision": "10644043",
-      "source_url": "https://simple.wikipedia.org/?curid=15743"
     },
     "simplewiki:15789:10901254": {
       "document_hash": "sha256:02e223e21bd43083be5c98017cd41ca4484b047106b668dd1beb9c9966efd0b6",
@@ -1015,11 +875,6 @@
       "document_hash": "sha256:a2093828c1f1531e17f8558184d74f13170f796fc445129be2821db4ffeac9ec",
       "source_revision": "10735855",
       "source_url": "https://simple.wikipedia.org/?curid=15876"
-    },
-    "simplewiki:15878:4205972": {
-      "document_hash": "sha256:40da116a678107d21b008632807ec87be403984e036206565acf66a1988f54f3",
-      "source_revision": "4205972",
-      "source_url": "https://simple.wikipedia.org/?curid=15878"
     },
     "simplewiki:15925:10770915": {
       "document_hash": "sha256:95867df61db7a14a25b3b37d40cc1b3c5d060e999d750066485e267765f85fa9",
@@ -1056,16 +911,6 @@
       "source_revision": "8711367",
       "source_url": "https://simple.wikipedia.org/?curid=16155"
     },
-    "simplewiki:16166:10904339": {
-      "document_hash": "sha256:d00e0cbf38a52d7b01a522a81be421d79bf14ff5fa94fedf5580fbbf3e662de2",
-      "source_revision": "10904339",
-      "source_url": "https://simple.wikipedia.org/?curid=16166"
-    },
-    "simplewiki:16174:10369132": {
-      "document_hash": "sha256:08b7dff0f7d1da5df5a4ebe300dba709892378a4b02fa26c30591d6de888bd19",
-      "source_revision": "10369132",
-      "source_url": "https://simple.wikipedia.org/?curid=16174"
-    },
     "simplewiki:16190:10769218": {
       "document_hash": "sha256:cea25cf35e264b90e4e198909952b7cad13db41c30dfdd2f3781d9f118a51fd1",
       "source_revision": "10769218",
@@ -1085,11 +930,6 @@
       "document_hash": "sha256:6bd00de93cfe778b6bc61e3913ce4d8dc38fe3a473e761364f4ee99ad5cec023",
       "source_revision": "9267067",
       "source_url": "https://simple.wikipedia.org/?curid=16368"
-    },
-    "simplewiki:16536:10896908": {
-      "document_hash": "sha256:f5681cb01570ef66b13961eeef83616c4a07b61e76d9328e064ab61688db3493",
-      "source_revision": "10896908",
-      "source_url": "https://simple.wikipedia.org/?curid=16536"
     },
     "simplewiki:16626:10903717": {
       "document_hash": "sha256:a2628856da42e2d9d9586d7185a6a65907aff9544933aa43dcabf96587896e62",
@@ -1166,11 +1006,6 @@
       "source_revision": "10204676",
       "source_url": "https://simple.wikipedia.org/?curid=17661"
     },
-    "simplewiki:17690:10319452": {
-      "document_hash": "sha256:b1c873e6b86cb29adecf6a54e202236d1cf20e4f4df94baff56e53b9068790ac",
-      "source_revision": "10319452",
-      "source_url": "https://simple.wikipedia.org/?curid=17690"
-    },
     "simplewiki:17695:9734491": {
       "document_hash": "sha256:b063efa54409abdd3c493c58c09dc9eec4a27034ac856a37b6f0593e4a28e192",
       "source_revision": "9734491",
@@ -1190,16 +1025,6 @@
       "document_hash": "sha256:e8b1e29aeba232601a5d28d6e23b3f74eb8ca32ba669b07a7582339f48897f4f",
       "source_revision": "10037781",
       "source_url": "https://simple.wikipedia.org/?curid=17908"
-    },
-    "simplewiki:17915:9301003": {
-      "document_hash": "sha256:707441a7b7248e5b411d0f4d64d3c9af433470ab6848027586ab5bf641cc99d6",
-      "source_revision": "9301003",
-      "source_url": "https://simple.wikipedia.org/?curid=17915"
-    },
-    "simplewiki:17961:10881130": {
-      "document_hash": "sha256:466e1b22bfddd9aa3a62780bfa9caa6ea9c8dd3d90da3d2dc6159dc29ba6ca4f",
-      "source_revision": "10881130",
-      "source_url": "https://simple.wikipedia.org/?curid=17961"
     },
     "simplewiki:17965:10855789": {
       "document_hash": "sha256:977bf0c0786eaf2524a456b8a15f2b1fed6b47ae69020afad3410248ed2d62a6",
@@ -1241,11 +1066,6 @@
       "source_revision": "10898484",
       "source_url": "https://simple.wikipedia.org/?curid=18090"
     },
-    "simplewiki:18118:10163644": {
-      "document_hash": "sha256:5d76dc3db3e5db1a68f17c2a83d169774f6bacc9122366522ce8ce7bf929e695",
-      "source_revision": "10163644",
-      "source_url": "https://simple.wikipedia.org/?curid=18118"
-    },
     "simplewiki:18177:10746608": {
       "document_hash": "sha256:43067a1e11258ca01cc4178043507f8a06ac7ff4c7be9c7e019279a8803b8d62",
       "source_revision": "10746608",
@@ -1280,11 +1100,6 @@
       "document_hash": "sha256:0f463876ea5b5dbb9d63cdc2f4f7d7884435d7d7a5c73bc85dbf2b2346fb5ae8",
       "source_revision": "10180806",
       "source_url": "https://simple.wikipedia.org/?curid=18262"
-    },
-    "simplewiki:18299:8888895": {
-      "document_hash": "sha256:af294baf8939d3b0a2fc079450c8ea0ff83b9f1881c92543e836c41fb008bdad",
-      "source_revision": "8888895",
-      "source_url": "https://simple.wikipedia.org/?curid=18299"
     },
     "simplewiki:18300:10362800": {
       "document_hash": "sha256:635b410f38dab7076a0c62342c19892945edae92931562fb9d69b4c6631973e2",
@@ -1326,11 +1141,6 @@
       "source_revision": "9891723",
       "source_url": "https://simple.wikipedia.org/?curid=18482"
     },
-    "simplewiki:18549:10242577": {
-      "document_hash": "sha256:eb7fa435f8676a8e0c5ddf0c601d9bc3633407401beedee1c58af14816c8977b",
-      "source_revision": "10242577",
-      "source_url": "https://simple.wikipedia.org/?curid=18549"
-    },
     "simplewiki:18552:10251978": {
       "document_hash": "sha256:7fc8ac7b38513879ffc6f693fc27a650f422f4cba582f11e7ce3a42f88784d01",
       "source_revision": "10251978",
@@ -1350,11 +1160,6 @@
       "document_hash": "sha256:110d633a18132e3ecf78f7c056a3eb140af0fa3f1e0fcb29c8e6db1425dc0b47",
       "source_revision": "8803638",
       "source_url": "https://simple.wikipedia.org/?curid=18563"
-    },
-    "simplewiki:18592:10866215": {
-      "document_hash": "sha256:23905d5fb07a9c3057bbc552c47f9a85792af6dea7fc64b629174e125687882f",
-      "source_revision": "10866215",
-      "source_url": "https://simple.wikipedia.org/?curid=18592"
     },
     "simplewiki:185:10861274": {
       "document_hash": "sha256:4060848176703560e255e065db98a13767700e2931b49e984ac49a91cb5fc200",
@@ -1395,16 +1200,6 @@
       "document_hash": "sha256:766351fabe9507e36fff724144904a0922f3945dd7c78b30b24043624944f7e7",
       "source_revision": "10860242",
       "source_url": "https://simple.wikipedia.org/?curid=18675"
-    },
-    "simplewiki:18708:6544874": {
-      "document_hash": "sha256:6ee0ade4cecdf508bc2a36faca8eb84b7d3fc612df51f4abfbd6ae786d7b1e7d",
-      "source_revision": "6544874",
-      "source_url": "https://simple.wikipedia.org/?curid=18708"
-    },
-    "simplewiki:18799:10663193": {
-      "document_hash": "sha256:7449a3b62b0852e9a918029ac1bf98f49b16aaf2eb8051effcd5ae5aa2ecb63d",
-      "source_revision": "10663193",
-      "source_url": "https://simple.wikipedia.org/?curid=18799"
     },
     "simplewiki:187:10106052": {
       "document_hash": "sha256:3e6acbc9f5df18b0ee1ea1ea26d4cf1fef2943b7aad646690aefefa1aed1837d",
@@ -1471,11 +1266,6 @@
       "source_revision": "10694552",
       "source_url": "https://simple.wikipedia.org/?curid=19013"
     },
-    "simplewiki:19070:10690471": {
-      "document_hash": "sha256:ca5e07500df5d177a153b0820abe66ee5f27d1351ce5e34cb190c571b0ab5c25",
-      "source_revision": "10690471",
-      "source_url": "https://simple.wikipedia.org/?curid=19070"
-    },
     "simplewiki:19145:10841976": {
       "document_hash": "sha256:186f0457633955f2b09d1f6ea03d4d69198e636ee0a58715c3460196ca23294a",
       "source_revision": "10841976",
@@ -1516,11 +1306,6 @@
       "source_revision": "10900725",
       "source_url": "https://simple.wikipedia.org/?curid=1938"
     },
-    "simplewiki:19401:10180558": {
-      "document_hash": "sha256:682a8b1101f06627cadb5d3f6d1eda279d2ebcd4c178c68b50e23f58756988b4",
-      "source_revision": "10180558",
-      "source_url": "https://simple.wikipedia.org/?curid=19401"
-    },
     "simplewiki:19403:10682142": {
       "document_hash": "sha256:1de3e8d36cadad938ca7a024cfe43431bd3e6823d5a303397b82b8957121f354",
       "source_revision": "10682142",
@@ -1530,21 +1315,6 @@
       "document_hash": "sha256:2a8fdac996e60294f56908298f02ef90ac9f1b65f25aa0f632f83f7e8591bb66",
       "source_revision": "10823118",
       "source_url": "https://simple.wikipedia.org/?curid=1942"
-    },
-    "simplewiki:1943:10557819": {
-      "document_hash": "sha256:04e1591ac5064aacff2943b64bbd9afae6a218e46d1e1e1b60a4a9dea41187b0",
-      "source_revision": "10557819",
-      "source_url": "https://simple.wikipedia.org/?curid=1943"
-    },
-    "simplewiki:19446:10650048": {
-      "document_hash": "sha256:1797303ede8e9c7f863997d2976849bf4c922525d543bbac06c9edbfe2dd1542",
-      "source_revision": "10650048",
-      "source_url": "https://simple.wikipedia.org/?curid=19446"
-    },
-    "simplewiki:19456:7679286": {
-      "document_hash": "sha256:d040b9e38de4373443ae211676119e9cf842f21be59e0a4a3a58903a26f1a537",
-      "source_revision": "7679286",
-      "source_url": "https://simple.wikipedia.org/?curid=19456"
     },
     "simplewiki:19465:10131296": {
       "document_hash": "sha256:7935ad2507fab387bfdff4f76df7cd74cf0d3f8b483cd993ead7999e5a8bca4e",
@@ -1556,11 +1326,6 @@
       "source_revision": "10252012",
       "source_url": "https://simple.wikipedia.org/?curid=19469"
     },
-    "simplewiki:19521:10878272": {
-      "document_hash": "sha256:fb00c13eb60c423d015b0a90bbb3b71726b5d88caa290ad3b2b490f77ba673a9",
-      "source_revision": "10878272",
-      "source_url": "https://simple.wikipedia.org/?curid=19521"
-    },
     "simplewiki:19540:10422858": {
       "document_hash": "sha256:74a90b3d71a33286bf345b2375f8962a0f2f1bb00431b523cad110b20ff57e6c",
       "source_revision": "10422858",
@@ -1570,16 +1335,6 @@
       "document_hash": "sha256:31f8bc60d0756d5aed4ce67a6bf4a389d5dfaba401d4a22d8bf7fcabf2dd6c88",
       "source_revision": "10867936",
       "source_url": "https://simple.wikipedia.org/?curid=19543"
-    },
-    "simplewiki:19595:10844336": {
-      "document_hash": "sha256:e9c3b4f527b43b84447a318b5ab3db9bb601678c99d8252fc34fbc3682887efd",
-      "source_revision": "10844336",
-      "source_url": "https://simple.wikipedia.org/?curid=19595"
-    },
-    "simplewiki:19633:10437023": {
-      "document_hash": "sha256:f8c8853613e2219e078c9ec75d62300c7cc3325a24f988a41265dd5802f55592",
-      "source_revision": "10437023",
-      "source_url": "https://simple.wikipedia.org/?curid=19633"
     },
     "simplewiki:19634:10252007": {
       "document_hash": "sha256:2c62f9538c76b8a61fa7940cf99072d34f929e97da4ca29cc89ddcf0b7322242",
@@ -1600,11 +1355,6 @@
       "document_hash": "sha256:2f3dc98791e1255e2c17eb05d70abdfc5b4af905e0f82d18f098744bf0d9a12c",
       "source_revision": "10563438",
       "source_url": "https://simple.wikipedia.org/?curid=19654"
-    },
-    "simplewiki:19674:9989373": {
-      "document_hash": "sha256:82cc0a2eb305beba273b90c35f5adf9a63412bce468ca4e278ab0f80789fff7c",
-      "source_revision": "9989373",
-      "source_url": "https://simple.wikipedia.org/?curid=19674"
     },
     "simplewiki:19724:10252013": {
       "document_hash": "sha256:af713beb65a27c2a3853059f1b90d216cdbe4124cf80d01df95b7cfd104c2a16",
@@ -1666,20 +1416,10 @@
       "source_revision": "10902108",
       "source_url": "https://simple.wikipedia.org/?curid=20032"
     },
-    "simplewiki:20057:9737093": {
-      "document_hash": "sha256:221521d236bf00d2fbceb529f37c90c21aa760d84bf8ee0a1ea8baea56f1bc06",
-      "source_revision": "9737093",
-      "source_url": "https://simple.wikipedia.org/?curid=20057"
-    },
     "simplewiki:20116:10763755": {
       "document_hash": "sha256:0000bbfd94f02c7b6025356bfc974780f1e9c094bb6a72cf679735f421814631",
       "source_revision": "10763755",
       "source_url": "https://simple.wikipedia.org/?curid=20116"
-    },
-    "simplewiki:20124:9086626": {
-      "document_hash": "sha256:c46b16c20afe9f78d9d1d84602d6a8dd2a9a9bed81b4d1c19ca05df728ae0905",
-      "source_revision": "9086626",
-      "source_url": "https://simple.wikipedia.org/?curid=20124"
     },
     "simplewiki:2020:10744825": {
       "document_hash": "sha256:110f4f75153c9923f166188eefccf331c9d4f98f4473b075c03b6039be829bfd",
@@ -1781,11 +1521,6 @@
       "source_revision": "10030568",
       "source_url": "https://simple.wikipedia.org/?curid=20495"
     },
-    "simplewiki:20501:10810289": {
-      "document_hash": "sha256:c8c5756b8079c83364f0459d5bf906ec3362f66a11d7edb28549a0316cd82051",
-      "source_revision": "10810289",
-      "source_url": "https://simple.wikipedia.org/?curid=20501"
-    },
     "simplewiki:20514:10251999": {
       "document_hash": "sha256:d6157a55ee015498813e6a60a2befb4778933c34199afb2353ec6a3498506256",
       "source_revision": "10251999",
@@ -1811,11 +1546,6 @@
       "source_revision": "10545229",
       "source_url": "https://simple.wikipedia.org/?curid=20646"
     },
-    "simplewiki:20762:9782677": {
-      "document_hash": "sha256:fecd2453e1b4b5c9882e4198579544e9d3cad378246f352c18331d4a9163a3ce",
-      "source_revision": "9782677",
-      "source_url": "https://simple.wikipedia.org/?curid=20762"
-    },
     "simplewiki:20780:9457197": {
       "document_hash": "sha256:926c5dda09fb1f9e35f048eaa46922e153ea26fbff29114e87a00ca96c3f5283",
       "source_revision": "9457197",
@@ -1826,20 +1556,10 @@
       "source_revision": "10389198",
       "source_url": "https://simple.wikipedia.org/?curid=20785"
     },
-    "simplewiki:20809:10701356": {
-      "document_hash": "sha256:15fb906abcdeb23b6829608e827ff0828d5e69daec9a61cf4ded4cdb2ec8ea6b",
-      "source_revision": "10701356",
-      "source_url": "https://simple.wikipedia.org/?curid=20809"
-    },
     "simplewiki:20813:10193020": {
       "document_hash": "sha256:e5e7f1c197b3cee41e7934ef7f8f6ba71aaa09f8666df72ced9c63f40c905746",
       "source_revision": "10193020",
       "source_url": "https://simple.wikipedia.org/?curid=20813"
-    },
-    "simplewiki:2081:10804440": {
-      "document_hash": "sha256:8a842c9031fd0e9f974cf3d1519d46100ad5a1d0e46b7cb26e145601e8acecea",
-      "source_revision": "10804440",
-      "source_url": "https://simple.wikipedia.org/?curid=2081"
     },
     "simplewiki:20837:10826675": {
       "document_hash": "sha256:a277706afef1f50c44855d08c5867532ac002cda3640647a1a39b2495f2f5a77",
@@ -1861,20 +1581,10 @@
       "source_revision": "10777479",
       "source_url": "https://simple.wikipedia.org/?curid=208"
     },
-    "simplewiki:20959:10849602": {
-      "document_hash": "sha256:499824a08de9dead83b719d3543adbd8512124beb4cc05dab494f1760e431d14",
-      "source_revision": "10849602",
-      "source_url": "https://simple.wikipedia.org/?curid=20959"
-    },
     "simplewiki:20962:7505360": {
       "document_hash": "sha256:29ed847cecbd702441306a5d27ec6a3f759ea6b8393e7ec58141b4524c06ff30",
       "source_revision": "7505360",
       "source_url": "https://simple.wikipedia.org/?curid=20962"
-    },
-    "simplewiki:2099:10524227": {
-      "document_hash": "sha256:74804f9cf9facba2cbc7fae4993be3f08d119acce3729dc8f0bff5c9ac4d2dcc",
-      "source_revision": "10524227",
-      "source_url": "https://simple.wikipedia.org/?curid=2099"
     },
     "simplewiki:21018:9557529": {
       "document_hash": "sha256:64dbf9c4e42e511710216cd0b04b97f2a3d13a5f2ed8bd9fcf81c43d61d11ce4",
@@ -1895,16 +1605,6 @@
       "document_hash": "sha256:07db4a7df662121fc624872cf035786aa256a268915646452fc912ad7ea244f1",
       "source_revision": "10251986",
       "source_url": "https://simple.wikipedia.org/?curid=21147"
-    },
-    "simplewiki:21157:7835690": {
-      "document_hash": "sha256:ebee09cbe181d568cb4e38344095bb7435950935d700ac6f49c0941feb744fdd",
-      "source_revision": "7835690",
-      "source_url": "https://simple.wikipedia.org/?curid=21157"
-    },
-    "simplewiki:21212:6639287": {
-      "document_hash": "sha256:d364baa68212a09849e52c6bc027cfe7abbe44b393f991ceb6bea6a8525dcaef",
-      "source_revision": "6639287",
-      "source_url": "https://simple.wikipedia.org/?curid=21212"
     },
     "simplewiki:21238:10251987": {
       "document_hash": "sha256:feca1b22a481a55018768df7c66ddd2c872f658a7a20ce63818772fbd34e8a2e",
@@ -1986,11 +1686,6 @@
       "source_revision": "10640407",
       "source_url": "https://simple.wikipedia.org/?curid=21423"
     },
-    "simplewiki:21424:10754739": {
-      "document_hash": "sha256:9b17bdd9cf5723c8c33782fe7e455400d68e6e68cc1b540378cdbd29299d576c",
-      "source_revision": "10754739",
-      "source_url": "https://simple.wikipedia.org/?curid=21424"
-    },
     "simplewiki:21434:10251993": {
       "document_hash": "sha256:f56de5804d9086fd50296b96a8429678e8a85414bf59af629341c6958a1d0252",
       "source_revision": "10251993",
@@ -2000,11 +1695,6 @@
       "document_hash": "sha256:a0f5ae1f9ddbb213540327119ce85345facd719374b64b413c1392a4c0d87fed",
       "source_revision": "10886818",
       "source_url": "https://simple.wikipedia.org/?curid=21437"
-    },
-    "simplewiki:21439:10539484": {
-      "document_hash": "sha256:7f0706262a7b02961020af22ff34aefd1486f80d5694bb0a2ee7457eee22796a",
-      "source_revision": "10539484",
-      "source_url": "https://simple.wikipedia.org/?curid=21439"
     },
     "simplewiki:21468:10252017": {
       "document_hash": "sha256:deee946ec185e422339c3c33761f7e0f92c3b06d0e47a7914ea27138c6744b2a",
@@ -2021,16 +1711,6 @@
       "source_revision": "10252043",
       "source_url": "https://simple.wikipedia.org/?curid=21533"
     },
-    "simplewiki:21550:10870136": {
-      "document_hash": "sha256:9b03a8982ad3092d6b2fd723312f8b17149060fb827563b5005dbe1c2cbd803b",
-      "source_revision": "10870136",
-      "source_url": "https://simple.wikipedia.org/?curid=21550"
-    },
-    "simplewiki:21556:9078707": {
-      "document_hash": "sha256:52fd1fbccf145950e0d48469af290583797821697910043ca517ba93a7b2454c",
-      "source_revision": "9078707",
-      "source_url": "https://simple.wikipedia.org/?curid=21556"
-    },
     "simplewiki:21561:10868678": {
       "document_hash": "sha256:c1ae3f50baa4e3214915aa7a124cf0db8e0e34b660ea6c01461c863cd57d8309",
       "source_revision": "10868678",
@@ -2040,11 +1720,6 @@
       "document_hash": "sha256:5ff218273fd82a264b84d56b650b5e03ec9102a0dcc539ce9f5fa1419d330eef",
       "source_revision": "10868682",
       "source_url": "https://simple.wikipedia.org/?curid=21563"
-    },
-    "simplewiki:21567:10868705": {
-      "document_hash": "sha256:36de92df7c3a6b808113b48c8e0e9be03a2582b25f61e4855a2d210b81c5ccd7",
-      "source_revision": "10868705",
-      "source_url": "https://simple.wikipedia.org/?curid=21567"
     },
     "simplewiki:21568:10792801": {
       "document_hash": "sha256:1484ad13193e185c61eb1752fe98709b3a60bcf4c0da69ac9e259ce9add87f05",
@@ -2121,11 +1796,6 @@
       "source_revision": "10616690",
       "source_url": "https://simple.wikipedia.org/?curid=21758"
     },
-    "simplewiki:21772:8841082": {
-      "document_hash": "sha256:8e17bd87675b27d471a1b576b841a95788d15ee3b374cf3c443cb0921a928213",
-      "source_revision": "8841082",
-      "source_url": "https://simple.wikipedia.org/?curid=21772"
-    },
     "simplewiki:21800:10445148": {
       "document_hash": "sha256:79523f73338f0dbeac09f11850ed34b5efc52131dc5f31f9bff6adaa068cfaeb",
       "source_revision": "10445148",
@@ -2135,11 +1805,6 @@
       "document_hash": "sha256:f1f7084b11556efb12c75c9941d5b2f661c297581396f04f90f15e76575ec73a",
       "source_revision": "10290441",
       "source_url": "https://simple.wikipedia.org/?curid=21869"
-    },
-    "simplewiki:21875:10898505": {
-      "document_hash": "sha256:e50c93ce99a8f837ed7798b930a3607a63b1210e4f725208eae2d37d40016c17",
-      "source_revision": "10898505",
-      "source_url": "https://simple.wikipedia.org/?curid=21875"
     },
     "simplewiki:218:10902081": {
       "document_hash": "sha256:fe8109c6d33fe9f198b2d1641ab47ea85aeeb335874c6f0a335a05dd605792a5",
@@ -2151,20 +1816,10 @@
       "source_revision": "10833705",
       "source_url": "https://simple.wikipedia.org/?curid=21914"
     },
-    "simplewiki:21917:10786089": {
-      "document_hash": "sha256:e86f251a8d21e18d4bc34a7b0c05534b13d2d4b2d635a7f4433225e25bce300b",
-      "source_revision": "10786089",
-      "source_url": "https://simple.wikipedia.org/?curid=21917"
-    },
     "simplewiki:219:10878877": {
       "document_hash": "sha256:7eab8f298befa24d3fa318e6557d4a4189662d06c57bbe2cec1e94da542111fa",
       "source_revision": "10878877",
       "source_url": "https://simple.wikipedia.org/?curid=219"
-    },
-    "simplewiki:22096:10861185": {
-      "document_hash": "sha256:8ae2db5b30162bf458699c04f8b8750d5d22f4608a0bbadfff646d35c379c646",
-      "source_revision": "10861185",
-      "source_url": "https://simple.wikipedia.org/?curid=22096"
     },
     "simplewiki:2210:10881077": {
       "document_hash": "sha256:c82a070ef744fc6563c970b78b43310f35ea868e852436748599bc4b6e344cf4",
@@ -2175,11 +1830,6 @@
       "document_hash": "sha256:a2b1c31f24da3f4990b11c218a41c0bc53728c72fa04ebb82833c9d51abd7878",
       "source_revision": "10219769",
       "source_url": "https://simple.wikipedia.org/?curid=22242"
-    },
-    "simplewiki:22343:9630132": {
-      "document_hash": "sha256:dea0c744b40a6d3650f25e0e5ce28a17bb36758c1630bc81f5be02be663da167",
-      "source_revision": "9630132",
-      "source_url": "https://simple.wikipedia.org/?curid=22343"
     },
     "simplewiki:22492:10252045": {
       "document_hash": "sha256:5082f9f3d14890cfdd011699dbfed708ee5f521de0151f4fa3e35d43ca05d8d9",
@@ -2196,20 +1846,10 @@
       "source_revision": "10747953",
       "source_url": "https://simple.wikipedia.org/?curid=22570"
     },
-    "simplewiki:22587:10074434": {
-      "document_hash": "sha256:5c9c97d2c1bf030d7283fb4f4b427842c935ba62fdeda707e41445e1c383783c",
-      "source_revision": "10074434",
-      "source_url": "https://simple.wikipedia.org/?curid=22587"
-    },
     "simplewiki:22588:10885313": {
       "document_hash": "sha256:ef5950ac916aeebf2f69ff91a06a230189b22ff992d7f0d60321fc10ae710f57",
       "source_revision": "10885313",
       "source_url": "https://simple.wikipedia.org/?curid=22588"
-    },
-    "simplewiki:22655:10678274": {
-      "document_hash": "sha256:ed366df310a2c81444cd61141f67d35a02d34ff28ffe377b7e96a80f5a83aef5",
-      "source_revision": "10678274",
-      "source_url": "https://simple.wikipedia.org/?curid=22655"
     },
     "simplewiki:22707:10855574": {
       "document_hash": "sha256:b87ba4c9fbdd7773d76804b24d1568595dba68833a6c23ba5c484e457dbec6b0",
@@ -2241,20 +1881,10 @@
       "source_revision": "10252019",
       "source_url": "https://simple.wikipedia.org/?curid=22917"
     },
-    "simplewiki:22924:10864088": {
-      "document_hash": "sha256:0ac72bc2965e4d1c62ec6eb2374744e1fe21e3aaa287cbcf0223d40fe208c3c1",
-      "source_revision": "10864088",
-      "source_url": "https://simple.wikipedia.org/?curid=22924"
-    },
     "simplewiki:22939:10900452": {
       "document_hash": "sha256:8f8560b70e39b800f3575dcc61b0529e32422a049fbb85596ed0a225348fb70c",
       "source_revision": "10900452",
       "source_url": "https://simple.wikipedia.org/?curid=22939"
-    },
-    "simplewiki:22981:10549029": {
-      "document_hash": "sha256:82fc5e6fb24054792f2383031e9fbd536f1d573fcfaf1de3f3da9a58abe3e1c6",
-      "source_revision": "10549029",
-      "source_url": "https://simple.wikipedia.org/?curid=22981"
     },
     "simplewiki:23016:10878923": {
       "document_hash": "sha256:23d5ddb0bdd7596f9e77e540ede113bc3daa7a58911d0a11473f2f7931b8b286",
@@ -2265,11 +1895,6 @@
       "document_hash": "sha256:3bf38487294d8faeabcd5b48ae0b306f569d05353ac16dd3712426c7c41fec03",
       "source_revision": "10783332",
       "source_url": "https://simple.wikipedia.org/?curid=23044"
-    },
-    "simplewiki:23068:9930871": {
-      "document_hash": "sha256:500097ca18f4387bf2fde2823e66ac969bb7c5378617c9f7aa7c408949533b8e",
-      "source_revision": "9930871",
-      "source_url": "https://simple.wikipedia.org/?curid=23068"
     },
     "simplewiki:23073:10693333": {
       "document_hash": "sha256:0b44d35999144a77efb2a61aa3906af193c5b1f084ae243168287c032b50a5bc",
@@ -2291,30 +1916,15 @@
       "source_revision": "10630095",
       "source_url": "https://simple.wikipedia.org/?curid=23433"
     },
-    "simplewiki:23473:8769620": {
-      "document_hash": "sha256:b850feff8dd902cedd6d3a08b0f4fb020e447773faa52d221a8397cd4856a597",
-      "source_revision": "8769620",
-      "source_url": "https://simple.wikipedia.org/?curid=23473"
-    },
     "simplewiki:234:10255410": {
       "document_hash": "sha256:b10d67d78e8ba22d5f4d08d2e12180dd70fbba5ea6ff093058277c16f608bf86",
       "source_revision": "10255410",
       "source_url": "https://simple.wikipedia.org/?curid=234"
     },
-    "simplewiki:23562:10119458": {
-      "document_hash": "sha256:daca6857014927f5c8a67e68c77371f58162fd894b15314796d6211118ccdf7d",
-      "source_revision": "10119458",
-      "source_url": "https://simple.wikipedia.org/?curid=23562"
-    },
     "simplewiki:23589:10903762": {
       "document_hash": "sha256:6a23e2a29f918c77d6099e877d9d46bdfbfb13e9c0d2456d5ba15c5a3821f426",
       "source_revision": "10903762",
       "source_url": "https://simple.wikipedia.org/?curid=23589"
-    },
-    "simplewiki:23593:10424449": {
-      "document_hash": "sha256:f62acbe1b3c78cdca274d605641312c737f023f9a1b6d49082eb88ffb45c2276",
-      "source_revision": "10424449",
-      "source_url": "https://simple.wikipedia.org/?curid=23593"
     },
     "simplewiki:23607:10750069": {
       "document_hash": "sha256:5ed736a175a68cc07090c5b8ad3c76872201c70e10f40527084196eb5bb317ca",
@@ -2356,11 +1966,6 @@
       "source_revision": "10852233",
       "source_url": "https://simple.wikipedia.org/?curid=23805"
     },
-    "simplewiki:23826:10849165": {
-      "document_hash": "sha256:4a5b83c3a948e7b9f225f4a47c2333afe60d53dbedb3704362c2c7169bd01020",
-      "source_revision": "10849165",
-      "source_url": "https://simple.wikipedia.org/?curid=23826"
-    },
     "simplewiki:23950:10252049": {
       "document_hash": "sha256:2190b4bddc7ee5106c1b49593b7e961f7fee5a622d9fd8743f4e4d963c28a64b",
       "source_revision": "10252049",
@@ -2380,11 +1985,6 @@
       "document_hash": "sha256:eb8690d8cf040a89aeb696ce3547d8e4ce98edd8d50345f1615b318cc8274c91",
       "source_revision": "7212358",
       "source_url": "https://simple.wikipedia.org/?curid=24014"
-    },
-    "simplewiki:24028:10770281": {
-      "document_hash": "sha256:ba3cb79c32e6f49cdc4fca713438fa4bc03a9b1623219c4b6c7ee2fc0fa9d19f",
-      "source_revision": "10770281",
-      "source_url": "https://simple.wikipedia.org/?curid=24028"
     },
     "simplewiki:24069:4208670": {
       "document_hash": "sha256:ea4956a557009b0915979e25ffe0f85373e9ca2811cab3c31caf2a9f5c91ba36",
@@ -2421,25 +2021,10 @@
       "source_revision": "10869073",
       "source_url": "https://simple.wikipedia.org/?curid=24288"
     },
-    "simplewiki:24306:10855978": {
-      "document_hash": "sha256:4be766478fa97c097e391363db6d9fafc8935fac6b949b065c097f2382ae77fc",
-      "source_revision": "10855978",
-      "source_url": "https://simple.wikipedia.org/?curid=24306"
-    },
-    "simplewiki:24358:10828126": {
-      "document_hash": "sha256:f4f9f05c627025857dc6cdd466a7c2489f88b7134c748aa58f9964f300e5e7b3",
-      "source_revision": "10828126",
-      "source_url": "https://simple.wikipedia.org/?curid=24358"
-    },
     "simplewiki:24447:9693346": {
       "document_hash": "sha256:50e074e8c27983071c66c5b1ee4786731b336fdc348ba7ddfdcdfff83ccef29a",
       "source_revision": "9693346",
       "source_url": "https://simple.wikipedia.org/?curid=24447"
-    },
-    "simplewiki:24510:10734247": {
-      "document_hash": "sha256:09e3c76ff1e6cb6a3a0ad3784fc0f0f35e1af7461880619a1167dd5f29cee868",
-      "source_revision": "10734247",
-      "source_url": "https://simple.wikipedia.org/?curid=24510"
     },
     "simplewiki:24886:10905061": {
       "document_hash": "sha256:de809c29a8c8cfb09365868f705ce8dc23c91f1aef129e716b7c98380b12e317",
@@ -2506,26 +2091,6 @@
       "source_revision": "10896996",
       "source_url": "https://simple.wikipedia.org/?curid=2964"
     },
-    "simplewiki:2973:10353218": {
-      "document_hash": "sha256:436301ffc63ac7f1d103ff6958fa4fe71e1b62fad13cec3350e99a0c0467e815",
-      "source_revision": "10353218",
-      "source_url": "https://simple.wikipedia.org/?curid=2973"
-    },
-    "simplewiki:2975:6368141": {
-      "document_hash": "sha256:4039ecb3a083e981a23636a0eba8629017ecf716dd265bda7f16192f8a9a605a",
-      "source_revision": "6368141",
-      "source_url": "https://simple.wikipedia.org/?curid=2975"
-    },
-    "simplewiki:2977:6368144": {
-      "document_hash": "sha256:4f98203cec89932fbdac24bd0beb13c05928b74ec4d1924d58b25ddb517323d4",
-      "source_revision": "6368144",
-      "source_url": "https://simple.wikipedia.org/?curid=2977"
-    },
-    "simplewiki:2978:6246166": {
-      "document_hash": "sha256:44b2dd7681acdd9ec7203b3e0936ba94c947c8c2b4a3e8bf74ea2083b0c18204",
-      "source_revision": "6246166",
-      "source_url": "https://simple.wikipedia.org/?curid=2978"
-    },
     "simplewiki:2991:10667848": {
       "document_hash": "sha256:ebe528c64ed15b236af40ed9124f6d0ea2d79e9e453779121dd154502604f712",
       "source_revision": "10667848",
@@ -2586,16 +2151,6 @@
       "source_revision": "10829203",
       "source_url": "https://simple.wikipedia.org/?curid=3097"
     },
-    "simplewiki:310:10887233": {
-      "document_hash": "sha256:0412462ecca5deffb5e13942bf9425f9ffcaa7637698ddc6d5da0905aca666c4",
-      "source_revision": "10887233",
-      "source_url": "https://simple.wikipedia.org/?curid=310"
-    },
-    "simplewiki:314:10900011": {
-      "document_hash": "sha256:b0351d705a9b070fd1fda5f211edba7d43177a4a9c6b84d8596c6c98c03fd4f1",
-      "source_revision": "10900011",
-      "source_url": "https://simple.wikipedia.org/?curid=314"
-    },
     "simplewiki:3196:10883837": {
       "document_hash": "sha256:a04a3cbcd05c9ae343bcccf24b419418e199417f3cc96debff78b1d9408d00df",
       "source_revision": "10883837",
@@ -2611,11 +2166,6 @@
       "source_revision": "9699158",
       "source_url": "https://simple.wikipedia.org/?curid=3221"
     },
-    "simplewiki:3222:10875820": {
-      "document_hash": "sha256:4e54020847f14ab360be1fe6dddf54dd61502f647fa9b7eb1c840803c55f5596",
-      "source_revision": "10875820",
-      "source_url": "https://simple.wikipedia.org/?curid=3222"
-    },
     "simplewiki:3259:10870121": {
       "document_hash": "sha256:7c0d80eb31ceb807f31fb21dc2c6f2021dfaa811c5db3db605b80b3156fb1cb0",
       "source_revision": "10870121",
@@ -2625,11 +2175,6 @@
       "document_hash": "sha256:f08fec6c9552fd0de5175ffc8f9d1da7705d51ba66aeb601b3fec554f975a6fa",
       "source_revision": "10759952",
       "source_url": "https://simple.wikipedia.org/?curid=3260"
-    },
-    "simplewiki:3261:10821029": {
-      "document_hash": "sha256:05f60f729ed3e20d9f38dcee849ebdd53a9942986fa48b7822f9e205ac432fbf",
-      "source_revision": "10821029",
-      "source_url": "https://simple.wikipedia.org/?curid=3261"
     },
     "simplewiki:3283:10791731": {
       "document_hash": "sha256:2cc8c7cd88fe2332de90c68bc19b9570948e4d40ae30ea29ccda6bfe173a4d7b",
@@ -2646,11 +2191,6 @@
       "source_revision": "10592278",
       "source_url": "https://simple.wikipedia.org/?curid=32"
     },
-    "simplewiki:3309:10634383": {
-      "document_hash": "sha256:bb0f677ba61c6fb1c6d2db1e83fda432bd7524a8ea52bfb74e9ed3995bfb9f07",
-      "source_revision": "10634383",
-      "source_url": "https://simple.wikipedia.org/?curid=3309"
-    },
     "simplewiki:3310:10848642": {
       "document_hash": "sha256:b5598305824c2b5a98ad0593d5d985e5a4ae9d9d34923ad537b195bab6bca744",
       "source_revision": "10848642",
@@ -2661,20 +2201,10 @@
       "source_revision": "10730084",
       "source_url": "https://simple.wikipedia.org/?curid=3326"
     },
-    "simplewiki:3328:10834322": {
-      "document_hash": "sha256:87911486c80d721a87afe8e17815bb34d45fa7e5b42f8ae198b282a1748b5b88",
-      "source_revision": "10834322",
-      "source_url": "https://simple.wikipedia.org/?curid=3328"
-    },
     "simplewiki:3375:7022273": {
       "document_hash": "sha256:fca32113d94f428d505e26fa70415489121a2e274ace6b2fc10aa96b8bb95ac0",
       "source_revision": "7022273",
       "source_url": "https://simple.wikipedia.org/?curid=3375"
-    },
-    "simplewiki:33:10617008": {
-      "document_hash": "sha256:9b320d0dec860523d7372152ceab9a0106016ec25f0d02b2ca6876a499f6b47d",
-      "source_revision": "10617008",
-      "source_url": "https://simple.wikipedia.org/?curid=33"
     },
     "simplewiki:3403:10903799": {
       "document_hash": "sha256:446f676e6a5bcf7dcf19748569791478f48cb66b551de3c3acaffb3ef35a3900",
@@ -2701,11 +2231,6 @@
       "source_revision": "10877668",
       "source_url": "https://simple.wikipedia.org/?curid=3448"
     },
-    "simplewiki:3463:10898633": {
-      "document_hash": "sha256:815fefec90c937cadc3860616c589ec60b0cef11568dbf654409b2f2f94945bd",
-      "source_revision": "10898633",
-      "source_url": "https://simple.wikipedia.org/?curid=3463"
-    },
     "simplewiki:3468:10866338": {
       "document_hash": "sha256:4cfd39d2e4bca70662f03d94807983a13e6a500a60c100b0d6d7bbce0d522ddb",
       "source_revision": "10866338",
@@ -2720,11 +2245,6 @@
       "document_hash": "sha256:c33f019b556de3dc414c2715d222e9fccacdb39d82343c459c54acb1052349ce",
       "source_revision": "10868558",
       "source_url": "https://simple.wikipedia.org/?curid=3476"
-    },
-    "simplewiki:3486:10724136": {
-      "document_hash": "sha256:987106e97701b7f7f4e53fb8c182d17be7052047673b1761105a422a0b2eca5c",
-      "source_revision": "10724136",
-      "source_url": "https://simple.wikipedia.org/?curid=3486"
     },
     "simplewiki:3496:10558177": {
       "document_hash": "sha256:97c7b45403a25b83957a97e48175d55c415fa3f99f9d793cc4b550dad7ca6cb5",
@@ -2761,10 +2281,10 @@
       "source_revision": "10789090",
       "source_url": "https://simple.wikipedia.org/?curid=3589"
     },
-    "simplewiki:3597:10901695": {
-      "document_hash": "sha256:1cef18696f1e1261396ac182e8a11e91ab9f47d6fb9e106742a5e682874bb90b",
-      "source_revision": "10901695",
-      "source_url": "https://simple.wikipedia.org/?curid=3597"
+    "simplewiki:3614:10906214": {
+      "document_hash": "sha256:2157d66562e2e5263551917e2c32b34bbbbe304a5c350809022a5e38d7569c05",
+      "source_revision": "10906214",
+      "source_url": "https://simple.wikipedia.org/?curid=3614"
     },
     "simplewiki:3616:10564534": {
       "document_hash": "sha256:94b937465ef23c10aca6f20297c647d45797f6e16942f53976b279058fca0f3d",
@@ -2805,11 +2325,6 @@
       "document_hash": "sha256:223fa7f63c0e39caa6f4fd88e88ea60542ae5c1460d262355dd8ed23242a1462",
       "source_revision": "10534301",
       "source_url": "https://simple.wikipedia.org/?curid=3675"
-    },
-    "simplewiki:3692:9426995": {
-      "document_hash": "sha256:daf5836b517766fffdad5adfcceb15500f321a43e55ee9711bafcdde315cf33c",
-      "source_revision": "9426995",
-      "source_url": "https://simple.wikipedia.org/?curid=3692"
     },
     "simplewiki:3702:10287569": {
       "document_hash": "sha256:c5f21308e4dfb6d4964789924b4c03938bfa4521e959f95e38879e399dc6a6ea",
@@ -2876,15 +2391,15 @@
       "source_revision": "7944772",
       "source_url": "https://simple.wikipedia.org/?curid=3858"
     },
-    "simplewiki:3924:10900598": {
-      "document_hash": "sha256:be40effb8cf41d99e97aeb5d3b0f261bb54334777c50f6c75d180c7726bf16f8",
-      "source_revision": "10900598",
-      "source_url": "https://simple.wikipedia.org/?curid=3924"
-    },
     "simplewiki:3925:10877788": {
       "document_hash": "sha256:d0542cfcc502847bafcd2e5d24b2cbb1bcd738f78ec28bd08f63470c85dfeaa2",
       "source_revision": "10877788",
       "source_url": "https://simple.wikipedia.org/?curid=3925"
+    },
+    "simplewiki:3936:10287432": {
+      "document_hash": "sha256:9e8b80c68666baff5eb492719f2a12973d7180eac63d73f78a4fa5d31e8f7a39",
+      "source_revision": "10287432",
+      "source_url": "https://simple.wikipedia.org/?curid=3936"
     },
     "simplewiki:3947:10794933": {
       "document_hash": "sha256:08cba7fec2eea17529f3beff573c94b5ca64964776e0286dc72e3a76493579b2",
@@ -2921,35 +2436,15 @@
       "source_revision": "8796848",
       "source_url": "https://simple.wikipedia.org/?curid=404"
     },
-    "simplewiki:4054:8105412": {
-      "document_hash": "sha256:f2c9989bcc1e40f01ba745ee07b83c4a9427f94c6207e12e7d70898b11d1d506",
-      "source_revision": "8105412",
-      "source_url": "https://simple.wikipedia.org/?curid=4054"
-    },
-    "simplewiki:4055:10795643": {
-      "document_hash": "sha256:694c4dd0f7ee90d3463e1fb122863bb807c0f2e3b8bd52751d1589b51ea09ffe",
-      "source_revision": "10795643",
-      "source_url": "https://simple.wikipedia.org/?curid=4055"
-    },
     "simplewiki:408:10819009": {
       "document_hash": "sha256:9311748be448a90ac166b10e655240e45ebf908d23536d073a45eb5b29dc40d0",
       "source_revision": "10819009",
       "source_url": "https://simple.wikipedia.org/?curid=408"
     },
-    "simplewiki:4111:10855625": {
-      "document_hash": "sha256:f8e1832eafc442ac0e8a0c85436d7c211005cd86250f3e3903c70a287bfbe38b",
-      "source_revision": "10855625",
-      "source_url": "https://simple.wikipedia.org/?curid=4111"
-    },
     "simplewiki:411:10873891": {
       "document_hash": "sha256:237be7c4a3df2aa746054166252220808522b92309f00c9f45b6707b3c210fa1",
       "source_revision": "10873891",
       "source_url": "https://simple.wikipedia.org/?curid=411"
-    },
-    "simplewiki:426:10907893": {
-      "document_hash": "sha256:0bff04202a8dfccfbd320405519c879d88f8c4b34098ab5c9a7c01330d56e5ec",
-      "source_revision": "10907893",
-      "source_url": "https://simple.wikipedia.org/?curid=426"
     },
     "simplewiki:4329:10653989": {
       "document_hash": "sha256:20dc60c887fd10ef51e7913a82427a839123f71747497a63ddd238eaa51679f1",
@@ -2976,25 +2471,10 @@
       "source_revision": "10849334",
       "source_url": "https://simple.wikipedia.org/?curid=4374"
     },
-    "simplewiki:4384:9663512": {
-      "document_hash": "sha256:a6bed22b2552679129344d8fa2b4c3b699c8c8fa859405cedad63160f48f4f82",
-      "source_revision": "9663512",
-      "source_url": "https://simple.wikipedia.org/?curid=4384"
-    },
     "simplewiki:4402:8835849": {
       "document_hash": "sha256:755143865b5f8fe341d39c0aa8a18384434cf747992b0adc6eab6f2f736b6048",
       "source_revision": "8835849",
       "source_url": "https://simple.wikipedia.org/?curid=4402"
-    },
-    "simplewiki:4415:10755053": {
-      "document_hash": "sha256:dfc151309a79f83795fca6e1cfb310660ee526a97afd9ea250f4c4b15879c772",
-      "source_revision": "10755053",
-      "source_url": "https://simple.wikipedia.org/?curid=4415"
-    },
-    "simplewiki:4448:10884550": {
-      "document_hash": "sha256:e400fad7074e06dd39223faf0bf121421154a34c0cd826c4e586180c47d0045a",
-      "source_revision": "10884550",
-      "source_url": "https://simple.wikipedia.org/?curid=4448"
     },
     "simplewiki:4452:9240733": {
       "document_hash": "sha256:9b08a5b08bbb5266bffd3bdf9a08551c6e1e18dbbea0ed351c5f25337575db8f",
@@ -3041,16 +2521,6 @@
       "source_revision": "10117308",
       "source_url": "https://simple.wikipedia.org/?curid=4558"
     },
-    "simplewiki:4613:9797622": {
-      "document_hash": "sha256:e27681e2d210aa8b275509fa093256ca908651000ea188be40eedbd90c5a2045",
-      "source_revision": "9797622",
-      "source_url": "https://simple.wikipedia.org/?curid=4613"
-    },
-    "simplewiki:461:10601703": {
-      "document_hash": "sha256:bf015f23db5276b4718b360cac6a1cb358747df338ee46fa13f3758552db16bc",
-      "source_revision": "10601703",
-      "source_url": "https://simple.wikipedia.org/?curid=461"
-    },
     "simplewiki:4633:10869760": {
       "document_hash": "sha256:e1178edd6ca721cb5334dd0558c8e0068873b10a25c2b978db424a2213776db6",
       "source_revision": "10869760",
@@ -3071,30 +2541,10 @@
       "source_revision": "9698148",
       "source_url": "https://simple.wikipedia.org/?curid=4668"
     },
-    "simplewiki:4669:8794824": {
-      "document_hash": "sha256:a604e006d9cbfab3f0a0d3386f6f8358422bc3ffc2aa2d9ad37217741eb65bb7",
-      "source_revision": "8794824",
-      "source_url": "https://simple.wikipedia.org/?curid=4669"
-    },
     "simplewiki:4693:10794963": {
       "document_hash": "sha256:e4ed71d52c9106c0538efdbb22c36c83bf97b4a45fa64339c1190cb83f6ffc1f",
       "source_revision": "10794963",
       "source_url": "https://simple.wikipedia.org/?curid=4693"
-    },
-    "simplewiki:4700:10807940": {
-      "document_hash": "sha256:0e1ecf758f775f0da48a19bfef3e8926753eb5f9a898a84b8296a2ba88a99310",
-      "source_revision": "10807940",
-      "source_url": "https://simple.wikipedia.org/?curid=4700"
-    },
-    "simplewiki:4712:10542256": {
-      "document_hash": "sha256:ccdcc2afe19c5487a1fc6ce60615c30720b082892599a9ab6df7f556d232fee8",
-      "source_revision": "10542256",
-      "source_url": "https://simple.wikipedia.org/?curid=4712"
-    },
-    "simplewiki:4779:8892387": {
-      "document_hash": "sha256:453e2a7db418a40daa1e0aeda7e52638c884084679685ad8504465389f4f5fa9",
-      "source_revision": "8892387",
-      "source_url": "https://simple.wikipedia.org/?curid=4779"
     },
     "simplewiki:4797:10894124": {
       "document_hash": "sha256:cdbb07e45f562125486cf9e4db39f9b6d7b48d00153859c206551bbc71c4a036",
@@ -3116,20 +2566,10 @@
       "source_revision": "10874467",
       "source_url": "https://simple.wikipedia.org/?curid=4812"
     },
-    "simplewiki:4826:10736499": {
-      "document_hash": "sha256:5b4bea6b504ab56705d5525df09919298e9d267d4125788b114a1fbef6bd124a",
-      "source_revision": "10736499",
-      "source_url": "https://simple.wikipedia.org/?curid=4826"
-    },
     "simplewiki:4841:10530353": {
       "document_hash": "sha256:8988bd19792c9067bb57543cedab2fe1e6e50f9fb078f05df3cb318770638d5e",
       "source_revision": "10530353",
       "source_url": "https://simple.wikipedia.org/?curid=4841"
-    },
-    "simplewiki:4843:10688165": {
-      "document_hash": "sha256:0492f80221d597e4a6d616bf24cc4e9f8cbfdb848e4fa60c29b38ad8dc1bfbbc",
-      "source_revision": "10688165",
-      "source_url": "https://simple.wikipedia.org/?curid=4843"
     },
     "simplewiki:4900:10891279": {
       "document_hash": "sha256:e39153c6efd24dcd7788749129d32c0cf9a124540bf0840f804692fafb07cabb",
@@ -3196,11 +2636,6 @@
       "source_revision": "10813280",
       "source_url": "https://simple.wikipedia.org/?curid=515"
     },
-    "simplewiki:5171:10862848": {
-      "document_hash": "sha256:7f45ff66a53c4c227b3714111fde9fdbe12ece8fd7d97828920e5b63892e45c9",
-      "source_revision": "10862848",
-      "source_url": "https://simple.wikipedia.org/?curid=5171"
-    },
     "simplewiki:5236:10885053": {
       "document_hash": "sha256:d10c83d736ce45844573bbc32af0c026e260ddd51239c4e34fd99752a773896e",
       "source_revision": "10885053",
@@ -3215,11 +2650,6 @@
       "document_hash": "sha256:e460fd9b081d9fb16841ad80f102b529b17a526c6c6864d461c616a42c383bac",
       "source_revision": "10855084",
       "source_url": "https://simple.wikipedia.org/?curid=5255"
-    },
-    "simplewiki:528:10863224": {
-      "document_hash": "sha256:c0a135671966a7110547ff3f5210c693cb0bd58941fee7ff1b3b06bb5189aa80",
-      "source_revision": "10863224",
-      "source_url": "https://simple.wikipedia.org/?curid=528"
     },
     "simplewiki:5313:10808316": {
       "document_hash": "sha256:3425d748051a54942ae07e8d145b9680861781ec7055dc3d9658b492401f375e",
@@ -3261,30 +2691,15 @@
       "source_revision": "10855844",
       "source_url": "https://simple.wikipedia.org/?curid=5506"
     },
-    "simplewiki:5547:10855842": {
-      "document_hash": "sha256:2e07cb8900c2e0f48666826123d904e5c380c60f8c126b24c2ce953c6051498b",
-      "source_revision": "10855842",
-      "source_url": "https://simple.wikipedia.org/?curid=5547"
-    },
     "simplewiki:5556:10893899": {
       "document_hash": "sha256:d1852077ae0cc91598749383944c92415dd1d3191ce4330be651aea9e9ab88a7",
       "source_revision": "10893899",
       "source_url": "https://simple.wikipedia.org/?curid=5556"
     },
-    "simplewiki:5578:10904491": {
-      "document_hash": "sha256:39302ed42d3d7cbcd21451886547adc0e9387443308f10ff6d3b82729139cd75",
-      "source_revision": "10904491",
-      "source_url": "https://simple.wikipedia.org/?curid=5578"
-    },
     "simplewiki:558:10889013": {
       "document_hash": "sha256:9ad0b5c5a4d08ee0b36d75e441a119bcebfb1409c5f703cb739874254da13da8",
       "source_revision": "10889013",
       "source_url": "https://simple.wikipedia.org/?curid=558"
-    },
-    "simplewiki:5637:9846111": {
-      "document_hash": "sha256:b7b4eae6d9fa6f37c599e4849f47afbfa332597cff1a70bd4a532cde7adaf538",
-      "source_revision": "9846111",
-      "source_url": "https://simple.wikipedia.org/?curid=5637"
     },
     "simplewiki:5651:10724085": {
       "document_hash": "sha256:15df779b79c355f54962f457092cbfac46d1593d487071e3521f70d2bab7656e",
@@ -3305,11 +2720,6 @@
       "document_hash": "sha256:814210a34ef01d42a5e3cd6db3b1d29bf623a8a251d7b6c5f1b0f27e78b9f336",
       "source_revision": "10842449",
       "source_url": "https://simple.wikipedia.org/?curid=5719"
-    },
-    "simplewiki:5761:10783506": {
-      "document_hash": "sha256:221b198d75a8378476084891c36f38e1e083279af4f1525ef288d78892db4d57",
-      "source_revision": "10783506",
-      "source_url": "https://simple.wikipedia.org/?curid=5761"
     },
     "simplewiki:5775:7739386": {
       "document_hash": "sha256:a25de5e466f24cde5ff7b319c9e9b784502e71976fc6c94a255bcdf5eb1cca7d",
@@ -3335,11 +2745,6 @@
       "document_hash": "sha256:8f754925b815bf283791de1e4b26b08ee09e673e53e7ffef5973c171245d434a",
       "source_revision": "9664669",
       "source_url": "https://simple.wikipedia.org/?curid=5843"
-    },
-    "simplewiki:5897:10897860": {
-      "document_hash": "sha256:b38505776914607c6e88bedccdd882b40bdc6f0a43aed9e4901c26f80ca89000",
-      "source_revision": "10897860",
-      "source_url": "https://simple.wikipedia.org/?curid=5897"
     },
     "simplewiki:5898:10850693": {
       "document_hash": "sha256:32b49e7178267f1dbcd3bdb173502377b097e61020186e5149555b0f9fe05873",
@@ -3376,35 +2781,30 @@
       "source_revision": "10179394",
       "source_url": "https://simple.wikipedia.org/?curid=606"
     },
-    "simplewiki:6079:10844192": {
-      "document_hash": "sha256:dd87a8c86ada1d67d06a8bd581a193cd4e6502eee1c088276800a5b9a0e3c723",
-      "source_revision": "10844192",
-      "source_url": "https://simple.wikipedia.org/?curid=6079"
-    },
     "simplewiki:607:8949920": {
       "document_hash": "sha256:818ae2c001759a086b6548daa961cd41873a7f92fe1efe3a9db4147b7e824313",
       "source_revision": "8949920",
       "source_url": "https://simple.wikipedia.org/?curid=607"
-    },
-    "simplewiki:6081:10896648": {
-      "document_hash": "sha256:205c1e5f4d53abd7f48644d692231e49762a19a080db692ae8a8bf07eca2e5bb",
-      "source_revision": "10896648",
-      "source_url": "https://simple.wikipedia.org/?curid=6081"
     },
     "simplewiki:6085:10752131": {
       "document_hash": "sha256:b027bf28fb3b85e9f287e50d5afd48a232a991cc1cfd7658a5e7ef718571735a",
       "source_revision": "10752131",
       "source_url": "https://simple.wikipedia.org/?curid=6085"
     },
-    "simplewiki:6100:10859291": {
-      "document_hash": "sha256:910ff4f166193a99df0321c2f7c3b3dd10fe8e95ed60151d9150e77472867ce9",
-      "source_revision": "10859291",
-      "source_url": "https://simple.wikipedia.org/?curid=6100"
-    },
     "simplewiki:6101:10399863": {
       "document_hash": "sha256:fee1844fa5b3356f3efd5e08065157eb9f27bf270bca60ee94efe0863097e7b1",
       "source_revision": "10399863",
       "source_url": "https://simple.wikipedia.org/?curid=6101"
+    },
+    "simplewiki:6116:10597477": {
+      "document_hash": "sha256:b7b62afa9537b427e537666718d0cfb5484948278c6129cfd29221cd62c04590",
+      "source_revision": "10597477",
+      "source_url": "https://simple.wikipedia.org/?curid=6116"
+    },
+    "simplewiki:6153:10625853": {
+      "document_hash": "sha256:d3b1a845aafdfa1d35d2154aa5ecc016018b94878baede57b8cfe0285951c35f",
+      "source_revision": "10625853",
+      "source_url": "https://simple.wikipedia.org/?curid=6153"
     },
     "simplewiki:6169:10905480": {
       "document_hash": "sha256:2b496f81a5a8f3c79f4c193e58594af16ac83ea74c3da73fad87a8e32c92ea99",
@@ -3416,20 +2816,10 @@
       "source_revision": "10904749",
       "source_url": "https://simple.wikipedia.org/?curid=6237"
     },
-    "simplewiki:623:9598199": {
-      "document_hash": "sha256:4fb7fe33c2ba36d1a7f1a17b7d9e2a925b750318faef32004b84d3cd3481f921",
-      "source_revision": "9598199",
-      "source_url": "https://simple.wikipedia.org/?curid=623"
-    },
     "simplewiki:6251:10772588": {
       "document_hash": "sha256:c7ccf2b10c7ce6ce1c622eafa287250886c3459bf30b62c59d13f4db52851ebf",
       "source_revision": "10772588",
       "source_url": "https://simple.wikipedia.org/?curid=6251"
-    },
-    "simplewiki:6253:10890768": {
-      "document_hash": "sha256:0fe9eca933a2ec0034c522e45469d1488e848223b47ec3e304668d218dd10a99",
-      "source_revision": "10890768",
-      "source_url": "https://simple.wikipedia.org/?curid=6253"
     },
     "simplewiki:6305:9755510": {
       "document_hash": "sha256:304bc71beb8f8337bcfcacb6fb69cfc7751f7d4286572b41d47309a21635a6a2",
@@ -3441,11 +2831,6 @@
       "source_revision": "10386810",
       "source_url": "https://simple.wikipedia.org/?curid=630"
     },
-    "simplewiki:6315:10739113": {
-      "document_hash": "sha256:d75a84425b2930567cf6fd44bbd9b3b207a1283019e999764f18b6176e3a1d7a",
-      "source_revision": "10739113",
-      "source_url": "https://simple.wikipedia.org/?curid=6315"
-    },
     "simplewiki:6329:10330885": {
       "document_hash": "sha256:e1e905e96a82e95837a3f9ce8e0b5a6bc63067ec51ff0ebd9a9115e8c8a011fa",
       "source_revision": "10330885",
@@ -3455,11 +2840,6 @@
       "document_hash": "sha256:e303361f7425c1064073e081a18696949bbfebda7e58522090a0f49a4cbe198f",
       "source_revision": "10881147",
       "source_url": "https://simple.wikipedia.org/?curid=6346"
-    },
-    "simplewiki:6361:10708027": {
-      "document_hash": "sha256:d559e255060f4b33cd9c6f68ffd1adffdf2a85cd0a34058ec8e41161a9c1072c",
-      "source_revision": "10708027",
-      "source_url": "https://simple.wikipedia.org/?curid=6361"
     },
     "simplewiki:6371:10865481": {
       "document_hash": "sha256:05fbdc49586856948cb508f1708335a647967f50bd3e8389695f81474ed11aa9",
@@ -3480,11 +2860,6 @@
       "document_hash": "sha256:852aac43901e08ec8971a32fdb991b6e62ab23e6a40ba813936b453fec914ed4",
       "source_revision": "10903794",
       "source_url": "https://simple.wikipedia.org/?curid=649"
-    },
-    "simplewiki:6528:10470935": {
-      "document_hash": "sha256:572a968103c2fe8c7f48a02249933a97179dfe5674873a679bbb818a7d83a6b0",
-      "source_revision": "10470935",
-      "source_url": "https://simple.wikipedia.org/?curid=6528"
     },
     "simplewiki:6565:10600435": {
       "document_hash": "sha256:800f2a5fcd0e4ebba3d1969a6296a1bfedc5f2464de2ca4c167d0cf15e5a1cb4",
@@ -3526,20 +2901,10 @@
       "source_revision": "10489009",
       "source_url": "https://simple.wikipedia.org/?curid=6693"
     },
-    "simplewiki:673:10645133": {
-      "document_hash": "sha256:d1132998d15daadc8806ada1fe860e34e415b84e3f0e1cf0de2fc8aa298881c7",
-      "source_revision": "10645133",
-      "source_url": "https://simple.wikipedia.org/?curid=673"
-    },
     "simplewiki:677:10615052": {
       "document_hash": "sha256:d695b9d6b42084053b64c255313510ab07cff2cac6373d65c5dfbc574a5673ae",
       "source_revision": "10615052",
       "source_url": "https://simple.wikipedia.org/?curid=677"
-    },
-    "simplewiki:680:10429901": {
-      "document_hash": "sha256:029b8e9d9ed2a0b69c8c079bdad45dc575398da4c88e9b2edce3fe4f7e9955e4",
-      "source_revision": "10429901",
-      "source_url": "https://simple.wikipedia.org/?curid=680"
     },
     "simplewiki:686:10809310": {
       "document_hash": "sha256:64316384f81a10c137fec2f6c02f8d6df3ced8a74cb7d91b46338d5c69105cf8",
@@ -3566,25 +2931,20 @@
       "source_revision": "10886714",
       "source_url": "https://simple.wikipedia.org/?curid=7091"
     },
+    "simplewiki:7095:10393932": {
+      "document_hash": "sha256:dab2cdb5e382edaa3dbfe3ca5a010ac46a9ab22a1fb51d67a33a160c0911be75",
+      "source_revision": "10393932",
+      "source_url": "https://simple.wikipedia.org/?curid=7095"
+    },
     "simplewiki:709:10546282": {
       "document_hash": "sha256:a2c87444de9592ba306410c74dfa6eb3cf8627c5cb211d3e0e327b9886410102",
       "source_revision": "10546282",
       "source_url": "https://simple.wikipedia.org/?curid=709"
     },
-    "simplewiki:70:10001767": {
-      "document_hash": "sha256:01dadd5f6b49d357eced36bae117dfba86741bec6d4a9c610c655d3878cb5d06",
-      "source_revision": "10001767",
-      "source_url": "https://simple.wikipedia.org/?curid=70"
-    },
     "simplewiki:7133:10109147": {
       "document_hash": "sha256:8692e1482fd2a8c32c9ccfe58a4b1a311f7ec65b3fe8dea4a4003bf53ed4d889",
       "source_revision": "10109147",
       "source_url": "https://simple.wikipedia.org/?curid=7133"
-    },
-    "simplewiki:7156:10502119": {
-      "document_hash": "sha256:89fc163ea3786df3fb2b56d1e2abb31eba0c285f5333aa787d5141b2eec60a3a",
-      "source_revision": "10502119",
-      "source_url": "https://simple.wikipedia.org/?curid=7156"
     },
     "simplewiki:7199:10872262": {
       "document_hash": "sha256:14afb4c1602e05c61f8ce7a3a43e9b27e0e6d99c7e7c7e5c55bb3bf6a7445b4b",
@@ -3626,35 +2986,20 @@
       "source_revision": "10860055",
       "source_url": "https://simple.wikipedia.org/?curid=7427"
     },
-    "simplewiki:7442:10815967": {
-      "document_hash": "sha256:3557c9379ac9a5f40a5ad864659fe70fe2f8c6a7b0855c918e84e2632dee95eb",
-      "source_revision": "10815967",
-      "source_url": "https://simple.wikipedia.org/?curid=7442"
+    "simplewiki:7433:10394412": {
+      "document_hash": "sha256:7fe0881f99cbb7f9933b3c462dfa933cf0be42d128046cc62d0d8c95caa75bd2",
+      "source_revision": "10394412",
+      "source_url": "https://simple.wikipedia.org/?curid=7433"
     },
     "simplewiki:7472:10765239": {
       "document_hash": "sha256:34d0ff641d23048e6ce7fd28b236bf1bfa832e72fa827fecbcbd95a6dd56b4b8",
       "source_revision": "10765239",
       "source_url": "https://simple.wikipedia.org/?curid=7472"
     },
-    "simplewiki:7495:10044910": {
-      "document_hash": "sha256:6ceea84e4457dbff1b6c66f7d6285297930e1f5c1f24553d083e57f6a24dc205",
-      "source_revision": "10044910",
-      "source_url": "https://simple.wikipedia.org/?curid=7495"
-    },
-    "simplewiki:7500:10877875": {
-      "document_hash": "sha256:6dc324561f187f8dd69347cc35ef103ee5d62c54689987054bc56050d104308f",
-      "source_revision": "10877875",
-      "source_url": "https://simple.wikipedia.org/?curid=7500"
-    },
     "simplewiki:7517:10806770": {
       "document_hash": "sha256:afee53dc54f3f9e7cba087419bdae668d3fcba314e0e87631e89fbf3d6e03064",
       "source_revision": "10806770",
       "source_url": "https://simple.wikipedia.org/?curid=7517"
-    },
-    "simplewiki:7522:10862363": {
-      "document_hash": "sha256:d1657dd206f9b4c548c54430e207207f489e28ff78fb4a069c8a5c9c54d58786",
-      "source_revision": "10862363",
-      "source_url": "https://simple.wikipedia.org/?curid=7522"
     },
     "simplewiki:7531:10398582": {
       "document_hash": "sha256:fc8a8e9925dca8a19b565593806efffa8c67c5d79d19370fd387a61e4a8f8bcb",
@@ -3675,16 +3020,6 @@
       "document_hash": "sha256:b71a3a281315c1d3be086b480e721d8934812b67b4eb863bb152748bb29c15e5",
       "source_revision": "8710584",
       "source_url": "https://simple.wikipedia.org/?curid=7639"
-    },
-    "simplewiki:7641:10834005": {
-      "document_hash": "sha256:3cb35d02f611a7d9820a28a7b1708d9c970291e99fd40741835ed1b90e962fd1",
-      "source_revision": "10834005",
-      "source_url": "https://simple.wikipedia.org/?curid=7641"
-    },
-    "simplewiki:7682:10845642": {
-      "document_hash": "sha256:71f3a3b7688eafeeae05b317983235e9f3fdfaaa78b4d2dac7af16f572a6d918",
-      "source_revision": "10845642",
-      "source_url": "https://simple.wikipedia.org/?curid=7682"
     },
     "simplewiki:7683:10870416": {
       "document_hash": "sha256:69747263e5112a2531839e1c0cd593eb9f5feb38355ce324d8b154243760075c",
@@ -3771,15 +3106,20 @@
       "source_revision": "10776195",
       "source_url": "https://simple.wikipedia.org/?curid=8118"
     },
+    "simplewiki:811:8106643": {
+      "document_hash": "sha256:29b7fc955706460ed1cd2a13c66af630b5521cfeaeb42399ba97fe9be689be6d",
+      "source_revision": "8106643",
+      "source_url": "https://simple.wikipedia.org/?curid=811"
+    },
     "simplewiki:8135:10763443": {
       "document_hash": "sha256:d32892c57d7afc60fb49d10117dab22309affc4c631983a2b39739cd717da451",
       "source_revision": "10763443",
       "source_url": "https://simple.wikipedia.org/?curid=8135"
     },
-    "simplewiki:813:10740346": {
-      "document_hash": "sha256:7f9a82242c82151e3b6c78a6d00acee2a9d452794189763fdb84025dec4b33ce",
-      "source_revision": "10740346",
-      "source_url": "https://simple.wikipedia.org/?curid=813"
+    "simplewiki:8152:10860059": {
+      "document_hash": "sha256:b0fb6816aa6fa300a17491d121c7d156465dddc216258392642d14f1f979f420",
+      "source_revision": "10860059",
+      "source_url": "https://simple.wikipedia.org/?curid=8152"
     },
     "simplewiki:8167:10295975": {
       "document_hash": "sha256:3c52c22c72395c2c75aa05d98be588342c2eb7b8ec290a72949ea71e158b8c1e",
@@ -3790,11 +3130,6 @@
       "document_hash": "sha256:2e487758dbdebcf63416723a8634f2a6a0660c43fa0f6e45c3bb9c931b6d5213",
       "source_revision": "9049286",
       "source_url": "https://simple.wikipedia.org/?curid=816"
-    },
-    "simplewiki:818:10606167": {
-      "document_hash": "sha256:f59d48915b3a8dea8fb6aeafa61196d1ca871ea9fcfc0a1fb1799d76e3bd39d5",
-      "source_revision": "10606167",
-      "source_url": "https://simple.wikipedia.org/?curid=818"
     },
     "simplewiki:8195:10213597": {
       "document_hash": "sha256:8f54e89bf11a863bcf88fb154f3eb354a0b00cdd7308fe7f6df93f234592f750",
@@ -3856,11 +3191,6 @@
       "source_revision": "9527581",
       "source_url": "https://simple.wikipedia.org/?curid=8556"
     },
-    "simplewiki:856:10892791": {
-      "document_hash": "sha256:a5167263f99742e496a70daedc5f4f74dd518804873e02c07568aa4b418edcc8",
-      "source_revision": "10892791",
-      "source_url": "https://simple.wikipedia.org/?curid=856"
-    },
     "simplewiki:8575:10848130": {
       "document_hash": "sha256:ddadd33f4ea58f1459ed46130ffb9d0c9dcbf370c19b6a0c25e2f5a7d1d131f2",
       "source_revision": "10848130",
@@ -3896,11 +3226,6 @@
       "source_revision": "10897560",
       "source_url": "https://simple.wikipedia.org/?curid=8740"
     },
-    "simplewiki:8793:10859023": {
-      "document_hash": "sha256:0e978e8f2068f95c3ed2f7580241ad20b8cc3c58d8a5bf76c1b85d14fe0840f4",
-      "source_revision": "10859023",
-      "source_url": "https://simple.wikipedia.org/?curid=8793"
-    },
     "simplewiki:882:10898398": {
       "document_hash": "sha256:a2c0587870f32e70df792d53e2a941c67fd71b2a2c58b859a9465c1d99bcd263",
       "source_revision": "10898398",
@@ -3910,11 +3235,6 @@
       "document_hash": "sha256:3c3123f77115257963931fb0101dbb9929f917060f1a6b05f9ac8c7196314919",
       "source_revision": "10545196",
       "source_url": "https://simple.wikipedia.org/?curid=8905"
-    },
-    "simplewiki:8906:10735862": {
-      "document_hash": "sha256:a3c768bbe97d192d14ab24dc532140f691e5b5855fa7741d17817520faffe4a2",
-      "source_revision": "10735862",
-      "source_url": "https://simple.wikipedia.org/?curid=8906"
     },
     "simplewiki:8914:10814544": {
       "document_hash": "sha256:d037ac56c21e6bf16c921c13a9a5ca5f2d06221c18be7944e87db64d47eee601",
@@ -3956,30 +3276,10 @@
       "source_revision": "10906674",
       "source_url": "https://simple.wikipedia.org/?curid=9133"
     },
-    "simplewiki:9194:8995427": {
-      "document_hash": "sha256:9732437987bb4ee1faceb4dba094a25c5457cbeb9a1edab31ca681cfa3a2b3f6",
-      "source_revision": "8995427",
-      "source_url": "https://simple.wikipedia.org/?curid=9194"
-    },
-    "simplewiki:9214:10171253": {
-      "document_hash": "sha256:e57655f12ddcde6c17939ffc10fc586d5f9ae1afb1bb103385975f49cbcd0e5f",
-      "source_revision": "10171253",
-      "source_url": "https://simple.wikipedia.org/?curid=9214"
-    },
     "simplewiki:9227:10630598": {
       "document_hash": "sha256:c21e646771bc23595e03c6d3f1c9cca6b1bdbc90b0715a29e7df1ac6d6b1a832",
       "source_revision": "10630598",
       "source_url": "https://simple.wikipedia.org/?curid=9227"
-    },
-    "simplewiki:9253:10203622": {
-      "document_hash": "sha256:408e7d4e2f3fe109de8963b69a68fa21df4bd5d5ed96bdd5889cdcb667194dbb",
-      "source_revision": "10203622",
-      "source_url": "https://simple.wikipedia.org/?curid=9253"
-    },
-    "simplewiki:9254:10816092": {
-      "document_hash": "sha256:7e829ff2ebdb583fab4a4d3241f3f3e99cc9683124220f82b5df0aa7acfcddef",
-      "source_revision": "10816092",
-      "source_url": "https://simple.wikipedia.org/?curid=9254"
     },
     "simplewiki:939:10901009": {
       "document_hash": "sha256:720c8db4b4bec3fdbf4494c55b2ed141e668bd3779f2d4e18dc58312aeb4b3d8",
@@ -4046,16 +3346,6 @@
       "source_revision": "10904173",
       "source_url": "https://simple.wikipedia.org/?curid=9589"
     },
-    "simplewiki:9594:10858853": {
-      "document_hash": "sha256:f25ad7768d99dc2a70d476e5d41728dd10618d14e548b7c902e3972e42886c28",
-      "source_revision": "10858853",
-      "source_url": "https://simple.wikipedia.org/?curid=9594"
-    },
-    "simplewiki:9595:10901317": {
-      "document_hash": "sha256:259bb143962ea26928deaa75dbe0fe42f1fb364ff230aff4c45ba0e273d43c91",
-      "source_revision": "10901317",
-      "source_url": "https://simple.wikipedia.org/?curid=9595"
-    },
     "simplewiki:9619:9982087": {
       "document_hash": "sha256:2b794d91bc6d5ac9b149a3eafdab42aab10e4a3699389ef4d15b3491ac631c03",
       "source_revision": "9982087",
@@ -4105,11 +3395,6 @@
       "document_hash": "sha256:dd7324b209d56e3dffe6abf0558cf1d0b442413e07ce579c728204243b194aa2",
       "source_revision": "10906678",
       "source_url": "https://simple.wikipedia.org/?curid=9800"
-    },
-    "simplewiki:9817:10773432": {
-      "document_hash": "sha256:2a0ff2b4075744522b310725bd892e48e5ae84695d13ab1a1605571ef6a0e40d",
-      "source_revision": "10773432",
-      "source_url": "https://simple.wikipedia.org/?curid=9817"
     },
     "simplewiki:9820:10296077": {
       "document_hash": "sha256:79c4962bca7616b383b0fc560d7ade9b22275dd42c7a5b71a2cf5261980aec1c",
@@ -4242,5 +3527,5 @@
       "source_url": "https://simple.wikipedia.org/?curid=9972"
     }
   },
-  "source_document_count": 848
+  "source_document_count": 705
 }

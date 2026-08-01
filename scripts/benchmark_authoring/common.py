@@ -56,7 +56,8 @@ AUDITOR_IDENTITY = "v050_r1_provenance_auditor"
 AUDITOR_PROCESS = "v050-r1-provenance-auditor-process"
 
 DEFINITION_RE = re.compile(
-    r"'''[^'\n]{1,100}'''\s+(?:is|are|was|were)\s+([^\n.]{15,260})\.",
+    r"'''(?P<subject>[^'\n]{1,100})'''\s+(?:is|are|was|were)\s+"
+    r"(?P<answer>[^\n.]{15,260})\.",
     re.IGNORECASE,
 )
 DATE_RE = re.compile(
@@ -167,13 +168,22 @@ def iter_definition_candidates(connection: sqlite3.Connection) -> Iterator[dict[
         if normalized_title in seen_titles:
             continue
         match = DEFINITION_RE.search(str(row["raw_text"]))
-        if match is None or PLAIN_DEFINITION_REJECT.search(match.group(1)):
+        if match is None or PLAIN_DEFINITION_REJECT.search(match.group("answer")):
             continue
-        answer = match.group(1).strip()
+        subject = normalize_surface(match.group("subject"))
+        title = normalize_surface(str(row["title"]))
+        if subject != title and not title.startswith(f"{subject} ("):
+            continue
+        answer = match.group("answer").strip()
         if len(answer.split()) < 3:
             continue
         seen_titles.add(normalized_title)
-        yield row_to_candidate(row, "definition", match.start(1), match.end(1))
+        yield row_to_candidate(
+            row,
+            "definition",
+            match.start("answer"),
+            match.end("answer"),
+        )
 
 
 def row_to_candidate(

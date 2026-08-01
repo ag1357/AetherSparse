@@ -72,7 +72,9 @@ def _expected_match(source_text: str, extractor: str) -> tuple[int, int]:
     match = pattern.search(source_text)
     if match is None:
         raise ValueError(f"adjudicator could not reproduce {extractor} candidate")
-    group = 1 if extractor == "quotation" else (1 if extractor == "definition" else 0)
+    if extractor == "definition":
+        return match.start("answer"), match.end("answer")
+    group = 1 if extractor == "quotation" else 0
     return match.start(group), match.end(group)
 
 

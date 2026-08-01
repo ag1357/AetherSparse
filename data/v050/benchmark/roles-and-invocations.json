@@ -6,22 +6,22 @@
     {
       "identity": "v050_r1_author_alpha",
       "process_identity": "v050-r1-author-alpha-process",
-      "case_count": 910,
-      "draft_sha256": "3f28afb0853d9d0e3c1df49b189998b6c46aa1f503ebb162aaa3da612e13ef6d",
+      "case_count": 660,
+      "draft_sha256": "5180c1ada45eb342875babafae2c23c4ef7e0c2f4bb2d2337224b8c3699ef3fe",
       "runtime_access": false
     },
     {
       "identity": "v050_r1_author_beta",
       "process_identity": "v050-r1-author-beta-process",
       "case_count": 1090,
-      "draft_sha256": "6c489547f24ae559ceb634418a5aa488cb3a92aa0fc98a07bf752716cebe560e",
+      "draft_sha256": "945b582ac168b040700cf03284da064d450f53295a15dd3781070000271ca5ee",
       "runtime_access": false
     },
     {
       "identity": "v050_r1_author_gamma",
       "process_identity": "v050-r1-author-gamma-process",
       "case_count": 300,
-      "draft_sha256": "0674edc0b76eb6d63d0e07d36ed712e9ddafcc08bf5d1c87013c3b2857890715",
+      "draft_sha256": "95f70eb3ab3635c143f10694dcdb4d0c4d64ac4ecc8d360c7ec4e7f62fb24755",
       "runtime_access": false
     }
   ],
@@ -41,10 +41,10 @@
     "runtime_access": false
   },
   "frozen_outputs": {
-    "benchmark_sha256": "42a2256f4a4bc80b2ac796bd82188b7782b660bf0a828e34d194989af64af7dd",
-    "blind_input_sha256": "a9a9537831e34e8ba02306d51e32840c6f39b15633f5ed715afc6f2e8f38da58",
-    "manifest_sha256": "09b2a97e55116c32b00583ea943d4779326b0f45e3638334659e20d772e51d19",
-    "source_map_sha256": "feee42aa601456da5734006ec9482119f3641137ca6c6eda97919bc46a8b3cee",
-    "provenance_audit_sha256": "e78f9441537a7c1781e2c7ab1dd1115f55084fef861ffc0213519c7cf2abfca9"
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "blind_input_sha256": "a919fbf81eadd60357300b5ee171d7c3042dabf78870476497fb15eef5469cbe",
+    "manifest_sha256": "5a2f5c424aacf909a3e5e5d5007a0e2f96bae7e65eb00d7627babc75d81f9b30",
+    "source_map_sha256": "63f5f7ade2eeff45bb392b3c2246fa4f9189f31abe5b10b672f1b85e0ba12724",
+    "provenance_audit_sha256": "250c3930ed8585d8075807e7fe1e73e19cd3ea4119f84ee032919d4a06c56a5f"
   }
 }

@@ -38,7 +38,7 @@ def _audit_answer_binding(case: dict[str, Any]) -> list[str]:
     if category in {"two_source", "three_to_six_source"}:
         for evidence in evidence_texts:
             match = DEFINITION_RE.search(evidence)
-            if match is None or match.group(1).strip() not in answers[0]:
+            if match is None or match.group("answer").strip() not in answers[0]:
                 violations.append(f"{case_id}:composition_surface_not_copied")
     elif category == "comparison":
         quantities: list[str] = []

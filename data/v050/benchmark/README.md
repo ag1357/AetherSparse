@@ -3,7 +3,7 @@
 `INDEPENDENT_NATURAL_QUERY_SET_V050_R1` is a new qualification series. It is
 not the lost v0.4.1 R4 benchmark and does not reuse that benchmark's identity.
 
-The committed gold set contains 2,300 unique questions across all 19 required
+The committed gold set contains 2,050 unique questions across all 19 required
 categories. Three isolated author invocations produced question drafts without
 runtime outputs. A fourth process independently reopened the checksum-pinned
 corpus, reproduced candidate offsets, adjudicated accepted answers and
@@ -28,9 +28,9 @@ Frozen outputs:
   content hash, and role-separation record
 
 The complete benchmark file SHA-256 is
-`42a2256f4a4bc80b2ac796bd82188b7782b660bf0a828e34d194989af64af7dd`.
+`1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113`.
 Its canonical case-content SHA-256 is
-`d6f7ab0dd0cebb6517a022ac637415f36427c02e95b2382f832a996819d6315d`.
+`c4a8f45b30fa592d9ae7e01d0c456e95b7361e73575e97f97dbcb6da397cb673`.
 
 Reproduction:
 
