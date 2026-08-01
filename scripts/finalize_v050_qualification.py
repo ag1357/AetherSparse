@@ -346,15 +346,15 @@ def main() -> int:
         "adversarial_verifier_50k": report50["adversarial_verifier"],
         "edge_profile": edge,
         "artifact_hashes": {
-            str(path): _sha256(path)
-            for path in (
-                args.benchmark,
-                args.report_10k,
-                args.outcomes_10k,
-                args.report_50k,
-                args.outcomes_50k,
-                args.hard_negative,
-                args.edge,
+            role: {"filename": path.name, "sha256": _sha256(path)}
+            for role, path in (
+                ("benchmark", args.benchmark),
+                ("qualification_10k", args.report_10k),
+                ("outcomes_10k", args.outcomes_10k),
+                ("qualification_50k", args.report_50k),
+                ("outcomes_50k", args.outcomes_50k),
+                ("hard_negative_ablation", args.hard_negative),
+                ("edge_profile", args.edge),
             )
         },
         "limitations": [
