@@ -222,6 +222,18 @@ def main() -> int:
     }
     stable = min(stability_deltas.values()) >= -0.03
     edge = _load(args.edge)
+    edge_pack_hashes = {
+        str(profile["pack_sha256"]).removeprefix("sha256:")
+        for profile in edge.get("profiles", [])
+    }
+    required_edge_hashes = {
+        str(report10["pack"]["pack_sha256"]),
+        str(report50["pack"]["pack_sha256"]),
+    }
+    if not required_edge_hashes.issubset(edge_pack_hashes):
+        raise SystemExit("edge profile does not measure both canonical progressive packs")
+    if edge.get("topology_excluded") is not True:
+        raise SystemExit("edge profile did not exclude the rejected cell topology")
     board_measurements = bool(edge.get("board_measurements_present", False))
     operation_counter_instrumented = bool(
         edge.get("operation_counter_instrumented", False)
