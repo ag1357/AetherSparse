@@ -144,6 +144,7 @@ def test_frame_distinguishes_redirect_definition_from_unresolved_referent() -> N
     assert redirect.answer_shape is AnswerShape.DEFINITION
     assert out_of_corpus.answer_shape is AnswerShape.DEFINITION
     assert ambiguous.answer_shape is AnswerShape.UNKNOWN
+    assert ambiguous.clarification_need
 
 
 def test_comparison_requires_exact_quantity_and_both_sides() -> None:

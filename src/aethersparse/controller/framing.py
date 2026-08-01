@@ -220,6 +220,8 @@ class QueryFramer:
             len(query.split()) < 3
             or query.endswith((" of", " about", " between"))
             or "what about it" in folded
+            or "refer to here" in folded
+            or "which one should i mean" in folded
         )
         unresolved_discourse = any(not item.antecedent_entity_ids for item in discourse)
         uncertainty = 0.15

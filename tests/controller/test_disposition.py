@@ -73,6 +73,19 @@ def test_unknown_and_ambiguity_are_not_collapsed_together() -> None:
     )
     assert (
         choose_disposition(unknown, _graph(), None, None, corpus_coverage=False)[0]
+        is ControllerDisposition.ABSTAIN
+    )
+    explicit_external = QueryFramer().frame(
+        "Find the official biography of OffCorpus-deadbeef, which is not in this corpus."
+    )
+    assert (
+        choose_disposition(
+            explicit_external,
+            _graph(),
+            None,
+            None,
+            corpus_coverage=False,
+        )[0]
         is ControllerDisposition.OUT_OF_CORPUS
     )
     incomplete = QueryFramer().frame("What about")

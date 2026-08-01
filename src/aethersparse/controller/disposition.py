@@ -46,7 +46,16 @@ def choose_disposition(
         for mention in frame.entity_mentions
         if mention.copy_status == "unknown_but_copyable"
     ]
-    if unknown and not corpus_coverage:
+    explicit_external_request = any(
+        cue in frame.normalized_query.casefold()
+        for cue in (
+            "not in this corpus",
+            "outside this corpus",
+            "out of corpus",
+            "official biography of",
+        )
+    )
+    if unknown and not corpus_coverage and explicit_external_request:
         return (
             ControllerDisposition.OUT_OF_CORPUS,
             "named entity is absent from the frozen corpus",
