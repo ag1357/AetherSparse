@@ -21,6 +21,16 @@ TEMPLATE_RE = re.compile(r"\{\{[^{}]{0,1000}\}\}")
 TOKEN_RE = re.compile(r"[\w'-]{2,}", re.UNICODE)
 
 
+def _sha256_file(path: Path, block_size: int = 1024 * 1024) -> str:
+    """Hash a potentially multi-gigabyte corpus without loading it into memory."""
+
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(block_size), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def normalize_text(value: str) -> str:
     value = html.unescape(unicodedata.normalize("NFKC", value))
     punctuation: dict[str | int, str | int | None] = {
@@ -113,7 +123,7 @@ class CorpusStore:
             CREATE TABLE IF NOT EXISTS documents(
               document_id TEXT PRIMARY KEY, title TEXT NOT NULL, normalized_title TEXT NOT NULL,
               revision TEXT NOT NULL, source_url TEXT NOT NULL, license TEXT NOT NULL,
-              provenance TEXT NOT NULL, content_hash TEXT NOT NULL UNIQUE, raw_text TEXT NOT NULL,
+              provenance TEXT NOT NULL, content_hash TEXT NOT NULL, raw_text TEXT NOT NULL,
               normalized_text TEXT NOT NULL, redirect_target TEXT);
             CREATE TABLE IF NOT EXISTS chunks(
               chunk_id TEXT PRIMARY KEY, document_id TEXT NOT NULL, section_path TEXT NOT NULL,
@@ -254,7 +264,7 @@ class CorpusStore:
             "articles": articles,
             "chunks": chunks,
             "links": links,
-            "dump_sha256": hashlib.sha256(dump.read_bytes()).hexdigest(),
+            "dump_sha256": _sha256_file(dump),
             "chunk_chars": chunk_chars,
         }
         for key, value in manifest.items():

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071216">
+  <title>AetherSparse v0.5 Structured Controller</title>
+  <style>
+    :root{color-scheme:dark;--bg:#071216;--panel:#0e2026;--panel2:#122a31;--line:#294b53;
+      --text:#eefbf8;--muted:#96b6b3;--cyan:#5de7d5;--lime:#c9f27b;--amber:#ffc66d;
+      --red:#ff7d85;--blue:#78bdf7}*{box-sizing:border-box}body{margin:0;background:
+      radial-gradient(circle at 100% 0,#15505a88,transparent 30rem),var(--bg);color:var(--text);
+      font:15px/1.45 system-ui,-apple-system,sans-serif}header{position:sticky;top:0;z-index:9;
+      padding:max(.75rem,env(safe-area-inset-top)) 1rem .75rem;background:#071216ed;
+      border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}header b,header small{display:block}
+    header small,.muted{color:var(--muted)}main{width:min(1160px,calc(100% - 1rem));margin:auto;padding-bottom:4rem}
+    .hero{padding:2rem .25rem 1rem}.eyebrow{color:var(--cyan);font:700 11px ui-monospace,monospace;
+      letter-spacing:.13em;text-transform:uppercase}h1{font-size:clamp(2rem,8vw,4.4rem);line-height:.95;
+      letter-spacing:-.055em;margin:.5rem 0;max-width:13ch}h2,h3{margin:.2rem 0 .65rem}form,.card{
+      background:#0e2026e8;border:1px solid var(--line);border-radius:18px;padding:1rem;margin:.75rem 0;
+      box-shadow:0 14px 36px #0003}textarea,input,select{width:100%;padding:.85rem;border:1px solid var(--line);
+      border-radius:12px;background:var(--bg);color:var(--text);font:inherit}textarea{min-height:108px;resize:vertical}
+    button{min-height:48px;border:1px solid #4a777c;border-radius:12px;padding:.7rem 1rem;background:#17393f;
+      color:var(--text);font:700 14px inherit;cursor:pointer}button.primary{background:linear-gradient(135deg,#159889,#1b6578);
+      border-color:#6bdbc9;width:100%;margin-top:.7rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:.75rem}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:.55rem}.stat{background:var(--bg);
+      border:1px solid var(--line);border-radius:12px;padding:.7rem}.stat b{display:block;font-size:1.15rem;color:var(--lime)}
+    .badge{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--line);border-radius:99px;
+      padding:.3rem .65rem;color:var(--cyan);font:700 11px ui-monospace}.ANSWER{color:var(--lime)}.CLARIFY{color:var(--amber)}
+    .ABSTAIN,.OUT_OF_CORPUS{color:var(--muted)}.INCORRECT_PREMISE,.CONFLICTING_EVIDENCE,.VERIFICATION_FAILURE{color:var(--red)}
+    .candidate,.evidence,.binding{padding:.75rem;margin:.55rem 0;border:1px solid var(--line);border-radius:13px;background:var(--bg)}
+    .candidate strong,.evidence strong{display:block}.candidate small,.evidence small,.binding small{color:var(--muted)}
+    .bar{height:5px;background:#193036;border-radius:9px;overflow:hidden;margin-top:.45rem}.bar i{display:block;height:100%;background:var(--cyan)}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#071216;border:1px solid #1b353b;border-radius:12px;
+      padding:.75rem;color:#cce3df;max-height:28rem;overflow:auto}details{margin:.55rem 0}summary{cursor:pointer;color:var(--cyan)}
+    .answer{font-size:1.2rem;line-height:1.55}.empty{color:var(--muted);padding:.6rem 0}.hidden{display:none}
+    @media(max-width:560px){main{width:min(100% - .7rem,1160px)}.hero{padding-top:1.25rem}.card,form{padding:.85rem;border-radius:15px}}
+  </style>
+</head>
+<body>
+<header><b>AetherSparse v0.5</b><small>Flat structured controller · external accessory · Android observability</small></header>
+<main>
+  <section class="hero"><div class="eyebrow">Exact evidence before language</div>
+    <h1>Inspect the controller’s decision.</h1>
+    <p class="muted">The display is a terminal only. Entity linking, retrieval, bounded evidence composition,
+      planning, and verification remain in the external accessory service.</p></section>
+  <form id="query-form"><label for="query"><b>Natural query</b></label>
+    <textarea id="query" required placeholder="Compare the launch dates of Apollo 11 and Apollo 12."></textarea>
+    <label for="discourse"><b>Prior discourse</b> <span class="muted">(optional, one turn per line)</span></label>
+    <textarea id="discourse" placeholder="When did Apollo 11 launch?&#10;How about the next mission?"></textarea>
+    <button class="primary">Frame, retrieve, compose, and verify</button></form>
+  <div id="status" class="card hidden"></div><section id="result"></section>
+</main>
+<script>
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const json=v=>esc(JSON.stringify(v??null,null,2));
+const list=(items,render,empty="None")=>(items&&items.length)?items.map(render).join(""):`<div class="empty">${esc(empty)}</div>`;
+const pct=v=>`${((Number(v)||0)*100).toFixed(1)}%`;
+const form=document.querySelector("#query-form"),status=document.querySelector("#status"),result=document.querySelector("#result");
+form.onsubmit=async event=>{event.preventDefault();status.classList.remove("hidden");status.textContent="Running bounded structured cognition…";result.innerHTML="";
+  const discourse=document.querySelector("#discourse").value.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  try{const response=await fetch("/v5/controller/query",{method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({text:document.querySelector("#query").value,discourse})});
+    const body=await response.json();if(!response.ok)throw new Error(body.detail||response.statusText);status.classList.add("hidden");render(body)
+  }catch(error){status.textContent=`Request failed: ${error.message}`}}
+function render(r){const disposition=String(r.disposition||"ABSTAIN").toUpperCase(),frame=r.query_frame||{},work=r.workload||{},
+  candidates=r.entity_candidates||[],evidence=r.selected_evidence||[],bindings=r.bindings||[];
+  result.innerHTML=`<article class="card"><span class="badge ${esc(disposition)}">${esc(disposition)}</span>
+    <h2 class="answer">${esc(r.answer||r.failure_reason||"Output withheld")}</h2>
+    <div class="stats"><div class="stat"><b>${pct(r.confidence)}</b>confidence</div><div class="stat"><b>${candidates.length}</b>entity candidates</div>
+    <div class="stat"><b>${evidence.length}</b>evidence spans</div><div class="stat"><b>${work.total_blocks_read??0}</b>blocks read</div>
+    <div class="stat"><b>${work.total_bytes_read??0}</b>bytes read</div><div class="stat"><b>${work.latency_ms??0}</b>ms</div></div></article>
+    <div class="grid"><article class="card"><h3>Query frame</h3><div class="stats"><div class="stat"><b>${esc(frame.answer_shape||"unknown")}</b>answer shape</div>
+    <div class="stat"><b>${pct(1-(frame.uncertainty||0))}</b>frame certainty</div></div><pre>${json(frame)}</pre></article>
+    <article class="card"><h3>Entity candidates</h3>${list(candidates,c=>`<div class="candidate"><strong>${esc(c.surface||c.canonical_label||c.entity_id)}</strong>
+    <small>${esc(c.entity_id||"unlinked")} · ${esc(c.source||c.stage||"candidate")}</small><div class="bar"><i style="width:${Math.max(0,Math.min(100,(c.confidence||0)*100))}%"></i></div>
+    <small>${pct(c.confidence)} · ${esc(c.status||"")}</small></div>`,"No canonical entity accepted; unknown surface is preserved.")}</article></div>
+    <article class="card"><h3>Selected exact evidence</h3>${list(evidence,(e,i)=>`<div class="evidence"><strong>${i+1}. ${esc(e.title||e.document_id)} · ${esc(e.section_path||"")}</strong>
+    <p>${esc(e.text||e.normalized_text||e.value||"")}</p><small>${esc(e.source_url||"")} · ${esc(e.source_revision||"")} · offsets ${e.raw_start??"?"}–${e.raw_end??"?"}</small>
+    <details><summary>Scores and rejected alternatives</summary><pre>${json({scores:e.scores,rejected_alternatives:e.rejected_alternatives})}</pre></details></div>`,"No evidence passed the exact selector.")}</article>
+    <div class="grid"><article class="card"><h3>Bounded evidence graph</h3><pre>${json(r.evidence_graph)}</pre></article>
+    <article class="card"><h3>Answer plan</h3><pre>${json(r.answer_plan)}</pre></article></div>
+    <article class="card"><h3>Exact bindings</h3>${list(bindings,b=>`<div class="binding"><b>${esc(b.claim_id||b.answer_surface||"binding")}</b>
+    <small>${esc(b.source_span_id||"")} · ${esc(b.status||"VERIFIED")}</small><pre>${json(b)}</pre></div>`,"No factual output was emitted.")}</article>
+    <div class="grid"><article class="card"><h3>Verification and disposition</h3><pre>${json({verification:r.verification,disposition_trace:r.disposition_trace,rejected_alternatives:r.rejected_alternatives})}</pre></article>
+    <article class="card"><h3>Workload trace</h3><pre>${json({workload:r.workload,trace:r.trace})}</pre></article></div>
+    <article class="card"><details><summary>Ablation comparison</summary><pre>${json(r.ablation_comparison)}</pre></details></article>`}
+</script>
+</body></html>

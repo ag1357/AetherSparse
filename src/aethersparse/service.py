@@ -31,7 +31,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
     accessory = runtime or AetherSparseRuntime()
     application = FastAPI(
         title="AetherSparse Accessory Emulator",
-        version="0.1.0",
+        version="0.5.0",
         description=(
             "External deterministic reasoning service; the terminal is a network client only."
         ),
@@ -90,6 +90,12 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
     @application.get("/traversal", include_in_schema=False)
     def traversal_ui() -> FileResponse:
         return FileResponse(ROOT / "web" / "traversal_lab" / "index.html")
+
+    @application.get("/controller", include_in_schema=False)
+    def structured_controller_ui() -> FileResponse:
+        """Serve the Android-accessible v0.5 controller observability terminal."""
+
+        return FileResponse(ROOT / "web" / "structured_controller" / "index.html")
 
     @application.get("/", include_in_schema=False)
     def root_ui() -> FileResponse:

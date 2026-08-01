@@ -1,0 +1,68 @@
+{
+  "extractor": {
+    "claim_binding": "explicit_unicode_codepoint_offsets_into_immutable_raw_wikitext",
+    "identity": "v050-bounded-infobox-proposition-event-date-quantity-quotation-v1",
+    "max_claims_per_page": 32,
+    "media_presentation_fields_excluded": true,
+    "source_binding_validation": "builder_recomputes_document_hash_surface_hash_utf8_byte_offsets"
+  },
+  "scales": {
+    "10k": {
+      "aliases": 10000,
+      "anchors": 779447,
+      "canonical_entities": 7651,
+      "claim_kinds": {
+        "date": 24357,
+        "event": 1263,
+        "proposition": 48405,
+        "quantity": 5100,
+        "quotation": 6368
+      },
+      "claims": 85493,
+      "documents": 10000,
+      "elapsed_host_seconds": 7.611,
+      "object_kinds": {
+        "date": 24357,
+        "entity": 8816,
+        "event": 1263,
+        "location": 1470,
+        "quantity": 5100,
+        "quotation": 6368,
+        "text": 38119
+      },
+      "pack_sha256": "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5",
+      "redirects": 2349,
+      "relation_families": 3373
+    },
+    "50k": {
+      "aliases": 50000,
+      "anchors": 1718196,
+      "canonical_entities": 35449,
+      "claim_kinds": {
+        "date": 114198,
+        "event": 4565,
+        "proposition": 226401,
+        "quantity": 22137,
+        "quotation": 25260
+      },
+      "claims": 392561,
+      "documents": 50000,
+      "elapsed_host_seconds": 25.509,
+      "object_kinds": {
+        "date": 114198,
+        "entity": 35979,
+        "event": 4565,
+        "location": 6725,
+        "quantity": 22137,
+        "quotation": 25260,
+        "text": 183697
+      },
+      "pack_sha256": "8589cebca4a7dcf8eee6e936bb28f2ed8db7870672cc9b476f27ebe2ad89a7b4",
+      "redirects": 14551,
+      "relation_families": 6195
+    }
+  },
+  "series_id": "simplewiki_real_corpus_v050_20260701_e7a60c622d86dd01",
+  "status": "STRUCTURED_PLANE_STREAMING_EXTRACTION_MEASURED",
+  "v041_identity_reused": false
+}

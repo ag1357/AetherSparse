@@ -1,0 +1,12 @@
+{
+  "compressed_bytes": 351744161,
+  "dump_date": "20260701",
+  "filename": "simplewiki-20260701-pages-articles.xml.bz2",
+  "md5": "211bfc6ac3120c097ba4fdec69c1d3e2",
+  "official_md5": "211bfc6ac3120c097ba4fdec69c1d3e2",
+  "official_sha1": "e60e2ebad13467976ad7cd0d9bd0369bba0e8bc3",
+  "sha1": "e60e2ebad13467976ad7cd0d9bd0369bba0e8bc3",
+  "sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d",
+  "status_url": "https://dumps.wikimedia.org/simplewiki/20260701/dumpstatus.json",
+  "url": "https://dumps.wikimedia.org/simplewiki/20260701/simplewiki-20260701-pages-articles.xml.bz2"
+}

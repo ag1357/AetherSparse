@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aethersparse"
-version = "0.1.0"
+version = "0.5.0"
 description = "Deterministic, provenance-bound AetherSparse accessory emulator"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -46,4 +46,3 @@ select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 python_version = "3.11"
 strict = true
 packages = ["aethersparse"]
-

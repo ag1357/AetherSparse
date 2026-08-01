@@ -1,0 +1,75 @@
+{
+  "build": {
+    "article_namespace": 0,
+    "chunk_chars": 480,
+    "normalization_id": "nfkc-html-punctuation-whitespace-v050-v1",
+    "pack_format_id": "aethersparse-flat-structured-sqlite-v050-1",
+    "parser_id": "mediawiki-xml-v050-distinct-source-pages-v1",
+    "schema_version": 500,
+    "selection_order": "official_dump_order_namespace_0_nonempty_revision_text"
+  },
+  "full_pack": {
+    "reason": "Build only after 10k and 50k architecture gates justify it",
+    "status": "DEFERRED_PENDING_ARCHITECTURE_GATES"
+  },
+  "large_objects_committed_to_git": false,
+  "packs": [
+    {
+      "aliases": 10000,
+      "anchors": 779447,
+      "chunks": 147549,
+      "documents": 10000,
+      "documents_in_duplicate_source_hash_groups": 638,
+      "duplicate_source_hash_groups_preserved": 255,
+      "exact_source_bound_records": 939345,
+      "external_filename": "simplewiki-v050-20260701-10k-final.sqlite",
+      "integrity": {
+        "foreign_key_violations": 0,
+        "source_binding_failures": 0,
+        "sqlite_integrity": "ok"
+      },
+      "pack_bytes": 725901312,
+      "pack_identity": "simplewiki_real_corpus_v050_20260701_e7a60c622d86dd01_10k",
+      "pack_sha256": "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5",
+      "redirects": 2349
+    },
+    {
+      "aliases": 50000,
+      "anchors": 1718196,
+      "chunks": 449460,
+      "documents": 50000,
+      "documents_in_duplicate_source_hash_groups": 5750,
+      "duplicate_source_hash_groups_preserved": 2092,
+      "exact_source_bound_records": 2232207,
+      "external_filename": "simplewiki-v050-20260701-50k-final.sqlite",
+      "integrity": {
+        "foreign_key_violations": 0,
+        "source_binding_failures": 0,
+        "sqlite_integrity": "ok"
+      },
+      "pack_bytes": 2015846400,
+      "pack_identity": "simplewiki_real_corpus_v050_20260701_e7a60c622d86dd01_50k",
+      "pack_sha256": "8589cebca4a7dcf8eee6e936bb28f2ed8db7870672cc9b476f27ebe2ad89a7b4",
+      "redirects": 14551
+    }
+  ],
+  "reproducibility": {
+    "comparison": "byte_for_byte",
+    "independent_50k_builds": 2,
+    "pack_bytes_each": 2015846400,
+    "pack_sha256_each": "8589cebca4a7dcf8eee6e936bb28f2ed8db7870672cc9b476f27ebe2ad89a7b4",
+    "status": "PASS"
+  },
+  "series_id": "simplewiki_real_corpus_v050_20260701_e7a60c622d86dd01",
+  "source": {
+    "compressed_bytes": 351744161,
+    "dump_date": "20260701",
+    "filename": "simplewiki-20260701-pages-articles.xml.bz2",
+    "md5": "211bfc6ac3120c097ba4fdec69c1d3e2",
+    "sha1": "e60e2ebad13467976ad7cd0d9bd0369bba0e8bc3",
+    "sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d",
+    "status_url": "https://dumps.wikimedia.org/simplewiki/20260701/dumpstatus.json",
+    "url": "https://dumps.wikimedia.org/simplewiki/20260701/simplewiki-20260701-pages-articles.xml.bz2"
+  },
+  "v041_identity_reused": false
+}

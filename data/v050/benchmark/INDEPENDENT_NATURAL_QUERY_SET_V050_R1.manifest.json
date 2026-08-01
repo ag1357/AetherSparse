@@ -1,0 +1,78 @@
+{
+  "benchmark_identity": "INDEPENDENT_NATURAL_QUERY_SET_V050_R1",
+  "benchmark_schema_version": "1.0",
+  "case_count": 2300,
+  "category_counts": {
+    "abstention": 110,
+    "alias": 110,
+    "ambiguous_entity": 110,
+    "clarification": 110,
+    "comparison": 110,
+    "date": 110,
+    "direct_fact": 360,
+    "follow_up": 110,
+    "incomplete": 110,
+    "incorrect_premise": 110,
+    "misspelling": 110,
+    "out_of_corpus": 110,
+    "pronoun": 110,
+    "quantity": 110,
+    "quotation": 100,
+    "redirect": 110,
+    "three_to_six_source": 80,
+    "two_source": 110,
+    "unknown_entity": 110
+  },
+  "content_sha256": "d6f7ab0dd0cebb6517a022ac637415f36427c02e95b2382f832a996819d6315d",
+  "evidence_span_count": 2020,
+  "historical_identity_reused": false,
+  "lost_v041_r4_claimed": false,
+  "partition_counts": {
+    "development": 314,
+    "evaluation": 1099,
+    "final_held": 360,
+    "tuning": 527
+  },
+  "rejected_draft_count": 0,
+  "rejected_drafts": [],
+  "role_separation": {
+    "adjudicator_process": "v050-r1-source-adjudicator-process",
+    "auditor_process": "v050-r1-provenance-auditor-process",
+    "author_processes": [
+      "v050-r1-author-alpha-process",
+      "v050-r1-author-beta-process",
+      "v050-r1-author-gamma-process"
+    ],
+    "authors_received_runtime_outputs": false,
+    "evaluator_process": "v050-r1-runtime-evaluator-process"
+  },
+  "source_corpus": {
+    "article_limit": 10000,
+    "chunk_chars": 480,
+    "license_spdx": "CC-BY-SA-4.0",
+    "license_terms_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "namespace": 0,
+    "normalization_id": "nfkc-html-punctuation-whitespace-v050-v1",
+    "pack_format_id": "aethersparse-flat-structured-sqlite-v050-1",
+    "parser_id": "mediawiki-xml-v050-distinct-source-pages-v1",
+    "schema_version": 500,
+    "selection_order": "official_dump_order_namespace_0_nonempty_revision_text",
+    "series_id": "simplewiki_real_corpus_v050_20260701_e7a60c622d86dd01",
+    "source": {
+      "compressed_bytes": 351744161,
+      "dump_date": "20260701",
+      "filename": "simplewiki-20260701-pages-articles.xml.bz2",
+      "md5": "211bfc6ac3120c097ba4fdec69c1d3e2",
+      "official_md5": "211bfc6ac3120c097ba4fdec69c1d3e2",
+      "official_sha1": "e60e2ebad13467976ad7cd0d9bd0369bba0e8bc3",
+      "sha1": "e60e2ebad13467976ad7cd0d9bd0369bba0e8bc3",
+      "sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d",
+      "status_url": "https://dumps.wikimedia.org/simplewiki/20260701/dumpstatus.json",
+      "url": "https://dumps.wikimedia.org/simplewiki/20260701/simplewiki-20260701-pages-articles.xml.bz2"
+    },
+    "source_project": "Simple English Wikipedia"
+  },
+  "source_document_count": 848,
+  "source_pack_filename": "simplewiki-v050-20260701-10k-final.sqlite",
+  "source_pack_sha256": "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5"
+}

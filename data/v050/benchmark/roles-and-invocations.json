@@ -1,0 +1,50 @@
+{
+  "benchmark_identity": "INDEPENDENT_NATURAL_QUERY_SET_V050_R1",
+  "source_pack_sha256": "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5",
+  "authors_received_runtime_outputs": false,
+  "author_invocations": [
+    {
+      "identity": "v050_r1_author_alpha",
+      "process_identity": "v050-r1-author-alpha-process",
+      "case_count": 910,
+      "draft_sha256": "3f28afb0853d9d0e3c1df49b189998b6c46aa1f503ebb162aaa3da612e13ef6d",
+      "runtime_access": false
+    },
+    {
+      "identity": "v050_r1_author_beta",
+      "process_identity": "v050-r1-author-beta-process",
+      "case_count": 1090,
+      "draft_sha256": "6c489547f24ae559ceb634418a5aa488cb3a92aa0fc98a07bf752716cebe560e",
+      "runtime_access": false
+    },
+    {
+      "identity": "v050_r1_author_gamma",
+      "process_identity": "v050-r1-author-gamma-process",
+      "case_count": 300,
+      "draft_sha256": "0674edc0b76eb6d63d0e07d36ed712e9ddafcc08bf5d1c87013c3b2857890715",
+      "runtime_access": false
+    }
+  ],
+  "adjudicator_invocation": {
+    "identity": "v050_r1_source_evidence_adjudicator",
+    "process_identity": "v050-r1-source-adjudicator-process",
+    "runtime_access": false
+  },
+  "evaluator_invocation": {
+    "identity": "v050_r1_blind_runtime_evaluator",
+    "process_identity": "v050-r1-runtime-evaluator-process",
+    "runtime_access": true
+  },
+  "auditor_invocation": {
+    "identity": "v050_r1_provenance_auditor",
+    "process_identity": "v050-r1-provenance-auditor-process",
+    "runtime_access": false
+  },
+  "frozen_outputs": {
+    "benchmark_sha256": "42a2256f4a4bc80b2ac796bd82188b7782b660bf0a828e34d194989af64af7dd",
+    "blind_input_sha256": "a9a9537831e34e8ba02306d51e32840c6f39b15633f5ed715afc6f2e8f38da58",
+    "manifest_sha256": "09b2a97e55116c32b00583ea943d4779326b0f45e3638334659e20d772e51d19",
+    "source_map_sha256": "feee42aa601456da5734006ec9482119f3641137ca6c6eda97919bc46a8b3cee",
+    "provenance_audit_sha256": "e78f9441537a7c1781e2c7ab1dd1115f55084fef861ffc0213519c7cf2abfca9"
+  }
+}
