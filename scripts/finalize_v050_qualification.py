@@ -176,6 +176,13 @@ def main() -> int:
     report50 = _load(args.report_50k)
     if not report10["qualification_complete"] or not report50["qualification_complete"]:
         raise SystemExit("both progressive qualifications must be complete")
+    expected_qualification_id = "AETHERSPARSE_V050_SQLITE_CONTROLLER_QUALIFICATION_R2"
+    for report in (report10, report50):
+        if report.get("qualification_id") != expected_qualification_id:
+            raise SystemExit("qualification did not use the corrected R2 evaluator")
+        context_note = str(report.get("measurement_notes", {}).get("conversational_context", ""))
+        if "invariant" not in context_note or "serialization order" not in context_note:
+            raise SystemExit("qualification lacks order-invariant conversational replay evidence")
     expected_hash = benchmark.content_sha256
     for report in (report10, report50):
         if report["benchmark"]["content_sha256"] != expected_hash:
