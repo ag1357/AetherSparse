@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -122,6 +123,42 @@ def _partition_metrics(
         "unsupported_claim_rate": unsupported / factual if factual else 0.0,
         "disposition_accuracy": disposition_correct / len(rows) if rows else 0.0,
     }
+
+
+def _failure_taxonomy(
+    benchmark: FrozenBenchmark,
+    outcomes: tuple[EvaluationOutcome, ...],
+    *,
+    system: AblationSystem,
+) -> dict[str, int]:
+    cases = {case.case_id: case for case in benchmark.cases}
+    failures: Counter[str] = Counter()
+    for row in outcomes:
+        if row.system is not system:
+            continue
+        case = cases[row.case_id]
+        if _exact(case, row):
+            continue
+        if case.accepted_disposition is not ControllerDisposition.ANSWER:
+            failures[f"disposition:{case.accepted_disposition.value}->{row.disposition.value}"] += 1
+            continue
+        gold_documents = {span.document_id for span in case.gold_evidence}
+        gold_spans = {span.span_id for span in case.gold_evidence}
+        if not gold_documents.intersection(row.retrieved_document_ids):
+            failures["answerable:article_miss"] += 1
+        elif not gold_spans.intersection(row.retrieved_span_ids):
+            failures["answerable:evidence_span_miss"] += 1
+        elif row.disposition is ControllerDisposition.VERIFICATION_FAILURE:
+            failures["answerable:verification_withheld"] += 1
+        elif row.disposition is not ControllerDisposition.ANSWER:
+            failures[f"answerable:withheld_{row.disposition.value}"] += 1
+        elif case.required_entity_ids and not set(case.required_entity_ids).issubset(
+            row.linked_entity_ids
+        ):
+            failures["answerable:silent_wrong_entity"] += 1
+        else:
+            failures["answerable:exact_span_selection_mismatch"] += 1
+    return dict(sorted(failures.items()))
 
 
 def _as_float(metrics: dict[str, Any], name: str) -> float:
@@ -245,6 +282,13 @@ def main() -> int:
         }
         for name, metrics_by_system in systems50.items()
     }
+    baseline10 = systems10[AblationSystem.DETERMINISTIC_FEATURE_FUSION.value]
+    baseline_recovered = (
+        _as_float(baseline10, "article_recall_at_8") >= 0.84
+        and _as_float(baseline10, "evidence_recall_at_8") >= 0.79
+        and _as_float(baseline10, "exact_supported_answer_accuracy") >= 0.49
+        and _as_float(baseline10, "unsupported_claim_rate") == 0.0
+    )
     payload = {
         "qualification_id": "AETHERSPARSE_V050_FINAL_QUALIFICATION_R1",
         "benchmark_identity": benchmark.benchmark_identity,
@@ -271,6 +315,18 @@ def main() -> int:
         "architecture_decision": architecture.value,
         "hardware_decision": hardware.value,
         "ablation_50k": ablation_summary,
+        "retained_baseline_reconstruction_10k": {
+            "metrics": baseline10,
+            "gate_recovered": baseline_recovered,
+            "historical_absolute_results_mixed": False,
+            "note": (
+                "The v0.5 benchmark/corpus are a new series; historical v0.4.1 values are "
+                "comparison targets only and are never pooled with these results."
+            ),
+        },
+        "failure_taxonomy_50k": _failure_taxonomy(
+            benchmark, outcomes50, system=system
+        ),
         "hard_negative_ablation": hard_negative,
         "adversarial_verifier_10k": report10["adversarial_verifier"],
         "adversarial_verifier_50k": report50["adversarial_verifier"],
