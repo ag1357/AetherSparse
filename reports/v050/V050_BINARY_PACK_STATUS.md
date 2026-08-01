@@ -20,6 +20,8 @@ canonical 10k SQLite pack and contains no cognitive-cell topology.
   `bb459d2c57ea839e9df78ac8e18dccd4f7328dc844a7016b5949fd4ab2b7bda6`
 - Sections: 324 across 32 deterministic shards
 - Full verification: all 324 sections and the complete 64,031,839 bytes passed
+- Independent second build: byte-for-byte identical, SHA-256
+  `adcd68ea0bb11bc41d588b41f2688ac55c49868492a982fad2bbeedd803d36b2`
 
 The external artifact `flat-structured-256-r1.aeth` is preserved but ineligible.
 Its embedded series identity predates the final deterministic corpus series, so
