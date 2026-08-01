@@ -33,6 +33,22 @@ Build the 50k pack a second time and compare its complete SHA-256 before using
 it as reproducibility evidence. Distinct pages with identical source text must
 remain distinct document identities.
 
+Build the compact canonical flat binary fixture without committing its bytes:
+
+```bash
+uv run python scripts/build_v050_binary_pack.py \
+  --pack /artifacts/packs/simplewiki-v050-20260701-10k-final.sqlite \
+  --pack-manifest data/real_corpus/v050/simplewiki-v050-20260701-10k-final.manifest.json \
+  --documents 256 \
+  --chunk-chars 1024 \
+  --shards 32 \
+  --output /artifacts/binary/flat-structured-256-final-r1.aeth \
+  --manifest-output /artifacts/binary/flat-structured-256-final-r1.manifest.json
+```
+
+The tracked manifest must embed the canonical series and parent pack SHA-256.
+Rebuild to a second path and require byte-for-byte equality before activation.
+
 ## 2. Rebuild and audit the benchmark
 
 ```bash
