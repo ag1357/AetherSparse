@@ -5,6 +5,8 @@ import runpy
 import sqlite3
 from pathlib import Path
 
+from fastapi.testclient import TestClient
+
 from aethersparse.controller.evaluation import (
     AblationSystem,
     FrozenBenchmark,
@@ -16,6 +18,7 @@ from aethersparse.controller.framing import QueryFramer
 from aethersparse.controller.models import AnswerShape, ControllerDisposition, ResolutionMethod
 from aethersparse.controller.pipeline import StructuredController
 from aethersparse.controller.sqlite_provider import SQLiteControllerProvider
+from aethersparse.service import create_app
 
 SCHEMA = """
 PRAGMA user_version=500;
@@ -253,6 +256,26 @@ def test_workload_is_bounded_and_exact_offsets_reproduce(tmp_path: Path) -> None
                 assert raw[span.char_start : span.char_end] == span.text
                 assert span.text_hash == f"sha256:{hashlib.sha256(span.text.encode()).hexdigest()}"
         db.close()
+
+
+def test_android_controller_endpoint_exposes_verified_exact_trace(tmp_path: Path) -> None:
+    response = TestClient(create_app(controller_corpus=_pack(tmp_path))).post(
+        "/v5/controller/query",
+        json={"query_id": "mobile:ada", "text": "When was Ada Lovelace born?"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["disposition"] == "ANSWER"
+    assert body["answer"] == "December 10, 1815"
+    assert body["verification"]["passed"] is True
+    assert body["query_frame"]["candidate_entity_ids"] == [
+        _canonical_entity_id("Ada Lovelace")
+    ]
+    assert body["selected_evidence"]
+    assert body["bindings"]
+    assert body["workload"]["total_blocks_read"] >= 1
+    assert body["external_service_boundary"] is True
 
 
 def test_qualification_runner_emits_one_distinct_outcome_per_ablation(tmp_path: Path) -> None:

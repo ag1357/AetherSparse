@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from collections.abc import AsyncIterator
 from pathlib import Path
 
@@ -14,6 +15,9 @@ from aethersparse.cells.models import CellKind
 from aethersparse.cells.retrieval import TwoLevelCellRetriever
 from aethersparse.cells.router import CognitiveCellRouter
 from aethersparse.cells.topology import CognitiveCellBuilder
+from aethersparse.controller.framing import QueryFramer
+from aethersparse.controller.pipeline import StructuredController
+from aethersparse.controller.sqlite_provider import SQLiteControllerProvider
 from aethersparse.gate0.review_service import create_review_router
 from aethersparse.models import QueryRequest, QueryResponse
 from aethersparse.runtime import AetherSparseRuntime
@@ -25,9 +29,19 @@ from aethersparse.traversal.runtime import TraversalRuntime
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CORPUS = ROOT / "data" / "real_corpus" / "simplewiki.sqlite"
 DEFAULT_RERANKER = ROOT / "data" / "models" / "evidence_reranker.int8.json"
+DEFAULT_V050_CORPUS = Path(
+    os.environ.get(
+        "AETHERSPARSE_V050_CORPUS",
+        ROOT / "data" / "real_corpus" / "v050" / "simplewiki-v050.sqlite",
+    )
+)
 
 
-def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
+def create_app(
+    runtime: AetherSparseRuntime | None = None,
+    *,
+    controller_corpus: Path | None = None,
+) -> FastAPI:
     accessory = runtime or AetherSparseRuntime()
     application = FastAPI(
         title="AetherSparse Accessory Emulator",
@@ -52,6 +66,7 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
     application.include_router(create_review_router())
     cell_router_cache: dict[CellKind, CognitiveCellRouter] = {}
     cell_retriever_cache: dict[CellKind, TwoLevelCellRetriever] = {}
+    v050_corpus = controller_corpus or DEFAULT_V050_CORPUS
 
     def traversal() -> TraversalRuntime:
         if not DEFAULT_CORPUS.exists():
@@ -96,6 +111,150 @@ def create_app(runtime: AetherSparseRuntime | None = None) -> FastAPI:
         """Serve the Android-accessible v0.5 controller observability terminal."""
 
         return FileResponse(ROOT / "web" / "structured_controller" / "index.html")
+
+    @application.post("/v5/controller/query")
+    def structured_controller_query(payload: dict[str, object]) -> dict[str, object]:
+        """Run bounded v0.5 cognition and expose its complete exact-evidence trace."""
+
+        text = str(payload.get("text", "")).strip()
+        if not text:
+            raise HTTPException(status_code=422, detail="text is required")
+        if not v050_corpus.is_file():
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "v0.5 corpus pack is not registered; set AETHERSPARSE_V050_CORPUS"
+                ),
+            )
+        raw_prior = payload.get("prior_entity_ids", [])
+        prior_entity_ids = (
+            tuple(str(value) for value in raw_prior[:8])
+            if isinstance(raw_prior, list)
+            else ()
+        )
+        raw_discourse = payload.get("discourse", [])
+        discourse = (
+            tuple(str(value).strip() for value in raw_discourse[-8:] if str(value).strip())
+            if isinstance(raw_discourse, list)
+            else ()
+        )
+        with SQLiteControllerProvider(v050_corpus) as provider:
+            # Discourse is resolved against the same read-only indexes. Only accepted
+            # canonical IDs are carried forward; wording is never treated as evidence.
+            framer = QueryFramer()
+            carried = prior_entity_ids
+            for turn in discourse:
+                context_frame = provider.link_frame(
+                    framer.frame(turn, prior_entity_ids=carried)
+                )
+                carried = tuple(
+                    dict.fromkeys((*carried, *context_frame.candidate_entity_ids))
+                )[-8:]
+            result = StructuredController(provider, framer).query(
+                str(payload.get("query_id", "interactive")),
+                text,
+                provider,
+                prior_entity_ids=carried,
+                evidence_limit=32,
+            )
+            workload = provider.last_workload
+
+        scores = {
+            entry.claim_id: entry.model_dump(mode="json")
+            for entry in result.evidence_trace.entries
+        }
+        claims = {claim.claim_id: claim for claim in result.graph.claims}
+        spans = {span.span_id: span for span in result.graph.source_spans}
+        selected_evidence: list[dict[str, object]] = []
+        for claim_id in result.evidence_trace.selected_claim_ids:
+            claim = claims.get(claim_id)
+            if claim is None:
+                continue
+            for span_id in claim.source_span_ids:
+                span = spans.get(span_id)
+                if span is None:
+                    continue
+                selected_evidence.append(
+                    {
+                        "claim_id": claim_id,
+                        "span_id": span_id,
+                        "document_id": span.document_id,
+                        "title": span.source_title,
+                        "text": span.text,
+                        "source_url": span.source_url,
+                        "source_revision": span.source_revision,
+                        "raw_start": span.char_start,
+                        "raw_end": span.char_end,
+                        "scores": scores.get(claim_id, {}),
+                    }
+                )
+        entity_candidates = [
+            {
+                "surface": mention.surface,
+                "entity_id": candidate.entity_id,
+                "canonical_label": candidate.title,
+                "source": candidate.method.value,
+                "confidence": candidate.confidence,
+                "status": (
+                    "SELECTED"
+                    if candidate.entity_id == mention.selected_entity_id
+                    else "REJECTED"
+                ),
+            }
+            for mention in result.frame.entity_mentions
+            for candidate in mention.candidates
+        ]
+        bindings = (
+            [binding.model_dump(mode="json") for binding in result.answer.bindings]
+            if result.answer
+            else []
+        )
+        workload_payload: dict[str, object] = {}
+        if workload is not None:
+            workload_payload = {
+                **workload.model_dump(mode="json"),
+                "total_blocks_read": workload.estimated_sqlite_blocks,
+                "total_bytes_read": workload.payload_bytes,
+            }
+        confidence = (
+            result.plan.confidence
+            if result.plan is not None
+            else max(
+                (
+                    candidate.confidence
+                    for mention in result.frame.entity_mentions
+                    for candidate in mention.candidates
+                ),
+                default=0.0,
+            )
+        )
+        return {
+            "disposition": result.disposition.value,
+            "answer": result.answer.text if result.answer else None,
+            "failure_reason": result.reason if result.answer is None else None,
+            "confidence": confidence,
+            "query_frame": result.frame.model_dump(mode="json"),
+            "entity_candidates": entity_candidates,
+            "selected_evidence": selected_evidence,
+            "evidence_graph": result.graph.model_dump(mode="json"),
+            "answer_plan": result.plan.model_dump(mode="json") if result.plan else None,
+            "bindings": bindings,
+            "verification": (
+                result.verification.model_dump(mode="json") if result.verification else None
+            ),
+            "disposition_trace": {
+                "reason": result.reason,
+                "missing_facets": [value.value for value in result.graph.missing_facets],
+                "carried_entity_ids": carried,
+            },
+            "rejected_alternatives": (
+                list(result.selection.rejected_claim_ids) if result.selection else []
+            ),
+            "workload": workload_payload,
+            "trace": result.evidence_trace.model_dump(mode="json"),
+            "ablation_comparison": {},
+            "external_service_boundary": True,
+        }
 
     @application.get("/", include_in_schema=False)
     def root_ui() -> FileResponse:
