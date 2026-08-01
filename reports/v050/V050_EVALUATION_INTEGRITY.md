@@ -38,3 +38,23 @@ A regression test serializes a pronoun child before its direct parent and
 asserts that the child receives the parent's canonical entity. The final
 integrator independently rejects reports that lack the corrected R2 identity
 and explicit order-invariant replay evidence.
+
+## Corrected 10k R2
+
+The complete corrected run evaluated 2,050 cases across all eight frozen
+systems and verified parent pack SHA-256
+`cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5`.
+
+- Report SHA-256:
+  `ffc9c8fcb699f07689f2abe7fafb863ba12c81a0f01f04392ae60cbaaadba775`
+- Outcome-matrix SHA-256:
+  `dc19d376fefc480ded99e82a74b7cd6a7350a59beea85d77e0bc1f12f86a3244`
+- Deterministic fusion article/evidence/exact: 59.06% / 48.52% / 31.09%
+- Full controller article/evidence/exact: 64.77% / 54.30% / 35.08%
+- Full follow-up/coreference exact accuracy: 47.00%
+- Full silent wrong-entity rate: 23.31%
+- Unsupported-claim rate: 0.00%
+
+Context replay materially improved the pre-fix result but did not reproduce the
+historical retained-baseline targets. Historical v0.4.1 and v0.5 absolute
+results remain separate series and are not pooled.
