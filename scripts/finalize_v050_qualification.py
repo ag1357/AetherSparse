@@ -189,6 +189,14 @@ def main() -> int:
             raise SystemExit("qualification benchmark hash mismatch")
         if not report["pack"]["pack_sha256_verified"]:
             raise SystemExit("qualification pack hash was not verified")
+    if int(report10["pack"]["counts"]["documents"]) != 10_000:
+        raise SystemExit("10k qualification does not identify a 10,000-document pack")
+    if int(report50["pack"]["counts"]["documents"]) != 50_000:
+        raise SystemExit("50k qualification does not identify a 50,000-document pack")
+    if report10["pack"]["series_id"] != report50["pack"]["series_id"]:
+        raise SystemExit("progressive qualifications used different corpus series")
+    if report10["pack"]["pack_sha256"] == report50["pack"]["pack_sha256"]:
+        raise SystemExit("progressive qualifications unexpectedly identify the same pack")
     outcomes10 = tuple(
         EvaluationOutcome.model_validate(row) for row in _load(args.outcomes_10k)
     )
