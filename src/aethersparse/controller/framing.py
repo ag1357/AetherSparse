@@ -69,6 +69,12 @@ def normalize_query(text: str) -> str:
 
 def infer_answer_shape(query: str) -> AnswerShape:
     folded = query.casefold()
+    if "refer to here" in folded:
+        # The missing local referent is the point of the question; guessing a
+        # definition would turn ambiguity into a silent entity selection.
+        return AnswerShape.UNKNOWN
+    if "redirect to" in folded or "official biography of" in folded:
+        return AnswerShape.DEFINITION
     if any(
         cue in folded
         for cue in (
@@ -133,7 +139,11 @@ def facets_for_shape(shape: AnswerShape) -> tuple[RequiredFacet, ...]:
         AnswerShape.DATE: (RequiredFacet.TIME,),
         AnswerShape.QUANTITY: (RequiredFacet.QUANTITY,),
         AnswerShape.QUOTATION: (RequiredFacet.SPEAKER, RequiredFacet.QUOTATION),
-        AnswerShape.COMPARISON: (RequiredFacet.COMPARISON_A, RequiredFacet.COMPARISON_B),
+        AnswerShape.COMPARISON: (
+            RequiredFacet.COMPARISON_A,
+            RequiredFacet.COMPARISON_B,
+            RequiredFacet.QUANTITY,
+        ),
         AnswerShape.EXPLANATION: (RequiredFacet.REASON,),
         AnswerShape.ENTITY: (RequiredFacet.OBJECT,),
         AnswerShape.DEFINITION: (RequiredFacet.OBJECT,),

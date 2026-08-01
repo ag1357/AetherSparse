@@ -130,3 +130,26 @@ def test_natural_benchmark_phrasings_map_to_broad_shapes() -> None:
         is AnswerShape.LIST
     )
     assert framer.frame("Ada—what about it?").clarification_need
+
+
+def test_frame_distinguishes_redirect_definition_from_unresolved_referent() -> None:
+    framer = QueryFramer()
+
+    redirect = framer.frame("Which topic does Gold Rush redirect to?")
+    ambiguous = framer.frame("What does 1001 refer to here?")
+    out_of_corpus = framer.frame(
+        "Find the official biography of OffCorpus-deadbeef, which is not in this corpus."
+    )
+
+    assert redirect.answer_shape is AnswerShape.DEFINITION
+    assert out_of_corpus.answer_shape is AnswerShape.DEFINITION
+    assert ambiguous.answer_shape is AnswerShape.UNKNOWN
+
+
+def test_comparison_requires_exact_quantity_and_both_sides() -> None:
+    frame = QueryFramer().frame("Compare the stated height values for Alpha and Beta.")
+
+    assert frame.answer_shape is AnswerShape.COMPARISON
+    assert RequiredFacet.COMPARISON_A in frame.required_facets
+    assert RequiredFacet.COMPARISON_B in frame.required_facets
+    assert RequiredFacet.QUANTITY in frame.required_facets
