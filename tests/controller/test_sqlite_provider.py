@@ -353,3 +353,63 @@ def test_qualification_runner_emits_one_distinct_outcome_per_ablation(tmp_path: 
     assert len(full_results) == 1
     rag = next(row for row in outcomes if row.system is AblationSystem.VERIFIED_RAG)
     assert rag.disposition is ControllerDisposition.ABSTAIN
+
+
+def test_qualification_replays_parent_context_when_child_is_serialized_first(
+    tmp_path: Path,
+) -> None:
+    roles = tuple(
+        RoleIdentity(identity=f"author-{index}", role="author", process_identity=f"proc-{index}")
+        for index in range(3)
+    )
+    common = {
+        "partition": Partition.EVALUATION,
+        "author_identity": roles[0].identity,
+        "adjudicator_identity": "adjudicator",
+        "accepted_disposition": ControllerDisposition.ABSTAIN,
+        "required_answer_shape": AnswerShape.DEFINITION,
+        "required_facets": (),
+    }
+    parent = NaturalQueryCase(
+        case_id="case:parent",
+        question="What is Ada Lovelace?",
+        categories=("direct_fact",),
+        **common,
+    )
+    child = NaturalQueryCase(
+        case_id="case:child",
+        question="In the article we just discussed, what is it?",
+        categories=("pronoun",),
+        prior_case_ids=(parent.case_id,),
+        **common,
+    )
+    benchmark = FrozenBenchmark(
+        author_roles=roles,
+        adjudicator_role=RoleIdentity(
+            identity="adjudicator", role="adjudicator", process_identity="proc-adjudicator"
+        ),
+        evaluator_role=RoleIdentity(
+            identity="evaluator", role="evaluator", process_identity="proc-evaluator"
+        ),
+        auditor_role=RoleIdentity(
+            identity="auditor", role="auditor", process_identity="proc-auditor"
+        ),
+        cases=(child, parent),
+        content_sha256="0" * 64,
+    )
+    runner = runpy.run_path(
+        str(Path(__file__).parents[2] / "scripts" / "run_v050_qualification.py")
+    )
+    outcomes, _full_results = runner["_run"](
+        benchmark,
+        _pack(tmp_path),
+        evidence_limit=8,
+        case_limit=None,
+    )
+    child_full = next(
+        row
+        for row in outcomes
+        if row.case_id == child.case_id
+        and row.system is AblationSystem.FULL_EXTRACTIVE_CONTROLLER
+    )
+    assert child_full.linked_entity_ids == (_canonical_entity_id("Ada Lovelace"),)

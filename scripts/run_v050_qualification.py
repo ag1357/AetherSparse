@@ -306,6 +306,51 @@ def _adversarial_report(
     return report.model_dump(mode="json")
 
 
+def _replay_prior_entities(
+    benchmark: FrozenBenchmark,
+    provider: SQLiteControllerProvider,
+    framer: QueryFramer,
+) -> dict[str, tuple[str, ...]]:
+    """Replay declared parent turns independently of frozen case-array order.
+
+    The benchmark is content-hash sorted, not conversation sorted.  A child may
+    therefore appear before its declared parent even though the runtime contract
+    requires that parent's entity state.  Replaying only the declared ancestry
+    makes evaluation invariant to serialization order and performs no broad
+    history search.
+    """
+
+    cases = {case.case_id: case for case in benchmark.cases}
+    replayed: dict[str, tuple[str, ...]] = {}
+    active: set[str] = set()
+
+    def replay(case_id: str) -> tuple[str, ...]:
+        if case_id in replayed:
+            return replayed[case_id]
+        if case_id in active:
+            raise ValueError(f"conversational dependency cycle at {case_id}")
+        case = cases.get(case_id)
+        if case is None:
+            raise ValueError(f"unknown prior case {case_id}")
+        active.add(case_id)
+        prior_ids = tuple(
+            dict.fromkeys(
+                entity_id
+                for prior_case_id in case.prior_case_ids
+                for entity_id in replay(prior_case_id)
+            )
+        )
+        frame = framer.frame(case.question, prior_entity_ids=prior_ids)
+        replayed[case_id] = provider.link_frame(frame).candidate_entity_ids
+        active.remove(case_id)
+        return replayed[case_id]
+
+    for case in benchmark.cases:
+        for prior_case_id in case.prior_case_ids:
+            replay(prior_case_id)
+    return replayed
+
+
 def _run(
     benchmark: FrozenBenchmark,
     pack: Path,
@@ -320,9 +365,9 @@ def _run(
     cases = benchmark.cases[:case_limit] if case_limit is not None else benchmark.cases
     outcomes: list[EvaluationOutcome] = []
     full_results: list[tuple[str, ControllerResult]] = []
-    prior_entities: dict[str, tuple[str, ...]] = {}
     framer = QueryFramer()
     with SQLiteControllerProvider(pack) as provider:
+        prior_entities = _replay_prior_entities(benchmark, provider, framer)
         for index, case in enumerate(cases, start=1):
             prior_ids = tuple(
                 dict.fromkeys(
@@ -417,7 +462,6 @@ def _run(
             )
             outcomes.append(constrained_outcome)
             outcomes.append(_rag_fail_closed(case))
-            prior_entities[case.case_id] = linked.candidate_entity_ids
             if index % 25 == 0 or index == len(cases):
                 print(f"qualified {index}/{len(cases)} cases", file=sys.stderr, flush=True)
     return tuple(outcomes), tuple(full_results)
@@ -442,7 +486,7 @@ def main() -> int:
     complete = args.case_limit is None
     matrix = evaluate_ablation(benchmark, outcomes, require_complete=complete)
     report: dict[str, Any] = {
-        "qualification_id": "AETHERSPARSE_V050_SQLITE_CONTROLLER_QUALIFICATION_R1",
+        "qualification_id": "AETHERSPARSE_V050_SQLITE_CONTROLLER_QUALIFICATION_R2",
         "qualification_complete": complete,
         "case_limit": args.case_limit,
         "elapsed_seconds": time.time() - started,
@@ -473,6 +517,10 @@ def main() -> int:
             "unknown_copy_projection": (
                 "When the expanded EvaluationOutcome schema is present, unknown/ambiguous input "
                 "surfaces are counted as copied only after exact normalized-query offset replay."
+            ),
+            "conversational_context": (
+                "Declared parent turns are replayed before measurement so results are invariant "
+                "to the content-hash-sorted benchmark serialization order."
             ),
         },
     }
