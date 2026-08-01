@@ -1,0 +1,27 @@
+AetherSparse
+Copyright 2026 AetherSparse contributors
+
+The AetherSparse software is licensed under the Apache License, Version 2.0.
+See LICENSE.
+
+The v0.5 qualification benchmark, manifests, and reports contain source-aligned
+metadata and short exact evidence excerpts derived from Simple English
+Wikipedia. Wikipedia text is available under the Creative Commons
+Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0) and may also be
+subject to additional Wikimedia terms. Attribution and revision lineage are
+preserved through the source URLs, page/revision IDs, hashes, and exact offsets
+in the benchmark and manifests.
+
+Source project: Simple English Wikipedia
+Source dump: simplewiki-20260701-pages-articles.xml.bz2
+Project URL: https://simple.wikipedia.org/
+License: https://creativecommons.org/licenses/by-sa/4.0/
+Wikimedia terms: https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use
+
+The Wikimedia Foundation and Wikipedia names and marks belong to their
+respective owners. This project is not endorsed by or affiliated with the
+Wikimedia Foundation.
+
+Large Wikimedia source archives and derived SQLite/binary packs are not
+committed to ordinary Git. Their identities, checksums, attribution, and
+reproduction instructions are retained in the repository.
