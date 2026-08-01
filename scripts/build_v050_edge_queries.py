@@ -72,6 +72,7 @@ def main() -> int:
                 entity_ids=outcome.linked_entity_ids,
                 document_ids=outcome.retrieved_document_ids[:8],
                 retrieval_limit=8,
+                max_binary_sections=128,
                 deterministic_ops=0,
                 neural_macs=outcome.macs,
                 model_bytes=outcome.model_bytes,
