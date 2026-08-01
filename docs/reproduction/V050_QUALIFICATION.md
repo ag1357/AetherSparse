@@ -125,19 +125,42 @@ uv run python scripts/profile_v050_edge.py \
   --sqlite-pack v050_50k=/artifacts/packs/simplewiki-v050-20260701-50k-final.sqlite \
   --queries /artifacts/qualification/V050_EDGE_QUERIES.json \
   --output /artifacts/qualification/V050_EDGE_PROFILE.json
+
+uv run python scripts/profile_v050_edge.py \
+  --binary-pack v050_binary_fixture=/artifacts/binary/flat-structured-256-final-r1.aeth \
+  --queries /artifacts/qualification/V050_EDGE_QUERIES.json \
+  --output /artifacts/qualification/V050_BINARY_EDGE_PROFILE.json
 ```
 
 `POSIX_FADV_DONTNEED` is advisory. The resulting cold-cache evidence records
 both that limitation and the Linux storage-layer physical-read counter. Host
 measurements and analytical projections are never labeled as board results.
+The canonical 10k/50k SQLite profile is the hardware-decision input. The
+256-document binary profile qualifies bounded format behavior only.
 
-## 5. Validate source and package contracts
+## 5. Integrate the frozen decision
+
+```bash
+uv run python scripts/finalize_v050_qualification.py \
+  --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json \
+  --report-10k /artifacts/qualification/V050_10K_QUALIFICATION_R2.json \
+  --outcomes-10k /artifacts/qualification/V050_10K_OUTCOMES_R2.json \
+  --report-50k /artifacts/qualification/V050_50K_QUALIFICATION_R2.json \
+  --outcomes-50k /artifacts/qualification/V050_50K_OUTCOMES_R2.json \
+  --hard-negative /artifacts/qualification/V050_HARD_NEGATIVE_ABLATION.json \
+  --edge /artifacts/qualification/V050_EDGE_PROFILE.json \
+  --output-json reports/v050/V050_FINAL_QUALIFICATION.json \
+  --output-markdown reports/v050/V050_FINAL_REPORT.md
+```
+
+The integrator refuses pre-fix R1 evaluator artifacts, incomplete matrices,
+order-dependent conversational context, benchmark hash mismatches, unverified
+pack hashes, or missing progressive scales.
+
+## 6. Validate source and package contracts
 
 ```bash
 uv run pytest -q
 uv run ruff check src tests scripts
 uv run mypy --strict src
 ```
-
-The final decision integrator refuses incomplete outcome matrices, benchmark
-hash mismatches, unverified pack hashes, or missing progressive scales.
