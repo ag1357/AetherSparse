@@ -154,3 +154,11 @@ def test_comparison_requires_exact_quantity_and_both_sides() -> None:
     assert RequiredFacet.COMPARISON_A in frame.required_facets
     assert RequiredFacet.COMPARISON_B in frame.required_facets
     assert RequiredFacet.QUANTITY in frame.required_facets
+
+
+def test_instruction_openers_are_not_fabricated_entities() -> None:
+    frame = QueryFramer().frame(
+        "Using both sources, what are Navigation and Developmental biology?"
+    )
+
+    assert all(mention.surface != "Using" for mention in frame.entity_mentions)

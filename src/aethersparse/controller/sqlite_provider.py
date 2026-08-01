@@ -375,7 +375,12 @@ class SQLiteControllerProvider:
             return mention
         top = ranked[0]
         runner_up = ranked[1].confidence if len(ranked) > 1 else 0.0
-        if top.confidence < 0.82 or top.confidence - runner_up < 0.08:
+        threshold = (
+            0.55
+            if top.method is ResolutionMethod.FUZZY and top.name_score >= 0.70
+            else 0.82
+        )
+        if top.confidence < threshold or top.confidence - runner_up < 0.08:
             return mention.model_copy(
                 update={
                     "candidates": tuple(ranked),
@@ -393,6 +398,25 @@ class SQLiteControllerProvider:
                 "copy_status": "linked",
             }
         )
+
+    @staticmethod
+    def _explicit_subject_mentions(frame: QueryFrame) -> tuple[EntityMention, ...]:
+        """Copy broad question subjects that capitalization alone can truncate."""
+
+        matches = re.finditer(
+            r"\b(?:what\s+(?:is|are)|who\s+is)\s+(.+?)(?:\?|$)",
+            frame.normalized_query,
+            re.IGNORECASE,
+        )
+        mentions: list[EntityMention] = []
+        for match in matches:
+            surface = match.group(1).strip(" .,'\"\u201c\u201d")
+            if not surface:
+                continue
+            start = match.start(1) + (len(match.group(1)) - len(match.group(1).lstrip()))
+            end = start + len(surface)
+            mentions.append(EntityMention(surface=surface, char_start=start, char_end=end))
+        return tuple(mentions[:2])
 
     def _implicit_exact_mentions(self, frame: QueryFrame) -> tuple[EntityMention, ...]:
         """Find longest non-overlapping aliases/titles/anchors with two index probes."""
@@ -468,6 +492,32 @@ class SQLiteControllerProvider:
             )
         )
         mentions = tuple(self._resolve(mention, provisional) for mention in resolvable_mentions)
+        for explicit in self._explicit_subject_mentions(provisional):
+            linked_explicit = self._resolve(explicit, provisional)
+            if linked_explicit.copy_status != "linked":
+                continue
+            overlaps = tuple(
+                mention
+                for mention in mentions
+                if not (
+                    mention.char_end <= explicit.char_start
+                    or mention.char_start >= explicit.char_end
+                )
+            )
+            if overlaps and max(len(item.surface) for item in overlaps) >= len(explicit.surface):
+                continue
+            mentions = (
+                *(
+                    mention
+                    for mention in mentions
+                    if mention.char_end <= explicit.char_start
+                    or mention.char_start >= explicit.char_end
+                ),
+                linked_explicit,
+            )
+            mentions = tuple(
+                sorted(mentions, key=lambda item: (item.char_start, item.char_end))
+            )
         if (
             not any(mention.copy_status == "linked" for mention in mentions)
             or frame.answer_shape is AnswerShape.COMPARISON
@@ -550,14 +600,25 @@ class SQLiteControllerProvider:
         if not documents:
             return []
         marks = ",".join("?" for _ in documents)
+        per_document = max(1, limit // len(documents))
         return self._rows(
-            f"""SELECT c.chunk_id,c.document_id,c.section_path,c.raw_start,c.raw_end,
-                       c.raw_text,c.normalized_text,c.source_span_sha256,d.title,
-                       d.revision_id,d.source_url,d.source_text_sha256,0.0 AS lexical_rank
-                  FROM chunks AS c JOIN documents AS d USING(document_id)
-                 WHERE c.document_id IN ({marks})
-                 ORDER BY c.document_id,c.raw_start LIMIT ?""",
-            (*documents, limit),
+            f"""WITH ranked AS (
+                   SELECT c.chunk_id,c.document_id,c.section_path,c.raw_start,c.raw_end,
+                          c.raw_text,c.normalized_text,c.source_span_sha256,d.title,
+                          d.revision_id,d.source_url,d.source_text_sha256,
+                          0.0 AS lexical_rank,
+                          row_number() OVER (
+                              PARTITION BY c.document_id ORDER BY c.raw_start
+                          ) AS document_rank
+                     FROM chunks AS c JOIN documents AS d USING(document_id)
+                    WHERE c.document_id IN ({marks})
+                 )
+                 SELECT chunk_id,document_id,section_path,raw_start,raw_end,raw_text,
+                        normalized_text,source_span_sha256,title,revision_id,source_url,
+                        source_text_sha256,lexical_rank
+                   FROM ranked WHERE document_rank<=?
+                  ORDER BY document_id,raw_start LIMIT ?""",
+            (*documents, per_document, limit),
         )
 
     @staticmethod
@@ -685,18 +746,19 @@ class SQLiteControllerProvider:
                         )
                     )
         elif frame.answer_shape is AnswerShape.QUOTATION:
-            for region_start, _region_end, region in regions:
-                for match in QUOTE_RE.finditer(region):
-                    results.append(
-                        (
-                            region_start + match.start(1),
-                            region_start + match.end(1),
-                            match.group(1),
-                            AnswerShape.QUOTATION,
-                            None,
-                            None,
-                        )
+            # Sentence splitting may cut quoted text at internal punctuation;
+            # quotation boundaries are therefore scanned on the exact chunk.
+            for match in QUOTE_RE.finditer(raw):
+                results.append(
+                    (
+                        match.start(1),
+                        match.end(1),
+                        match.group(1),
+                        AnswerShape.QUOTATION,
+                        None,
+                        None,
                     )
+                )
         elif frame.answer_shape is AnswerShape.ENTITY:
             for region_start, _region_end, region in regions:
                 quote_positions = [
@@ -851,7 +913,8 @@ class SQLiteControllerProvider:
             title_pattern = re.escape(str(row["title"]).casefold())
             subject_near_definition = float(
                 re.search(
-                    rf"{title_pattern}(?:'{{2,3}}|\]\])?\s+(?:is|are|was|were)\s+$",
+                    rf"(?:^|'{{2,3}}|\[\[){title_pattern}"
+                    rf"(?:'{{2,3}}|\]\])?\s+(?:is|are|was|were)\s+$",
                     preceding_surface,
                 )
                 is not None

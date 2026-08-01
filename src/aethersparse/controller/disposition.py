@@ -10,6 +10,7 @@ from aethersparse.controller.models import (
     EvidenceGraph,
     FrozenModel,
     QueryFrame,
+    ResolutionMethod,
     VerificationReport,
 )
 
@@ -18,6 +19,7 @@ class DispositionCalibration(FrozenModel):
     """Independent thresholds; evaluation may tune these without changing retrieval."""
 
     entity_confidence: float = Field(default=0.82, ge=0.0, le=1.0)
+    fuzzy_entity_confidence: float = Field(default=0.70, ge=0.0, le=1.0)
     answer_confidence: float = Field(default=0.72, ge=0.0, le=1.0)
     clarification_uncertainty: float = Field(default=0.75, ge=0.0, le=1.0)
 
@@ -41,6 +43,8 @@ def choose_disposition(
         return (ControllerDisposition.CONFLICTING_EVIDENCE, "independent evidence conflicts")
     if premise_status == "REFUTED":
         return (ControllerDisposition.INCORRECT_PREMISE, "the exact evidence refutes the premise")
+    if frame.clarification_need:
+        return (ControllerDisposition.CLARIFY, "the entity or discourse reference is ambiguous")
     unknown = [
         mention
         for mention in frame.entity_mentions
@@ -68,12 +72,16 @@ def choose_disposition(
         if mention.copy_status == "ambiguous"
         or (
             mention.copy_status == "linked"
-            and mention.selected_confidence < thresholds.entity_confidence
+            and mention.selected_confidence
+            < (
+                thresholds.fuzzy_entity_confidence
+                if mention.resolution_method is ResolutionMethod.FUZZY
+                else thresholds.entity_confidence
+            )
         )
     ]
     if (
-        frame.clarification_need
-        or ambiguous
+        ambiguous
         or frame.uncertainty >= thresholds.clarification_uncertainty
     ):
         return (ControllerDisposition.CLARIFY, "the entity or discourse reference is ambiguous")

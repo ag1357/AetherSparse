@@ -60,6 +60,11 @@ QUESTION_OPENERS = {
     "name",
     "list",
     "compare",
+    "find",
+    "i",
+    "in",
+    "tell",
+    "using",
 }
 
 
@@ -138,7 +143,9 @@ def facets_for_shape(shape: AnswerShape) -> tuple[RequiredFacet, ...]:
     shape_facets: dict[AnswerShape, tuple[RequiredFacet, ...]] = {
         AnswerShape.DATE: (RequiredFacet.TIME,),
         AnswerShape.QUANTITY: (RequiredFacet.QUANTITY,),
-        AnswerShape.QUOTATION: (RequiredFacet.SPEAKER, RequiredFacet.QUOTATION),
+        # A quotation-text request does not imply a speaker request. "Who
+        # said" is framed as ENTITY below and explicitly adds attribution.
+        AnswerShape.QUOTATION: (RequiredFacet.QUOTATION,),
         AnswerShape.COMPARISON: (
             RequiredFacet.COMPARISON_A,
             RequiredFacet.COMPARISON_B,

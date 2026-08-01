@@ -12,6 +12,7 @@ from aethersparse.controller.models import (
     EvidenceGraph,
     QueryFrame,
     RealizedAnswer,
+    RequiredFacet,
     VerificationFinding,
     VerificationReport,
 )
@@ -127,11 +128,15 @@ def verify_realization(
                         "quantity unit must be retained",
                     )
             if frame.answer_shape is AnswerShape.QUOTATION:
+                speaker_required = RequiredFacet.SPEAKER in frame.required_facets
                 check(
                     f"ATTRIBUTION:{claim_id}",
-                    bool(claim.speaker_entity_id and claim.quotation)
-                    and binding.surface == claim.quotation,
-                    "quotation must preserve exact text and speaker attribution",
+                    bool(claim.quotation)
+                    and binding.surface == claim.quotation
+                    and (not speaker_required or bool(claim.speaker_entity_id)),
+                    (
+                        "quotation must preserve exact text and requested speaker attribution"
+                    ),
                 )
             if frame.answer_shape is AnswerShape.VERIFICATION:
                 check(

@@ -136,6 +136,14 @@ def _pack(tmp_path: Path) -> Path:
     db.execute("INSERT INTO aliases VALUES(?,?,?)", ("countess of lovelace", ada, "explicit"))
     _add_document(db, 4, "Tower Alpha", "Tower Alpha is a tower with a height of 10 m.")
     _add_document(db, 5, "Tower Beta", "Tower Beta is a tower with a height of 9 m.")
+    _add_document(db, 6, "Data", "'''Data''' is a collection of facts.")
+    _add_document(
+        db,
+        7,
+        "Data compression",
+        "'''Data compression''' is a set of steps for packing data into a smaller space.",
+    )
+    _add_document(db, 8, "Past", "The '''past''' is something that has already happened.")
     db.commit()
     db.close()
     return path
@@ -175,6 +183,17 @@ def test_redirect_anchor_alias_fuzzy_and_unknown_resolution(tmp_path: Path) -> N
         assert fuzzy.candidate_entity_ids == (_canonical_entity_id("Ada Lovelace"),)
         assert fuzzy.entity_mentions[0].resolution_method is ResolutionMethod.FUZZY
 
+        short_fuzzy = provider.link_frame(QueryFramer().frame("What is Pastx?"))
+        assert short_fuzzy.candidate_entity_ids == (_canonical_entity_id("Past"),)
+        assert short_fuzzy.entity_mentions[0].resolution_method is ResolutionMethod.FUZZY
+
+        specific_fuzzy = provider.link_frame(QueryFramer().frame("What is Data ocmpression?"))
+        assert specific_fuzzy.candidate_entity_ids == (
+            _canonical_entity_id("Data compression"),
+        )
+        assert specific_fuzzy.entity_mentions[0].surface == "Data ocmpression"
+        assert specific_fuzzy.entity_mentions[0].resolution_method is ResolutionMethod.FUZZY
+
         query = "Who invented Qzzyxx-999?"
         unknown = provider.link_frame(QueryFramer().frame(query))
         assert unknown.candidate_entity_ids == ()
@@ -212,6 +231,16 @@ def test_exact_date_definition_quote_and_comparison_answers(tmp_path: Path) -> N
         )
         assert quotation.disposition is ControllerDisposition.ANSWER
         assert quotation.answer is not None and quotation.answer.text == "Ada Lovelace"
+
+        exact_words = controller.query(
+            "q:quote-words",
+            "Which exact quoted words appear in the source passage about Ada Lovelace?",
+            provider,
+            evidence_limit=8,
+        )
+        assert exact_words.disposition is ControllerDisposition.ANSWER
+        assert exact_words.answer is not None
+        assert exact_words.answer.text == "The Analytical Engine weaves algebraic patterns."
 
         comparison = controller.query(
             "q:comparison",
