@@ -28,6 +28,7 @@ STOP = {
 YEAR_RE = re.compile(r"\b(?:1[5-9]\d{2}|20\d{2}|2100)\b")
 ENTITY_RE = re.compile(r"\b[A-Z0-9][\w'-]*(?:\s+[A-Z0-9][\w'-]*)*")
 ATTRIBUTION_TERMS = {"said", "says", "stated", "wrote", "quoted", "according", "attributed"}
+CONJUNCTION_MARKERS = frozenset({"and", "both", "each", "compare", "versus", "vs"})
 
 
 def _tokens(text: str) -> set[str]:
@@ -325,6 +326,17 @@ class EvidenceSelector:
             weight * value for weight, value in zip(FUSION_WEIGHTS, features, strict=True)
         )
 
+    @staticmethod
+    def _is_multi_entity_query(query: str, anchors: list[str]) -> bool:
+        """General conjunction/enumeration structure with 2+ resolved entities."""
+
+        if len(anchors) < 2:
+            return False
+        if ";" in query:
+            return True
+        query_tokens = {token.casefold() for token in TOKEN_RE.findall(query)}
+        return bool(query_tokens & CONJUNCTION_MARKERS)
+
     def candidates(self, query: str) -> list[CandidateScore]:
         anchors = list(
             dict.fromkeys([*self._anchor_documents(query), *self._alias_probed_documents(query)])
@@ -365,6 +377,29 @@ class EvidenceSelector:
             )[:8]
         rows = self.store.search(query, lexical_limit)
         seen = {row["chunk_id"] for row in rows}
+        if self._is_multi_entity_query(query, anchors):
+            # Multi-source questions need N distinct documents, but a single
+            # ranked list is easily dominated by one entity.  Give each
+            # resolved entity an independent retrieval share and union the
+            # results before ranking; ranking itself still uses the full query.
+            entity_titles = anchor_titles[:6]
+            anchor_title_tokens = {
+                token for title in entity_titles for token in TOKEN_RE.findall(title.casefold())
+            }
+            context_terms = sorted(
+                token
+                for token in set(TOKEN_RE.findall(query.casefold()))
+                if len(token) > 2 and token not in anchor_title_tokens
+            )[:6]
+            rows = rows[: lexical_limit // 2]
+            seen = {row["chunk_id"] for row in rows}
+            per_entity = max(6, lexical_limit // (2 * len(entity_titles)))
+            for title in entity_titles:
+                sub_query = " ".join([title, *context_terms])
+                for row in self.store.search(sub_query, per_entity):
+                    if row["chunk_id"] not in seen:
+                        rows.append(row)
+                        seen.add(row["chunk_id"])
         if expansion:
             # Alias-canonicalized terms run as a separate bounded probe so the
             # original query's term budget is never displaced.

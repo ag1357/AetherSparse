@@ -1,0 +1,131 @@
+{
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "bm25_score",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "char3gram_fit"
+  ],
+  "feature_tag": "phase4-multi-entity",
+  "fit_cases": 424,
+  "fit_partitions": [
+    "tuning",
+    "development"
+  ],
+  "fitted_lenient": 0.8207547169811321,
+  "fitted_strict": 0.7570754716981132,
+  "fitted_weights": [
+    0.5,
+    0.12,
+    0.5,
+    0.05,
+    0.25,
+    0.0,
+    0.01,
+    0.05,
+    0.0,
+    0.0,
+    0.0,
+    0.25,
+    0.12,
+    0.2
+  ],
+  "history": [
+    {
+      "lenient": 0.8136792452830188,
+      "pass": 0,
+      "strict": 0.7264150943396226,
+      "weights": [
+        0.12,
+        0.4,
+        0.5,
+        0.05,
+        0.25,
+        0.05,
+        0.16,
+        0.05,
+        0.0,
+        0.4,
+        0.16,
+        0.5,
+        0.05,
+        0.2
+      ]
+    },
+    {
+      "lenient": 0.8207547169811321,
+      "pass": 1,
+      "strict": 0.7547169811320755,
+      "weights": [
+        0.5,
+        0.08,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.01,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.2
+      ]
+    },
+    {
+      "lenient": 0.8207547169811321,
+      "pass": 2,
+      "strict": 0.7570754716981132,
+      "weights": [
+        0.5,
+        0.12,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.01,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.2
+      ]
+    },
+    {
+      "lenient": 0.8207547169811321,
+      "pass": 3,
+      "strict": 0.7570754716981132,
+      "weights": [
+        0.5,
+        0.12,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.01,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.2
+      ]
+    }
+  ],
+  "objective": "strict article recall (pageid subset @ selected_limit), lenient tie-break",
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k-p3.sqlite",
+  "tool": "scripts/droid/fit_fusion.py"
+}
