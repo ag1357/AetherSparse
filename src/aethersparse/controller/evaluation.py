@@ -379,7 +379,8 @@ def evaluate_ablation(
             for row in rows
             if cases[row.case_id].accepted_disposition is ControllerDisposition.ANSWER
         ]
-        article_hits = evidence_hits = entity_hits = shape_hits = facet_hits = 0
+        article_hits = article_hits_strict = 0
+        evidence_hits = entity_hits = shape_hits = facet_hits = 0
         entity_case_count = 0
         exact_answers = supported_answers = silent_wrong = 0
         unknown_span_count = copied_unknown_count = 0
@@ -393,6 +394,9 @@ def evaluate_ablation(
             gold_spans = {item.span_id for item in case.gold_evidence}
             if case.accepted_disposition is ControllerDisposition.ANSWER:
                 article_hits += int(bool(gold_docs & set(row.retrieved_document_ids)))
+                article_hits_strict += int(
+                    bool(gold_docs) and gold_docs.issubset(row.retrieved_document_ids)
+                )
                 evidence_hits += int(bool(gold_spans & set(row.retrieved_span_ids)))
             entity_ok = set(case.required_entity_ids).issubset(row.linked_entity_ids)
             if case.required_entity_ids:
@@ -466,6 +470,7 @@ def evaluate_ablation(
         reports[system.value] = {
             "case_count": len(rows),
             "article_recall": _safe_ratio(article_hits, len(answer_cases)),
+            "article_recall_strict": _safe_ratio(article_hits_strict, len(answer_cases)),
             "evidence_recall": _safe_ratio(evidence_hits, len(answer_cases)),
             "article_recall_at_8": _safe_ratio(article_hits, len(answer_cases)),
             "evidence_recall_at_8": _safe_ratio(evidence_hits, len(answer_cases)),
