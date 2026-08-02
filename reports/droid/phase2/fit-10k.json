@@ -1,0 +1,89 @@
+{
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "bm25_score",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "char3gram_fit"
+  ],
+  "feature_tag": "phase2-bm25-char3gram",
+  "fit_cases": 424,
+  "fit_partitions": [
+    "tuning",
+    "development"
+  ],
+  "fitted_lenient": 0.8066037735849056,
+  "fitted_strict": 0.7334905660377359,
+  "fitted_weights": [
+    0.12,
+    0.4,
+    0.5,
+    0.05,
+    0.25,
+    0.05,
+    0.16,
+    0.05,
+    0.0,
+    0.4,
+    0.16,
+    0.5,
+    0.05,
+    0.2
+  ],
+  "history": [
+    {
+      "lenient": 0.8066037735849056,
+      "pass": 0,
+      "strict": 0.7334905660377359,
+      "weights": [
+        0.12,
+        0.4,
+        0.5,
+        0.05,
+        0.25,
+        0.05,
+        0.16,
+        0.05,
+        0.0,
+        0.4,
+        0.16,
+        0.5,
+        0.05,
+        0.2
+      ]
+    },
+    {
+      "lenient": 0.8066037735849056,
+      "pass": 1,
+      "strict": 0.7334905660377359,
+      "weights": [
+        0.12,
+        0.4,
+        0.5,
+        0.05,
+        0.25,
+        0.05,
+        0.16,
+        0.05,
+        0.0,
+        0.4,
+        0.16,
+        0.5,
+        0.05,
+        0.2
+      ]
+    }
+  ],
+  "objective": "strict article recall (pageid subset @ selected_limit), lenient tie-break",
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k.sqlite",
+  "tool": "scripts/droid/fit_fusion.py"
+}

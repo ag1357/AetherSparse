@@ -11,14 +11,14 @@ FEATURE_NAMES = (
     "entity_fit",
     "section_overlap",
     "lexical_rank",
-    "semantic_similarity",
+    "bm25_score",
     "time_compatibility",
     "category_overlap",
     "hyperlink_proximity",
     "directness",
     "attribution_fit",
     "answerability",
-    "source_independence",
+    "char3gram_fit",
 )
 
 

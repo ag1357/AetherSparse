@@ -56,6 +56,12 @@ DEFAULT_MODEL = QuantizedLinearModel(
     training_identity="untrained-deterministic-bootstrap",
 )
 
+# Deterministic fusion weights over FEATURE_NAMES.  Fitted by coordinate
+# search on the benchmark's tuning+development partitions only
+# (scripts/droid/fit_fusion.py, feature-tag phase2-bm25-char3gram).
+FUSION_WEIGHTS = (0.12, 0.40, 0.50, 0.05, 0.25, 0.05, 0.16, 0.05,
+                  0.00, 0.40, 0.16, 0.50, 0.05, 0.20)
+
 
 class EvidenceSelector:
     """All selection operations are fixed-shape and corpus-ontology neutral."""
@@ -146,6 +152,30 @@ class EvidenceSelector:
             }
         return float(candidate_doc in self._target_cache[key])
 
+    @staticmethod
+    def _char_trigrams(value: str) -> dict[str, int]:
+        text = " " + " ".join(value.casefold().split()) + " "
+        grams: dict[str, int] = {}
+        for index in range(max(0, len(text) - 2)):
+            gram = text[index : index + 3]
+            grams[gram] = grams.get(gram, 0) + 1
+        return grams
+
+    @classmethod
+    def _char3gram_fit(cls, query: str, body: str) -> float:
+        left = cls._char_trigrams(query)
+        right = cls._char_trigrams(body)
+        if not left or not right:
+            return 0.0
+        if len(left) > len(right):
+            left, right = right, left
+        dot = sum(count * right.get(gram, 0) for gram, count in left.items())
+        if dot == 0:
+            return 0.0
+        norm_l = math.sqrt(sum(v * v for v in left.values()))
+        norm_r = math.sqrt(sum(v * v for v in right.values()))
+        return min(1.0, dot / (norm_l * norm_r))
+
     def _feature_vector(
         self,
         query: str,
@@ -153,6 +183,7 @@ class EvidenceSelector:
         lexical_position: int,
         anchors: list[str],
         query_categories: set[str],
+        bm25_score: float = 0.0,
     ) -> tuple[float, ...]:
         query_tokens = _tokens(query)
         body_tokens = _tokens(row["normalized_text"])
@@ -168,17 +199,6 @@ class EvidenceSelector:
                 alias in normalized_query
                 for alias in self._document_aliases(row["document_id"])
             )
-        )
-        semantic_query = {
-            int.from_bytes(hashlib.blake2s(token.encode(), digest_size=2).digest())
-            for token in query_tokens
-        }
-        semantic_body = {
-            int.from_bytes(hashlib.blake2s(token.encode(), digest_size=2).digest())
-            for token in body_tokens
-        }
-        semantic = len(semantic_query & semantic_body) / max(
-            1, len(semantic_query | semantic_body)
         )
         directness = min(
             1.0,
@@ -217,21 +237,21 @@ class EvidenceSelector:
             _ratio(entities, body_tokens | title_tokens),
             _ratio(query_tokens, section_tokens),
             1.0 / (1.0 + lexical_position),
-            semantic,
+            bm25_score,
             time_fit,
             category_overlap,
             self._linked_distance(anchors, row["document_id"]),
             directness,
             attribution_fit,
             answerability,
-            1.0,
+            self._char3gram_fit(query, row["normalized_text"]),
         )
 
     @staticmethod
     def _fusion(features: tuple[float, ...]) -> float:
-        weights = (0.27, 0.12, 0.04, 0.12, 0.08, 0.09, 0.07, 0.05,
-                   0.03, 0.04, 0.05, 0.02, 0.08, 0.01)
-        return sum(weight * value for weight, value in zip(weights, features, strict=True))
+        return sum(
+            weight * value for weight, value in zip(FUSION_WEIGHTS, features, strict=True)
+        )
 
     def candidates(self, query: str) -> list[CandidateScore]:
         anchors = self._anchor_documents(query)
@@ -296,9 +316,17 @@ class EvidenceSelector:
             if len(rows) >= self.candidate_limit:
                 break
         scores: list[CandidateScore] = []
+        bm25_values = [float(row["rank"] or 0.0) for row in rows]
+        # SQLite FTS5 bm25() is negative and better-is-lower; invert then scale to [0,1].
+        inverted = [-value for value in bm25_values]
+        floor = min(inverted) if inverted else 0.0
+        ceiling = max(inverted) if inverted else 0.0
+        spread = (ceiling - floor) or 1.0
+        normalized_bm25 = [(value - floor) / spread for value in inverted]
         for position, row in enumerate(rows):
             features = self._feature_vector(
-                query, row, position, anchors, query_categories
+                query, row, position, anchors, query_categories,
+                bm25_score=normalized_bm25[position],
             )
             deterministic = self._fusion(features)
             reranker = _sigmoid(self.model.score(features))
