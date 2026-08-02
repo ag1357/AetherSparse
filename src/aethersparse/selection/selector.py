@@ -58,9 +58,9 @@ DEFAULT_MODEL = QuantizedLinearModel(
 
 # Deterministic fusion weights over FEATURE_NAMES.  Fitted by coordinate
 # search on the benchmark's tuning+development partitions only
-# (scripts/droid/fit_fusion.py, feature-tag phase2-bm25-char3gram).
-FUSION_WEIGHTS = (0.12, 0.40, 0.50, 0.05, 0.25, 0.05, 0.16, 0.05,
-                  0.00, 0.40, 0.16, 0.50, 0.05, 0.20)
+# (scripts/droid/fit_fusion.py, feature-tag phase3-alias-fold-v2).
+FUSION_WEIGHTS = (0.50, 0.12, 0.50, 0.05, 0.25, 0.00, 0.01, 0.05,
+                  0.00, 0.00, 0.00, 0.25, 0.12, 0.20)
 
 
 class EvidenceSelector:
@@ -81,6 +81,7 @@ class EvidenceSelector:
         self._category_cache: dict[str, set[str]] = {}
         self._alias_cache: dict[str, tuple[str, ...]] = {}
         self._target_cache: dict[tuple[str, ...], set[str]] = {}
+        self._disambiguation_cache: dict[str, bool] = {}
 
     @classmethod
     def from_model_file(cls, corpus_path: Path, model_path: Path) -> EvidenceSelector:
@@ -88,6 +89,28 @@ class EvidenceSelector:
             corpus_path,
             QuantizedLinearModel.model_validate_json(model_path.read_text(encoding="utf-8")),
         )
+
+    def _is_disambiguation(self, document_id: str) -> bool:
+        if document_id not in self._disambiguation_cache:
+            row = self.store.db.execute(
+                "SELECT normalized_title, substr(raw_text,1,300) AS head "
+                "FROM documents WHERE document_id=?",
+                (document_id,),
+            ).fetchone()
+            head = (row["head"] if row else "").casefold()
+            self._disambiguation_cache[document_id] = bool(
+                (row and str(row["normalized_title"]).endswith("(disambiguation)"))
+                or "may mean:" in head
+                or "may refer to:" in head
+                or "{{disambig" in head
+            )
+        return self._disambiguation_cache[document_id]
+
+    def _drop_disambiguation(self, document_ids: list[str]) -> list[str]:
+        if not document_ids:
+            return document_ids
+        kept = [doc for doc in document_ids if not self._is_disambiguation(doc)]
+        return kept or document_ids
 
     def _anchor_documents(self, query: str) -> list[str]:
         candidates: list[str] = []
@@ -101,7 +124,55 @@ class EvidenceSelector:
                     _tokens(title), _tokens(query)
                 ) >= 0.8:
                     candidates.append(row["document_id"])
-        return list(dict.fromkeys(candidates))[:6]
+        return self._drop_disambiguation(list(dict.fromkeys(candidates))[:6])
+
+    def _alias_probed_documents(self, query: str) -> list[str]:
+        """Exact casefolded alias lookup over query token windows.
+
+        Finds entity surfaces the capitalized ENTITY_RE cannot see (lowercase
+        alias and redirect surfaces) by probing the alias table with up to
+        5-token windows, longest non-overlapping match first.
+        """
+
+        tokens = list(TOKEN_RE.finditer(query))
+        windows: list[tuple[int, int, str]] = []
+        for width in range(min(5, len(tokens)), 0, -1):
+            for index in range(0, len(tokens) - width + 1):
+                window = tokens[index : index + width]
+                if {item.group(0).casefold() for item in window} <= STOP:
+                    continue
+                surface = normalize_text(
+                    query[window[0].start() : window[-1].end()]
+                ).casefold()
+                windows.append((window[0].start(), window[-1].end(), surface))
+                if len(windows) >= 32:
+                    break
+            if len(windows) >= 32:
+                break
+        if not windows:
+            return []
+        keys = tuple(dict.fromkeys(item[2] for item in windows))
+        marks = ",".join("?" for _ in keys)
+        rows = self.store.db.execute(
+            f"SELECT alias, document_id FROM aliases WHERE alias IN ({marks})", keys
+        )
+        by_surface: dict[str, list[str]] = {}
+        for row in rows:
+            by_surface.setdefault(str(row["alias"]), []).append(str(row["document_id"]))
+        probed: list[str] = []
+        claimed: list[tuple[int, int]] = []
+        for start, end, surface in sorted(
+            windows, key=lambda item: (-len(item[2].split()), -len(item[2]), item[0])
+        ):
+            if surface not in by_surface:
+                continue
+            if any(not (end <= taken_start or start >= taken_end) for taken_start, taken_end in claimed):
+                continue
+            claimed.append((start, end))
+            probed.extend(by_surface[surface])
+            if len(claimed) >= 4:
+                break
+        return self._drop_disambiguation(list(dict.fromkeys(probed))[:4])
 
     def _query_categories(self, anchors: list[str]) -> set[str]:
         if not anchors:
@@ -196,7 +267,8 @@ class EvidenceSelector:
         normalized_query = normalize_text(query).casefold()
         alias_fit = float(
             any(
-                alias in normalized_query
+                re.search(rf"(?<![\w'-]){re.escape(alias)}(?![\w'-])", normalized_query)
+                is not None
                 for alias in self._document_aliases(row["document_id"])
             )
         )
@@ -254,11 +326,52 @@ class EvidenceSelector:
         )
 
     def candidates(self, query: str) -> list[CandidateScore]:
-        anchors = self._anchor_documents(query)
-        query_categories = self._query_categories(anchors)
+        anchors = list(
+            dict.fromkeys([*self._anchor_documents(query), *self._alias_probed_documents(query)])
+        )[:8]
         lexical_limit = min(48, self.candidate_limit)
+        anchor_titles: list[str] = []
+        if anchors:
+            marks = ",".join("?" for _ in anchors)
+            title_by_doc = {
+                str(row[0]): str(row[1])
+                for row in self.store.db.execute(
+                    f"SELECT document_id, title FROM documents WHERE document_id IN ({marks})",
+                    anchors,
+                )
+            }
+            # Case-variant duplicate articles waste anchor slots; keep one each.
+            seen_titles: set[str] = set()
+            deduped: list[str] = []
+            for document_id in anchors:
+                key = title_by_doc.get(document_id, "").casefold()
+                if key and key in seen_titles:
+                    continue
+                seen_titles.add(key)
+                deduped.append(document_id)
+            anchors = deduped
+            anchor_titles = [title_by_doc[doc] for doc in anchors if doc in title_by_doc]
+        query_categories = self._query_categories(anchors)
+        expansion: list[str] = []
+        if anchor_titles:
+            query_folded = set(TOKEN_RE.findall(query.casefold()))
+            expansion = sorted(
+                {
+                    token
+                    for title in anchor_titles
+                    for token in TOKEN_RE.findall(title.casefold())
+                    if len(token) > 2 and token not in query_folded
+                }
+            )[:8]
         rows = self.store.search(query, lexical_limit)
         seen = {row["chunk_id"] for row in rows}
+        if expansion:
+            # Alias-canonicalized terms run as a separate bounded probe so the
+            # original query's term budget is never displaced.
+            for row in self.store.search(" ".join(expansion), 12):
+                if row["chunk_id"] not in seen:
+                    rows.append(row)
+                    seen.add(row["chunk_id"])
         supplemental: list[sqlite3.Row] = []
         if anchors:
             marks = ",".join("?" for _ in anchors)

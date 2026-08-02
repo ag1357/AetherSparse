@@ -77,27 +77,31 @@ def main() -> int:
     accumulators = {stage: RecallAccumulator() for stage in STAGES}
     generation_latencies: list[float] = []
     select_latencies: dict[str, list[float]] = {stage: [] for stage in STAGES}
-    predicted_top1: dict[str, str] = {}
+    predicted_top1: dict[str, dict[str, str]] = {stage: {} for stage in STAGES}
     started = time.time()
 
     for index, case in enumerate(cases, start=1):
-        boost_doc = None
-        if args.discourse_boost > 0.0 and case.prior_case_ids:
-            for parent_id in case.prior_case_ids:
-                if parent_id in predicted_top1:
-                    boost_doc = predicted_top1[parent_id]
-                    break
         gen_started = time.perf_counter_ns()
         candidates = selector.candidates(case.question)
         generation_latencies.append((time.perf_counter_ns() - gen_started) / 1_000_000)
-        discourse_kwargs: dict[str, object] = {}
-        if args.discourse_boost > 0.0:
-            # Requires the Phase 5 selector kwargs; absent before that phase.
-            discourse_kwargs = {
-                "discourse_document_id": boost_doc,
-                "discourse_boost": args.discourse_boost,
-            }
         for stage in STAGES:
+            discourse_kwargs: dict[str, object] = {}
+            if args.discourse_boost > 0.0:
+                # Requires the Phase 5 selector kwargs; absent before that phase.
+                # The boost document is the parent turn's predicted top-1 for
+                # the same ranking stage (never gold).
+                boost_doc = next(
+                    (
+                        predicted_top1[stage][parent_id]
+                        for parent_id in case.prior_case_ids
+                        if parent_id in predicted_top1[stage]
+                    ),
+                    None,
+                )
+                discourse_kwargs = {
+                    "discourse_document_id": boost_doc,
+                    "discourse_boost": args.discourse_boost,
+                }
             select_started = time.perf_counter_ns()
             trace = selector.select(
                 case.question,
@@ -110,8 +114,8 @@ def main() -> int:
             )
             retrieved = {pageid(item.document_id) for item in trace.selected_evidence}
             accumulators[stage].add(case, retrieved)
-            if stage == "reranker" and trace.reranked_candidates:
-                predicted_top1[case.case_id] = trace.reranked_candidates[0].document_id
+            if trace.reranked_candidates:
+                predicted_top1[stage][case.case_id] = trace.reranked_candidates[0].document_id
         if index % 100 == 0 or index == len(cases):
             print(f"evaluated {index}/{len(cases)} cases", file=sys.stderr, flush=True)
 

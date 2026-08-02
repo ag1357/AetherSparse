@@ -151,10 +151,63 @@ class CorpusStore:
         )
         self.db.commit()
 
+    def _fold_redirects(
+        self, redirect_pages: list[tuple[str, str, str]]
+    ) -> dict[str, str]:
+        """Point redirect source titles at the resolved target document.
+
+        Returns the casefolded-title -> document_id map used to resolve link
+        and anchor targets through redirect chains.
+        """
+
+        title_to_doc: dict[str, str] = {}
+        for row in self.db.execute(
+            "SELECT normalized_title, document_id, redirect_target FROM documents"
+        ):
+            title, document_id = str(row[0]), str(row[1])
+            # Prefer a non-redirect document when a redirect source and its
+            # target differ only by letter case (casefolded titles collide).
+            if title not in title_to_doc or row[2] is None:
+                title_to_doc[title] = document_id
+        redirect_target_by_doc = {
+            document_id: target_title for document_id, _source, target_title in redirect_pages
+        }
+
+        def resolve(title: str) -> str | None:
+            seen: set[str] = set()
+            document_id = title_to_doc.get(title)
+            for _depth in range(4):
+                if document_id is None or document_id in seen:
+                    return None
+                seen.add(document_id)
+                follow = redirect_target_by_doc.get(document_id)
+                if follow is None:
+                    return document_id
+                document_id = title_to_doc.get(follow)
+            return None
+
+        for document_id, source_title, target_title in redirect_pages:
+            target_doc = resolve(target_title)
+            if target_doc is None or target_doc == document_id:
+                continue
+            self.db.execute(
+                "DELETE FROM aliases WHERE alias=? AND document_id=?",
+                (source_title, document_id),
+            )
+            self.db.execute(
+                "INSERT OR IGNORE INTO aliases VALUES(?,?)", (source_title, target_doc)
+            )
+        return {
+            title: (resolve(title) or title_to_doc.get(title, ""))
+            for title in title_to_doc
+        }
+
     def ingest_mediawiki(
         self, dump: Path, *, limit: int | None = None, chunk_chars: int = 480
     ) -> dict[str, object]:
         articles = chunks = links = 0
+        redirect_pages: list[tuple[str, str, str]] = []
+        anchor_aliases: set[tuple[str, str]] = set()
         for page in iter_mediawiki_pages(dump, limit):
             raw_hash = hashlib.sha256(page.raw.encode()).hexdigest()
             document_id = f"mw:{page.page_id}:{page.revision}:{raw_hash[:12]}"
@@ -183,9 +236,12 @@ class CorpusStore:
                 (normalize_text(page.title).casefold(), document_id),
             )
             if page.redirect:
-                self.db.execute(
-                    "INSERT OR IGNORE INTO aliases VALUES(?,?)",
-                    (normalize_text(page.redirect).casefold(), document_id),
+                redirect_pages.append(
+                    (
+                        document_id,
+                        normalize_text(page.title).casefold(),
+                        normalize_text(page.redirect).casefold(),
+                    )
                 )
             sections = list(SECTION_RE.finditer(page.raw))
             boundaries = [(0, sections[0].start() if sections else len(page.raw), "Lead")]
@@ -241,13 +297,21 @@ class CorpusStore:
                         chunks += 1
                     cursor = max(raw_end, cursor + 1)
                     block += 1
-            for target, _label in LINK_RE.findall(page.raw):
+            for target, label in LINK_RE.findall(page.raw):
                 target = normalize_text(target)
                 if target and not target.casefold().startswith(("file:", "image:", "category:")):
                     self.db.execute(
                         "INSERT OR IGNORE INTO links VALUES(?,?,NULL)", (document_id, target)
                     )
                     links += 1
+                    anchor_text = normalize_text(label or target).casefold()
+                    if (
+                        label
+                        and 4 <= len(anchor_text) <= 60
+                        and anchor_text != target.casefold()
+                        and any(character.isalpha() for character in anchor_text)
+                    ):
+                        anchor_aliases.add((anchor_text, target.casefold()))
                 if target.casefold().startswith("category:"):
                     self.db.execute(
                         "INSERT OR IGNORE INTO categories VALUES(?,?)",
@@ -255,6 +319,15 @@ class CorpusStore:
                     )
             if articles % 500 == 0:
                 self.db.commit()
+        resolved_titles = self._fold_redirects(redirect_pages)
+        anchor_alias_rows = 0
+        for anchor_text, target_title in sorted(anchor_aliases):
+            target_doc = resolved_titles.get(target_title)
+            if target_doc:
+                cursor = self.db.execute(
+                    "INSERT OR IGNORE INTO aliases VALUES(?,?)", (anchor_text, target_doc)
+                )
+                anchor_alias_rows += cursor.rowcount
         self.db.execute(
             """UPDATE links SET target_document_id=(
                  SELECT document_id FROM aliases WHERE alias=lower(links.target_title) LIMIT 1)
@@ -264,6 +337,8 @@ class CorpusStore:
             "articles": articles,
             "chunks": chunks,
             "links": links,
+            "redirects_folded": len(redirect_pages),
+            "anchor_alias_rows": anchor_alias_rows,
             "dump_sha256": _sha256_file(dump),
             "chunk_chars": chunk_chars,
         }
