@@ -72,7 +72,7 @@ class EvidenceSelector:
         corpus_path: Path,
         model: QuantizedLinearModel | None = None,
         *,
-        candidate_limit: int = 64,
+        candidate_limit: int = 96,
         selected_limit: int = 8,
     ):
         self.store = CorpusStore(corpus_path)

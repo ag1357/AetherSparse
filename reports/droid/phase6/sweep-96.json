@@ -1,0 +1,282 @@
+{
+  "benchmark_identity": "INDEPENDENT_NATURAL_QUERY_SET_V050_R1",
+  "benchmark_sha256": "c4a8f45b30fa592d9ae7e01d0c456e95b7361e73575e97f97dbcb6da397cb673",
+  "candidate_generation_latency": {
+    "mean_ms": 840.2270429410378,
+    "p50_ms": 364.472127,
+    "p95_ms": 3365.160082
+  },
+  "config": {
+    "answer_cases": 424,
+    "candidate_limit": 96,
+    "discourse_boost": 0.35,
+    "gold_matching": "pageid",
+    "model": "bootstrap-default",
+    "model_identity": "untrained-deterministic-bootstrap",
+    "selected_limit": 8
+  },
+  "elapsed_seconds": 357.2599050998688,
+  "harness": "scripts/droid/v050_selector_eval.py",
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k-p3.sqlite",
+  "pack_sha256": "aef284ff0f157d2d7ae3915f02624e10214c859e5dfbc9dd25f0886cf4c36c66",
+  "stages": {
+    "fusion": {
+      "by_category": {
+        "alias": {
+          "article_recall_lenient": 0.9,
+          "article_recall_strict": 0.9,
+          "n": 20
+        },
+        "comparison": {
+          "article_recall_lenient": 1.0,
+          "article_recall_strict": 0.8214285714285714,
+          "n": 28
+        },
+        "date": {
+          "article_recall_lenient": 0.6097560975609756,
+          "article_recall_strict": 0.6097560975609756,
+          "n": 41
+        },
+        "direct_fact": {
+          "article_recall_lenient": 0.9866666666666667,
+          "article_recall_strict": 0.9866666666666667,
+          "n": 75
+        },
+        "follow_up": {
+          "article_recall_lenient": 0.9696969696969697,
+          "article_recall_strict": 0.9696969696969697,
+          "n": 33
+        },
+        "misspelling": {
+          "article_recall_lenient": 0.17142857142857143,
+          "article_recall_strict": 0.17142857142857143,
+          "n": 35
+        },
+        "pronoun": {
+          "article_recall_lenient": 0.9696969696969697,
+          "article_recall_strict": 0.9696969696969697,
+          "n": 33
+        },
+        "quantity": {
+          "article_recall_lenient": 0.6842105263157895,
+          "article_recall_strict": 0.6842105263157895,
+          "n": 38
+        },
+        "quotation": {
+          "article_recall_lenient": 0.717948717948718,
+          "article_recall_strict": 0.717948717948718,
+          "n": 39
+        },
+        "redirect": {
+          "article_recall_lenient": 0.9444444444444444,
+          "article_recall_strict": 0.9444444444444444,
+          "n": 18
+        },
+        "three_to_six_source": {
+          "article_recall_lenient": 1.0,
+          "article_recall_strict": 0.5185185185185185,
+          "n": 27
+        },
+        "two_source": {
+          "article_recall_lenient": 0.972972972972973,
+          "article_recall_strict": 0.7297297297297297,
+          "n": 37
+        }
+      },
+      "by_partition": {
+        "development": {
+          "article_recall_lenient": 0.8012048192771084,
+          "article_recall_strict": 0.7228915662650602,
+          "n": 166
+        },
+        "tuning": {
+          "article_recall_lenient": 0.8372093023255814,
+          "article_recall_strict": 0.7829457364341085,
+          "n": 258
+        }
+      },
+      "overall": {
+        "article_recall_lenient": 0.8231132075471698,
+        "article_recall_strict": 0.7594339622641509,
+        "n": 424
+      },
+      "select_latency_overhead": {
+        "mean_ms": 0.3458052948113207,
+        "p50_ms": 0.341369,
+        "p95_ms": 0.432854
+      }
+    },
+    "lexical": {
+      "by_category": {
+        "alias": {
+          "article_recall_lenient": 0.4,
+          "article_recall_strict": 0.4,
+          "n": 20
+        },
+        "comparison": {
+          "article_recall_lenient": 1.0,
+          "article_recall_strict": 0.2857142857142857,
+          "n": 28
+        },
+        "date": {
+          "article_recall_lenient": 0.5853658536585366,
+          "article_recall_strict": 0.5853658536585366,
+          "n": 41
+        },
+        "direct_fact": {
+          "article_recall_lenient": 0.9066666666666666,
+          "article_recall_strict": 0.9066666666666666,
+          "n": 75
+        },
+        "follow_up": {
+          "article_recall_lenient": 0.9090909090909091,
+          "article_recall_strict": 0.9090909090909091,
+          "n": 33
+        },
+        "misspelling": {
+          "article_recall_lenient": 0.17142857142857143,
+          "article_recall_strict": 0.17142857142857143,
+          "n": 35
+        },
+        "pronoun": {
+          "article_recall_lenient": 0.8181818181818182,
+          "article_recall_strict": 0.8181818181818182,
+          "n": 33
+        },
+        "quantity": {
+          "article_recall_lenient": 0.631578947368421,
+          "article_recall_strict": 0.631578947368421,
+          "n": 38
+        },
+        "quotation": {
+          "article_recall_lenient": 0.6153846153846154,
+          "article_recall_strict": 0.6153846153846154,
+          "n": 39
+        },
+        "redirect": {
+          "article_recall_lenient": 0.3333333333333333,
+          "article_recall_strict": 0.3333333333333333,
+          "n": 18
+        },
+        "three_to_six_source": {
+          "article_recall_lenient": 0.9629629629629629,
+          "article_recall_strict": 0.14814814814814814,
+          "n": 27
+        },
+        "two_source": {
+          "article_recall_lenient": 0.972972972972973,
+          "article_recall_strict": 0.40540540540540543,
+          "n": 37
+        }
+      },
+      "by_partition": {
+        "development": {
+          "article_recall_lenient": 0.7289156626506024,
+          "article_recall_strict": 0.5662650602409639,
+          "n": 166
+        },
+        "tuning": {
+          "article_recall_lenient": 0.7209302325581395,
+          "article_recall_strict": 0.5813953488372093,
+          "n": 258
+        }
+      },
+      "overall": {
+        "article_recall_lenient": 0.7240566037735849,
+        "article_recall_strict": 0.5754716981132075,
+        "n": 424
+      },
+      "select_latency_overhead": {
+        "mean_ms": 0.5125693066037735,
+        "p50_ms": 0.503383,
+        "p95_ms": 0.62426
+      }
+    },
+    "reranker": {
+      "by_category": {
+        "alias": {
+          "article_recall_lenient": 0.8,
+          "article_recall_strict": 0.8,
+          "n": 20
+        },
+        "comparison": {
+          "article_recall_lenient": 1.0,
+          "article_recall_strict": 0.6428571428571429,
+          "n": 28
+        },
+        "date": {
+          "article_recall_lenient": 0.6097560975609756,
+          "article_recall_strict": 0.6097560975609756,
+          "n": 41
+        },
+        "direct_fact": {
+          "article_recall_lenient": 0.9866666666666667,
+          "article_recall_strict": 0.9866666666666667,
+          "n": 75
+        },
+        "follow_up": {
+          "article_recall_lenient": 0.9696969696969697,
+          "article_recall_strict": 0.9696969696969697,
+          "n": 33
+        },
+        "misspelling": {
+          "article_recall_lenient": 0.17142857142857143,
+          "article_recall_strict": 0.17142857142857143,
+          "n": 35
+        },
+        "pronoun": {
+          "article_recall_lenient": 0.9696969696969697,
+          "article_recall_strict": 0.9696969696969697,
+          "n": 33
+        },
+        "quantity": {
+          "article_recall_lenient": 0.6842105263157895,
+          "article_recall_strict": 0.6842105263157895,
+          "n": 38
+        },
+        "quotation": {
+          "article_recall_lenient": 0.717948717948718,
+          "article_recall_strict": 0.717948717948718,
+          "n": 39
+        },
+        "redirect": {
+          "article_recall_lenient": 0.6111111111111112,
+          "article_recall_strict": 0.6111111111111112,
+          "n": 18
+        },
+        "three_to_six_source": {
+          "article_recall_lenient": 1.0,
+          "article_recall_strict": 0.5185185185185185,
+          "n": 27
+        },
+        "two_source": {
+          "article_recall_lenient": 0.9459459459459459,
+          "article_recall_strict": 0.7027027027027027,
+          "n": 37
+        }
+      },
+      "by_partition": {
+        "development": {
+          "article_recall_lenient": 0.7891566265060241,
+          "article_recall_strict": 0.6867469879518072,
+          "n": 166
+        },
+        "tuning": {
+          "article_recall_lenient": 0.810077519379845,
+          "article_recall_strict": 0.751937984496124,
+          "n": 258
+        }
+      },
+      "overall": {
+        "article_recall_lenient": 0.8018867924528302,
+        "article_recall_strict": 0.7264150943396226,
+        "n": 424
+      },
+      "select_latency_overhead": {
+        "mean_ms": 0.2949014716981132,
+        "p50_ms": 0.290236,
+        "p95_ms": 0.38006
+      }
+    }
+  }
+}

@@ -57,6 +57,12 @@ def _parse_args() -> argparse.Namespace:
         default=0.0,
         help="additive boost for candidates from the parent turn's predicted top-1 document",
     )
+    parser.add_argument(
+        "--per-case-output",
+        type=Path,
+        default=None,
+        help="dump per-case reranker-stage margins and pass flags (coverage tables)",
+    )
     return parser.parse_args()
 
 
@@ -87,6 +93,7 @@ def main() -> int:
     generation_latencies: list[float] = []
     select_latencies: dict[str, list[float]] = {stage: [] for stage in STAGES}
     predicted_top1: dict[str, str] = {}
+    per_case: list[dict[str, object]] | None = [] if args.per_case_output else None
     started = time.time()
 
     for index, case in enumerate(cases, start=1):
@@ -123,9 +130,26 @@ def main() -> int:
                 (time.perf_counter_ns() - select_started) / 1_000_000
             )
             retrieved = {pageid(item.document_id) for item in trace.selected_evidence}
-            accumulators[stage].add(case, retrieved)
-            if stage == "reranker" and trace.reranked_candidates:
-                predicted_top1[case.case_id] = trace.reranked_candidates[0].document_id
+            lenient, strict = accumulators[stage].add(case, retrieved)
+            if stage == "reranker":
+                if trace.reranked_candidates:
+                    predicted_top1[case.case_id] = trace.reranked_candidates[0].document_id
+                if per_case is not None:
+                    scores = [
+                        item.final_score for item in trace.reranked_candidates[:2]
+                    ]
+                    margin = scores[0] - scores[1] if len(scores) == 2 else 0.0
+                    per_case.append(
+                        {
+                            "case_id": case.case_id,
+                            "partition": str(case.partition),
+                            "categories": list(case.categories),
+                            "margin": margin,
+                            "top1_score": scores[0] if scores else 0.0,
+                            "lenient": lenient,
+                            "strict": strict,
+                        }
+                    )
         if index % 100 == 0 or index == len(cases):
             print(f"evaluated {index}/{len(cases)} cases", file=sys.stderr, flush=True)
 
@@ -156,6 +180,11 @@ def main() -> int:
         },
     }
     write_report(args.output, report)
+    if per_case is not None and args.per_case_output is not None:
+        args.per_case_output.parent.mkdir(parents=True, exist_ok=True)
+        args.per_case_output.write_text(
+            json.dumps(per_case, indent=1) + "\n", encoding="utf-8"
+        )
     for stage in STAGES:
         overall = report["stages"][stage]["overall"]
         print(
