@@ -24,8 +24,18 @@ modified.
 Baseline (phase-1, 10k, legacy selector): fusion strict 65.16% / lenient 78.75%.
 Net improvement at 10k: **+10.54 pp strict** (65.16% → 75.70%).
 Scaling delta 10k → 50k (5× corpus): −4.68 pp strict; 10k → full (39.7×):
-−14.22 pp strict. Sublinear erosion: the second 8× costs less than twice the
-first 5×.
+−14.22 pp strict.
+
+**Scaling erosion, per-decade normalization (amended 2026-08-03, Mission 2 §1):**
+an earlier revision of this report called the erosion "sublinear". It is not.
+Per decade of corpus growth:
+
+- 10k → 50k: −4.68 pp over 0.70 decades = **−6.70 pp/decade**
+- 50k → 397k: −9.54 pp over 0.90 decades = **−10.60 pp/decade**
+
+Erosion **accelerated by 58%** with scale — the same shape as the legacy
+system (−3.33 then −6.67 pp/decade). The V06 fixes raised the curve without
+flattening it.
 
 Fusion stage for reference: 50k strict 70.94% / lenient 80.23%, full strict
 61.41% / lenient 72.89%; the reranker adds +0.08 pp strict / +0.24 pp lenient
