@@ -337,7 +337,42 @@ class EvidenceSelector:
         query_tokens = {token.casefold() for token in TOKEN_RE.findall(query)}
         return bool(query_tokens & CONJUNCTION_MARKERS)
 
-    def candidates(self, query: str) -> list[CandidateScore]:
+    def _carry_rows(self, query: str, document_id: str) -> list[sqlite3.Row]:
+        """Bounded probe of the carried-forward document's own chunks."""
+
+        terms = sorted(
+            {
+                term
+                for term in TOKEN_RE.findall(query.casefold())
+                if len(term) > 2 and term not in STOP
+            }
+        )[:5]
+        if terms:
+            match = " OR ".join(f'"{term}"' for term in terms)
+            rows = list(
+                self.store.db.execute(
+                    """SELECT c.*, d.title, d.revision, d.source_url,
+                              bm25(chunks_fts, 1.8, 1.2, 1.0) AS rank
+                       FROM chunks_fts f JOIN chunks c ON c.chunk_id=f.chunk_id
+                       JOIN documents d ON d.document_id=c.document_id
+                       WHERE chunks_fts MATCH ? AND c.document_id=?
+                       ORDER BY rank LIMIT 3""",
+                    (match, document_id),
+                )
+            )
+            if rows:
+                return rows
+        row = self.store.db.execute(
+            """SELECT c.*, d.title, d.revision, d.source_url, 0.0 AS rank
+               FROM chunks c JOIN documents d ON d.document_id=c.document_id
+               WHERE c.document_id=? ORDER BY c.block_index LIMIT 1""",
+            (document_id,),
+        ).fetchone()
+        return [row] if row is not None else []
+
+    def candidates(
+        self, query: str, *, carry_document_id: str | None = None
+    ) -> list[CandidateScore]:
         anchors = list(
             dict.fromkeys([*self._anchor_documents(query), *self._alias_probed_documents(query)])
         )[:8]
@@ -404,6 +439,13 @@ class EvidenceSelector:
             # Alias-canonicalized terms run as a separate bounded probe so the
             # original query's term budget is never displaced.
             for row in self.store.search(" ".join(expansion), 12):
+                if row["chunk_id"] not in seen:
+                    rows.append(row)
+                    seen.add(row["chunk_id"])
+        if carry_document_id is not None:
+            # Discourse carry-over: the previous turn's resolved document joins
+            # the pool as a bounded probe; the soft boost in select() orders it.
+            for row in self._carry_rows(query, carry_document_id):
                 if row["chunk_id"] not in seen:
                     rows.append(row)
                     seen.add(row["chunk_id"])
@@ -563,15 +605,40 @@ class EvidenceSelector:
         stage: str = "reranker",
         permit_targeted_traversal: bool = False,
         initial_candidates: list[CandidateScore] | None = None,
+        discourse_document_id: str | None = None,
+        discourse_boost: float = 0.0,
     ) -> SelectionTrace:
         started = time.perf_counter_ns()
-        initial = initial_candidates if initial_candidates is not None else self.candidates(query)
+        initial = (
+            initial_candidates
+            if initial_candidates is not None
+            else self.candidates(query, carry_document_id=discourse_document_id)
+        )
+
+        def boosted(score: float, candidate: CandidateScore) -> float:
+            if (
+                discourse_boost > 0.0
+                and discourse_document_id is not None
+                and candidate.document_id == discourse_document_id
+            ):
+                return score + discourse_boost
+            return score
+
         if stage == "lexical":
             ranked = list(initial)
         elif stage == "fusion":
-            ranked = sorted(initial, key=lambda item: (-item.deterministic_score, item.chunk_id))
+            ranked = sorted(
+                initial,
+                key=lambda item: (
+                    -boosted(item.deterministic_score, item),
+                    item.chunk_id,
+                ),
+            )
         else:
-            ranked = sorted(initial, key=lambda item: (-item.final_score, item.chunk_id))
+            ranked = sorted(
+                initial,
+                key=lambda item: (-boosted(item.final_score, item), item.chunk_id),
+            )
         missing = self._missing_facets(query, ranked)
         targeted: list[CandidateScore] = []
         operation = None
@@ -580,7 +647,7 @@ class EvidenceSelector:
             if targeted:
                 ranked = sorted(
                     [*ranked, *targeted],
-                    key=lambda item: (-item.final_score, item.chunk_id),
+                    key=lambda item: (-boosted(item.final_score, item), item.chunk_id),
                 )
                 missing = self._missing_facets(query, ranked)
         selected_ids = {candidate.chunk_id for candidate in ranked[: self.selected_limit]}

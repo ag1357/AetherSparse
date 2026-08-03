@@ -46,6 +46,12 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--selected-limit", type=int, default=8)
     parser.add_argument("--limit", type=int, help="evaluate only the first N answer cases")
     parser.add_argument(
+        "--partitions",
+        nargs="+",
+        default=None,
+        help="restrict to these partitions (tuning development evaluation final_held)",
+    )
+    parser.add_argument(
         "--discourse-boost",
         type=float,
         default=0.0,
@@ -58,6 +64,9 @@ def main() -> int:
     args = _parse_args()
     benchmark = load_benchmark(args.benchmark)
     cases = answer_cases(benchmark)
+    if args.partitions:
+        wanted = set(args.partitions)
+        cases = [case for case in cases if case.partition.value in wanted]
     if args.limit is not None:
         cases = cases[: args.limit]
     cases = conversation_order(cases)
@@ -77,29 +86,30 @@ def main() -> int:
     accumulators = {stage: RecallAccumulator() for stage in STAGES}
     generation_latencies: list[float] = []
     select_latencies: dict[str, list[float]] = {stage: [] for stage in STAGES}
-    predicted_top1: dict[str, dict[str, str]] = {stage: {} for stage in STAGES}
+    predicted_top1: dict[str, str] = {}
     started = time.time()
 
     for index, case in enumerate(cases, start=1):
+        carry_doc = None
+        if args.discourse_boost > 0.0 and case.prior_case_ids:
+            # The carried document is the parent turn's predicted top-1 at the
+            # final (reranker) stage — the system's actual previous answer.
+            carry_doc = next(
+                (
+                    predicted_top1[parent_id]
+                    for parent_id in case.prior_case_ids
+                    if parent_id in predicted_top1
+                ),
+                None,
+            )
         gen_started = time.perf_counter_ns()
-        candidates = selector.candidates(case.question)
+        candidates = selector.candidates(case.question, carry_document_id=carry_doc)
         generation_latencies.append((time.perf_counter_ns() - gen_started) / 1_000_000)
         for stage in STAGES:
             discourse_kwargs: dict[str, object] = {}
             if args.discourse_boost > 0.0:
-                # Requires the Phase 5 selector kwargs; absent before that phase.
-                # The boost document is the parent turn's predicted top-1 for
-                # the same ranking stage (never gold).
-                boost_doc = next(
-                    (
-                        predicted_top1[stage][parent_id]
-                        for parent_id in case.prior_case_ids
-                        if parent_id in predicted_top1[stage]
-                    ),
-                    None,
-                )
                 discourse_kwargs = {
-                    "discourse_document_id": boost_doc,
+                    "discourse_document_id": carry_doc,
                     "discourse_boost": args.discourse_boost,
                 }
             select_started = time.perf_counter_ns()
@@ -114,8 +124,8 @@ def main() -> int:
             )
             retrieved = {pageid(item.document_id) for item in trace.selected_evidence}
             accumulators[stage].add(case, retrieved)
-            if trace.reranked_candidates:
-                predicted_top1[stage][case.case_id] = trace.reranked_candidates[0].document_id
+            if stage == "reranker" and trace.reranked_candidates:
+                predicted_top1[case.case_id] = trace.reranked_candidates[0].document_id
         if index % 100 == 0 or index == len(cases):
             print(f"evaluated {index}/{len(cases)} cases", file=sys.stderr, flush=True)
 
