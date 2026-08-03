@@ -1,13 +1,13 @@
 {
   "corpus_manifest": {
-    "aliases": 1345,
-    "categories": 1838,
-    "chunks": 32808,
-    "database_bytes": 76439552,
-    "documents": 1163,
-    "links": 64966
+    "aliases": 16079,
+    "categories": 24891,
+    "chunks": 147549,
+    "database_bytes": 499335168,
+    "documents": 10000,
+    "links": 608393
   },
-  "development_questions_sha256": "6aebb09c9272d9e046cff7e614de4edbc86147c1823a0bf5e32c38647c8d99e7",
+  "development_questions_sha256": "ac0532eeeafb15174198c7b00551afd269f1b55e6e85fe85567e6062bfd491d2",
   "epochs": 24,
   "feature_names": [
     "lexical_overlap",
@@ -16,25 +16,25 @@
     "entity_fit",
     "section_overlap",
     "lexical_rank",
-    "semantic_similarity",
+    "bm25_score",
     "time_compatibility",
     "category_overlap",
     "hyperlink_proximity",
     "directness",
     "attribution_fit",
     "answerability",
-    "source_independence"
+    "char3gram_fit"
   ],
   "hard_negative_counts": {
-    "correct_entity_wrong_relation": 121,
-    "correct_relation_wrong_entity": 292,
-    "duplicated_source_lineage_or_other": 953,
-    "first_hop_missing_second_facet": 428,
-    "lexically_strong_distractor": 252,
-    "quotation_without_attribution": 3,
-    "related_article_without_answer": 242,
-    "same_terms_wrong_time": 69
+    "correct_entity_wrong_relation": 207,
+    "correct_relation_wrong_entity": 120,
+    "duplicated_source_lineage_or_other": 850,
+    "first_hop_missing_second_facet": 242,
+    "lexically_strong_distractor": 442,
+    "quotation_without_attribution": 194,
+    "related_article_without_answer": 56,
+    "same_terms_wrong_time": 1
   },
-  "pair_count": 2360,
-  "usable_questions": 295
+  "pair_count": 2112,
+  "usable_questions": 264
 }

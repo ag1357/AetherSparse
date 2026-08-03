@@ -50,11 +50,14 @@ def _sigmoid(value: float) -> float:
     return factor / (1 + factor)
 
 
+# Retrained pairwise-logistic reranker over the Phase 2 feature vector
+# (aethersparse selection train on V050 tuning+development questions projected
+# onto the Phase 3 pack; see reports/droid/PHASE7_RERANKER.md).
 DEFAULT_MODEL = QuantizedLinearModel(
-    int8_weights=(64, 42, 20, 48, 30, 32, 34, 22, 12, 28, 56, 18, 52, 8),
-    weight_scale=1 / 64,
-    bias=-1.5,
-    training_identity="untrained-deterministic-bootstrap",
+    int8_weights=(10, 127, 74, -21, -116, 8, 1, -29, 3, 6, 10, -3, 46, 23),
+    weight_scale=0.051805793994473236,
+    bias=0.0,
+    training_identity="13e650373444ac088e48e7fe106043e9efdd6d69e00c46999cf36db5fe15f439",
 )
 
 # Deterministic fusion weights over FEATURE_NAMES.  Fitted by coordinate

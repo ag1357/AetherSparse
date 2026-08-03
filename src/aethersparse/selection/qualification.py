@@ -68,7 +68,7 @@ def train_reranker(
     epochs: int = 24,
     learning_rate: float = 0.08,
 ) -> dict[str, Any]:
-    selector = EvidenceSelector(corpus_path, candidate_limit=64)
+    selector = EvidenceSelector(corpus_path)
     questions = _load_questions(development_questions)
     weights = [0.0] * len(FEATURE_NAMES)
     hard_negative_counts: Counter[str] = Counter()
