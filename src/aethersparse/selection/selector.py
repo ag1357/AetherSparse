@@ -74,17 +74,21 @@ def _sigmoid(value: float) -> float:
 # (aethersparse selection train on V050 tuning+development questions projected
 # onto the Phase 3 pack; see reports/droid/PHASE7_RERANKER.md).
 DEFAULT_MODEL = QuantizedLinearModel(
-    int8_weights=(10, 127, 74, -21, -116, 8, 1, -29, 3, 6, 10, -3, 46, 23),
-    weight_scale=0.051805793994473236,
+    int8_weights=(3, 127, 60, -24, -119, -7, 46, -27, 3, 16, 3, -3, 59, 3),
+    weight_scale=0.054707955443718315,
     bias=0.0,
-    training_identity="13e650373444ac088e48e7fe106043e9efdd6d69e00c46999cf36db5fe15f439",
+    training_identity="019df0598b69a98f3006783e639aee053459aeb98d1ba143ec0763a83b235010",
 )
 
 # Deterministic fusion weights over FEATURE_NAMES.  Fitted by coordinate
 # search on the benchmark's tuning+development partitions only
-# (scripts/droid/fit_fusion.py, feature-tag phase3-alias-fold-v2).
-FUSION_WEIGHTS = (0.50, 0.12, 0.50, 0.05, 0.25, 0.00, 0.01, 0.05,
-                  0.00, 0.00, 0.00, 0.25, 0.12, 0.20)
+# (scripts/droid/fit_fusion.py, feature-tag phase2-nochan-v1, strict 80.90% on
+# fit partitions).  Clean 14-feature refit after the Phase 2 semantic-channel
+# revert (see reports/droid/PHASE2_SEMANTIC.md); char3gram_fit earns 0.0 at
+# the fusion stage — the repair probe supplies the candidates it used to
+# rescue — while the retrained reranker keeps a small char3gram weight.
+FUSION_WEIGHTS = (0.50, 0.12, 0.50, 0.05, 0.25, 0.00, 0.05, 0.05,
+                  0.00, 0.00, 0.00, 0.25, 0.12, 0.00)
 
 
 class EvidenceSelector:
@@ -375,7 +379,7 @@ class EvidenceSelector:
             match = " OR ".join(f'"{term}"' for term in terms)
             rows = list(
                 self.store.db.execute(
-                    """SELECT c.*, d.title, d.revision, d.source_url,
+                    """SELECT c.*, c.rowid AS chunk_rowid, d.title, d.revision, d.source_url,
                               bm25(chunks_fts, 1.8, 1.2, 1.0) AS rank
                        FROM chunks_fts f JOIN chunks c ON c.chunk_id=f.chunk_id
                        JOIN documents d ON d.document_id=c.document_id
@@ -387,7 +391,8 @@ class EvidenceSelector:
             if rows:
                 return rows
         row = self.store.db.execute(
-            """SELECT c.*, d.title, d.revision, d.source_url, 0.0 AS rank
+            """SELECT c.*, c.rowid AS chunk_rowid, d.title, d.revision, d.source_url,
+                      0.0 AS rank
                FROM chunks c JOIN documents d ON d.document_id=c.document_id
                WHERE c.document_id=? ORDER BY c.block_index LIMIT 1""",
             (document_id,),

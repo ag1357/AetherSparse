@@ -383,7 +383,7 @@ class CorpusStore:
         fts_query = " OR ".join(f'"{term}"' for term in selected)
         return list(
             self.db.execute(
-                """SELECT c.*, d.title, d.revision, d.source_url,
+                """SELECT c.*, c.rowid AS chunk_rowid, d.title, d.revision, d.source_url,
                           bm25(chunks_fts, 1.8, 1.2, 1.0) AS rank
                    FROM chunks_fts f JOIN chunks c ON c.chunk_id=f.chunk_id
                    JOIN documents d ON d.document_id=c.document_id
