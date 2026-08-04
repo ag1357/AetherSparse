@@ -31,6 +31,26 @@ ATTRIBUTION_TERMS = {"said", "says", "stated", "wrote", "quoted", "according", "
 CONJUNCTION_MARKERS = frozenset({"and", "both", "each", "compare", "versus", "vs"})
 
 
+def _edit1_variants(term: str):
+    """Damerau edit-distance-1 variants, cheapest typo class first."""
+    # Adjacent transpositions: the most common single-keystroke error.
+    for i in range(len(term) - 1):
+        if term[i] != term[i + 1]:
+            yield term[:i] + term[i + 1] + term[i] + term[i + 2:]
+    # Deletions.
+    for i in range(len(term)):
+        yield term[:i] + term[i + 1:]
+    # Substitutions.
+    for i in range(len(term)):
+        for c in "abcdefghijklmnopqrstuvwxyz":
+            if c != term[i]:
+                yield term[:i] + c + term[i + 1:]
+    # Insertions.
+    for i in range(len(term) + 1):
+        for c in "abcdefghijklmnopqrstuvwxyz":
+            yield term[:i] + c + term[i:]
+
+
 def _tokens(text: str) -> set[str]:
     return {
         token.casefold() for token in TOKEN_RE.findall(normalize_text(text))
@@ -86,6 +106,7 @@ class EvidenceSelector:
         self._alias_cache: dict[str, tuple[str, ...]] = {}
         self._target_cache: dict[tuple[str, ...], set[str]] = {}
         self._disambiguation_cache: dict[str, bool] = {}
+        self._term_cache: dict[str, bool] = {}
 
     @classmethod
     def from_model_file(cls, corpus_path: Path, model_path: Path) -> EvidenceSelector:
@@ -373,6 +394,47 @@ class EvidenceSelector:
         ).fetchone()
         return [row] if row is not None else []
 
+    def _term_in_corpus(self, term: str) -> bool:
+        if term not in self._term_cache:
+            row = self.store.db.execute(
+                "SELECT 1 FROM chunks_fts WHERE chunks_fts MATCH ? LIMIT 1",
+                (f'"{term}"',),
+            ).fetchone()
+            self._term_cache[term] = row is not None
+        return self._term_cache[term]
+
+    def _spelling_repairs(self, query: str) -> list[str]:
+        """Edit-distance-1 repairs for query terms absent from the corpus.
+
+        FTS candidate generation is exact-match: one orthographic error in a
+        content term removes the gold document from the candidate pool before
+        any ranking feature can act (measured: gold present in only 5/22
+        tuning misspelling pools).  Repairing only zero-occurrence terms keeps
+        the probe general and bounded.
+        """
+        terms = sorted(
+            {
+                term
+                for term in TOKEN_RE.findall(query.casefold())
+                if len(term) > 2 and term not in STOP
+            }
+        )
+        repairs: list[str] = []
+        probes = 0
+        for term in terms:
+            if len(repairs) >= 2 or probes >= 600:
+                break
+            if self._term_in_corpus(term):
+                continue
+            for variant in _edit1_variants(term):
+                probes += 1
+                if probes > 600:
+                    break
+                if self._term_in_corpus(variant):
+                    repairs.append(variant)
+                    break
+        return repairs
+
     def candidates(
         self, query: str, *, carry_document_id: str | None = None
     ) -> list[CandidateScore]:
@@ -442,6 +504,22 @@ class EvidenceSelector:
             # Alias-canonicalized terms run as a separate bounded probe so the
             # original query's term budget is never displaced.
             for row in self.store.search(" ".join(expansion), 12):
+                if row["chunk_id"] not in seen:
+                    rows.append(row)
+                    seen.add(row["chunk_id"])
+        repairs = self._spelling_repairs(query)
+        if repairs:
+            # Orthographic repair probe: corrected variants of zero-occurrence
+            # terms plus the query's known terms for context; bounded like the
+            # expansion probe.
+            context = sorted(
+                {
+                    term
+                    for term in TOKEN_RE.findall(query.casefold())
+                    if len(term) > 2 and term not in STOP and self._term_in_corpus(term)
+                }
+            )[:4]
+            for row in self.store.search(" ".join([*repairs, *context]), 12):
                 if row["chunk_id"] not in seen:
                     rows.append(row)
                     seen.add(row["chunk_id"])

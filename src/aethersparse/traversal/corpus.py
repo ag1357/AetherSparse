@@ -203,7 +203,12 @@ class CorpusStore:
         }
 
     def ingest_mediawiki(
-        self, dump: Path, *, limit: int | None = None, chunk_chars: int = 480
+        self,
+        dump: Path,
+        *,
+        limit: int | None = None,
+        chunk_chars: int = 480,
+        fold_redirects: bool = True,
     ) -> dict[str, object]:
         articles = chunks = links = 0
         redirect_pages: list[tuple[str, str, str]] = []
@@ -319,7 +324,19 @@ class CorpusStore:
                     )
             if articles % 500 == 0:
                 self.db.commit()
-        resolved_titles = self._fold_redirects(redirect_pages)
+        if fold_redirects:
+            resolved_titles = self._fold_redirects(redirect_pages)
+        else:
+            # Ablation variant: redirect source titles keep pointing at their
+            # own stub documents; anchor aliases and links resolve only to
+            # exact titles (preferring non-redirect documents on casefold
+            # collisions, mirroring _fold_redirects).
+            resolved_titles: dict[str, str] = {}
+            for row in self.db.execute(
+                "SELECT normalized_title, document_id, redirect_target FROM documents"
+            ):
+                if row[0] not in resolved_titles or row[2] is None:
+                    resolved_titles[str(row[0])] = str(row[1])
         anchor_alias_rows = 0
         for anchor_text, target_title in sorted(anchor_aliases):
             target_doc = resolved_titles.get(target_title)
@@ -337,7 +354,8 @@ class CorpusStore:
             "articles": articles,
             "chunks": chunks,
             "links": links,
-            "redirects_folded": len(redirect_pages),
+            "redirects_folded": len(redirect_pages) if fold_redirects else 0,
+            "fold_redirects": fold_redirects,
             "anchor_alias_rows": anchor_alias_rows,
             "dump_sha256": _sha256_file(dump),
             "chunk_chars": chunk_chars,

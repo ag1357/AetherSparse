@@ -64,6 +64,12 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="dump per-case reranker-stage margins and pass flags (coverage tables)",
     )
+    parser.add_argument(
+        "--char3gram-weight",
+        type=float,
+        default=None,
+        help="ablation: override the char3gram_fit fusion weight for this run",
+    )
     return parser.parse_args()
 
 
@@ -77,6 +83,13 @@ def main() -> int:
     if args.limit is not None:
         cases = cases[: args.limit]
     cases = conversation_order(cases)
+
+    if args.char3gram_weight is not None:
+        import aethersparse.selection.selector as selector_module
+
+        weights = list(selector_module.FUSION_WEIGHTS)
+        weights[13] = args.char3gram_weight  # char3gram_fit
+        selector_module.FUSION_WEIGHTS = tuple(weights)
 
     model = (
         QuantizedLinearModel.model_validate_json(args.model.read_text(encoding="utf-8"))
@@ -167,6 +180,7 @@ def main() -> int:
             "model": str(args.model) if args.model else "bootstrap-default",
             "model_identity": selector.model.training_identity,
             "discourse_boost": args.discourse_boost,
+            "char3gram_weight": args.char3gram_weight,
             "gold_matching": "pageid",
             "answer_cases": len(cases),
         },

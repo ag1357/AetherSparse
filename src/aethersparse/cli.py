@@ -204,9 +204,14 @@ def corpus_ingest_mediawiki(
     ),
     limit: Annotated[int | None, typer.Option(min=1)] = None,
     chunk_chars: Annotated[int, typer.Option(min=200, max=4096)] = 480,
+    fold_redirects: Annotated[
+        bool, typer.Option(help="Resolve redirect source titles to their targets.")
+    ] = True,
 ) -> None:
     store = CorpusStore(output)
-    result = store.ingest_mediawiki(dump, limit=limit, chunk_chars=chunk_chars)
+    result = store.ingest_mediawiki(
+        dump, limit=limit, chunk_chars=chunk_chars, fold_redirects=fold_redirects
+    )
     typer.echo(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
 
 
