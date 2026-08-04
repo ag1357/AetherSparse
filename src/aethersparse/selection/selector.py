@@ -74,20 +74,18 @@ def _sigmoid(value: float) -> float:
 # (aethersparse selection train on V050 tuning+development questions projected
 # onto the Phase 3 pack; see reports/droid/PHASE7_RERANKER.md).
 DEFAULT_MODEL = QuantizedLinearModel(
-    int8_weights=(3, 127, 60, -24, -119, -7, 46, -27, 3, 16, 3, -3, 59, 3),
-    weight_scale=0.054707955443718315,
+    int8_weights=(0, 127, 64, -22, -125, -8, 27, -28, -4, 4, 0, -4, 47, 70),
+    weight_scale=0.05353113826893283,
     bias=0.0,
-    training_identity="019df0598b69a98f3006783e639aee053459aeb98d1ba143ec0763a83b235010",
+    training_identity="b3ec6125a823b67030fce0592399e31bad786c8124b7c36e6fd55e69b85151c0",
 )
 
 # Deterministic fusion weights over FEATURE_NAMES.  Fitted by coordinate
 # search on the benchmark's tuning+development partitions only
-# (scripts/droid/fit_fusion.py, feature-tag phase2-nochan-v1, strict 80.90% on
-# fit partitions).  Clean 14-feature refit after the Phase 2 semantic-channel
-# revert (see reports/droid/PHASE2_SEMANTIC.md); char3gram_fit earns 0.0 at
-# the fusion stage — the repair probe supplies the candidates it used to
-# rescue — while the retrained reranker keeps a small char3gram weight.
-FUSION_WEIGHTS = (0.50, 0.12, 0.50, 0.05, 0.25, 0.00, 0.05, 0.05,
+# (scripts/droid/fit_fusion.py, feature-tag phase6-final-v1, strict 83.96% on
+# fit partitions).  Final V07 fit: post repair-probe (Phase 1), post
+# semantic-channel revert (Phase 2), post doc-scoped entity probe (Phase 3).
+FUSION_WEIGHTS = (0.50, 0.02, 0.50, 0.05, 0.25, 0.00, 0.05, 0.05,
                   0.00, 0.00, 0.00, 0.25, 0.12, 0.00)
 
 

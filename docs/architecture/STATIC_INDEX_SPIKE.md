@@ -41,14 +41,15 @@ this layer.
 - ~74k distinct terms in a 10% sample → ~200k terms at 10k (Heaps β≈0.45)
 - aliases: 16,079 (mission quoted 12,524 at an earlier build; either way
   « 1 MB)
-- Full 397k corpus projection: ~5.8M chunks, ~1.0-1.5M terms
+- Full 397k corpus (measured from `selector-full-p3.sqlite`): **2,799,975
+  chunks**, 7.6M links, 224,834 anchor aliases; ~1.0-1.5M terms projected
 
 ### Component budgets (full corpus)
 
 | component | size | where |
 |---|---|---|
 | FST dictionary (~1.2M terms) | 6-15 MB | PSRAM (32 MB) — fits; aliases FST « 1 MB alongside |
-| postings (~260M entries, 1-2 B id delta + 1 B score) | 0.6-0.9 GB | SD, contiguous, 4K-aligned |
+| postings (~125M entries, 1-2 B id delta + 1 B score) | 0.3-0.5 GB | SD, contiguous, 4K-aligned |
 | block-max metadata | inside block headers | — |
 
 ### Query path (on-device)

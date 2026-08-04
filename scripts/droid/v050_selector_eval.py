@@ -70,13 +70,20 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="ablation: override the char3gram_fit fusion weight for this run",
     )
+    parser.add_argument(
+        "--all-dispositions",
+        action="store_true",
+        help="also run CLARIFY/ABSTAIN/INCORRECT_PREMISE/OUT_OF_CORPUS cases and "
+        "report per-disposition reranker confidence (selective-answering table); "
+        "recall metrics remain ANSWER-only",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = _parse_args()
     benchmark = load_benchmark(args.benchmark)
-    cases = answer_cases(benchmark)
+    cases = list(benchmark.cases) if args.all_dispositions else answer_cases(benchmark)
     if args.partitions:
         wanted = set(args.partitions)
         cases = [case for case in cases if case.partition.value in wanted]
@@ -103,11 +110,14 @@ def main() -> int:
         selected_limit=args.selected_limit,
     )
 
+    from aethersparse.controller.evaluation import ControllerDisposition
+
     accumulators = {stage: RecallAccumulator() for stage in STAGES}
     generation_latencies: list[float] = []
     select_latencies: dict[str, list[float]] = {stage: [] for stage in STAGES}
     predicted_top1: dict[str, str] = {}
     per_case: list[dict[str, object]] | None = [] if args.per_case_output else None
+    disposition_confidence: dict[str, list[tuple[float, float]]] = {}
     started = time.time()
 
     for index, case in enumerate(cases, start=1):
@@ -143,23 +153,30 @@ def main() -> int:
             select_latencies[stage].append(
                 (time.perf_counter_ns() - select_started) / 1_000_000
             )
-            retrieved = {pageid(item.document_id) for item in trace.selected_evidence}
-            lenient, strict = accumulators[stage].add(case, retrieved)
+            is_answer = case.accepted_disposition is ControllerDisposition.ANSWER
+            if is_answer:
+                retrieved = {pageid(item.document_id) for item in trace.selected_evidence}
+                lenient, strict = accumulators[stage].add(case, retrieved)
             if stage == "reranker":
                 if trace.reranked_candidates:
                     predicted_top1[case.case_id] = trace.reranked_candidates[0].document_id
-                if per_case is not None:
-                    scores = [
-                        item.final_score for item in trace.reranked_candidates[:2]
-                    ]
-                    margin = scores[0] - scores[1] if len(scores) == 2 else 0.0
+                scores = [
+                    item.final_score for item in trace.reranked_candidates[:2]
+                ]
+                margin = scores[0] - scores[1] if len(scores) == 2 else 0.0
+                top1 = scores[0] if scores else 0.0
+                if not is_answer:
+                    disposition_confidence.setdefault(
+                        str(case.accepted_disposition), []
+                    ).append((top1, margin))
+                if per_case is not None and is_answer:
                     per_case.append(
                         {
                             "case_id": case.case_id,
                             "partition": str(case.partition),
                             "categories": list(case.categories),
                             "margin": margin,
-                            "top1_score": scores[0] if scores else 0.0,
+                            "top1_score": top1,
                             "lenient": lenient,
                             "strict": strict,
                         }
@@ -181,8 +198,14 @@ def main() -> int:
             "model_identity": selector.model.training_identity,
             "discourse_boost": args.discourse_boost,
             "char3gram_weight": args.char3gram_weight,
+            "all_dispositions": args.all_dispositions,
             "gold_matching": "pageid",
-            "answer_cases": len(cases),
+            "cases_evaluated": len(cases),
+            "answer_cases": sum(
+                1
+                for case in cases
+                if case.accepted_disposition is ControllerDisposition.ANSWER
+            ),
         },
         "elapsed_seconds": time.time() - started,
         "candidate_generation_latency": latency_summary(generation_latencies),
@@ -194,6 +217,37 @@ def main() -> int:
             for stage in STAGES
         },
     }
+    if disposition_confidence:
+        # Selective-answering table: does reranker confidence separate
+        # non-ANSWER dispositions from answerable cases?  (Confidence stats
+        # only — the selector does not make answer/abstain decisions.)
+        import statistics
+
+        answer_scores = [
+            (entry["top1_score"], entry["margin"]) for entry in per_case or []
+        ]
+        table: dict[str, dict[str, float]] = {}
+        if answer_scores:
+            top1s = [s for s, _m in answer_scores]
+            margins = [m for _s, m in answer_scores]
+            table["ANSWER"] = {
+                "n": len(answer_scores),
+                "top1_mean": statistics.mean(top1s),
+                "top1_p50": statistics.median(top1s),
+                "margin_mean": statistics.mean(margins),
+                "margin_p50": statistics.median(margins),
+            }
+        for disposition, pairs in sorted(disposition_confidence.items()):
+            top1s = [s for s, _m in pairs]
+            margins = [m for _s, m in pairs]
+            table[disposition] = {
+                "n": len(pairs),
+                "top1_mean": statistics.mean(top1s),
+                "top1_p50": statistics.median(top1s),
+                "margin_mean": statistics.mean(margins),
+                "margin_p50": statistics.median(margins),
+            }
+        report["selective_answering_confidence"] = table
     write_report(args.output, report)
     if per_case is not None and args.per_case_output is not None:
         args.per_case_output.parent.mkdir(parents=True, exist_ok=True)
