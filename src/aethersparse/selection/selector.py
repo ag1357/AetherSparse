@@ -499,6 +499,35 @@ class EvidenceSelector:
             rows = rows[: lexical_limit // 2]
             seen = {row["chunk_id"] for row in rows}
             per_entity = max(6, lexical_limit // (2 * len(entity_titles)))
+            # Reserved per-entity document-scoped probe.  Phase 3 diagnosis:
+            # the OR sub-query buries the entity's own document at 25k (83%
+            # of sub-query misses sit at median depth 58 in their own
+            # entity's result set), while a document_id-scoped title MATCH
+            # retrieves it 100% of the time.  Reserve a small per-entity
+            # share filled directly from the entity's document.
+            entity_docs = anchors[:6]
+            reserved = max(3, 12 // max(1, len(entity_docs)))
+            for document_id, title in zip(entity_docs, entity_titles):
+                title_terms = sorted(
+                    set(TOKEN_RE.findall(title.casefold())),
+                    key=lambda term: (-len(term), term),
+                )[:5]
+                if not title_terms:
+                    continue
+                match = " AND ".join(f'"{term}"' for term in title_terms)
+                for row in self.store.db.execute(
+                    """SELECT c.*, c.rowid AS chunk_rowid, d.title, d.revision,
+                              d.source_url,
+                              bm25(chunks_fts, 1.8, 1.2, 1.0) AS rank
+                       FROM chunks_fts f JOIN chunks c ON c.chunk_id=f.chunk_id
+                       JOIN documents d ON d.document_id=c.document_id
+                       WHERE chunks_fts MATCH ? AND c.document_id=?
+                       ORDER BY rank LIMIT ?""",
+                    (match, document_id, reserved),
+                ):
+                    if row["chunk_id"] not in seen:
+                        rows.append(row)
+                        seen.add(row["chunk_id"])
             for title in entity_titles:
                 sub_query = " ".join([title, *context_terms])
                 for row in self.store.search(sub_query, per_entity):

@@ -1,0 +1,3757 @@
+{
+  "cases_touched_by_cause": {
+    "a": 2,
+    "b": 1,
+    "b2": 52,
+    "c": 14,
+    "d": 35
+  },
+  "failures": [
+    {
+      "anchor_titles": [
+        "SpongeBob SquarePants",
+        "Spongebob Squarepants",
+        "Andrology"
+      ],
+      "case_id": "v050r1-case:00c4b2af2d614aee931c8f09",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "11639",
+        "12374"
+      ],
+      "missing": {
+        "11639": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 24,
+          "selected_gold_slots": 8,
+          "title": "Andrology"
+        }
+      },
+      "question": "Using both sources, what are Andrology and SpongeBob SquarePants?",
+      "selected": [
+        "12374",
+        "12374",
+        "12374",
+        "12374",
+        "12374",
+        "12374",
+        "12374",
+        "12374"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1000s",
+        "Wave",
+        "Electromagnetic radiation",
+        "Wave (physics)"
+      ],
+      "case_id": "v050r1-case:03a9a922a980986e0b24d580",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18563",
+        "18816"
+      ],
+      "missing": {
+        "18563": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Wave"
+        }
+      },
+      "question": "Using both sources, what are Wave and 1000s?",
+      "selected": [
+        "18816",
+        "3285",
+        "18319",
+        "3285",
+        "56361",
+        "3285",
+        "18319",
+        "18319"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Brown",
+        "Sign",
+        "Signature"
+      ],
+      "case_id": "v050r1-case:0bfe4b785c564e9fd2bd98bf",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "10197",
+        "11233"
+      ],
+      "missing": {
+        "10197": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": null,
+          "title": "Brown"
+        }
+      },
+      "question": "Using both sources, what are Brown and Sign?",
+      "selected": [
+        "11233",
+        "11233",
+        "4826",
+        "25699",
+        "25699",
+        "33075",
+        "30427",
+        "25699"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Transformers (toy line)",
+        "Funnel",
+        "1500s"
+      ],
+      "case_id": "v050r1-case:0ea4d25b42dbe20b6a3123ca",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "14841",
+        "14862",
+        "15864"
+      ],
+      "missing": {
+        "15864": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1500s"
+        }
+      },
+      "question": "Give one source-backed description for each of: Transformers (toy line); Funnel; 1500s.",
+      "selected": [
+        "14841",
+        "14862",
+        "14841",
+        "14841",
+        "14841",
+        "14841",
+        "18431",
+        "14862"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Dinner",
+        "Prefix"
+      ],
+      "case_id": "v050r1-case:17da5a6b055e215606e35db1",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13863",
+        "13915",
+        "13925"
+      ],
+      "missing": {
+        "13863": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 27,
+          "selected_gold_slots": 8,
+          "title": "Dinner"
+        },
+        "13915": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": 15,
+          "title": "Prefix"
+        }
+      },
+      "question": "Give one source-backed description for each of: Dinner; Prefix; Human rights.",
+      "selected": [
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Colorado",
+        "Fossil"
+      ],
+      "case_id": "v050r1-case:17f1a885647d71ff2dcf89d7",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "10984",
+        "13374"
+      ],
+      "missing": {
+        "13374": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Fossil"
+        }
+      },
+      "question": "Using both sources, what are Colorado and Fossil?",
+      "selected": [
+        "10984",
+        "10984",
+        "10984",
+        "10984",
+        "19412",
+        "46980",
+        "46980",
+        "40743"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Crucible",
+        "Interim",
+        "If"
+      ],
+      "case_id": "v050r1-case:1a55ef4cc5931690829aad19",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "364",
+        "370",
+        "3730"
+      ],
+      "missing": {
+        "364": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "If"
+        }
+      },
+      "question": "Give one source-backed description for each of: If; Interim; Crucible.",
+      "selected": [
+        "370",
+        "370",
+        "370",
+        "370",
+        "370",
+        "370",
+        "3730",
+        "370"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Community",
+        "1850s",
+        "Autonomous communities of Spain"
+      ],
+      "case_id": "v050r1-case:227c703052ded740c63a18da",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "17207",
+        "17474"
+      ],
+      "missing": {
+        "17207": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Community"
+        }
+      },
+      "question": "Using both sources, what are Community and 1850s?",
+      "selected": [
+        "17474",
+        "12",
+        "12",
+        "12",
+        "12",
+        "12",
+        "17474",
+        "12"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Ethical tradition",
+        "Stone"
+      ],
+      "case_id": "v050r1-case:22930541ba7ffbfbd84f9198",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "12549",
+        "13467",
+        "14449"
+      ],
+      "missing": {
+        "14449": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Stone"
+        }
+      },
+      "question": "Give one source-backed description for each of: Computer virus; Ethical tradition; Stone.",
+      "selected": [
+        "13467",
+        "12549",
+        "12549",
+        "13467",
+        "12549",
+        "12549",
+        "12549",
+        "12549"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Culture",
+        "Need"
+      ],
+      "case_id": "v050r1-case:23dfe40999450608f30c22d4",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3476",
+        "3589"
+      ],
+      "missing": {
+        "3476": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": 13,
+          "title": "Culture"
+        },
+        "3589": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Need"
+        }
+      },
+      "question": "Using both sources, what are Culture and Need?",
+      "selected": [
+        "425",
+        "30427",
+        "9596",
+        "6101",
+        "48246",
+        "13217",
+        "45760",
+        "21081"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "British Empire",
+        "Ethnic Group"
+      ],
+      "case_id": "v050r1-case:24117347b2d043724ccb413e",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "234",
+        "23677",
+        "2914"
+      ],
+      "missing": {
+        "2914": {
+          "causes": [
+            "b-unresolved"
+          ],
+          "title": "Principal"
+        }
+      },
+      "question": "Give one source-backed description for each of: Ethnic group; British Empire; Principal.",
+      "selected": [
+        "23677",
+        "23677",
+        "23677",
+        "234",
+        "23677",
+        "234",
+        "234",
+        "234"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Brown",
+        "Sign",
+        "Job"
+      ],
+      "case_id": "v050r1-case:24e5dfc44286d0f36cc026b7",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "10197",
+        "11233",
+        "11487"
+      ],
+      "missing": {
+        "10197": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Brown"
+        }
+      },
+      "question": "Give one source-backed description for each of: Brown; Sign; Job.",
+      "selected": [
+        "11233",
+        "11233",
+        "11487",
+        "25699",
+        "25699",
+        "43873",
+        "25699",
+        "7500"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Sky Sports",
+        "Indirect tax"
+      ],
+      "case_id": "v050r1-case:256d114e6ad08fbf2c6b8204",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21742",
+        "21753"
+      ],
+      "missing": {
+        "21753": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Sky Sports"
+        }
+      },
+      "question": "Using both sources, what are Indirect tax and Sky Sports?",
+      "selected": [
+        "40650",
+        "21742",
+        "4013",
+        "40650",
+        "40650",
+        "4421",
+        "30427",
+        "45760"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Adjustment",
+        "Scuba diving"
+      ],
+      "case_id": "v050r1-case:259000d913ef242c462f275e",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "22752",
+        "23667"
+      ],
+      "missing": {
+        "23667": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 26,
+          "selected_gold_slots": 6,
+          "title": "Adjustment"
+        }
+      },
+      "question": "Using both sources, what are Scuba diving and Adjustment?",
+      "selected": [
+        "22752",
+        "22752",
+        "22752",
+        "22752",
+        "37396",
+        "37396",
+        "22752",
+        "22752"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Microeconomics",
+        "Billion"
+      ],
+      "case_id": "v050r1-case:26a754795ac6c65b426cebb3",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "4374",
+        "5775",
+        "6014"
+      ],
+      "missing": {
+        "5775": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 10,
+          "selected_gold_slots": 6,
+          "title": "Microeconomics"
+        },
+        "6014": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 10,
+          "sub_rank_deep24": 21,
+          "title": "Billion"
+        }
+      },
+      "question": "Give one source-backed description for each of: Plane (mathematics); Microeconomics; Billion.",
+      "selected": [
+        "467",
+        "4374",
+        "4374",
+        "57266",
+        "4374",
+        "4374",
+        "4374",
+        "4374"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Césarville-Dossainville",
+        "Holocaust",
+        "The Holocaust",
+        "Holocaust denial",
+        "1010s"
+      ],
+      "case_id": "v050r1-case:2af68f9643f678ff3347cc2a",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18817",
+        "18862",
+        "18869"
+      ],
+      "missing": {
+        "18869": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 25,
+          "selected_gold_slots": 8,
+          "title": "Césarville-Dossainville"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1010s; Holocaust denial; Césarville-Dossainville.",
+      "selected": [
+        "18862",
+        "18862",
+        "18862",
+        "18817",
+        "18862",
+        "18862",
+        "18862",
+        "18862"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Disaster",
+        "Tornado"
+      ],
+      "case_id": "v050r1-case:2c089494a81fa0e65e2e8714",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "22588",
+        "23073"
+      ],
+      "missing": {
+        "23073": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": 21,
+          "title": "Disaster"
+        }
+      },
+      "question": "Using both sources, what are Tornado and Disaster?",
+      "selected": [
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Developmental biology",
+        "1920s",
+        "1980s"
+      ],
+      "case_id": "v050r1-case:2e5a43ba8af480172c03e7d9",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "2889",
+        "2898",
+        "2953"
+      ],
+      "missing": {
+        "2898": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1920s"
+        },
+        "2953": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1980s"
+        }
+      },
+      "question": "Give one source-backed description for each of: Developmental biology; 1920s; 1980s.",
+      "selected": [
+        "2889",
+        "2889",
+        "2889",
+        "2889",
+        "101",
+        "2889",
+        "2889",
+        "2889"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "South Vietnam",
+        "Adjustment",
+        "Scuba diving"
+      ],
+      "case_id": "v050r1-case:30e7b37901c805a174837d3c",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "22707",
+        "22752",
+        "23667"
+      ],
+      "missing": {
+        "23667": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 33,
+          "selected_gold_slots": 6,
+          "title": "Adjustment"
+        }
+      },
+      "question": "Give one source-backed description for each of: South Vietnam; Scuba diving; Adjustment.",
+      "selected": [
+        "22752",
+        "37396",
+        "4536",
+        "22752",
+        "22752",
+        "22752",
+        "22707",
+        "22707"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Village",
+        "Friday",
+        "Anubis"
+      ],
+      "case_id": "v050r1-case:320332484f2a3694ab8b74a7",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "5783",
+        "6116",
+        "6422"
+      ],
+      "missing": {
+        "6116": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Village"
+        }
+      },
+      "question": "Give one source-backed description for each of: Friday; Village; Anubis.",
+      "selected": [
+        "5783",
+        "5783",
+        "6422",
+        "6422",
+        "6422",
+        "6422",
+        "6422",
+        "6422"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Headache",
+        "1530s",
+        "Debt"
+      ],
+      "case_id": "v050r1-case:348e33a3edd5876391187eaf",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18959",
+        "18964",
+        "19145"
+      ],
+      "missing": {
+        "18959": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 9,
+          "selected_gold_slots": 8,
+          "title": "1530s"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1530s; Headache; Debt.",
+      "selected": [
+        "19145",
+        "18964",
+        "19145",
+        "18964",
+        "18964",
+        "19145",
+        "19145",
+        "18964"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Electric",
+        "Green Day",
+        "Electrical conductivity"
+      ],
+      "case_id": "v050r1-case:381283f33d330ca913d4b4f5",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "12572",
+        "13189"
+      ],
+      "missing": {
+        "13189": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": null,
+          "title": "Green Day"
+        }
+      },
+      "question": "Using both sources, what are Electrical conductivity and Green Day?",
+      "selected": [
+        "12572",
+        "12572",
+        "12572",
+        "7163",
+        "12572",
+        "28344",
+        "8149",
+        "59857"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Travel",
+        "Leader",
+        "Transport",
+        "Concertmaster"
+      ],
+      "case_id": "v050r1-case:3995f3a980b5549fbce2f81e",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3614",
+        "3616"
+      ],
+      "missing": {
+        "3614": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Travel"
+        },
+        "3616": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Leader"
+        }
+      },
+      "question": "Using both sources, what are Travel and Leader?",
+      "selected": [
+        "3794",
+        "3794",
+        "28701",
+        "28701",
+        "28701",
+        "3794",
+        "28701",
+        "30427"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Prefix",
+        "Human rights"
+      ],
+      "case_id": "v050r1-case:3cb292ec10917ae0934ace5a",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13915",
+        "13925"
+      ],
+      "missing": {
+        "13915": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 32,
+          "selected_gold_slots": 8,
+          "title": "Prefix"
+        }
+      },
+      "question": "Using both sources, what are Prefix and Human rights?",
+      "selected": [
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925",
+        "13925"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Disability",
+        "1890s",
+        "Mail"
+      ],
+      "case_id": "v050r1-case:3dbd90d7bde869a69337dbc0",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "16155",
+        "16296",
+        "16642"
+      ],
+      "missing": {
+        "16296": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1890s"
+        }
+      },
+      "question": "Give one source-backed description for each of: Mail; 1890s; Disability.",
+      "selected": [
+        "16642",
+        "16642",
+        "16642",
+        "16155",
+        "16642",
+        "16642",
+        "16642",
+        "16642"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Palette",
+        "Family",
+        "Spade"
+      ],
+      "case_id": "v050r1-case:3dfb0125fc93d73fb6da4aa1",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3284",
+        "3815",
+        "3858"
+      ],
+      "missing": {
+        "3284": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": 15,
+          "title": "Family"
+        }
+      },
+      "question": "Give one source-backed description for each of: Family; Palette; Spade.",
+      "selected": [
+        "3858",
+        "3815",
+        "3858",
+        "34890",
+        "9340",
+        "19763",
+        "9424",
+        "64072"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Kashmir",
+        "Jammu and Kashmir (state)",
+        "Dialect",
+        "1200s"
+      ],
+      "case_id": "v050r1-case:4397ef0579a522095d7b20bd",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21533",
+        "21568",
+        "21596"
+      ],
+      "missing": {
+        "21533": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 35,
+          "selected_gold_slots": 4,
+          "title": "1200s"
+        },
+        "21596": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Dialect"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1200s; Jammu and Kashmir (state); Dialect.",
+      "selected": [
+        "17620",
+        "17620",
+        "21568",
+        "21568",
+        "21568",
+        "21568",
+        "17620",
+        "17620"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Manager",
+        "Yangon",
+        "1410s"
+      ],
+      "case_id": "v050r1-case:450bec2342f3480dbb0cde6b",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "22882",
+        "22917",
+        "23643"
+      ],
+      "missing": {
+        "23643": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Manager"
+        }
+      },
+      "question": "Give one source-backed description for each of: Yangon; 1410s; Manager.",
+      "selected": [
+        "22882",
+        "22882",
+        "22882",
+        "22882",
+        "22882",
+        "22917",
+        "22882",
+        "22882"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Green Day",
+        "Flamenco",
+        "Sex",
+        "Sexual"
+      ],
+      "case_id": "v050r1-case:49d8e9787f64f8f72f8503d8",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13189",
+        "13809",
+        "13812"
+      ],
+      "missing": {
+        "13812": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 30,
+          "selected_gold_slots": 8,
+          "title": "Flamenco"
+        }
+      },
+      "question": "Give one source-backed description for each of: Green Day; Sexual orientation; Flamenco.",
+      "selected": [
+        "13809",
+        "13809",
+        "13809",
+        "13189",
+        "13809",
+        "13809",
+        "13809",
+        "13809"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Spectral line",
+        "1870s"
+      ],
+      "case_id": "v050r1-case:4bd25e6c56c2cf6d0b3bf4b5",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "17385",
+        "17454"
+      ],
+      "missing": {
+        "17454": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": 17,
+          "title": "1870s"
+        }
+      },
+      "question": "Using both sources, what are Spectral line and 1870s?",
+      "selected": [
+        "17385",
+        "17385",
+        "17385",
+        "17385",
+        "17385",
+        "17385",
+        "17385",
+        "847"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Coventry",
+        "Tower",
+        "Blackpool Tower",
+        "Tower of London"
+      ],
+      "case_id": "v050r1-case:4e9ca78aa0a8be57d0c470ec",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "12433",
+        "12543"
+      ],
+      "missing": {
+        "12433": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Tower"
+        }
+      },
+      "question": "Using both sources, what are Tower and Coventry?",
+      "selected": [
+        "28056",
+        "28056",
+        "28056",
+        "28056",
+        "12543",
+        "12543",
+        "12543",
+        "12543"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Travel",
+        "Leader",
+        "Need"
+      ],
+      "case_id": "v050r1-case:4f99a8186078f026930f1331",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3589",
+        "3614",
+        "3616"
+      ],
+      "missing": {
+        "3589": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Need"
+        },
+        "3614": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Travel"
+        },
+        "3616": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Leader"
+        }
+      },
+      "question": "Give one source-backed description for each of: Need; Travel; Leader.",
+      "selected": [
+        "19763",
+        "9424",
+        "64072",
+        "18408",
+        "61303",
+        "11142",
+        "12549",
+        "3494"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "South Vietnam",
+        "1430s"
+      ],
+      "case_id": "v050r1-case:4fa20802d2d16ae1c5ecf19b",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21468",
+        "22707"
+      ],
+      "missing": {
+        "21468": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 16,
+          "selected_gold_slots": 5,
+          "title": "1430s"
+        }
+      },
+      "question": "Using both sources, what are 1430s and South Vietnam?",
+      "selected": [
+        "4536",
+        "24065",
+        "22707",
+        "22707",
+        "22707",
+        "22707",
+        "22707",
+        "4536"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1800s",
+        "1790s",
+        "1780s"
+      ],
+      "case_id": "v050r1-case:539fb47b30ad109eae7457d1",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18374",
+        "18402",
+        "18552"
+      ],
+      "missing": {
+        "18374": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1800s"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1800s; 1790s; 1780s.",
+      "selected": [
+        "12978",
+        "3978",
+        "18552",
+        "18402",
+        "18402",
+        "18552",
+        "18552",
+        "18552"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1770s",
+        "Cusco",
+        "1720s"
+      ],
+      "case_id": "v050r1-case:57f74ee2f4d12c5cf226eff3",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18958",
+        "19540",
+        "20861"
+      ],
+      "missing": {
+        "18958": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 17,
+          "selected_gold_slots": 7,
+          "title": "1770s"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1770s; Cusco; 1720s.",
+      "selected": [
+        "19540",
+        "19540",
+        "19540",
+        "19540",
+        "19540",
+        "20861",
+        "19541",
+        "19540"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Surface",
+        "1660s",
+        "Surface area"
+      ],
+      "case_id": "v050r1-case:5c2eb1327157dda4e58db2de",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20962",
+        "21434"
+      ],
+      "missing": {
+        "20962": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Surface"
+        }
+      },
+      "question": "Using both sources, what are Surface and 1660s?",
+      "selected": [
+        "11189",
+        "21434",
+        "21434",
+        "21434",
+        "21434",
+        "30427",
+        "3926",
+        "45760"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Taiwan",
+        "Political status of Taiwan",
+        "City"
+      ],
+      "case_id": "v050r1-case:5c4bbcaaceaadb140d2ca5f7",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "144",
+        "14535"
+      ],
+      "missing": {
+        "144": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 42,
+          "selected_gold_slots": 6,
+          "title": "City"
+        }
+      },
+      "question": "Using both sources, what are City and Political status of Taiwan?",
+      "selected": [
+        "14535",
+        "14535",
+        "14535",
+        "833",
+        "833",
+        "14535",
+        "14535",
+        "14535"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "The Gambia",
+        "Simplicity"
+      ],
+      "case_id": "v050r1-case:644382f34ac0df1fa989a546",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "14726",
+        "14842"
+      ],
+      "missing": {
+        "14842": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 9,
+          "selected_gold_slots": 8,
+          "title": "Simplicity"
+        }
+      },
+      "question": "Using both sources, what are The Gambia and Simplicity?",
+      "selected": [
+        "14726",
+        "14726",
+        "14726",
+        "14726",
+        "14726",
+        "14726",
+        "14726",
+        "14726"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1450s",
+        "Gold",
+        "Gold rush",
+        "California Gold Rush"
+      ],
+      "case_id": "v050r1-case:676653b89c157e8904485d11",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20476",
+        "20558"
+      ],
+      "missing": {
+        "20476": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 28,
+          "selected_gold_slots": 2,
+          "title": "1450s"
+        }
+      },
+      "question": "Using both sources, what are 1450s and Gold rush?",
+      "selected": [
+        "20558",
+        "20559",
+        "20559",
+        "20559",
+        "20558",
+        "20559",
+        "20559",
+        "20559"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Flamenco",
+        "Sex",
+        "Sexual",
+        "Sexual orientation"
+      ],
+      "case_id": "v050r1-case:6bbbd57e22fc2b7025cb7394",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13809",
+        "13812"
+      ],
+      "missing": {
+        "13812": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 24,
+          "selected_gold_slots": 8,
+          "title": "Flamenco"
+        }
+      },
+      "question": "Using both sources, what are Sexual orientation and Flamenco?",
+      "selected": [
+        "13809",
+        "13809",
+        "13809",
+        "13809",
+        "13809",
+        "13809",
+        "13809",
+        "13809"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Kashmir",
+        "Jammu and Kashmir (state)",
+        "1200s"
+      ],
+      "case_id": "v050r1-case:6d41038577a4ff148e69acfc",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21533",
+        "21568"
+      ],
+      "missing": {
+        "21533": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 31,
+          "selected_gold_slots": 4,
+          "title": "1200s"
+        }
+      },
+      "question": "Using both sources, what are 1200s and Jammu and Kashmir (state)?",
+      "selected": [
+        "17620",
+        "21568",
+        "21568",
+        "21568",
+        "21568",
+        "17620",
+        "17620",
+        "17620"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Envelope",
+        "Lucid dream",
+        "1440s"
+      ],
+      "case_id": "v050r1-case:7232eb304d1d72537be74c76",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20646",
+        "20780",
+        "20813"
+      ],
+      "missing": {
+        "20780": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 12,
+          "selected_gold_slots": 6,
+          "title": "1440s"
+        }
+      },
+      "question": "Give one source-backed description for each of: Lucid dream; 1440s; Envelope.",
+      "selected": [
+        "20646",
+        "20646",
+        "20646",
+        "20646",
+        "20646",
+        "40063",
+        "40063",
+        "20813"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "The Gambia",
+        "Simplicity",
+        "Taiwan",
+        "Political status of Taiwan"
+      ],
+      "case_id": "v050r1-case:736c17a381b83d709ef4bffb",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "14535",
+        "14726",
+        "14842"
+      ],
+      "missing": {
+        "14726": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 10,
+          "selected_gold_slots": 7,
+          "title": "The Gambia"
+        },
+        "14842": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 29,
+          "selected_gold_slots": 7,
+          "title": "Simplicity"
+        }
+      },
+      "question": "Give one source-backed description for each of: Political status of Taiwan; The Gambia; Simplicity.",
+      "selected": [
+        "14535",
+        "14535",
+        "14535",
+        "833",
+        "14535",
+        "14535",
+        "14535",
+        "14535"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "World Money Fair",
+        "1600s"
+      ],
+      "case_id": "v050r1-case:77a926f920dd6909c20beb0d",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20440",
+        "20881"
+      ],
+      "missing": {
+        "20440": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "1600s"
+        }
+      },
+      "question": "Using both sources, what are 1600s and World Money Fair?",
+      "selected": [
+        "20881",
+        "20881",
+        "479",
+        "479",
+        "479",
+        "479",
+        "47344",
+        "55471"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Empire",
+        "Mail",
+        "Ottoman Empire",
+        "British Empire",
+        "Holy Roman Empire"
+      ],
+      "case_id": "v050r1-case:77e3e8ec04fee347224e2fa8",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "15226",
+        "16155"
+      ],
+      "missing": {
+        "15226": {
+          "causes": [
+            "b2-lexical-miss",
+            "a"
+          ],
+          "sub_distinct_pageids": 2,
+          "sub_rank_deep24": null,
+          "title": "Empire"
+        }
+      },
+      "question": "Using both sources, what are Empire and Mail?",
+      "selected": [
+        "16844",
+        "16844",
+        "6585",
+        "6585",
+        "16844",
+        "16844",
+        "16155",
+        "664"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Page",
+        "B",
+        "Webpage"
+      ],
+      "case_id": "v050r1-case:78b1188d7bffbaff80df8496",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "5719",
+        "607"
+      ],
+      "missing": {
+        "5719": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "B"
+        },
+        "607": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": null,
+          "title": "Page"
+        }
+      },
+      "question": "Using both sources, what are B and Page?",
+      "selected": [
+        "924",
+        "924",
+        "47344",
+        "30427",
+        "818",
+        "45760",
+        "8610",
+        "905"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Display resolution",
+        "Future"
+      ],
+      "case_id": "v050r1-case:7bc3fb5aba07f22fcd217e3b",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13987",
+        "14189"
+      ],
+      "missing": {
+        "13987": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Future"
+        }
+      },
+      "question": "Using both sources, what are Future and Display resolution?",
+      "selected": [
+        "14189",
+        "14189",
+        "9192",
+        "27574",
+        "27569",
+        "700",
+        "46752",
+        "48977"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Material",
+        "Memory",
+        "Materialism",
+        "Read-only memory",
+        "Performing music from memory"
+      ],
+      "case_id": "v050r1-case:7c41c53c04f62e931f51ba4c",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3702",
+        "4363"
+      ],
+      "missing": {
+        "4363": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 15,
+          "selected_gold_slots": 1,
+          "title": "Material"
+        }
+      },
+      "question": "Using both sources, what are Memory and Material?",
+      "selected": [
+        "34416",
+        "14998",
+        "34416",
+        "3702",
+        "34416",
+        "34416",
+        "14998",
+        "34416"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Force",
+        "Game",
+        "The Force",
+        "Armed forces"
+      ],
+      "case_id": "v050r1-case:7dc7e46a36df1128c6617d85",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3196",
+        "3220"
+      ],
+      "missing": {
+        "3220": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": 6,
+          "title": "Force"
+        }
+      },
+      "question": "Using both sources, what are Game and Force?",
+      "selected": [
+        "41418",
+        "3196",
+        "3196",
+        "63500",
+        "63500",
+        "63500",
+        "63500",
+        "20784"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Henry the Navigator",
+        "Vehicle",
+        "Mining",
+        "Henry II"
+      ],
+      "case_id": "v050r1-case:883ea254d9fa017cca25674e",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "6153",
+        "6565",
+        "6663"
+      ],
+      "missing": {
+        "6153": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Vehicle"
+        }
+      },
+      "question": "Give one source-backed description for each of: Vehicle; Henry the Navigator; Mining.",
+      "selected": [
+        "6663",
+        "6565",
+        "6565",
+        "6663",
+        "6565",
+        "6565",
+        "50970",
+        "24154"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Interim",
+        "If"
+      ],
+      "case_id": "v050r1-case:90a47aede489838f9ab59f14",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "364",
+        "370"
+      ],
+      "missing": {
+        "364": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "If"
+        }
+      },
+      "question": "Using both sources, what are If and Interim?",
+      "selected": [
+        "370",
+        "370",
+        "370",
+        "370",
+        "370",
+        "370",
+        "370",
+        "370"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Page",
+        "B"
+      ],
+      "case_id": "v050r1-case:91f753313a1e52f1fabe41de",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3795",
+        "5719",
+        "607"
+      ],
+      "missing": {
+        "5719": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "B"
+        },
+        "607": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Page"
+        }
+      },
+      "question": "Give one source-backed description for each of: Road; B; Page.",
+      "selected": [
+        "3795",
+        "924",
+        "19763",
+        "9424",
+        "64072",
+        "6309",
+        "61303",
+        "849"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Accident",
+        "Brain",
+        "Neurology"
+      ],
+      "case_id": "v050r1-case:93de72f979ec7e72442ed049",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "4365",
+        "4452"
+      ],
+      "missing": {
+        "4365": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": 9,
+          "title": "Brain"
+        }
+      },
+      "question": "Using both sources, what are Brain and Accident?",
+      "selected": [
+        "4452",
+        "35610",
+        "35610",
+        "35610",
+        "35610",
+        "227",
+        "50307",
+        "4447"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Creating",
+        "Author",
+        "Social network"
+      ],
+      "case_id": "v050r1-case:93e0ed09151b649287e52171",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "5431",
+        "5433",
+        "6035"
+      ],
+      "missing": {
+        "6035": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Author"
+        }
+      },
+      "question": "Give one source-backed description for each of: Social network; Creating; Author.",
+      "selected": [
+        "5431",
+        "5431",
+        "39860",
+        "5433",
+        "5431",
+        "5431",
+        "5431",
+        "537"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Vaccine",
+        "Past",
+        "Past tense"
+      ],
+      "case_id": "v050r1-case:97815338958c3156f42ec058",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13707",
+        "13989"
+      ],
+      "missing": {
+        "13989": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Past"
+        }
+      },
+      "question": "Using both sources, what are Vaccine and Past?",
+      "selected": [
+        "13707",
+        "11111",
+        "13707",
+        "13707",
+        "11111",
+        "11111",
+        "13707",
+        "13707"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Microeconomics",
+        "Mathematics",
+        "Plane (mathematics)",
+        "Fixed-wing aircraft"
+      ],
+      "case_id": "v050r1-case:9b95bad736ae980de5f54f69",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "4374",
+        "5775"
+      ],
+      "missing": {
+        "5775": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 6,
+          "selected_gold_slots": 5,
+          "title": "Microeconomics"
+        }
+      },
+      "question": "Using both sources, what are Plane (mathematics) and Microeconomics?",
+      "selected": [
+        "4374",
+        "4374",
+        "467",
+        "4700",
+        "57266",
+        "4374",
+        "4374",
+        "4374"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Machine",
+        "Jargon",
+        "Data"
+      ],
+      "case_id": "v050r1-case:9e2b7ccd4121d250a8915858",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3741",
+        "3925",
+        "404"
+      ],
+      "missing": {
+        "404": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 26,
+          "selected_gold_slots": 8,
+          "title": "Jargon"
+        }
+      },
+      "question": "Give one source-backed description for each of: Data compression; Machine code; Jargon.",
+      "selected": [
+        "3741",
+        "3925",
+        "3925",
+        "3741",
+        "3741",
+        "3741",
+        "3741",
+        "3925"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Surface",
+        "1660s",
+        "1430s"
+      ],
+      "case_id": "v050r1-case:9eef1194815ff14b994f2c9a",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20962",
+        "21434",
+        "21468"
+      ],
+      "missing": {
+        "20962": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Surface"
+        }
+      },
+      "question": "Give one source-backed description for each of: Surface; 1660s; 1430s.",
+      "selected": [
+        "21468",
+        "21434",
+        "21468",
+        "21434",
+        "21434",
+        "21434",
+        "19763",
+        "9424"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Emergency medicine",
+        "Breast",
+        "Breast cancer"
+      ],
+      "case_id": "v050r1-case:a35949bbe0598be88d839ae3",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13226",
+        "13324"
+      ],
+      "missing": {
+        "13226": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 17,
+          "selected_gold_slots": 3,
+          "title": "Breast"
+        }
+      },
+      "question": "Using both sources, what are Breast and Emergency medicine?",
+      "selected": [
+        "13324",
+        "25253",
+        "13324",
+        "13324",
+        "25253",
+        "3793",
+        "64190",
+        "64190"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Community",
+        "1850s",
+        "Past"
+      ],
+      "case_id": "v050r1-case:a4cf08b4cc9b3b3c741d07b6",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13989",
+        "17207",
+        "17474"
+      ],
+      "missing": {
+        "13989": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Past"
+        },
+        "17207": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Community"
+        }
+      },
+      "question": "Give one source-backed description for each of: Past; Community; 1850s.",
+      "selected": [
+        "17474",
+        "17474",
+        "3486",
+        "19763",
+        "893",
+        "9424",
+        "64072",
+        "899"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Immunity (medical)",
+        "Summary",
+        "Tunnel"
+      ],
+      "case_id": "v050r1-case:a6a2513131d25f5b23f51621",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "7639",
+        "811",
+        "8152"
+      ],
+      "missing": {
+        "811": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Summary"
+        }
+      },
+      "question": "Give one source-backed description for each of: Immunity (medical); Summary; Tunnel.",
+      "selected": [
+        "7639",
+        "7639",
+        "8152",
+        "8152",
+        "7639",
+        "7639",
+        "7639",
+        "7639"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Transformers (toy line)",
+        "Stone"
+      ],
+      "case_id": "v050r1-case:a8a2c3129a629f7920ecf2df",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "14449",
+        "14841"
+      ],
+      "missing": {
+        "14449": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Stone"
+        }
+      },
+      "question": "Using both sources, what are Stone and Transformers (toy line)?",
+      "selected": [
+        "14841",
+        "14841",
+        "14841",
+        "14841",
+        "14841",
+        "18431",
+        "31503",
+        "4456"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Distance",
+        "1460s"
+      ],
+      "case_id": "v050r1-case:aada8c11ff385c01085b8751",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "203",
+        "20382"
+      ],
+      "missing": {
+        "203": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Distance"
+        }
+      },
+      "question": "Using both sources, what are 1460s and Distance?",
+      "selected": [
+        "20382",
+        "20382",
+        "20382",
+        "20382",
+        "30427",
+        "21987",
+        "45760",
+        "818"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Disney Channel",
+        "Fiction",
+        "Fictional universe"
+      ],
+      "case_id": "v050r1-case:ab7e99741787a95515128fb1",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "19205",
+        "19403"
+      ],
+      "missing": {
+        "19403": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 46,
+          "selected_gold_slots": 8,
+          "title": "Fiction"
+        }
+      },
+      "question": "Using both sources, what are Disney Channel and Fiction?",
+      "selected": [
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Material",
+        "Position"
+      ],
+      "case_id": "v050r1-case:bb51e3254fac610b04a341cd",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "4363",
+        "4900",
+        "5506"
+      ],
+      "missing": {
+        "4363": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Material"
+        },
+        "5506": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Position"
+        }
+      },
+      "question": "Give one source-backed description for each of: Material; House; Position.",
+      "selected": [
+        "4900",
+        "6567",
+        "18576",
+        "19763",
+        "42860",
+        "9424",
+        "60096",
+        "48893"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Antidisestablishmentarianism",
+        "1840s"
+      ],
+      "case_id": "v050r1-case:bbc27dd1125fdc3c6b1a8a8a",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "17661",
+        "18039"
+      ],
+      "missing": {
+        "18039": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 13,
+          "selected_gold_slots": 8,
+          "title": "1840s"
+        }
+      },
+      "question": "Using both sources, what are Antidisestablishmentarianism and 1840s?",
+      "selected": [
+        "17661",
+        "17661",
+        "17661",
+        "17661",
+        "17661",
+        "17661",
+        "17661",
+        "17661"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Kernel (computer science)",
+        "1680s",
+        "1680s BC",
+        "Computer science"
+      ],
+      "case_id": "v050r1-case:bbcb20e530301ed59cea9e3f",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21377",
+        "21869"
+      ],
+      "missing": {
+        "21377": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 26,
+          "selected_gold_slots": 3,
+          "title": "1680s"
+        }
+      },
+      "question": "Using both sources, what are 1680s and Kernel (computer science)?",
+      "selected": [
+        "110",
+        "110",
+        "21869",
+        "110",
+        "110",
+        "110",
+        "21869",
+        "21869"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Sky Sports",
+        "Rhetoric",
+        "Indirect tax"
+      ],
+      "case_id": "v050r1-case:bbf3c92274826dad54ba463a",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21742",
+        "21753",
+        "21758"
+      ],
+      "missing": {
+        "21742": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 12,
+          "selected_gold_slots": 7,
+          "title": "Indirect tax"
+        },
+        "21753": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Sky Sports"
+        }
+      },
+      "question": "Give one source-backed description for each of: Indirect tax; Sky Sports; Rhetoric.",
+      "selected": [
+        "21758",
+        "21758",
+        "40650",
+        "21758",
+        "21758",
+        "21758",
+        "21758",
+        "21758"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Kernel (computer science)",
+        "1680s",
+        "1680s BC",
+        "1170s"
+      ],
+      "case_id": "v050r1-case:bed7cdb336388457e4470105",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "21377",
+        "21869",
+        "22710"
+      ],
+      "missing": {
+        "21377": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 24,
+          "selected_gold_slots": 6,
+          "title": "1680s"
+        },
+        "22710": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 14,
+          "selected_gold_slots": 6,
+          "title": "1170s"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1680s; Kernel (computer science); 1170s.",
+      "selected": [
+        "21869",
+        "21869",
+        "21869",
+        "21869",
+        "110",
+        "110",
+        "21869",
+        "21869"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Jackknife",
+        "Male"
+      ],
+      "case_id": "v050r1-case:bf6b5c6a7111f80047d21a1c",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3310",
+        "3472"
+      ],
+      "missing": {
+        "3310": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Male"
+        }
+      },
+      "question": "Using both sources, what are Male and Jackknife?",
+      "selected": [
+        "3472",
+        "3472",
+        "30427",
+        "19521",
+        "3856",
+        "3311",
+        "13211",
+        "60077"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Connection",
+        "Dance",
+        "Dance music"
+      ],
+      "case_id": "v050r1-case:c0ab3d540a9aaac1bd1beb2e",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18605",
+        "187"
+      ],
+      "missing": {
+        "18605": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": 9,
+          "title": "Connection"
+        }
+      },
+      "question": "Using both sources, what are Connection and Dance?",
+      "selected": [
+        "187",
+        "58933",
+        "58933",
+        "58933",
+        "187",
+        "36103",
+        "30427",
+        "5022"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "SpongeBob SquarePants",
+        "Spongebob Squarepants",
+        "Andrology",
+        "Tower"
+      ],
+      "case_id": "v050r1-case:c1c09e5e2a602a4bb2abd008",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "11639",
+        "12374",
+        "12433"
+      ],
+      "missing": {
+        "11639": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 24,
+          "selected_gold_slots": 8,
+          "title": "Andrology"
+        }
+      },
+      "question": "Give one source-backed description for each of: Andrology; SpongeBob SquarePants; Tower.",
+      "selected": [
+        "12374",
+        "12374",
+        "12433",
+        "12374",
+        "12374",
+        "12374",
+        "12374",
+        "12374"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Question",
+        "Force",
+        "Game"
+      ],
+      "case_id": "v050r1-case:c2136d605366b489bb884052",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3196",
+        "3220",
+        "3448"
+      ],
+      "missing": {
+        "3196": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Game"
+        },
+        "3220": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": null,
+          "title": "Force"
+        }
+      },
+      "question": "Give one source-backed description for each of: Game; Force; Question.",
+      "selected": [
+        "3448",
+        "30786",
+        "3692",
+        "21513",
+        "64072",
+        "24696",
+        "19763",
+        "9424"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Electric",
+        "Constant",
+        "Sparta"
+      ],
+      "case_id": "v050r1-case:c8eaa07d483d78902e73a58e",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "10873",
+        "11309",
+        "12572"
+      ],
+      "missing": {
+        "10873": {
+          "causes": [
+            "b2-lexical-miss",
+            "a"
+          ],
+          "sub_distinct_pageids": 5,
+          "sub_rank_deep24": null,
+          "title": "Constant"
+        }
+      },
+      "question": "Give one source-backed description for each of: Constant; Sparta; Electrical conductivity.",
+      "selected": [
+        "12572",
+        "12572",
+        "12572",
+        "11309",
+        "12572",
+        "11309",
+        "11309",
+        "11309"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Display resolution",
+        "Future",
+        "City"
+      ],
+      "case_id": "v050r1-case:c97294c84712ff134c37fba9",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "13987",
+        "14189",
+        "144"
+      ],
+      "missing": {
+        "13987": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Future"
+        }
+      },
+      "question": "Give one source-backed description for each of: Future; Display resolution; City.",
+      "selected": [
+        "14189",
+        "3299",
+        "14189",
+        "144",
+        "3299",
+        "9192",
+        "47342",
+        "19763"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Funnel",
+        "1500s",
+        "16th century"
+      ],
+      "case_id": "v050r1-case:d0562cc43f0013b659d766c7",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "14862",
+        "15864"
+      ],
+      "missing": {
+        "15864": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": 20,
+          "title": "1500s"
+        }
+      },
+      "question": "Using both sources, what are Funnel and 1500s?",
+      "selected": [
+        "14862",
+        "14862",
+        "14230",
+        "65252",
+        "64823",
+        "64823",
+        "64823",
+        "65252"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Michigan",
+        "Flood",
+        "List",
+        "List of countries by area"
+      ],
+      "case_id": "v050r1-case:d69c60877652237b54496e06",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "4809",
+        "4914",
+        "5034"
+      ],
+      "missing": {
+        "4914": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": 8,
+          "title": "Flood"
+        },
+        "5034": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 7,
+          "selected_gold_slots": 8,
+          "title": "Michigan"
+        }
+      },
+      "question": "Give one source-backed description for each of: List of countries by area; Flood; Michigan.",
+      "selected": [
+        "4809",
+        "4809",
+        "4809",
+        "4809",
+        "4809",
+        "4809",
+        "4809",
+        "4809"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Disability",
+        "1890s"
+      ],
+      "case_id": "v050r1-case:d80fbd043be514695acece14",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "16296",
+        "16642"
+      ],
+      "missing": {
+        "16296": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": 19,
+          "title": "1890s"
+        }
+      },
+      "question": "Using both sources, what are 1890s and Disability?",
+      "selected": [
+        "16642",
+        "16642",
+        "16642",
+        "16642",
+        "16642",
+        "16642",
+        "16642",
+        "16642"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Author",
+        "Political party"
+      ],
+      "case_id": "v050r1-case:dc920579eae171281541a37f",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "6035",
+        "606"
+      ],
+      "missing": {
+        "6035": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 11,
+          "sub_rank_deep24": null,
+          "title": "Author"
+        }
+      },
+      "question": "Using both sources, what are Author and Political party?",
+      "selected": [
+        "606",
+        "13404",
+        "13403",
+        "55352",
+        "16528",
+        "66593",
+        "47344",
+        "19142"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Toledo",
+        "Toledo, OH",
+        "1560s",
+        "Toledo, Spain",
+        "Toledo, Ohio"
+      ],
+      "case_id": "v050r1-case:dcda2737adacfacfc5053e54",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20234",
+        "20348"
+      ],
+      "missing": {
+        "20348": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 3,
+          "selected_gold_slots": 1,
+          "title": "1560s"
+        }
+      },
+      "question": "Using both sources, what are Toledo and 1560s?",
+      "selected": [
+        "8865",
+        "11582",
+        "20234",
+        "8865",
+        "8865",
+        "8865",
+        "8865",
+        "8865"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Fiction",
+        "1480s",
+        "1470s"
+      ],
+      "case_id": "v050r1-case:de4a87ce0af7f582fc0a201c",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "19403",
+        "19724",
+        "20018"
+      ],
+      "missing": {
+        "19403": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 7,
+          "sub_rank_deep24": 13,
+          "title": "Fiction"
+        }
+      },
+      "question": "Give one source-backed description for each of: Fiction; 1480s; 1470s.",
+      "selected": [
+        "20018",
+        "19724",
+        "19724",
+        "20018",
+        "20018",
+        "19724",
+        "19724",
+        "17651"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1930s",
+        "Principal"
+      ],
+      "case_id": "v050r1-case:e05c53c5376c2ec2bf5a096e",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "2914",
+        "2923"
+      ],
+      "missing": {
+        "2923": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "1930s"
+        }
+      },
+      "question": "Using both sources, what are Principal and 1930s?",
+      "selected": [
+        "2914",
+        "30427",
+        "45760",
+        "818",
+        "19591",
+        "7372",
+        "8565",
+        "48021"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Puberty",
+        "1820s"
+      ],
+      "case_id": "v050r1-case:e59e978292b2d8b78df18993",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18049",
+        "18090"
+      ],
+      "missing": {
+        "18049": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 5,
+          "selected_gold_slots": 8,
+          "title": "1820s"
+        }
+      },
+      "question": "Using both sources, what are 1820s and Puberty?",
+      "selected": [
+        "18090",
+        "18090",
+        "18090",
+        "18090",
+        "18090",
+        "18090",
+        "18090",
+        "18090"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Crucible",
+        "Data",
+        "Data compression"
+      ],
+      "case_id": "v050r1-case:ea885b5dc53983195bdf74af",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "3730",
+        "3741"
+      ],
+      "missing": {
+        "3730": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 25,
+          "selected_gold_slots": 6,
+          "title": "Crucible"
+        }
+      },
+      "question": "Using both sources, what are Crucible and Data compression?",
+      "selected": [
+        "49003",
+        "39657",
+        "3741",
+        "3741",
+        "3741",
+        "3741",
+        "3741",
+        "3741"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Sidekick",
+        "Disaster",
+        "Tornado"
+      ],
+      "case_id": "v050r1-case:ee20ae1e810e673b5d198811",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "22570",
+        "22588",
+        "23073"
+      ],
+      "missing": {
+        "23073": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Disaster"
+        }
+      },
+      "question": "Give one source-backed description for each of: Sidekick; Tornado; Disaster.",
+      "selected": [
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22588",
+        "22570"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Refrigerator",
+        "Director",
+        "Witness"
+      ],
+      "case_id": "v050r1-case:eeed4733a070246f204e4920",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "11282",
+        "11547",
+        "11608"
+      ],
+      "missing": {
+        "11547": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Director"
+        }
+      },
+      "question": "Give one source-backed description for each of: Witness; Director; Refrigerator.",
+      "selected": [
+        "8213",
+        "11282",
+        "11608",
+        "11608",
+        "11608",
+        "11608",
+        "11282",
+        "11608"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1590s",
+        "1450s",
+        "Gold"
+      ],
+      "case_id": "v050r1-case:f06115ddccf3ae6edc72cbd1",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "20418",
+        "20476",
+        "20558"
+      ],
+      "missing": {
+        "20418": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 3,
+          "selected_gold_slots": 2,
+          "title": "1590s"
+        },
+        "20476": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 2,
+          "selected_gold_slots": 2,
+          "title": "1450s"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1590s; 1450s; Gold rush.",
+      "selected": [
+        "20559",
+        "20559",
+        "20558",
+        "20559",
+        "20558",
+        "3260",
+        "3260",
+        "3260"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Propaganda",
+        "1930s",
+        "Data"
+      ],
+      "case_id": "v050r1-case:f1fab645eea32fb6a7a39b77",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "2923",
+        "2958",
+        "3010"
+      ],
+      "missing": {
+        "2923": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "1930s"
+        },
+        "2958": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Data"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1930s; Data; Propaganda.",
+      "selected": [
+        "3010",
+        "3010",
+        "39657",
+        "3010",
+        "3010",
+        "3010",
+        "3010",
+        "3010"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "H",
+        "Calendar",
+        "Student",
+        "Civil engineering"
+      ],
+      "case_id": "v050r1-case:f3230b38cb171e273e94d764",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "7427",
+        "7433",
+        "7517"
+      ],
+      "missing": {
+        "7433": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "Student"
+        },
+        "7517": {
+          "causes": [
+            "d"
+          ],
+          "pool_rank": 31,
+          "selected_gold_slots": 6,
+          "title": "Calendar"
+        }
+      },
+      "question": "Give one source-backed description for each of: Civil engineering; Student; Calendar.",
+      "selected": [
+        "7427",
+        "7427",
+        "7427",
+        "2816",
+        "7427",
+        "7427",
+        "18089",
+        "7427"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1520s",
+        "1000s",
+        "Wave"
+      ],
+      "case_id": "v050r1-case:f440da771a844b027db141f7",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18561",
+        "18563",
+        "18816"
+      ],
+      "missing": {
+        "18563": {
+          "causes": [
+            "c"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": 12,
+          "title": "Wave"
+        }
+      },
+      "question": "Give one source-backed description for each of: 1520s; Wave; 1000s.",
+      "selected": [
+        "3285",
+        "3285",
+        "58576",
+        "18816",
+        "18561",
+        "3285",
+        "3285",
+        "56361"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1920s",
+        "1980s"
+      ],
+      "case_id": "v050r1-case:f92b6193807d494fa3585d4a",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "2898",
+        "2953"
+      ],
+      "missing": {
+        "2898": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "1920s"
+        },
+        "2953": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "1980s"
+        }
+      },
+      "question": "Using both sources, what are 1920s and 1980s?",
+      "selected": [
+        "30427",
+        "45760",
+        "818",
+        "19591",
+        "8565",
+        "7372",
+        "14382",
+        "48021"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Clique",
+        "Album"
+      ],
+      "case_id": "v050r1-case:fc818ad05ff7cdcc3dc9e1ac",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18202",
+        "18300"
+      ],
+      "missing": {
+        "18202": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 12,
+          "sub_rank_deep24": null,
+          "title": "Album"
+        }
+      },
+      "question": "Using both sources, what are Album and Clique?",
+      "selected": [
+        "18300",
+        "18300",
+        "11671",
+        "30427",
+        "43907",
+        "45760",
+        "28139",
+        "818"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "1800s",
+        "1790s",
+        "18th century",
+        "19th century"
+      ],
+      "case_id": "v050r1-case:ff8e6a1ac3c6ceef5b86e075",
+      "categories": [
+        "two_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18374",
+        "18402"
+      ],
+      "missing": {
+        "18374": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 6,
+          "sub_rank_deep24": null,
+          "title": "1800s"
+        }
+      },
+      "question": "Using both sources, what are 1800s and 1790s?",
+      "selected": [
+        "12978",
+        "3978",
+        "18402",
+        "18402",
+        "18402",
+        "18402",
+        "12978",
+        "30427"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Waterfall",
+        "Psoriasis",
+        "Machine"
+      ],
+      "case_id": "v050r1-case:ffeef9eaf21cba346ce3083f",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "7095",
+        "7240",
+        "7274"
+      ],
+      "missing": {
+        "7240": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Machine"
+        }
+      },
+      "question": "Give one source-backed description for each of: Waterfall; Machine; Psoriasis.",
+      "selected": [
+        "7274",
+        "7095",
+        "7274",
+        "7274",
+        "7274",
+        "7274",
+        "7274",
+        "7095"
+      ]
+    },
+    {
+      "anchor_titles": [
+        "Disney Channel",
+        "Connection",
+        "Dance"
+      ],
+      "case_id": "v050r1-case:ffff9c42e222c764e2cd8a57",
+      "categories": [
+        "three_to_six_source"
+      ],
+      "decomposed": true,
+      "gold": [
+        "18605",
+        "187",
+        "19205"
+      ],
+      "missing": {
+        "18605": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Connection"
+        },
+        "187": {
+          "causes": [
+            "b2-lexical-miss"
+          ],
+          "sub_distinct_pageids": 8,
+          "sub_rank_deep24": null,
+          "title": "Dance"
+        }
+      },
+      "question": "Give one source-backed description for each of: Connection; Dance; Disney Channel.",
+      "selected": [
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205",
+        "19205"
+      ]
+    }
+  ],
+  "missing_gold_causes": {
+    "a": 2,
+    "b-unresolved": 1,
+    "b2-lexical-miss": 64,
+    "c": 14,
+    "d": 38
+  },
+  "multi_cases": 190,
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-25k-p3.sqlite",
+  "strict_fail": 95,
+  "strict_pass": 95,
+  "tool": "scripts/droid/multidoc_diagnose.py"
+}
