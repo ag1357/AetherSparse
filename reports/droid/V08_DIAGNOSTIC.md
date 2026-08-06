@@ -141,7 +141,23 @@ anchor) is the best variant at both tiers; margin gate is near-vacuous
 ## Phase 7 — 397k confirmation (one run)
 
 Config: transferred 10k weights + compat-gated carry 0.35 + shipped probes.
-RUNNING. Prediction: ~68.2-68.6% strict (67.42% + carry), pronoun ~80%.
+Same pack sha256 as the v07-full run.
+
+| metric | v07 (carry off) | phase 7 (compat carry) | delta |
+|---|---|---|---|
+| strict | 67.42% | **68.59%** | +1.17 pp |
+| lenient | 75.55% | 76.72% | +1.17 pp |
+| pronoun | 72% | **89%** | **+17 pp** |
+| follow_up | 95% | 93% | −2.0 pp |
+| all other categories | — | unchanged | ±0.0 |
+
+Carry applied 166 times, gate suppressed 34. The pronoun "regression" is
+fully closed (89% == V06's 89% @397k) while the stack keeps its overall
+lead (68.59% vs V06 61.48% = +7.11 pp). The −2 pp follow_up cost is the
+first observed entrenchment cost, appearing only at 397k where parent
+top-1 accuracy is lowest; the compat gate suppressed 34/200 carries.
+
+Final scaling curve (phase-7 config): 82.73 → 81.48 → 76.17 → 68.59.
 
 ## Mission 4 fix directions (ranked by measured expected value)
 
@@ -152,8 +168,8 @@ RUNNING. Prediction: ~68.2-68.6% strict (67.42% + carry), pronoun ~80%.
 2. **Ranking-stage misspelling repair** (constant ~43% rankloss at ALL
    scales = ~22% of total erosion). The features exist (char3gram); the
    ranking stage never promotes repaired candidates to top-1.
-3. **Compat-gated carry 0.35** (+0.78 pp @100k, pronoun +10 pp) — ships in
-   the Phase 7 config.
+3. **Compat-gated carry 0.35** — CONFIRMED at 397k: +1.17 pp overall,
+   pronoun +17 pp, follow_up −2 pp (first entrenchment cost, at 397k only).
 4. **Controller extraction** (+60 pp exact-answer ceiling at every tier;
    73% of D cases are wrong-value extraction from correct evidence).
    Scale-invariant but the largest single answer-level lever.
