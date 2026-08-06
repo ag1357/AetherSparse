@@ -1,0 +1,111 @@
+{
+  "benchmark_identity": "INDEPENDENT_NATURAL_QUERY_SET_V050_R1",
+  "benchmark_sha256": "c4a8f45b30fa592d9ae7e01d0c456e95b7361e73575e97f97dbcb6da397cb673",
+  "config": {
+    "accuracy_class": "SYSTEM",
+    "answer_cases": 1280,
+    "candidate_limit": 96,
+    "cases_evaluated": 2050,
+    "gold_matching": "pageid",
+    "limit": null,
+    "model_identity": "b3ec6125a823b67030fce0592399e31bad786c8124b7c36e6fd55e69b85151c0",
+    "oracle_free": true,
+    "oracles": [],
+    "partitions": null,
+    "selected_limit": 8
+  },
+  "diagnostic_purpose": "four-stage failure decomposition + oracle ladder (Mission 3 Lane B)",
+  "elapsed_seconds": 3193.174642086029,
+  "harness": "scripts/droid/v08_pipeline_eval.py",
+  "latency": {
+    "candidates": {
+      "mean_ms": 1171.438147547317,
+      "p50_ms": 522.267786,
+      "p95_ms": 4549.575789
+    },
+    "case_total": {
+      "mean_ms": 1557.0827172546342,
+      "p50_ms": 894.66251,
+      "p95_ms": 5387.746248
+    },
+    "controller": {
+      "mean_ms": 12.817711540000001,
+      "p50_ms": 1.299848,
+      "p95_ms": 60.595678
+    },
+    "evidence": {
+      "mean_ms": 214.9367154697561,
+      "p50_ms": 177.240669,
+      "p95_ms": 578.444346
+    },
+    "link": {
+      "mean_ms": 155.75771699317073,
+      "p50_ms": 49.4564,
+      "p95_ms": 610.51714
+    },
+    "select": {
+      "mean_ms": 0.5420927780487805,
+      "p50_ms": 0.431386,
+      "p95_ms": 0.5719
+    }
+  },
+  "metrics": {
+    "all_cases": {
+      "disposition_accuracy": 0.7458536585365854,
+      "n": 2050
+    },
+    "answer_cases": {
+      "article_recall_lenient": 0.871875,
+      "article_recall_strict": 0.81171875,
+      "evidence_recall": 0.76015625,
+      "exact_answer_accuracy": 0.334375,
+      "n": 1280
+    },
+    "benchmark_defect_flagged_answer_cases": 0,
+    "by_partition": {
+      "development": {
+        "answer_cases": 166,
+        "article_recall_strict": 0.7650602409638554,
+        "disposition_accuracy": 0.7158671586715867,
+        "exact_answer_accuracy": 0.21686746987951808,
+        "n": 271
+      },
+      "evaluation": {
+        "answer_cases": 658,
+        "article_recall_strict": 0.8130699088145896,
+        "disposition_accuracy": 0.7419038272816487,
+        "exact_answer_accuracy": 0.3738601823708207,
+        "n": 1019
+      },
+      "final_held": {
+        "answer_cases": 198,
+        "article_recall_strict": 0.797979797979798,
+        "disposition_accuracy": 0.7456647398843931,
+        "exact_answer_accuracy": 0.30808080808080807,
+        "n": 346
+      },
+      "tuning": {
+        "answer_cases": 258,
+        "article_recall_strict": 0.8488372093023255,
+        "disposition_accuracy": 0.7753623188405797,
+        "exact_answer_accuracy": 0.32945736434108525,
+        "n": 414
+      }
+    },
+    "stage_attribution_failed_answer_cases": {
+      "A_CANDIDATE_MISSING": 147,
+      "B_CANDIDATE_MISRANKED": 94,
+      "C_EVIDENCE_FAILED": 111,
+      "D_CONTROLLER_FAILED": 500,
+      "E_BENCHMARK_DEFECT": 0,
+      "failed_answer_cases": 852
+    }
+  },
+  "oracle_injections": {
+    "candidate": 0,
+    "evidence": 0,
+    "evidence_uninjectable": 0
+  },
+  "pack": "/root/work/artifacts/packs/selector-25k-p3.sqlite",
+  "pack_sha256": "04ea224214b540a4083e302c0e35a17088561829f407e52784012d154b32c486"
+}
