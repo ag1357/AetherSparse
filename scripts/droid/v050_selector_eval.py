@@ -143,7 +143,10 @@ def main() -> int:
     if args.fusion_weights is not None:
         import aethersparse.selection.selector as selector_module
 
-        override = tuple(json.loads(args.fusion_weights.read_text(encoding="utf-8")))
+        raw = json.loads(args.fusion_weights.read_text(encoding="utf-8"))
+        if isinstance(raw, dict):
+            raw = raw["fitted_weights"]  # fit_fusion.py report
+        override = tuple(raw)
         if len(override) != len(selector_module.FUSION_WEIGHTS):
             raise ValueError("fusion-weights must match the shipped feature count")
         selector_module.FUSION_WEIGHTS = override
