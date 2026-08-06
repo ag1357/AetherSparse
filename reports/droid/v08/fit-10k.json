@@ -1,0 +1,89 @@
+{
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "bm25_score",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "char3gram_fit"
+  ],
+  "feature_tag": "v08-p1a",
+  "fit_cases": 424,
+  "fit_partitions": [
+    "tuning",
+    "development"
+  ],
+  "fitted_lenient": 0.8797169811320755,
+  "fitted_strict": 0.839622641509434,
+  "fitted_weights": [
+    0.5,
+    0.02,
+    0.5,
+    0.05,
+    0.25,
+    0.0,
+    0.05,
+    0.05,
+    0.0,
+    0.0,
+    0.0,
+    0.25,
+    0.12,
+    0.0
+  ],
+  "history": [
+    {
+      "lenient": 0.8797169811320755,
+      "pass": 0,
+      "strict": 0.839622641509434,
+      "weights": [
+        0.5,
+        0.02,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.05,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.0
+      ]
+    },
+    {
+      "lenient": 0.8797169811320755,
+      "pass": 1,
+      "strict": 0.839622641509434,
+      "weights": [
+        0.5,
+        0.02,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.05,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.0
+      ]
+    }
+  ],
+  "objective": "strict article recall (pageid subset @ selected_limit), lenient tie-break",
+  "pack": "/root/work/artifacts/packs/selector-10k-p3.sqlite",
+  "tool": "scripts/droid/fit_fusion.py"
+}

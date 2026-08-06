@@ -1,0 +1,276 @@
+{
+  "feature": "margin",
+  "fit_partitions": [
+    "tuning",
+    "development"
+  ],
+  "held_partitions": [
+    "evaluation",
+    "final_held"
+  ],
+  "signals": {
+    "p_answerable": {
+      "fit_n": 685,
+      "held": {
+        "base_rate": 0.7817,
+        "brier": 0.1721,
+        "brier_skill_vs_base": -0.0083,
+        "ece": 0.0454,
+        "n": 1365,
+        "reliability_curve": [
+          {
+            "bin": [
+              0.7,
+              0.8
+            ],
+            "mean_observed": 0.7554,
+            "mean_predicted": 0.7231,
+            "n": 278
+          },
+          {
+            "bin": [
+              0.8,
+              0.9
+            ],
+            "mean_observed": 0.7884,
+            "mean_predicted": 0.8372,
+            "n": 1087
+          }
+        ],
+        "thresholds": [
+          {
+            "coverage": 1.0,
+            "precision": 0.7817,
+            "threshold": 0.3
+          },
+          {
+            "coverage": 1.0,
+            "precision": 0.7817,
+            "threshold": 0.5
+          },
+          {
+            "coverage": 1.0,
+            "precision": 0.7817,
+            "threshold": 0.7
+          },
+          {
+            "coverage": 0.7963,
+            "precision": 0.7884,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 0.0,
+            "precision": null,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.0,
+            "precision": null,
+            "threshold": 0.95
+          }
+        ]
+      },
+      "lookup": [
+        [
+          0.000308,
+          0.7059
+        ],
+        [
+          0.001117,
+          0.7379
+        ],
+        [
+          0.002334,
+          0.8248
+        ],
+        [
+          0.005161,
+          0.8394
+        ]
+      ]
+    },
+    "p_entity_link_correct": {
+      "fit_n": 496,
+      "held": {
+        "base_rate": 0.8725,
+        "brier": 0.1191,
+        "brier_skill_vs_base": -0.0705,
+        "ece": 0.0892,
+        "n": 1004,
+        "reliability_curve": [
+          {
+            "bin": [
+              0.8,
+              0.9
+            ],
+            "mean_observed": 0.914,
+            "mean_predicted": 0.8498,
+            "n": 93
+          },
+          {
+            "bin": [
+              0.9,
+              1.0
+            ],
+            "mean_observed": 0.8683,
+            "mean_predicted": 0.96,
+            "n": 911
+          }
+        ],
+        "thresholds": [
+          {
+            "coverage": 1.0,
+            "precision": 0.8725,
+            "threshold": 0.3
+          },
+          {
+            "coverage": 1.0,
+            "precision": 0.8725,
+            "threshold": 0.5
+          },
+          {
+            "coverage": 1.0,
+            "precision": 0.8725,
+            "threshold": 0.7
+          },
+          {
+            "coverage": 1.0,
+            "precision": 0.8725,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 0.9074,
+            "precision": 0.8683,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.9074,
+            "precision": 0.8683,
+            "threshold": 0.95
+          }
+        ]
+      },
+      "lookup": [
+        [
+          0.00028,
+          0.8498
+        ],
+        [
+          0.000657,
+          0.96
+        ]
+      ]
+    },
+    "p_top1_correct": {
+      "fit_n": 424,
+      "held": {
+        "base_rate": 0.6811,
+        "brier": 0.217,
+        "brier_skill_vs_base": 0.0008,
+        "ece": 0.0974,
+        "n": 856,
+        "reliability_curve": [
+          {
+            "bin": [
+              0.3,
+              0.4
+            ],
+            "mean_observed": 0.3855,
+            "mean_predicted": 0.3571,
+            "n": 83
+          },
+          {
+            "bin": [
+              0.5,
+              0.6
+            ],
+            "mean_observed": 0.6744,
+            "mean_predicted": 0.5952,
+            "n": 86
+          },
+          {
+            "bin": [
+              0.6,
+              0.7
+            ],
+            "mean_observed": 0.7233,
+            "mean_predicted": 0.6315,
+            "n": 159
+          },
+          {
+            "bin": [
+              0.8,
+              0.9
+            ],
+            "mean_observed": 0.7159,
+            "mean_predicted": 0.8288,
+            "n": 528
+          }
+        ],
+        "thresholds": [
+          {
+            "coverage": 1.0,
+            "precision": 0.6811,
+            "threshold": 0.3
+          },
+          {
+            "coverage": 0.903,
+            "precision": 0.7128,
+            "threshold": 0.5
+          },
+          {
+            "coverage": 0.6168,
+            "precision": 0.7159,
+            "threshold": 0.7
+          },
+          {
+            "coverage": 0.6168,
+            "precision": 0.7159,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 0.0,
+            "precision": null,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.0,
+            "precision": null,
+            "threshold": 0.95
+          }
+        ]
+      },
+      "lookup": [
+        [
+          0.000343,
+          0.3571
+        ],
+        [
+          0.000991,
+          0.5952
+        ],
+        [
+          0.002556,
+          0.6047
+        ],
+        [
+          0.005195,
+          0.6693
+        ],
+        [
+          0.012783,
+          0.8
+        ],
+        [
+          0.025607,
+          0.8333
+        ],
+        [
+          0.037272,
+          0.8372
+        ]
+      ]
+    }
+  },
+  "tool": "scripts/droid/v08_calibration.py"
+}

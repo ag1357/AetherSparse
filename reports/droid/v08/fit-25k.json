@@ -1,0 +1,110 @@
+{
+  "feature_names": [
+    "lexical_overlap",
+    "title_overlap",
+    "alias_fit",
+    "entity_fit",
+    "section_overlap",
+    "lexical_rank",
+    "bm25_score",
+    "time_compatibility",
+    "category_overlap",
+    "hyperlink_proximity",
+    "directness",
+    "attribution_fit",
+    "answerability",
+    "char3gram_fit"
+  ],
+  "feature_tag": "v08-p1a",
+  "fit_cases": 424,
+  "fit_partitions": [
+    "tuning",
+    "development"
+  ],
+  "fitted_lenient": 0.8584905660377359,
+  "fitted_strict": 0.8207547169811321,
+  "fitted_weights": [
+    0.25,
+    0.02,
+    0.5,
+    0.05,
+    0.01,
+    0.0,
+    0.05,
+    0.05,
+    0.0,
+    0.0,
+    0.0,
+    0.25,
+    0.12,
+    0.02
+  ],
+  "history": [
+    {
+      "lenient": 0.8537735849056604,
+      "pass": 0,
+      "strict": 0.8113207547169812,
+      "weights": [
+        0.5,
+        0.02,
+        0.5,
+        0.05,
+        0.25,
+        0.0,
+        0.05,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.0
+      ]
+    },
+    {
+      "lenient": 0.8584905660377359,
+      "pass": 1,
+      "strict": 0.8207547169811321,
+      "weights": [
+        0.25,
+        0.02,
+        0.5,
+        0.05,
+        0.01,
+        0.0,
+        0.05,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.02
+      ]
+    },
+    {
+      "lenient": 0.8584905660377359,
+      "pass": 2,
+      "strict": 0.8207547169811321,
+      "weights": [
+        0.25,
+        0.02,
+        0.5,
+        0.05,
+        0.01,
+        0.0,
+        0.05,
+        0.05,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.12,
+        0.02
+      ]
+    }
+  ],
+  "objective": "strict article recall (pageid subset @ selected_limit), lenient tie-break",
+  "pack": "/root/work/artifacts/packs/selector-25k-p3.sqlite",
+  "tool": "scripts/droid/fit_fusion.py"
+}

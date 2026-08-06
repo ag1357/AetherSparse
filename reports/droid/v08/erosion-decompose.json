@@ -1,0 +1,349 @@
+{
+ "category_case_counts": {
+  "alias": 90,
+  "comparison": 110,
+  "date": 110,
+  "direct_fact": 220,
+  "follow_up": 100,
+  "misspelling": 100,
+  "pronoun": 100,
+  "quantity": 110,
+  "quotation": 100,
+  "redirect": 50,
+  "three_to_six_source": 80,
+  "two_source": 110
+ },
+ "per_category": {
+  "alias": {
+   "per_decade_pp": -26.41,
+   "spans": [
+    {
+     "delta_pp": -3.33,
+     "per_decade_pp": -8.38,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -27.78,
+     "per_decade_pp": -46.14,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -11.11,
+     "per_decade_pp": -18.55,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -42.22,
+   "values": {
+    "10000": 0.9,
+    "100000": 0.5889,
+    "25000": 0.8667,
+    "397196": 0.4778
+   }
+  },
+  "comparison": {
+   "per_decade_pp": -5.12,
+   "spans": [
+    {
+     "delta_pp": -1.82,
+     "per_decade_pp": -4.57,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": 0.0,
+     "per_decade_pp": 0.0,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -6.36,
+     "per_decade_pp": -10.62,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -8.18,
+   "values": {
+    "10000": 0.7727,
+    "100000": 0.7545,
+    "25000": 0.7545,
+    "397196": 0.6909
+   }
+  },
+  "date": {
+   "per_decade_pp": 2.27,
+   "spans": [
+    {
+     "delta_pp": 0.0,
+     "per_decade_pp": 0.0,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": 1.82,
+     "per_decade_pp": 3.02,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": 1.82,
+     "per_decade_pp": 3.04,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": 3.64,
+   "values": {
+    "10000": 0.6091,
+    "100000": 0.6273,
+    "25000": 0.6091,
+    "397196": 0.6455
+   }
+  },
+  "direct_fact": {
+   "per_decade_pp": -6.82,
+   "spans": [
+    {
+     "delta_pp": -1.82,
+     "per_decade_pp": -4.57,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -2.73,
+     "per_decade_pp": -4.53,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -6.36,
+     "per_decade_pp": -10.62,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -10.91,
+   "values": {
+    "10000": 0.9818,
+    "100000": 0.9364,
+    "25000": 0.9636,
+    "397196": 0.8727
+   }
+  },
+  "follow_up": {
+   "per_decade_pp": -1.25,
+   "spans": [
+    {
+     "delta_pp": 2.0,
+     "per_decade_pp": 5.03,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": 0.0,
+     "per_decade_pp": 0.0,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -4.0,
+     "per_decade_pp": -6.68,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -2.0,
+   "values": {
+    "10000": 0.97,
+    "100000": 0.99,
+    "25000": 0.99,
+    "397196": 0.95
+   }
+  },
+  "misspelling": {
+   "per_decade_pp": -27.52,
+   "spans": [
+    {
+     "delta_pp": -7.0,
+     "per_decade_pp": -17.59,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -12.0,
+     "per_decade_pp": -19.93,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -25.0,
+     "per_decade_pp": -41.74,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -44.0,
+   "values": {
+    "10000": 0.79,
+    "100000": 0.6,
+    "25000": 0.72,
+    "397196": 0.35
+   }
+  },
+  "pronoun": {
+   "per_decade_pp": -15.01,
+   "spans": [
+    {
+     "delta_pp": -3.0,
+     "per_decade_pp": -7.54,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -6.0,
+     "per_decade_pp": -9.97,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -15.0,
+     "per_decade_pp": -25.04,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -24.0,
+   "values": {
+    "10000": 0.96,
+    "100000": 0.87,
+    "25000": 0.93,
+    "397196": 0.72
+   }
+  },
+  "quantity": {
+   "per_decade_pp": -2.27,
+   "spans": [
+    {
+     "delta_pp": 1.82,
+     "per_decade_pp": 4.57,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -0.91,
+     "per_decade_pp": -1.51,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -4.55,
+     "per_decade_pp": -7.59,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -3.64,
+   "values": {
+    "10000": 0.6545,
+    "100000": 0.6636,
+    "25000": 0.6727,
+    "397196": 0.6182
+   }
+  },
+  "quotation": {
+   "per_decade_pp": -4.38,
+   "spans": [
+    {
+     "delta_pp": -1.0,
+     "per_decade_pp": -2.51,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -3.0,
+     "per_decade_pp": -4.98,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -3.0,
+     "per_decade_pp": -5.01,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -7.0,
+   "values": {
+    "10000": 0.78,
+    "100000": 0.74,
+    "25000": 0.77,
+    "397196": 0.71
+   }
+  },
+  "redirect": {
+   "per_decade_pp": -27.52,
+   "spans": [
+    {
+     "delta_pp": -8.0,
+     "per_decade_pp": -20.1,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -28.0,
+     "per_decade_pp": -46.51,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -8.0,
+     "per_decade_pp": -13.36,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -44.0,
+   "values": {
+    "10000": 0.96,
+    "100000": 0.6,
+    "25000": 0.88,
+    "397196": 0.52
+   }
+  },
+  "three_to_six_source": {
+   "per_decade_pp": -13.29,
+   "spans": [
+    {
+     "delta_pp": 1.25,
+     "per_decade_pp": 3.14,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": -11.25,
+     "per_decade_pp": -18.69,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -11.25,
+     "per_decade_pp": -18.78,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -21.25,
+   "values": {
+    "10000": 0.6375,
+    "100000": 0.5375,
+    "25000": 0.65,
+    "397196": 0.425
+   }
+  },
+  "two_source": {
+   "per_decade_pp": -5.12,
+   "spans": [
+    {
+     "delta_pp": -0.91,
+     "per_decade_pp": -2.28,
+     "span": "10000->25000"
+    },
+    {
+     "delta_pp": 0.0,
+     "per_decade_pp": 0.0,
+     "span": "25000->100000"
+    },
+    {
+     "delta_pp": -7.27,
+     "per_decade_pp": -12.14,
+     "span": "100000->397196"
+    }
+   ],
+   "total_delta_pp": -8.18,
+   "values": {
+    "10000": 0.8091,
+    "100000": 0.8,
+    "25000": 0.8,
+    "397196": 0.7273
+   }
+  }
+ },
+ "tiers": [
+  10000,
+  25000,
+  100000,
+  397196
+ ],
+ "tool": "scripts/droid/v08_erosion_decompose.py"
+}
