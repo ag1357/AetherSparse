@@ -329,20 +329,18 @@ def main() -> int:
         for arm, pool in arm_pools.items():
             pool_docs = {pageid(c.document_id) for c in pool}
             trace = selector.select(question, initial_candidates=pool)
-            strict = bool(
-                trace.reranked_candidates
-                and pageid(str(trace.reranked_candidates[0].document_id)) in gold
-            )
-            lenient = bool(
-                any(pageid(str(c.document_id)) in gold for c in trace.selected_evidence)
-            )
+            retrieved = {pageid(str(c.document_id)) for c in trace.selected_evidence}
+            # Mission metric: strict = all gold docs in the selected top-8
+            # (subset); lenient = any gold doc selected.
+            strict = bool(gold) and gold <= retrieved
+            lenient = bool(gold & retrieved)
             stats[arm]["strict"].append(strict)
             stats[arm]["lenient"].append(lenient)
-            stats[arm]["pool_recall"].append(bool(pool_docs & gold))
+            stats[arm]["pool_recall"].append(bool(gold) and gold <= pool_docs)
             case_result[arm] = {
                 "strict": strict,
                 "lenient": lenient,
-                "pool_recall": bool(pool_docs & gold),
+                "pool_recall": bool(gold) and gold <= pool_docs,
             }
         per_case.append(case_result)
         if (i + 1) % 100 == 0:
