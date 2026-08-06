@@ -22,9 +22,9 @@ Erosion per decade: −3.92 pp (10k→25k), −9.60 pp (25k→100k), −13.3 pp
 - 25k refit: +0.95 pp on fit partitions; eval 81.87% vs 81.17% transferred
   (+0.70 pp). Below the 2 pp gate.
 - 100k refit: +0.95 pp fit-side; weights shift materially (f1 0.02→0.30,
-  char3gram 0→0.20). Eval @100k: PENDING (eval100krefit).
-- Gate: refit helps ≥2 pp only at 100k+ → per-tier weights in Mission 4 if
-  the 100k eval confirms.
+  char3gram 0→0.20). Eval @100k: 75.70% vs 75.39% transferred = **+0.31 pp**.
+- **Gate FAILS at every tier** (25k +0.70, 100k +0.31): weight staleness is
+  not the erosion cause. No per-tier weight retuning in Mission 4.
 
 ## Phase 1b — candidate budget (probe-scaled sweep)
 
@@ -106,8 +106,11 @@ Mechanism (carry-off per-case data): prior-turn top-1 accuracy 95% @25k →
 89% @100k; strict|parent-correct 97.4%/94.4% vs strict|parent-wrong
 70.0%/81.8%. Entrenchment risk is real and grows with scale.
 
-Variants @25k (boost 0.35): none / margin-gated / compat-gated: PENDING.
-@100k: PENDING.
+Variants @25k (boost 0.35): carry-off 81.17% / fixed 81.41% / margin-gated
+81.41% (gate fired once in 200 parents — near-vacuous at 25k where parent
+top-1 is 95%). Pronoun 93%→97% with carry; follow_up 99%→98%. Net small
+positive at 25k; the entrenchment tradeoff only appears at scale.
+Compat gate @25k and all variants @100k: PENDING.
 
 ## Decision label (preliminary)
 
