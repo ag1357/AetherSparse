@@ -77,7 +77,39 @@ def _parse_args() -> argparse.Namespace:
         "report per-disposition reranker confidence (selective-answering table); "
         "recall metrics remain ANSWER-only",
     )
+    parser.add_argument(
+        "--fusion-weights",
+        type=Path,
+        default=None,
+        help="JSON list of 14 fusion weights overriding the shipped FUSION_WEIGHTS "
+        "(diagnostic runs only; fit on tuning+development)",
+    )
+    parser.add_argument(
+        "--pool-provenance",
+        action="store_true",
+        help="extend --per-case-output records with candidate-pool pageids, "
+        "gold-in-pool flags, per-case generation latency, and /proc/self/io "
+        "read counters (Phase 1b/2 diagnostics)",
+    )
     return parser.parse_args()
+
+
+def _io_counters() -> tuple[int, int, int]:
+    """Return (rchar, read_bytes, syscr) from /proc/self/io (Linux)."""
+
+    try:
+        fields: dict[str, int] = {}
+        with open("/proc/self/io", encoding="ascii") as handle:
+            for line in handle:
+                key, _, value = line.partition(":")
+                fields[key.strip()] = int(value.strip())
+        return (
+            fields.get("rchar", 0),
+            fields.get("read_bytes", 0),
+            fields.get("syscr", 0),
+        )
+    except (OSError, ValueError):
+        return (0, 0, 0)
 
 
 def main() -> int:
@@ -97,6 +129,14 @@ def main() -> int:
         weights = list(selector_module.FUSION_WEIGHTS)
         weights[13] = args.char3gram_weight  # char3gram_fit
         selector_module.FUSION_WEIGHTS = tuple(weights)
+
+    if args.fusion_weights is not None:
+        import aethersparse.selection.selector as selector_module
+
+        override = tuple(json.loads(args.fusion_weights.read_text(encoding="utf-8")))
+        if len(override) != len(selector_module.FUSION_WEIGHTS):
+            raise ValueError("fusion-weights must match the shipped feature count")
+        selector_module.FUSION_WEIGHTS = override
 
     model = (
         QuantizedLinearModel.model_validate_json(args.model.read_text(encoding="utf-8"))
@@ -133,9 +173,29 @@ def main() -> int:
                 ),
                 None,
             )
+        io_before = _io_counters() if args.pool_provenance else (0, 0, 0)
         gen_started = time.perf_counter_ns()
         candidates = selector.candidates(case.question, carry_document_id=carry_doc)
-        generation_latencies.append((time.perf_counter_ns() - gen_started) / 1_000_000)
+        gen_ms = (time.perf_counter_ns() - gen_started) / 1_000_000
+        generation_latencies.append(gen_ms)
+        if args.pool_provenance:
+            io_after = _io_counters()
+            pool_pageids = [pageid(item.document_id) for item in candidates]
+            case_gold = {
+                pid
+                for evidence in case.gold_evidence
+                for pid in [pageid(evidence.document_id)]
+            }
+            pool_set = set(pool_pageids)
+            pool_record = {
+                "pool_pageids": pool_pageids,
+                "gold_pool_lenient": bool(case_gold & pool_set),
+                "gold_pool_strict": bool(case_gold) and case_gold <= pool_set,
+                "gen_ms": gen_ms,
+                "io_rchar": io_after[0] - io_before[0],
+                "io_read_bytes": io_after[1] - io_before[1],
+                "io_syscr": io_after[2] - io_before[2],
+            }
         for stage in STAGES:
             discourse_kwargs: dict[str, object] = {}
             if args.discourse_boost > 0.0:
@@ -170,17 +230,18 @@ def main() -> int:
                         str(case.accepted_disposition), []
                     ).append((top1, margin))
                 if per_case is not None and is_answer:
-                    per_case.append(
-                        {
-                            "case_id": case.case_id,
-                            "partition": str(case.partition),
-                            "categories": list(case.categories),
-                            "margin": margin,
-                            "top1_score": top1,
-                            "lenient": lenient,
-                            "strict": strict,
-                        }
-                    )
+                    record: dict[str, object] = {
+                        "case_id": case.case_id,
+                        "partition": str(case.partition),
+                        "categories": list(case.categories),
+                        "margin": margin,
+                        "top1_score": top1,
+                        "lenient": lenient,
+                        "strict": strict,
+                    }
+                    if args.pool_provenance:
+                        record.update(pool_record)
+                    per_case.append(record)
         if index % 100 == 0 or index == len(cases):
             print(f"evaluated {index}/{len(cases)} cases", file=sys.stderr, flush=True)
 
@@ -198,6 +259,8 @@ def main() -> int:
             "model_identity": selector.model.training_identity,
             "discourse_boost": args.discourse_boost,
             "char3gram_weight": args.char3gram_weight,
+            "fusion_weights": str(args.fusion_weights) if args.fusion_weights else None,
+            "pool_provenance": args.pool_provenance,
             "all_dispositions": args.all_dispositions,
             "gold_matching": "pageid",
             "cases_evaluated": len(cases),
@@ -217,6 +280,19 @@ def main() -> int:
             for stage in STAGES
         },
     }
+    if args.pool_provenance and per_case:
+        n_pool = len(per_case)
+        report["candidate_pool"] = {
+            "candidate_limit": args.candidate_limit,
+            "recall_lenient": sum(1 for r in per_case if r["gold_pool_lenient"]) / n_pool,
+            "recall_strict": sum(1 for r in per_case if r["gold_pool_strict"]) / n_pool,
+            "io_rchar_total": sum(int(r["io_rchar"]) for r in per_case),
+            "io_read_bytes_total": sum(int(r["io_read_bytes"]) for r in per_case),
+            "io_syscr_total": sum(int(r["io_syscr"]) for r in per_case),
+            "note": "rchar counts logical read() bytes (page cache included); "
+            "read_bytes counts actual storage reads (warm cache undercounts); "
+            "syscr approximates random read count",
+        }
     if disposition_confidence:
         # Selective-answering table: does reranker confidence separate
         # non-ANSWER dispositions from answerable cases?  (Confidence stats
