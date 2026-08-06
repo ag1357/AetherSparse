@@ -252,10 +252,12 @@ def main() -> int:
                         str(case.accepted_disposition), []
                     ).append((top1, margin))
                 if per_case is not None and (is_answer or args.all_dispositions):
-                    ranked_pageids = [
-                        pageid(item.document_id)
-                        for item in trace.reranked_candidates
-                    ]
+                    ranked_pageids = list(
+                        dict.fromkeys(
+                            pageid(item.document_id)
+                            for item in trace.reranked_candidates
+                        )
+                    )
                     gold_set = {
                         pageid(evidence.document_id)
                         for evidence in case.gold_evidence
