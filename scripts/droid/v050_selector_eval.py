@@ -94,6 +94,16 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _canonical_entity_id(title: str) -> str:
+    """Benchmark-authoring entity ID: sha256 of the normalized title (24 hex)."""
+
+    import unicodedata
+
+    normalized = unicodedata.normalize("NFKC", title.replace("_", " "))
+    surface = " ".join(normalized.strip().split()).casefold()
+    return f"as:v050:entity:{hashlib.sha256(surface.encode('utf-8')).hexdigest()[:24]}"
+
+
 def _io_counters() -> tuple[int, int, int]:
     """Return (rchar, read_bytes, syscr) from /proc/self/io (Linux)."""
 
@@ -208,11 +218,24 @@ def main() -> int:
                 for pid in [pageid(evidence.document_id)]
             }
             pool_set = set(pool_pageids)
+            linked_titles: list[str] = []
+            if captured_entities:
+                marks = ",".join("?" for _ in captured_entities)
+                linked_titles = [
+                    str(row[0])
+                    for row in selector.store.db.execute(
+                        f"SELECT title FROM documents WHERE document_id IN ({marks})",
+                        list(captured_entities),
+                    )
+                ]
             pool_record = {
                 "pool_pageids": pool_pageids,
                 "gold_pool_lenient": bool(case_gold & pool_set),
                 "gold_pool_strict": bool(case_gold) and case_gold <= pool_set,
                 "linked_pageids": sorted({pageid(d) for d in captured_entities}),
+                "linked_entity_ids": sorted(
+                    {_canonical_entity_id(title) for title in linked_titles}
+                ),
                 "gen_ms": gen_ms,
                 "io_rchar": io_after[0] - io_before[0],
                 "io_read_bytes": io_after[1] - io_before[1],
