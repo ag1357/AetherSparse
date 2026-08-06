@@ -99,11 +99,16 @@ class EvidenceSelector:
         *,
         candidate_limit: int = 96,
         selected_limit: int = 8,
+        probe_scale: float = 1.0,
     ):
         self.store = CorpusStore(corpus_path)
         self.model = model or DEFAULT_MODEL
         self.candidate_limit = candidate_limit
         self.selected_limit = selected_limit
+        # Diagnostic-only probe-depth multiplier (Mission 3 Phase 1b).  1.0 is
+        # exactly the shipped behavior; candidate_limit alone never controlled
+        # probe depth (lexical probe is capped at 48 rows).
+        self.probe_scale = probe_scale
         self._category_cache: dict[str, set[str]] = {}
         self._alias_cache: dict[str, tuple[str, ...]] = {}
         self._target_cache: dict[tuple[str, ...], set[str]] = {}
@@ -444,7 +449,7 @@ class EvidenceSelector:
         anchors = list(
             dict.fromkeys([*self._anchor_documents(query), *self._alias_probed_documents(query)])
         )[:8]
-        lexical_limit = min(48, self.candidate_limit)
+        lexical_limit = min(int(48 * self.probe_scale), self.candidate_limit)
         anchor_titles: list[str] = []
         if anchors:
             marks = ",".join("?" for _ in anchors)
@@ -535,7 +540,9 @@ class EvidenceSelector:
         if expansion:
             # Alias-canonicalized terms run as a separate bounded probe so the
             # original query's term budget is never displaced.
-            for row in self.store.search(" ".join(expansion), 12):
+            for row in self.store.search(
+                " ".join(expansion), max(12, int(12 * self.probe_scale))
+            ):
                 if row["chunk_id"] not in seen:
                     rows.append(row)
                     seen.add(row["chunk_id"])
@@ -551,7 +558,9 @@ class EvidenceSelector:
                     if len(term) > 2 and term not in STOP and self._term_in_corpus(term)
                 }
             )[:4]
-            for row in self.store.search(" ".join([*repairs, *context]), 12):
+            for row in self.store.search(
+                " ".join([*repairs, *context]), max(12, int(12 * self.probe_scale))
+            ):
                 if row["chunk_id"] not in seen:
                     rows.append(row)
                     seen.add(row["chunk_id"])
@@ -582,7 +591,7 @@ class EvidenceSelector:
                     row["document_id"],
                 )
             )
-            for linked_doc in linked[:24]:
+            for linked_doc in linked[: max(24, int(24 * self.probe_scale))]:
                 title_terms = _tokens(linked_doc["title"])
                 if not title_terms:
                     continue

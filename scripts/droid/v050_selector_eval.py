@@ -44,6 +44,12 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", type=Path, help="int8 reranker JSON; default bootstrap")
     parser.add_argument("--candidate-limit", type=int, default=64)
+    parser.add_argument(
+        "--probe-scale",
+        type=float,
+        default=1.0,
+        help="diagnostic probe-depth multiplier (Phase 1b); 1.0 = shipped behavior",
+    )
     parser.add_argument("--selected-limit", type=int, default=8)
     parser.add_argument("--limit", type=int, help="evaluate only the first N answer cases")
     parser.add_argument(
@@ -161,6 +167,7 @@ def main() -> int:
         model,
         candidate_limit=args.candidate_limit,
         selected_limit=args.selected_limit,
+        probe_scale=args.probe_scale,
     )
 
     # Diagnostic-only capture of the selector's resolved entity documents
@@ -322,6 +329,7 @@ def main() -> int:
         "config": {
             "candidate_limit": args.candidate_limit,
             "selected_limit": args.selected_limit,
+            "probe_scale": args.probe_scale,
             "model": str(args.model) if args.model else "bootstrap-default",
             "model_identity": selector.model.training_identity,
             "discourse_boost": args.discourse_boost,
