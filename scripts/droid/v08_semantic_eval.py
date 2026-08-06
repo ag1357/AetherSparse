@@ -35,7 +35,7 @@ from v050_common import (  # noqa: E402
     pageid,
 )
 from v08_calibration import _fit_lookup, _predict  # noqa: E402
-from v08_pipeline_eval import _raw_bm25, _selector_anchors  # noqa: E402
+from v08_pipeline_eval import TOKEN_RE, _selector_anchors  # noqa: E402
 
 from aethersparse.selection.models import CandidateScore  # noqa: E402
 from aethersparse.selection.selector import EvidenceSelector  # noqa: E402
@@ -123,6 +123,28 @@ def _make_candidate(
     )
 
 
+def _batch_bm25(
+    selector: EvidenceSelector, question: str, chunk_ids: list[str]
+) -> dict[str, float]:
+    """bm25 of many chunks in one FTS query (same term selection as _raw_bm25)."""
+
+    terms = [term for term in TOKEN_RE.findall(question.casefold()) if len(term) > 2]
+    out = {cid: 0.0 for cid in chunk_ids}
+    if not terms or not chunk_ids:
+        return out
+    selected = sorted(set(terms), key=lambda term: (-len(term), term))[:7]
+    fts_query = " OR ".join(f'"{term}"' for term in selected)
+    marks = ",".join("?" for _ in chunk_ids)
+    rows = selector.store.db.execute(
+        f"SELECT chunk_id, bm25(chunks_fts, 1.8, 1.2, 1.0) AS rank FROM chunks_fts "
+        f"WHERE chunks_fts MATCH ? AND chunk_id IN ({marks})",
+        (fts_query, *chunk_ids),
+    ).fetchall()
+    for row in rows:
+        out[str(row["chunk_id"])] = float(row["rank"])
+    return out
+
+
 def _semantic_pool(
     selector: EvidenceSelector,
     question: str,
@@ -131,14 +153,15 @@ def _semantic_pool(
     query_categories,
 ) -> list[CandidateScore]:
     by_rowid = _rows_for_rowids(selector, [rid for rid, _ in ranked])
-    raw = {}
-    pool: list[CandidateScore] = []
+    pool: list[tuple[int, object]] = []
+    chunk_ids: list[str] = []
     for position, (rid, _sim) in enumerate(ranked):
         row = by_rowid.get(rid)
         if row is None:
             continue
-        raw[str(row["chunk_id"])] = _raw_bm25(selector, question, str(row["chunk_id"]))
         pool.append((position, row))
+        chunk_ids.append(str(row["chunk_id"]))
+    raw = _batch_bm25(selector, question, chunk_ids)
     inverted = [-v for v in raw.values()] or [0.0]
     floor, ceiling = min(inverted), max(inverted)
     spread = (ceiling - floor) or 1.0
