@@ -229,16 +229,18 @@ def main() -> int:
                     disposition_confidence.setdefault(
                         str(case.accepted_disposition), []
                     ).append((top1, margin))
-                if per_case is not None and is_answer:
+                if per_case is not None and (is_answer or args.all_dispositions):
                     record: dict[str, object] = {
                         "case_id": case.case_id,
                         "partition": str(case.partition),
                         "categories": list(case.categories),
+                        "disposition": str(case.accepted_disposition),
                         "margin": margin,
                         "top1_score": top1,
-                        "lenient": lenient,
-                        "strict": strict,
                     }
+                    if is_answer:
+                        record["lenient"] = lenient
+                        record["strict"] = strict
                     if args.pool_provenance:
                         record.update(pool_record)
                     per_case.append(record)
@@ -281,11 +283,12 @@ def main() -> int:
         },
     }
     if args.pool_provenance and per_case:
-        n_pool = len(per_case)
+        answer_records = [r for r in per_case if r.get("disposition") == "ANSWER"]
+        n_pool = len(answer_records)
         report["candidate_pool"] = {
             "candidate_limit": args.candidate_limit,
-            "recall_lenient": sum(1 for r in per_case if r["gold_pool_lenient"]) / n_pool,
-            "recall_strict": sum(1 for r in per_case if r["gold_pool_strict"]) / n_pool,
+            "recall_lenient": sum(1 for r in answer_records if r["gold_pool_lenient"]) / n_pool,
+            "recall_strict": sum(1 for r in answer_records if r["gold_pool_strict"]) / n_pool,
             "io_rchar_total": sum(int(r["io_rchar"]) for r in per_case),
             "io_read_bytes_total": sum(int(r["io_read_bytes"]) for r in per_case),
             "io_syscr_total": sum(int(r["io_syscr"]) for r in per_case),
@@ -300,7 +303,9 @@ def main() -> int:
         import statistics
 
         answer_scores = [
-            (entry["top1_score"], entry["margin"]) for entry in per_case or []
+            (entry["top1_score"], entry["margin"])
+            for entry in per_case or []
+            if entry.get("disposition") == "ANSWER"
         ]
         table: dict[str, dict[str, float]] = {}
         if answer_scores:
