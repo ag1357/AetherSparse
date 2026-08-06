@@ -1,0 +1,54 @@
+{
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k-p3.sqlite",
+  "pack_sha256": "aef284ff0f157d2d7ae3915f02624e10214c859e5dfbc9dd25f0886cf4c36c66",
+  "n_cases": 1280,
+  "candidate_limit": 96,
+  "tau": 0.5,
+  "arms": {
+    "lexical_only": {
+      "strict": 0.82734375,
+      "lenient": 0.88515625,
+      "pool_recall": 0.896875
+    },
+    "semantic_only": {
+      "strict": 0.6015625,
+      "lenient": 0.74453125,
+      "pool_recall": 0.62890625
+    },
+    "union": {
+      "strict": 0.8453125,
+      "lenient": 0.90625,
+      "pool_recall": 0.91875
+    },
+    "rrf": {
+      "strict": 0.790625,
+      "lenient": 0.8515625,
+      "pool_recall": 0.859375
+    },
+    "margin_gated": {
+      "strict": 0.82734375,
+      "lenient": 0.88515625,
+      "pool_recall": 0.896875
+    },
+    "weighted_0.25": {
+      "strict": 0.50546875,
+      "lenient": 0.653125,
+      "pool_recall": 0.91875
+    },
+    "weighted_0.5": {
+      "strict": 0.69296875,
+      "lenient": 0.81484375,
+      "pool_recall": 0.91875
+    },
+    "weighted_0.75": {
+      "strict": 0.83125,
+      "lenient": 0.90390625,
+      "pool_recall": 0.91875
+    }
+  },
+  "recovery": {
+    "semantic_recovers_lexical_miss": 52,
+    "semantic_loses_lexical_hit": 341
+  },
+  "elapsed_seconds": 1710.08
+}
