@@ -33,6 +33,7 @@ from v050_common import (  # noqa: E402
 
 from aethersparse.selection.models import QuantizedLinearModel  # noqa: E402
 from aethersparse.selection.selector import EvidenceSelector  # noqa: E402
+from v08_calibration import _fit_lookup, _predict  # noqa: E402
 
 STAGES = ("lexical", "fusion", "reranker")
 
@@ -63,6 +64,21 @@ def _parse_args() -> argparse.Namespace:
         type=float,
         default=0.0,
         help="additive boost for candidates from the parent turn's predicted top-1 document",
+    )
+    parser.add_argument(
+        "--discourse-gate",
+        choices=("none", "margin", "compat"),
+        default="none",
+        help="Phase 6 carry gating: none = always boost; margin = boost only when "
+        "calibrated P(parent top-1 correct) >= --discourse-gate-tau (lookup fit "
+        "online on tuning/development cases only); compat = boost only when the "
+        "question has no anchors or an anchor fuzzy-matches the carried title",
+    )
+    parser.add_argument(
+        "--discourse-gate-tau",
+        type=float,
+        default=0.5,
+        help="threshold for --discourse-gate margin",
     )
     parser.add_argument(
         "--per-case-output",
@@ -197,6 +213,13 @@ def main() -> int:
     generation_latencies: list[float] = []
     select_latencies: dict[str, list[float]] = {stage: [] for stage in STAGES}
     predicted_top1: dict[str, str] = {}
+    margin_by_case: dict[str, float] = {}
+    top1_gold_by_case: dict[str, bool] = {}
+    gate_lookup: list[tuple[float, float]] = []
+    gate_fit_margins: list[float] = []
+    gate_fit_labels: list[int] = []
+    carry_applied = 0
+    carry_suppressed = 0
     per_case: list[dict[str, object]] | None = [] if args.per_case_output else None
     disposition_confidence: dict[str, list[tuple[float, float]]] = {}
     started = time.time()
@@ -214,6 +237,35 @@ def main() -> int:
                 ),
                 None,
             )
+            if carry_doc is not None and args.discourse_gate == "margin":
+                parent_margin = next(
+                    (
+                        margin_by_case[parent_id]
+                        for parent_id in case.prior_case_ids
+                        if parent_id in margin_by_case
+                    ),
+                    None,
+                )
+                if (
+                    parent_margin is None
+                    or gate_lookup
+                    and _predict(gate_lookup, parent_margin) < args.discourse_gate_tau
+                ):
+                    carry_doc = None
+            elif carry_doc is not None and args.discourse_gate == "compat":
+                anchors = set(selector._anchor_documents(case.question))
+                anchors.update(selector._alias_probed_documents(case.question))
+                # Compatible when the question is anchorless (coreference-like)
+                # or the carried document is itself an anchor of the question.
+                if anchors and carry_doc not in anchors:
+                    carry_doc = None
+            if args.discourse_gate != "none" and case.prior_case_ids:
+                had_parent = any(p in predicted_top1 for p in case.prior_case_ids)
+                if had_parent:
+                    if carry_doc is None:
+                        carry_suppressed += 1
+                    else:
+                        carry_applied += 1
         io_before = _io_counters() if args.pool_provenance else (0, 0, 0)
         gen_started = time.perf_counter_ns()
         candidates = selector.candidates(case.question, carry_document_id=carry_doc)
@@ -280,6 +332,22 @@ def main() -> int:
                 ]
                 margin = scores[0] - scores[1] if len(scores) == 2 else 0.0
                 top1 = scores[0] if scores else 0.0
+                margin_by_case[case.case_id] = margin
+                if (
+                    args.discourse_gate == "margin"
+                    and is_answer
+                    and str(case.partition) in ("tuning", "development")
+                ):
+                    gold_for_gate = {
+                        pageid(evidence.document_id)
+                        for evidence in case.gold_evidence
+                    }
+                    top1_doc = predicted_top1.get(case.case_id)
+                    gate_fit_margins.append(margin)
+                    gate_fit_labels.append(
+                        int(top1_doc is not None and pageid(top1_doc) in gold_for_gate)
+                    )
+                    gate_lookup = _fit_lookup(gate_fit_margins, gate_fit_labels)
                 if not is_answer:
                     disposition_confidence.setdefault(
                         str(case.accepted_disposition), []
@@ -330,6 +398,10 @@ def main() -> int:
             "candidate_limit": args.candidate_limit,
             "selected_limit": args.selected_limit,
             "probe_scale": args.probe_scale,
+            "discourse_gate": args.discourse_gate,
+            "discourse_gate_tau": args.discourse_gate_tau,
+            "carry_applied": carry_applied,
+            "carry_suppressed": carry_suppressed,
             "model": str(args.model) if args.model else "bootstrap-default",
             "model_identity": selector.model.training_identity,
             "discourse_boost": args.discourse_boost,
