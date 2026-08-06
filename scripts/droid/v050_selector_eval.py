@@ -150,6 +150,27 @@ def main() -> int:
         selected_limit=args.selected_limit,
     )
 
+    # Diagnostic-only capture of the selector's resolved entity documents
+    # (monkeypatched wrappers; shipped selector code is untouched).
+    captured_entities: list[str] = []
+    if args.pool_provenance:
+        original_anchor = selector._anchor_documents
+        original_alias = selector._alias_probed_documents
+
+        def _capture_anchor(query: str) -> list[str]:
+            captured_entities.clear()
+            result = original_anchor(query)
+            captured_entities.extend(result)
+            return result
+
+        def _capture_alias(query: str) -> list[str]:
+            result = original_alias(query)
+            captured_entities.extend(result)
+            return result
+
+        selector._anchor_documents = _capture_anchor
+        selector._alias_probed_documents = _capture_alias
+
     from aethersparse.controller.evaluation import ControllerDisposition
 
     accumulators = {stage: RecallAccumulator() for stage in STAGES}
@@ -191,6 +212,7 @@ def main() -> int:
                 "pool_pageids": pool_pageids,
                 "gold_pool_lenient": bool(case_gold & pool_set),
                 "gold_pool_strict": bool(case_gold) and case_gold <= pool_set,
+                "linked_pageids": sorted({pageid(d) for d in captured_entities}),
                 "gen_ms": gen_ms,
                 "io_rchar": io_after[0] - io_before[0],
                 "io_read_bytes": io_after[1] - io_before[1],
@@ -230,6 +252,14 @@ def main() -> int:
                         str(case.accepted_disposition), []
                     ).append((top1, margin))
                 if per_case is not None and (is_answer or args.all_dispositions):
+                    ranked_pageids = [
+                        pageid(item.document_id)
+                        for item in trace.reranked_candidates
+                    ]
+                    gold_set = {
+                        pageid(evidence.document_id)
+                        for evidence in case.gold_evidence
+                    }
                     record: dict[str, object] = {
                         "case_id": case.case_id,
                         "partition": str(case.partition),
@@ -237,6 +267,13 @@ def main() -> int:
                         "disposition": str(case.accepted_disposition),
                         "margin": margin,
                         "top1_score": top1,
+                        "top1_pageid": ranked_pageids[0] if ranked_pageids else None,
+                        "top1_gold": bool(ranked_pageids and ranked_pageids[0] in gold_set),
+                        "gold_ranks": [
+                            rank
+                            for rank, pid in enumerate(ranked_pageids, start=1)
+                            if pid in gold_set
+                        ],
                     }
                     if is_answer:
                         record["lenient"] = lenient
