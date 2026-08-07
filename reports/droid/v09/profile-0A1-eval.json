@@ -1,0 +1,37 @@
+{
+  "eval": {
+    "limit": 200,
+    "total_seconds": 60.13,
+    "returncode": 0,
+    "cprofile_top": [
+      "",
+      "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)",
+      "        1    0.039    0.039   60.123   60.123 /root/work/AetherSparse/scripts/droid/v050_selector_eval.py:147(main)",
+      "      200    0.139    0.001   59.425    0.297 /root/work/AetherSparse/src/aethersparse/selection/selector.py:446(candidates)",
+      "    12102   52.158    0.004   52.158    0.004 {method 'execute' of 'sqlite3.Connection' objects}",
+      "      386    0.040    0.000   39.557    0.102 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:377(search)",
+      "      200    0.003    0.000    6.966    0.035 /root/work/AetherSparse/src/aethersparse/selection/selector.py:147(_anchor_documents)",
+      "      413    0.012    0.000    6.941    0.017 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:395(title_search)",
+      "    13093    0.186    0.000    6.909    0.001 /root/work/AetherSparse/src/aethersparse/selection/selector.py:282(_feature_vector)",
+      "    13297    0.010    0.000    2.777    0.000 {built-in method builtins.any}",
+      "    49133    0.030    0.000    2.766    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:301(<genexpr>)",
+      "    51640    0.026    0.000    2.701    0.000 /usr/lib/python3.12/re/__init__.py:174(search)",
+      "   155628    0.182    0.000    2.689    0.000 /usr/lib/python3.12/re/__init__.py:280(_compile)",
+      "    24752    0.057    0.000    2.279    0.000 /usr/lib/python3.12/re/_compiler.py:740(compile)",
+      "    13093    0.049    0.000    1.506    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:267(_char3gram_fit)",
+      "    24752    0.040    0.000    1.380    0.000 /usr/lib/python3.12/re/_parser.py:969(parse)",
+      "74252/24752    0.092    0.000    1.306    0.000 /usr/lib/python3.12/re/_parser.py:452(_parse_sub)",
+      "74252/24752    0.541    0.000    1.257    0.000 /usr/lib/python3.12/re/_parser.py:512(_parse)",
+      "    13093    0.011    0.000    1.235    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:229(_document_aliases)",
+      "    84603    0.291    0.000    1.077    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:54(_tokens)",
+      "    26186    0.631    0.000    1.001    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:258(_char_trigrams)",
+      "    10350    0.922    0.000    0.922    0.000 /root/work/AetherSparse/src/aethersparse/selection/selector.py:231(<genexpr>)",
+      "    24752    0.025    0.000    0.808    0.000 /usr/lib/python3.12/re/_compiler.py:573(_code)",
+      "   103945    0.139    0.000    0.647    0.000 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:34(normalize_text)",
+      "74253/24752    0.226    0.000    0.633    0.000 /usr/lib/python3.12/re/_compiler.py:37(_compile)",
+      "    64944    0.227    0.000    0.519    0.000 {built-in method builtins.sum}",
+      "",
+      ""
+    ]
+  }
+}

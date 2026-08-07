@@ -1,0 +1,180 @@
+{
+  "workers": 16,
+  "limit": 10000,
+  "worker_seconds_wall": 7.45,
+  "worker_detail": [
+    {
+      "shard": "/tmp/v09-shards/shard-000.sqlite",
+      "start": 0,
+      "end": 625,
+      "articles": 625,
+      "chunks": 12320,
+      "links_found": 41965,
+      "seconds": 3.04,
+      "peak_rss_mb": 106.8
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-001.sqlite",
+      "start": 625,
+      "end": 1250,
+      "articles": 625,
+      "chunks": 11746,
+      "links_found": 42047,
+      "seconds": 3.38,
+      "peak_rss_mb": 103.5
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-002.sqlite",
+      "start": 1250,
+      "end": 1875,
+      "articles": 625,
+      "chunks": 13366,
+      "links_found": 65630,
+      "seconds": 4.41,
+      "peak_rss_mb": 116.5
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-003.sqlite",
+      "start": 1875,
+      "end": 2500,
+      "articles": 625,
+      "chunks": 8882,
+      "links_found": 31465,
+      "seconds": 3.56,
+      "peak_rss_mb": 83.2
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-004.sqlite",
+      "start": 2500,
+      "end": 3125,
+      "articles": 625,
+      "chunks": 10634,
+      "links_found": 63463,
+      "seconds": 4.8,
+      "peak_rss_mb": 100.8
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-005.sqlite",
+      "start": 3125,
+      "end": 3750,
+      "articles": 625,
+      "chunks": 12446,
+      "links_found": 102977,
+      "seconds": 5.78,
+      "peak_rss_mb": 122.4
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-006.sqlite",
+      "start": 3750,
+      "end": 4375,
+      "articles": 625,
+      "chunks": 20238,
+      "links_found": 254663,
+      "seconds": 7.42,
+      "peak_rss_mb": 203.5
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-007.sqlite",
+      "start": 4375,
+      "end": 5000,
+      "articles": 625,
+      "chunks": 7742,
+      "links_found": 24771,
+      "seconds": 5.3,
+      "peak_rss_mb": 76.3
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-008.sqlite",
+      "start": 5000,
+      "end": 5625,
+      "articles": 625,
+      "chunks": 9026,
+      "links_found": 26734,
+      "seconds": 4.55,
+      "peak_rss_mb": 84.4
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-009.sqlite",
+      "start": 5625,
+      "end": 6250,
+      "articles": 625,
+      "chunks": 7991,
+      "links_found": 24966,
+      "seconds": 5.85,
+      "peak_rss_mb": 76.8
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-010.sqlite",
+      "start": 6250,
+      "end": 6875,
+      "articles": 625,
+      "chunks": 6292,
+      "links_found": 19709,
+      "seconds": 4.66,
+      "peak_rss_mb": 66.2
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-011.sqlite",
+      "start": 6875,
+      "end": 7500,
+      "articles": 625,
+      "chunks": 7052,
+      "links_found": 20621,
+      "seconds": 6.1,
+      "peak_rss_mb": 70.9
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-012.sqlite",
+      "start": 7500,
+      "end": 8125,
+      "articles": 625,
+      "chunks": 5484,
+      "links_found": 17512,
+      "seconds": 5.83,
+      "peak_rss_mb": 61.5
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-013.sqlite",
+      "start": 8125,
+      "end": 8750,
+      "articles": 625,
+      "chunks": 5312,
+      "links_found": 16699,
+      "seconds": 5.88,
+      "peak_rss_mb": 60.5
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-014.sqlite",
+      "start": 8750,
+      "end": 9375,
+      "articles": 625,
+      "chunks": 4355,
+      "links_found": 13494,
+      "seconds": 5.83,
+      "peak_rss_mb": 54.9
+    },
+    {
+      "shard": "/tmp/v09-shards/shard-015.sqlite",
+      "start": 9375,
+      "end": 10000,
+      "articles": 625,
+      "chunks": 4663,
+      "links_found": 12731,
+      "seconds": 5.98,
+      "peak_rss_mb": 56.1
+    }
+  ],
+  "total_seconds": 10.97,
+  "manifest": {
+    "articles": 10000,
+    "chunks": 147549,
+    "links": 779447,
+    "redirects_folded": 2349,
+    "fold_redirects": true,
+    "anchor_alias_rows": 6296,
+    "dump_sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d",
+    "chunk_chars": 480,
+    "merge_seconds": 3.51
+  },
+  "worker_peak_rss_mb_max": 203.5
+}

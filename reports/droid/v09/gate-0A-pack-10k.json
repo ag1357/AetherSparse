@@ -1,0 +1,43 @@
+{
+  "tables": {
+    "documents": {
+      "serial_count": 10000,
+      "parallel_count": 10000,
+      "content_identical": true
+    },
+    "chunks": {
+      "serial_count": 147549,
+      "parallel_count": 147549,
+      "content_identical": false
+    },
+    "aliases": {
+      "serial_count": 16079,
+      "parallel_count": 16079,
+      "content_identical": true
+    },
+    "links": {
+      "serial_count": 608393,
+      "parallel_count": 608393,
+      "content_identical": true
+    },
+    "categories": {
+      "serial_count": 24891,
+      "parallel_count": 24891,
+      "content_identical": true
+    },
+    "time_expressions": {
+      "serial_count": 232238,
+      "parallel_count": 232238,
+      "content_identical": true
+    },
+    "corpus_meta": {
+      "serial_count": 7,
+      "parallel_count": 8,
+      "content_identical": false
+    },
+    "chunks_fts": {
+      "content_identical": true
+    }
+  },
+  "identical": false
+}

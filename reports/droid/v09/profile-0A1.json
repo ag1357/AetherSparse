@@ -1,0 +1,96 @@
+{
+  "build": {
+    "limit": 10000,
+    "total_seconds": 34.24,
+    "manifest": {
+      "articles": 10000,
+      "chunks": 147549,
+      "links": 779447,
+      "redirects_folded": 2349,
+      "fold_redirects": true,
+      "anchor_alias_rows": 6296,
+      "dump_sha256": "541a2547b6cc72e91449719226d05181234cfadb2531a69faca1969245c8cb5d",
+      "chunk_chars": 480
+    },
+    "sql_buckets": {
+      "sql:INSERT OR IGNORE": {
+        "seconds": 5.21,
+        "calls": 1213157
+      },
+      "sql:INSERT INTO chunks_fts": {
+        "seconds": 1.79,
+        "calls": 147549
+      },
+      "sql:UPDATE links SET": {
+        "seconds": 0.4,
+        "calls": 1
+      },
+      "sql:SELECT changes()": {
+        "seconds": 0.02,
+        "calls": 10000
+      },
+      "sql:DELETE FROM aliases": {
+        "seconds": 0.0,
+        "calls": 2053
+      },
+      "sql:SELECT normalized_title, document_id,": {
+        "seconds": 0.0,
+        "calls": 1
+      },
+      "sql:INSERT OR REPLACE": {
+        "seconds": 0.0,
+        "calls": 8
+      }
+    },
+    "cprofile_top": [
+      "         43605801 function calls (43603597 primitive calls) in 34.235 seconds",
+      "",
+      "   Ordered by: cumulative time",
+      "   List reduced from 173 to 30 due to restriction <30>",
+      "",
+      "   ncalls  tottime  percall  cumtime  percall filename:lineno(function)",
+      "        1    2.987    2.987   34.235   34.235 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:205(ingest_mediawiki)",
+      "  1823933    1.865    0.000   10.832    0.000 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:34(normalize_text)",
+      "  1372769    1.552    0.000    9.209    0.000 /root/work/AetherSparse/scripts/droid/v09_profile_build.py:40(execute)",
+      "   163811    0.214    0.000    7.898    0.000 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:48(plain_text)",
+      "  1372769    6.942    0.000    6.942    0.000 {method 'execute' of 'sqlite3.Connection' objects}",
+      "  2678683    4.154    0.000    4.890    0.000 {method 'sub' of 're.Pattern' objects}",
+      "  2151555    0.678    0.000    4.586    0.000 /usr/lib/python3.12/re/__init__.py:179(sub)",
+      "  1823933    3.947    0.000    3.947    0.000 {method 'translate' of 'str' objects}",
+      "    10001    0.203    0.000    2.976    0.000 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:66(iter_mediawiki_pages)",
+      "   215956    0.034    0.000    2.694    0.000 /usr/lib/python3.12/xml/etree/ElementTree.py:1233(iterator)",
+      "6658/4518    0.285    0.000    2.506    0.001 {method 'read' of '_io.BufferedReader' objects}",
+      "     4181    0.003    0.000    2.245    0.001 /usr/lib/python3.12/bz2.py:157(read)",
+      "     8350    0.017    0.000    2.229    0.000 /usr/lib/python3.12/_compression.py:66(readinto)",
+      "     8350    0.011    0.000    2.206    0.000 /usr/lib/python3.12/_compression.py:72(read)",
+      "    10414    2.186    0.000    2.186    0.000 {method 'decompress' of '_bz2.BZ2Decompressor' objects}",
+      "   305098    1.441    0.000    1.441    0.000 {method 'findall' of 're.Pattern' objects}",
+      "       21    1.414    0.067    1.414    0.067 {method 'commit' of 'sqlite3.Connection' objects}",
+      "  2446653    0.671    0.000    0.975    0.000 /usr/lib/python3.12/re/__init__.py:280(_compile)",
+      "  1601540    0.331    0.000    0.642    0.000 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:50(<lambda>)",
+      "   147549    0.053    0.000    0.630    0.000 /usr/lib/python3.12/re/__init__.py:209(findall)",
+      "  1823933    0.474    0.000    0.474    0.000 {built-in method maketrans}",
+      "        1    0.000    0.000    0.415    0.415 /root/work/AetherSparse/src/aethersparse/traversal/corpus.py:24(_sha256_file)",
+      "   147550    0.364    0.000    0.364    0.000 {built-in method builtins.sorted}",
+      "  1823933    0.168    0.000    0.361    0.000 /usr/lib/python3.12/html/__init__.py:122(unescape)",
+      "  3237613    0.346    0.000    0.346    0.000 {method 'group' of 're.Match' objects}",
+      "   147549    0.055    0.000    0.342    0.000 /usr/lib/python3.12/re/__init__.py:199(split)",
+      "  2795558    0.341    0.000    0.341    0.000 {method 'casefold' of 'str' objects}",
+      "  2662837    0.320    0.000    0.320    0.000 {built-in method builtins.isinstance}",
+      "     4181    0.005    0.000    0.317    0.000 /usr/lib/python3.12/xml/etree/ElementTree.py:1278(feed)",
+      "     4181    0.312    0.000    0.312    0.000 {method 'feed' of 'xml.etree.ElementTree.XMLParser' objects}",
+      "",
+      ""
+    ]
+  },
+  "eval": {
+    "limit": 200,
+    "total_seconds": 62.44,
+    "returncode": 0,
+    "tail": [
+      "fusion    n=  200 lenient=0.8800 strict=0.8350",
+      "reranker  n=  200 lenient=0.8850 strict=0.8350",
+      "report=/tmp/v09-profile-eval.json"
+    ]
+  }
+}

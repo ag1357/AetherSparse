@@ -1,0 +1,17 @@
+{
+  "pack": "/root/work/artifacts/packs/selector-10k-v09.sqlite",
+  "workers": 16,
+  "wall_seconds": 146.67,
+  "cases": 2050,
+  "answer_cases": 1280,
+  "article_recall_strict": 0.82734375,
+  "article_recall_lenient": 0.88515625,
+  "io_rchar_total": 1017663263708,
+  "config": {
+    "candidate_limit": 96,
+    "probe_scale": 1.0,
+    "discourse_boost": 0.0,
+    "discourse_gate": "none",
+    "all_dispositions": true
+  }
+}

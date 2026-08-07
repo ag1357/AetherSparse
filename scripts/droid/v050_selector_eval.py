@@ -100,6 +100,13 @@ def _parse_args() -> argparse.Namespace:
         "recall metrics remain ANSWER-only",
     )
     parser.add_argument(
+        "--case-ids-file",
+        type=Path,
+        default=None,
+        help="restrict to the listed case ids (Phase 0A.4 conversation shards); "
+        "conversation_order is preserved within the shard",
+    )
+    parser.add_argument(
         "--fusion-weights",
         type=Path,
         default=None,
@@ -151,6 +158,9 @@ def main() -> int:
     if args.partitions:
         wanted = set(args.partitions)
         cases = [case for case in cases if case.partition.value in wanted]
+    if args.case_ids_file:
+        wanted_ids = set(json.loads(args.case_ids_file.read_text(encoding="utf-8")))
+        cases = [case for case in cases if case.case_id in wanted_ids]
     if args.limit is not None:
         cases = cases[: args.limit]
     cases = conversation_order(cases)
