@@ -901,6 +901,13 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--candidate-limit", type=int, default=96)
     parser.add_argument("--selected-limit", type=int, default=8)
+    parser.add_argument(
+        "--trace-cache",
+        type=Path,
+        default=None,
+        help="replay candidate pools from a Phase 0B trace cache instead of "
+        "running retrieval (counterfactual controller iteration)",
+    )
     return parser.parse_args(argv)
 
 
@@ -922,6 +929,7 @@ def run_evaluation(
     candidate_limit: int = 96,
     selected_limit: int = 8,
     progress: bool = False,
+    trace_cache: Path | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Run the four-stage harness; return (report, per-case outcomes)."""
 
@@ -936,6 +944,13 @@ def run_evaluation(
         cases = cases[:limit]
     cases = conversation_order(cases)
     cases_by_id = {case.case_id: case for case in benchmark.cases}
+
+    cached_pools: dict[str, dict] | None = None
+    if trace_cache is not None:
+        from v09_trace_cache import load_cache
+
+        payload = load_cache(trace_cache)
+        cached_pools = {entry["case_id"]: entry for entry in payload["cases"]}
 
     selector = EvidenceSelector(
         pack, None, candidate_limit=candidate_limit, selected_limit=selected_limit
@@ -976,9 +991,14 @@ def run_evaluation(
             )
         )
 
-        # Stage 1: candidate generation (current v07 EvidenceSelector).
+        # Stage 1: candidate generation (current v07 EvidenceSelector), or a
+        # replayed pool from the trace cache (Phase 0B counterfactual replay).
         stage_started = time.perf_counter_ns()
-        pool: list[CandidateScore] = selector.candidates(case.question)
+        if cached_pools is not None:
+            entry = cached_pools[case.case_id]
+            pool = [CandidateScore.model_validate(item) for item in entry["pool"]]
+        else:
+            pool: list[CandidateScore] = selector.candidates(case.question)
         latencies["candidates"].append((time.perf_counter_ns() - stage_started) / 1_000_000)
         injected_candidates = 0
         if "candidate" in oracles and case.gold_evidence:
@@ -1241,6 +1261,7 @@ def main(argv: list[str] | None = None) -> int:
         candidate_limit=args.candidate_limit,
         selected_limit=args.selected_limit,
         progress=True,
+        trace_cache=args.trace_cache,
     )
     write_report(args.output, report)
     if args.outcomes is not None:
