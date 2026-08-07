@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from v050_common import load_benchmark  # noqa: E402
-from v09_controller_taxonomy import canonicalize  # noqa: E402
+from v09_controller_taxonomy import canonical_match  # noqa: E402
 
 import v08_pipeline_eval as harness  # noqa: E402
 
@@ -38,8 +38,7 @@ def _dual(outcomes, results, answer_ids) -> dict:
         s_ok = bool(outcome.get("exact_answer"))
         c_ok = s_ok or (
             realized is not None
-            and canonicalize(realized)
-            in {canonicalize(a) for a in accepted}
+            and any(canonical_match(realized, a) for a in accepted)
         )
         surface += int(s_ok)
         canonical += int(c_ok)

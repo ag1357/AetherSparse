@@ -65,12 +65,91 @@ def _claim_fit(frame: QueryFrame, claim: StructuredClaim) -> float:
     )
 
 
+_DURATION_UNITS = frozenset(
+    {
+        "year", "years", "month", "months", "week", "weeks", "day", "days",
+        "hour", "hours", "minute", "minutes", "second", "seconds",
+        "decade", "decades", "century", "centuries",
+    }
+)
+
+
+def _claim_value_kind(claim: StructuredClaim) -> str:
+    """Typed value kind of a claim: date | duration | percent | count | text."""
+    surface = (claim.quantity_value or claim.object_value or "").casefold()
+    if claim.occurred_at:
+        return "date"
+    if "%" in surface or "percent" in surface or "per cent" in surface:
+        return "percent"
+    unit = (claim.quantity_unit or "").casefold().strip()
+    if unit in _DURATION_UNITS:
+        return "duration"
+    import re
+
+    if re.fullmatch(r"\d{4}(-\d{1,2}(-\d{1,2})?)?", surface.strip()):
+        return "date"
+    if re.search(r"\d", surface) and (
+        claim.quantity_value or re.fullmatch(r"[\d,.]+", surface.strip())
+    ):
+        return "count"
+    return "text"
+
+
+def _demanded_value_kind(frame: QueryFrame) -> str | None:
+    """Value kind demanded by the question's shape and quantity cues."""
+    if frame.answer_shape is AnswerShape.DATE:
+        return "date"
+    if frame.answer_shape is not AnswerShape.QUANTITY:
+        return None
+    query = frame.normalized_query.casefold()
+    if any(
+        cue in query
+        for cue in ("how long", "how old", "duration", "how many years",
+                    "how many days", "how many months", "how many hours")
+    ):
+        return "duration"
+    if "percentage" in query or "percent" in query or "what proportion" in query:
+        return "percent"
+    if "how many" in query or "how much" in query:
+        return "count"
+    return None
+
+
+def _value_fit(frame: QueryFrame, claim: StructuredClaim) -> float:
+    """Typed-binding tiebreak: does the claim's value kind match the demand?"""
+    demanded = _demanded_value_kind(frame)
+    if demanded is None:
+        return 0.5
+    kind = _claim_value_kind(claim)
+    if kind == demanded:
+        return 1.0
+    if kind == "text":
+        return 0.2
+    return 0.0
+
+
 def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | None:
     if not graph.claims or graph.contradictions:
         return None
+    # Phase 3.2: tie-breaks after _claim_fit — typed value-kind binding first,
+    # then span salience (claims bound to earlier-ranked evidence spans win);
+    # claim_id stays last so ordering remains deterministic.
+    span_index = {span.span_id: rank for rank, span in enumerate(graph.source_spans)}
+
+    def _salience(claim: StructuredClaim) -> int:
+        return min(
+            (span_index[sid] for sid in claim.source_span_ids if sid in span_index),
+            default=len(span_index),
+        )
+
     scored = sorted(
         ((_claim_fit(frame, claim), claim) for claim in graph.claims),
-        key=lambda item: (-item[0], item[1].claim_id),
+        key=lambda item: (
+            -item[0],
+            -_value_fit(frame, item[1]),
+            _salience(item[1]),
+            item[1].claim_id,
+        ),
     )
     if not scored or scored[0][0] < 0.72:
         return None

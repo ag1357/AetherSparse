@@ -107,6 +107,24 @@ def canonicalize(value: str) -> str:
     return text
 
 
+def canonical_match(realized: str, accepted: str) -> bool:
+    """Canonical value equality with date-granularity containment.
+
+    A full-date realization matches a coarser accepted value at the accepted
+    granularity (realized '2010-06-01' matches accepted '2010'); the inverse
+    does not hold.  Everything else is canonical string equality.
+    """
+    r = canonicalize(realized)
+    a = canonicalize(accepted)
+    if r == a:
+        return True
+    if re.fullmatch(r"\d{4}", a) and re.fullmatch(rf"{a}-\d{{2}}(-\d{{2}})?", r):
+        return True
+    if re.fullmatch(r"\d{4}-\d{2}", a) and re.fullmatch(rf"{a}-\d{{2}}", r):
+        return True
+    return False
+
+
 def _claims_values(result) -> list[tuple[str, object]]:
     """(canonical object value, claim) pairs enumerated in the graph."""
     out = []
@@ -155,13 +173,15 @@ def classify_case(case, result, exact_ok: bool) -> str | None:
 
     accepted = [canonicalize(a) for a in case.accepted_answers]
     claims_values = _claims_values(result)
-    enumerated = {value for value, _ in claims_values}
-    enumerated_hit = bool(set(accepted) & enumerated)
+    enumerated_hit = any(
+        canonical_match(value, accepted_value)
+        for value, _ in claims_values
+        for accepted_value in case.accepted_answers
+    )
 
     # 9/10: selection realized a value that canonicalizes to the accepted one.
     if answered and result.answer is not None:
-        realized = canonicalize(result.answer.text)
-        if realized in set(accepted):
+        if any(canonical_match(result.answer.text, a) for a in case.accepted_answers):
             if not exact_ok:
                 return "CANONICALIZATION_ONLY"
             return "DISPOSITION_WRONG"
@@ -182,7 +202,7 @@ def classify_case(case, result, exact_ok: bool) -> str | None:
     # earliest failure is the missing UNION operator, not enumeration.
     if not enumerated_hit:
         parts = [
-            canonicalize(p.strip())
+            p.strip()
             for a in case.accepted_answers
             for p in str(a).split(";")
         ]
@@ -190,7 +210,10 @@ def classify_case(case, result, exact_ok: bool) -> str | None:
             "comparison" in c or "two_source" in c or "three" in c or "six" in c
             for c in case.categories
         )
-        if shape == "list" and len(parts) > 1 and set(parts) <= enumerated:
+        if shape == "list" and len(parts) > 1 and all(
+            any(canonical_match(value, part) for value, _ in claims_values)
+            for part in parts
+        ):
             return "COMPOSITION_OPERATOR_MISSING"
         if multi and len(case.accepted_answers) > 1:
             return "COMPOSITION_OPERATOR_MISSING"
@@ -199,7 +222,11 @@ def classify_case(case, result, exact_ok: bool) -> str | None:
         return "VALUE_NOT_ENUMERATED"
 
     # The accepted value IS enumerated. Binding-level errors precede ranking.
-    matching = [claim for value, claim in claims_values if value in set(accepted)]
+    matching = [
+        claim
+        for value, claim in claims_values
+        if any(canonical_match(value, a) for a in case.accepted_answers)
+    ]
     if selected_claim is not None and all(
         claim.claim_id != selected_claim.claim_id for claim in matching
     ):
