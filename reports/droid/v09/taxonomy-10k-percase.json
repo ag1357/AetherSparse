@@ -195,7 +195,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -405,7 +405,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -572,7 +572,7 @@
   "realized": "|photo2c=Rembrandt van Rijn - Self-Portrait - Google Art Project.; {{reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -602,7 +602,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -692,7 +692,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -768,7 +768,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -828,7 +828,7 @@
   "realized": "* [[Bartolomeu Dias]] of Portugal sails around [[Africa]] and on to [[India]].; * [[1470]] [[July 12]] &ndash; The [[Ottoman Empire|Ottomans]] capture [[Euboea]].",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1176,7 +1176,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1221,7 +1221,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1464,7 +1464,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1554,7 +1554,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1569,7 +1569,7 @@
   "realized": "==== Individual and community ====",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1584,7 +1584,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1660,7 +1660,7 @@
   "realized": "For example, [[immigrant]]s (people who move from one country to another) may keep some of their customs and traditions from their old country.; a thing that, when a living being, plant or animal does not have it, it is not able to live",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1705,7 +1705,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1780,7 +1780,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1811,7 +1811,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -1901,7 +1901,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2006,7 +2006,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2051,7 +2051,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2172,7 +2172,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2202,7 +2202,7 @@
   "realized": "[[Category:464 BC| ]]; {{Reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2248,7 +2248,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2278,7 +2278,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2323,7 +2323,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2383,7 +2383,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2533,7 +2533,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2548,7 +2548,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2593,7 +2593,7 @@
   "realized": "a Greek city-state",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2654,7 +2654,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2715,7 +2715,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2775,7 +2775,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2850,7 +2850,7 @@
   "realized": "html 'The Vision Thing': How Effective Leaders Cultivate and Co-ordinate Social Identity in Order to Promote Followership] {{Webarchive|url=https://web.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2910,7 +2910,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2925,7 +2925,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -2955,7 +2955,7 @@
   "realized": "*King [[Christian IV of Denmark and Norway]] ([[1588]]\u2013[[1648]]).; * Permanent [[Netherlands|Dutch]] settlement of [[New york City|New York Bay]] and the [[Hudson River]].",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3015,7 +3015,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3061,7 +3061,7 @@
   "realized": "Some examples of these prefixes are:; rights and freedoms that all people should have",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3107,7 +3107,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3122,7 +3122,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3197,7 +3197,7 @@
   "realized": "a form of a language spoken by a group of people; a person who is forced to leave their country due to [[natural disaster]]s or [[war]] and conflict",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3428,7 +3428,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3609,7 +3609,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3686,7 +3686,7 @@
   "realized": "eschelbronn.; Esotericism can also be about understanding symbolism and hidden meanings of many different books.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3807,7 +3807,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3882,7 +3882,7 @@
   "realized": "ach [[chemical element]] has this unique set of '''spectral lines'''.; * King [[Umberto I of Italy|Umberto I]] ([[Italy]])",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -3988,7 +3988,7 @@
   "realized": "a tall structure; org/wiki/Coventry Coventry] -Citizendium",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4035,7 +4035,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4050,7 +4050,7 @@
   "realized": "| title_leader           = [[Leaders of South Vietnam#Heads of state|President]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4202,7 +4202,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4232,7 +4232,7 @@
   "realized": "ps://blogs.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4337,7 +4337,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4382,7 +4382,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4443,7 +4443,7 @@
   "realized": "* June 25, 1183 - [[Frederick I, Holy Roman Emperor|Frederick I]] and the [[Lombard League]] sign the [[Peace of Constance]]; [[Category:1150s| ]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4503,7 +4503,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4518,7 +4518,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4683,7 +4683,7 @@
   "realized": "a [[tool]] for digging; {{reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4774,7 +4774,7 @@
   "realized": "--British places named \"Bangor\"-->",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4805,7 +4805,7 @@
   "realized": "|50 Cent; * ''[[Sam & Cat]]'' (spin-off from ''[[iCarly]]'' and ''[[Victorious]]'')",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4836,7 +4836,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -4897,7 +4897,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5065,7 +5065,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5215,7 +5215,7 @@
   "realized": "''[[Androphilia and gynephilia]]'' are an; a style of baile",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5245,7 +5245,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5275,7 +5275,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5365,7 +5365,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5425,7 +5425,7 @@
   "realized": "4 M<sub>S</sub>-strong earthquake shakes Chile's [[Atacama Region]] causing [[tsunami]]s in Chile as well as [[Hawaii]] and [[Japan]].; a decade that began on 1 January 1190 and ended on 31 December 1199",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5455,7 +5455,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5470,7 +5470,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5530,7 +5530,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5622,7 +5622,7 @@
   "realized": "a person who ''manages'' or is ''in charge of'' something",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5728,7 +5728,7 @@
   "realized": "an international bourse of coins",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5743,7 +5743,7 @@
   "realized": "* [[Electronic mail]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5758,7 +5758,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5924,7 +5924,7 @@
   "realized": "something that has not happened yet; [[Category:Display technology]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -5954,7 +5954,7 @@
   "realized": "The Greeks considered memory ([[Mnemosyne]]) as the mother of Muses, for without her there would be no art and science.; Material",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6076,7 +6076,7 @@
   "realized": "a push or pull or a twist between ''objects''",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6241,7 +6241,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6287,7 +6287,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6348,7 +6348,7 @@
   "realized": "[[Category:1780s| ]]; *[[Anne Askew]], English Protestant martyr ([[1521]])",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6423,7 +6423,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6514,7 +6514,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6544,7 +6544,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6589,7 +6589,7 @@
   "realized": "a kind of music",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6709,7 +6709,7 @@
   "realized": "* [[Helsinki]] founded in [[Finland]].; * [[Shah]]s of [[Persia]] ([[Safavid dynasty]] and [[Afsharid dynasty]])",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6739,7 +6739,7 @@
   "realized": "{{Reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6846,7 +6846,7 @@
   "realized": "[[Category:1880s| ]]; [[Category:1310s| ]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6876,7 +6876,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -6953,7 +6953,7 @@
   "realized": "poem.; *[[Interim East Punjab Assembly]], 1947\u20131951",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7014,7 +7014,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7059,7 +7059,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7180,7 +7180,7 @@
   "realized": "one time 6,000 people visited '''Quintland''' each day to see the sisters, they also had [[doll]]s made out of them, and appeared in [[commercials]] for products like [[corn]] [[syrup]] and [[Religious Society of Friends|Quaker]] [[oats like oatmeal]].; *[[Notary]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7195,7 +7195,7 @@
   "realized": "* [[Billion (company)]], a Taiwanese modem manufacturer; {{commons category-inline|Needles}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7240,7 +7240,7 @@
   "realized": "a biological preparation",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7316,7 +7316,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7436,7 +7436,7 @@
   "realized": "a perfectly flat surface extending in all directions; [[Category:Microeconomics| ]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7526,7 +7526,7 @@
   "realized": "[[Category:1710s| ]]; [[Category:1650s| ]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7556,7 +7556,7 @@
   "realized": "*Flanders",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7571,7 +7571,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7601,7 +7601,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7783,7 +7783,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7829,7 +7829,7 @@
   "realized": "| brother || granduncle || stepgranduncle || ''unrelated'' || ''unrelated''; used for mixing colours",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7844,7 +7844,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7921,7 +7921,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -7997,7 +7997,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8043,7 +8043,7 @@
   "realized": "the condition of being much too heavy for one's height so that one's health is affected",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8058,7 +8058,7 @@
   "realized": "* [[Euclidean distance]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8073,7 +8073,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8103,7 +8103,7 @@
   "realized": "an American pay television channel that serves as the flagship property of Disney Branded Television, a unit of the Disney Entertainment business segment of the Walt Disney Company; ''</ref> These parts are: exposition (of the situation); rising action (through conflict); climax (or turning point); falling action; and [[resolution]].",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8178,7 +8178,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8343,7 +8343,7 @@
   "realized": "[[Category:1170s|*]]; * [[1288]] \u2013 [[June 5]] \u2013 [[John I of Brabant]] defeats the duchy of [[Guelders]] in the [[Battle of Worringen]] \u2014 one of the largest battles in Europe of the Middle Ages \u2014 thus winning possession of the [[duchy of Limburg]].",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8358,7 +8358,7 @@
   "realized": "{{commonscat|Envelopes}}; com/hinduism/vedas/ Vedas: Rig, Sama, Yajur, and Artharva] {{Webarchive|url=https://web.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8373,7 +8373,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8433,7 +8433,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8448,7 +8448,7 @@
   "realized": "any legal activity that allows an individual to perform a service and in return earn credits they can use to buy things; uk NMAP The UK\u2019s Gateway to high quality Internet resources for Nurses, Midwives and Allied Professions] {{Webarchive|url=https://web.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8584,7 +8584,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8614,7 +8614,7 @@
   "realized": "url=https://www.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8629,7 +8629,7 @@
   "realized": "{{reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8659,7 +8659,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8750,7 +8750,7 @@
   "realized": "|image_flag             = Flag of Cusco (1978\u20132021).",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8795,7 +8795,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8810,7 +8810,7 @@
   "realized": "The two sexes have different [[sex organ|sexual organs]], and different [[secondary sex characteristic]]s.; jpg|A jackknife (folding knife)",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8945,7 +8945,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8960,7 +8960,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -8975,7 +8975,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9218,7 +9218,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9294,7 +9294,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9309,7 +9309,7 @@
   "realized": "com Dreamviews Lucid Dreaming Community & Resource] {{Webarchive|url=https://web.; *[[Christopher of Bavaria]], King of Denmark, Norway and Sweden",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9387,7 +9387,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9449,7 +9449,7 @@
   "realized": "a prepared food that is put to other food, to make the food better or taste different",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9510,7 +9510,7 @@
   "realized": "''' [exempli gratia] (''for example'') and '''et al.; <references />",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9631,7 +9631,7 @@
   "realized": "[[Category:Ships]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9751,7 +9751,7 @@
   "realized": "* Supraethnicity or supra-ethnicity: a grouping of several interrelated ethnicities that have similar but unique [[Culture|cultures]].; Called \"the empire on which the Sun never sets\"' it stood as a sign of British strength and dominance across the globe.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9766,7 +9766,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9781,7 +9781,7 @@
   "realized": "[[Category:Plant anatomy]]; a word with a few different meanings",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9871,7 +9871,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9886,7 +9886,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -9978,7 +9978,7 @@
   "realized": "* [[Mobility aid|Mobility aids]], such as [[Cane|canes]] (walking sticks), crutches, and [[Walker (tool)|walkers]], that help someone walk",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10068,7 +10068,7 @@
   "realized": "Some people have hallucinations because they purposefully or accidentally put chemicals or drugs into their bodies.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10098,7 +10098,7 @@
   "realized": "{{reflist}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10188,7 +10188,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10248,7 +10248,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10263,7 +10263,7 @@
   "realized": "nguage=English|accessdate=2009-11-14|archive-date=2014-11-11|archive-url=https://web.; [[Portuguese Empire|Portuguese colonizers]] and [[Jesuit]] missionaries in [[Brazil]] and its [[Deity|deities]] (''[[orisha]]s'') deemed to be \"[[demon]]s\" purely based on [[prejudice]] and [[racism]] towards the African slaves and their culture.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10278,7 +10278,7 @@
   "realized": "a purplish-red color; If someone studied [[German language|German]] in [[Austria]], for example, people in [[Germany]] may think that person was",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10324,7 +10324,7 @@
   "realized": "*[http://www.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10339,7 +10339,7 @@
   "realized": "a person who is in charge of something",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10444,7 +10444,7 @@
   "realized": "For example, in [[Norway]], girls born in 1840 had their first [[menstruation|period]] at an average age of 17 years; in [[France]] the average age was 15.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10459,7 +10459,7 @@
   "realized": "org/details/dangerousbookfor0000iggu_u2s8/page/34 35]\u201338 |chapter=Making a Bow and Arrow}}; {{commonscat-inline|Monday}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10579,7 +10579,7 @@
   "realized": "org/diseases-conditions/meningitis/symptoms-causes/syc-20350508|title=Meningitis - Symptoms and causes|website=Mayo Clinic}}</ref>; {{Debt}}",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10594,7 +10594,7 @@
   "realized": "*Queen  [[Mary II of England|Mary II of England and Scotland]] ([[1689]]\u2013[[1694]]).; *King  [[Charles II of England|Charles II of England and Scotland]] ([[1660]]\u2013[[1685]]).",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10715,7 +10715,7 @@
   "realized": "* [http://www.; * Archiving formats: [[ZIP (file format)|Zip]], [[GZip]], [[bZip]]2, [[7-Zip]], etc.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10761,7 +10761,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10821,7 +10821,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10866,7 +10866,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10911,7 +10911,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10926,7 +10926,7 @@
   "realized": "* [[Marquis de Sade]], French writer; a decade that started on 1 January 1590 and ended on 31 December 1599",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -10972,7 +10972,7 @@
   "realized": "|group=lower-alpha}} look better than they were<ref name=\"HT2024\">{{cite book |title=Decoding Antisemitism |chapter=Holocaust Denial and Distortion |c",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11017,7 +11017,7 @@
   "realized": "* [[Emily Dickinson]], writer; * [[James Strang]], Mormon.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11032,7 +11032,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11107,7 +11107,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11122,7 +11122,7 @@
   "realized": null,
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11198,7 +11198,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11333,7 +11333,7 @@
   "realized": "[[Category:Voting| ]]",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11425,7 +11425,7 @@
   "realized": "* [[Pope Pius XI]] (Pope in the 1920s); * [[Yasser Arafat]], Palestinian leader",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11455,7 +11455,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11486,7 +11486,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11546,7 +11546,7 @@
   "realized": "a person who leads the making of a [[movie]] (or ''film''); Safety rules require an emergency release to prevent anyone from getting trapped, as [[hypothermia]] can occur if someone is in",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11623,7 +11623,7 @@
   "realized": "* [[Extended play]]; a small group of people who like the same things",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11653,7 +11653,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11683,7 +11683,7 @@
   "realized": "Image:Goalkeeper handball penalty shot.",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11773,7 +11773,7 @@
   "realized": "* [[President of the United States|President]] [[John Adams]] ([[United States]]); * [[Shah]]s of [[Persia]] ([[Zand dynasty]] and [[Qajar dynasty]])",
   "shape": "list",
   "sources": 2,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11803,7 +11803,7 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  },
  {
   "accepted": [
@@ -11818,6 +11818,6 @@
   "realized": null,
   "shape": "list",
   "sources": 3,
-  "taxonomy": "VALUE_NOT_ENUMERATED"
+  "taxonomy": "COMPOSITION_OPERATOR_MISSING"
  }
 ]

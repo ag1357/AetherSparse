@@ -45,10 +45,10 @@
       "VALUE_NOT_ENUMERATED": 1
     },
     "three_to_six_source": {
-      "VALUE_NOT_ENUMERATED": 80
+      "COMPOSITION_OPERATOR_MISSING": 80
     },
     "two_source": {
-      "VALUE_NOT_ENUMERATED": 93
+      "COMPOSITION_OPERATOR_MISSING": 93
     }
   },
   "by_shape": {
@@ -66,7 +66,7 @@
       "VALUE_NOT_ENUMERATED": 8
     },
     "list": {
-      "VALUE_NOT_ENUMERATED": 173
+      "COMPOSITION_OPERATOR_MISSING": 173
     },
     "quantity": {
       "DISPOSITION_WRONG": 22,
@@ -82,8 +82,7 @@
   },
   "by_source_count": {
     "multi": {
-      "COMPOSITION_OPERATOR_MISSING": 91,
-      "VALUE_NOT_ENUMERATED": 173
+      "COMPOSITION_OPERATOR_MISSING": 264
     },
     "single": {
       "DISPOSITION_WRONG": 207,
@@ -105,11 +104,11 @@
   ],
   "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k-p3.sqlite",
   "taxonomy": {
-    "COMPOSITION_OPERATOR_MISSING": 91,
+    "COMPOSITION_OPERATOR_MISSING": 264,
     "DISPOSITION_WRONG": 207,
     "TEMPORAL_SCOPE_WRONG": 53,
     "VALUE_MISRANKED": 166,
-    "VALUE_NOT_ENUMERATED": 264,
+    "VALUE_NOT_ENUMERATED": 91,
     "WRONG_TYPE": 1
   },
   "trace_cache": "/tmp/trace-cache-10k.json"

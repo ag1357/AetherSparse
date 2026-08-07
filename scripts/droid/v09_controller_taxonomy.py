@@ -177,15 +177,24 @@ def classify_case(case, result, exact_ok: bool) -> str | None:
                 selected_claim = claim
                 break
 
-    # 1: accepted value never enumerated.
+    # 1: accepted value never enumerated.  For list/union questions, split the
+    # accepted surface into ';'-joined parts: if every part is enumerated, the
+    # earliest failure is the missing UNION operator, not enumeration.
     if not enumerated_hit:
-        # 8: composition needed — multi-source categories where no single
-        # claim could carry the full accepted answer.
+        parts = [
+            canonicalize(p.strip())
+            for a in case.accepted_answers
+            for p in str(a).split(";")
+        ]
         multi = any(
             "comparison" in c or "two_source" in c or "three" in c or "six" in c
             for c in case.categories
         )
+        if shape == "list" and len(parts) > 1 and set(parts) <= enumerated:
+            return "COMPOSITION_OPERATOR_MISSING"
         if multi and len(case.accepted_answers) > 1:
+            return "COMPOSITION_OPERATOR_MISSING"
+        if multi and shape in {"list", "comparison"}:
             return "COMPOSITION_OPERATOR_MISSING"
         return "VALUE_NOT_ENUMERATED"
 
