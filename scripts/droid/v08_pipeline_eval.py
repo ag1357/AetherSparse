@@ -931,8 +931,13 @@ def run_evaluation(
     progress: bool = False,
     trace_cache: Path | None = None,
     _collect_results: bool = False,
+    _frame_shape_overrides: dict[str, str] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Run the four-stage harness; return (report, per-case outcomes)."""
+    """Run the four-stage harness; return (report, per-case outcomes).
+
+    _frame_shape_overrides (diagnostic only): per-case gold answer-shape
+    override for the mode-1 condition in Phase 2.  Never shipped behavior.
+    """
 
     if not isinstance(oracles, frozenset) or not oracles <= ORACLE_SET:
         raise AssertionError("oracles must be an explicit subset of ORACLE_CHOICES")
@@ -1031,6 +1036,12 @@ def run_evaluation(
         # Stage 3: controller-package evidence construction over top-8 chunks.
         stage_started = time.perf_counter_ns()
         frame = linker.link_frame(framer.frame(case.question, prior_entity_ids=prior_ids))
+        if _frame_shape_overrides is not None and case.case_id in _frame_shape_overrides:
+            from aethersparse.controller.models import AnswerShape
+
+            frame = frame.model_copy(
+                update={"answer_shape": AnswerShape(_frame_shape_overrides[case.case_id])}
+            )
         prior_memo[case.case_id] = frame.candidate_entity_ids
         link_ms = (time.perf_counter_ns() - stage_started) / 1_000_000
         latencies["link"].append(link_ms)
@@ -1264,6 +1275,7 @@ def run_evaluation_with_results(
     selected_limit: int = 8,
     trace_cache: Path | None = None,
     cached: dict[str, dict] | None = None,
+    _frame_shape_overrides: dict[str, str] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[Any]]:
     """Phase 1 taxonomy: run the harness and also collect ControllerResults."""
     del cached  # cache is loaded inside run_evaluation
@@ -1277,6 +1289,7 @@ def run_evaluation_with_results(
         selected_limit=selected_limit,
         trace_cache=trace_cache,
         _collect_results=True,
+        _frame_shape_overrides=_frame_shape_overrides,
     )
     return report, outcomes, results
 
