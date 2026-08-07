@@ -67,8 +67,19 @@ def test_unknown_and_ambiguity_are_not_collapsed_together() -> None:
     unknown = QueryFramer().frame("What is Qzzyxx?")
     # Before a registry marks coverage, unanswered copyable text is an abstention.
     assert choose_disposition(unknown, _graph(), None, None)[0] is ControllerDisposition.ABSTAIN
+    # Phase 3.1 (taxonomy class DISPOSITION_WRONG): a deterministically
+    # verified answer grounds the unresolved mention; suppression would be a
+    # silent-wrong abstention.  Without verification the abstention stands.
     assert (
         choose_disposition(unknown, _graph(), _selection(), _verification(True))[0]
+        is ControllerDisposition.ANSWER
+    )
+    assert (
+        choose_disposition(unknown, _graph(), _selection(), _verification(False))[0]
+        is ControllerDisposition.VERIFICATION_FAILURE
+    )
+    assert (
+        choose_disposition(unknown, _graph(), _selection(), None)[0]
         is ControllerDisposition.ABSTAIN
     )
     assert (

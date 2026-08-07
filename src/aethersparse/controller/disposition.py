@@ -64,7 +64,15 @@ def choose_disposition(
             ControllerDisposition.OUT_OF_CORPUS,
             "named entity is absent from the frozen corpus",
         )
-    if unknown:
+    # A deterministically verified answer grounds the unresolved mention:
+    # the verified claim IS the referent evidence, so suppression would be a
+    # silent-wrong abstention (Phase 3.1, taxonomy class DISPOSITION_WRONG).
+    verified_answer = (
+        selection is not None
+        and verification is not None
+        and verification.passed
+    )
+    if unknown and not verified_answer:
         return (ControllerDisposition.ABSTAIN, "named entity is unresolved but copyable")
     ambiguous = [
         mention
@@ -83,7 +91,9 @@ def choose_disposition(
     if (
         ambiguous
         or frame.uncertainty >= thresholds.clarification_uncertainty
-    ):
+    ) and not verified_answer:
+        # A verified answer grounds the mention set: entity ambiguity that the
+        # evidence already resolved must not suppress it (Phase 3.1).
         return (ControllerDisposition.CLARIFY, "the entity or discourse reference is ambiguous")
     if selection is None:
         return (
