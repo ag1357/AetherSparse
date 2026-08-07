@@ -110,7 +110,7 @@ def test_oracles_off_retrieval_equivalence_with_v050_selector_eval() -> None:
     limit = max(
         index for index, case in enumerate(benchmark.cases, start=1) if case.case_id in wanted
     )
-    report, outcomes = harness.run_evaluation(
+    report, outcomes, _ = harness.run_evaluation(
         pack=PACK_PATH,
         benchmark_path=BENCHMARK_PATH,
         limit=limit,

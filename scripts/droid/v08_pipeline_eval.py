@@ -930,6 +930,7 @@ def run_evaluation(
     selected_limit: int = 8,
     progress: bool = False,
     trace_cache: Path | None = None,
+    _collect_results: bool = False,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Run the four-stage harness; return (report, per-case outcomes)."""
 
@@ -961,6 +962,7 @@ def run_evaluation(
 
     prior_memo: dict[str, tuple[str, ...]] = {}
     outcomes: list[dict[str, Any]] = []
+    collected_results: list[Any] | None = [] if _collect_results else None
     latencies: dict[str, list[float]] = {
         "candidates": [],
         "select": [],
@@ -1099,6 +1101,8 @@ def run_evaluation(
         io_after = _io_counters()
         latency_ms = (time.perf_counter_ns() - case_started) / 1_000_000
         latencies["case_total"].append(latency_ms)
+        if collected_results is not None:
+            collected_results.append(result)
         outcomes.append(
             {
                 "case_id": case.case_id,
@@ -1246,13 +1250,41 @@ def run_evaluation(
         "oracle_injections": injection_totals,
         "latency": {name: latency_summary(values) for name, values in latencies.items()},
     }
-    return report, outcomes
+    return report, outcomes, collected_results
+
+
+def run_evaluation_with_results(
+    *,
+    pack: Path,
+    benchmark_path: Path,
+    limit: int | None,
+    partitions: list[str] | None,
+    oracles: frozenset[str],
+    candidate_limit: int = 96,
+    selected_limit: int = 8,
+    trace_cache: Path | None = None,
+    cached: dict[str, dict] | None = None,
+) -> tuple[dict[str, Any], list[dict[str, Any]], list[Any]]:
+    """Phase 1 taxonomy: run the harness and also collect ControllerResults."""
+    del cached  # cache is loaded inside run_evaluation
+    report, outcomes, results = run_evaluation(
+        pack=pack,
+        benchmark_path=benchmark_path,
+        limit=limit,
+        partitions=partitions,
+        oracles=oracles,
+        candidate_limit=candidate_limit,
+        selected_limit=selected_limit,
+        trace_cache=trace_cache,
+        _collect_results=True,
+    )
+    return report, outcomes, results
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv)
     oracles = _resolve_oracles(args)
-    report, outcomes = run_evaluation(
+    report, outcomes, _ = run_evaluation(
         pack=args.pack,
         benchmark_path=args.benchmark,
         limit=args.limit,
