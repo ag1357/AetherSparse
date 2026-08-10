@@ -17,6 +17,7 @@ from aethersparse.selection.models import (
     QuantizedLinearModel,
     SelectionTrace,
 )
+from aethersparse.selection.spelling import EditDistanceIndex
 from aethersparse.traversal.corpus import TOKEN_RE, CorpusStore, normalize_text
 
 STOP = {
@@ -114,6 +115,11 @@ class EvidenceSelector:
         self._target_cache: dict[tuple[str, ...], set[str]] = {}
         self._disambiguation_cache: dict[str, bool] = {}
         self._term_cache: dict[str, bool] = {}
+        # Phase 7 (Lane C): bounded edit-distance <=2 correction index.  When
+        # no sidecar exists next to the pack the selector behaves exactly as
+        # before (edit-1 FTS probes only).
+        self._spelling_index = EditDistanceIndex.maybe_open(corpus_path)
+        self._repair_cache: dict[str, tuple[set[str], set[str], str] | None] = {}
 
     @classmethod
     def from_model_file(cls, corpus_path: Path, model_path: Path) -> EvidenceSelector:
@@ -288,11 +294,16 @@ class EvidenceSelector:
         query_categories: set[str],
         bm25_score: float = 0.0,
     ) -> tuple[float, ...]:
-        query_tokens = _tokens(query)
+        repair = self._repair_overrides(query)
+        query_tokens = repair[0] if repair is not None else _tokens(query)
         body_tokens = _tokens(row["normalized_text"])
         title_tokens = _tokens(row["title"])
         section_tokens = _tokens(row["section_path"])
-        entities = _tokens(" ".join(ENTITY_RE.findall(query)))
+        entities = (
+            repair[1]
+            if repair is not None
+            else _tokens(" ".join(ENTITY_RE.findall(query)))
+        )
         query_years = set(YEAR_RE.findall(query))
         body_years = set(YEAR_RE.findall(row["normalized_text"]))
         candidate_categories = self._document_categories(row["document_id"])
@@ -348,7 +359,9 @@ class EvidenceSelector:
             directness,
             attribution_fit,
             answerability,
-            self._char3gram_fit(query, row["normalized_text"]),
+            self._char3gram_fit(
+                repair[2] if repair is not None else query, row["normalized_text"]
+            ),
         )
 
     @staticmethod
@@ -412,13 +425,15 @@ class EvidenceSelector:
         return self._term_cache[term]
 
     def _spelling_repairs(self, query: str) -> list[str]:
-        """Edit-distance-1 repairs for query terms absent from the corpus.
+        """Bounded edit-distance repairs for query terms absent from the corpus.
 
         FTS candidate generation is exact-match: one orthographic error in a
         content term removes the gold document from the candidate pool before
         any ranking feature can act (measured: gold present in only 5/22
         tuning misspelling pools).  Repairing only zero-occurrence terms keeps
-        the probe general and bounded.
+        the probe general and bounded.  With a Phase 7 sidecar present the
+        repair source is the edit-distance-<=2 symmetric-delete index;
+        otherwise the legacy edit-distance-1 FTS probe path runs unchanged.
         """
         terms = sorted(
             {
@@ -428,6 +443,17 @@ class EvidenceSelector:
             }
         )
         repairs: list[str] = []
+        if self._spelling_index is not None:
+            # Pool-aware repairs only: the override map is computed from the
+            # natural pool before this probe runs (see candidates()).  A
+            # correction with no support in the naturally retrieved pool is
+            # never probed — measured: unsupported frequency-ordered repairs
+            # inject wrong-document rows that displace linked-doc supplemental
+            # evidence (18/22 lost cases were pool ejections, not rank flips).
+            overrides = self._repair_overrides(query)
+            if overrides is not None:
+                repairs = list(overrides[3])
+            return repairs
         probes = 0
         for term in terms:
             if len(repairs) >= 2 or probes >= 600:
@@ -442,6 +468,111 @@ class EvidenceSelector:
                     repairs.append(variant)
                     break
         return repairs
+
+    def _repair_overrides(
+        self, query: str, rows: list[sqlite3.Row] | None = None
+    ) -> tuple[set[str], set[str], str, tuple[str, ...]] | None:
+        """Pool-aware corrected token view of the query (Phase 7, Lane C).
+
+        Returns (query_tokens, entity_tokens, char_query, repair_terms) with
+        each zero-occurrence term replaced by its edit-distance-<=2
+        correction, or None when no sidecar index is present or nothing
+        qualified.  Computed once per query from candidates() over the
+        NATURAL pool (before the repair probe runs), so a probe-injected
+        document can never fulfill its own correction.
+
+        Measured design (v09 laneC-ed2-10k / laneC-ed2pool-10k vs
+        parallel-eval-10k): global frequency disambiguation picks the wrong
+        same-distance candidate for most ambiguous misspellings (21 lost /
+        9 gained), and unsupported frequency-ordered repairs inject
+        wrong-document rows that displace linked-doc supplemental evidence
+        (18/22 losses were pool ejections, not rank flips).  The intended
+        correction is almost always present in the naturally retrieved pool,
+        so the disambiguator is pool support: most natural-pool rows
+        containing the token, tie-broken by edit distance then token; a
+        correction with zero natural support is never applied.
+        """
+
+        if query in self._repair_cache:
+            return self._repair_cache[query]
+        overrides: tuple[set[str], set[str], str, tuple[str, ...]] | None = None
+        if self._spelling_index is not None and rows is not None:
+            token_sets = [
+                _tokens(row["normalized_text"]) | _tokens(row["title"]) for row in rows
+            ]
+            repair_terms: list[str] = []
+            override_map: dict[str, str] = {}
+            for term in sorted(
+                {
+                    token
+                    for token in TOKEN_RE.findall(query.casefold())
+                    if len(token) > 2 and token not in STOP
+                }
+            ):
+                if len(repair_terms) >= 2:
+                    break
+                if self._term_in_corpus(term):
+                    continue
+                # Gen-side repair order is legacy typo-plausibility first:
+                # edit-1 variants in _edit1_variants order with the corpus
+                # as membership oracle (exactly the legacy first-hit rule),
+                # then — only when no edit-1 variant exists in the corpus —
+                # the index's distance-2 extension, ordered by
+                # (Damerau-OSA distance, -frequency, token).  Measured: the
+                # benchmark's misspellings are transposition-heavy, and
+                # frequency-first distance-2 picks ('tehnic'->'tennis')
+                # pulled wrong documents (laneC v1-v4 @10k).
+                correction: str | None = None
+                for variant in _edit1_variants(term):
+                    if self._term_in_corpus(variant):
+                        correction = variant
+                        break
+                candidates: list[tuple[str, int]] = []
+                if correction is None:
+                    candidates = self._spelling_index.corrections(term, limit=6)
+                    if candidates:
+                        correction = candidates[0][0]
+                if correction is None:
+                    continue
+                repair_terms.append(correction)
+                # Feature-side override: pool-supported picks only, so an
+                # unsupported wrong correction never enters scoring.
+                pool_candidates = candidates or [(correction, 1)]
+                best_key: tuple[int, int, str] | None = None
+                best_token: str | None = None
+                for token, distance in pool_candidates:
+                    support = sum(1 for token_set in token_sets if token in token_set)
+                    if support < 1:
+                        continue
+                    key = (-support, distance, token)
+                    if best_key is None or key < best_key:
+                        best_key, best_token = key, token
+                if best_token is not None:
+                    override_map[term] = best_token
+            if repair_terms:
+                oov = set(override_map)
+                fixed = set(override_map.values())
+                query_tokens = (_tokens(query) - oov) | fixed
+                entity_base = _tokens(" ".join(ENTITY_RE.findall(query)))
+                entity_tokens = (entity_base - oov) | {
+                    fix for term, fix in override_map.items() if term in entity_base
+                }
+                char_query = query.casefold()
+                for term in sorted(override_map, key=len, reverse=True):
+                    char_query = re.sub(
+                        rf"(?<![\w'-]){re.escape(term)}(?![\w'-])",
+                        override_map[term],
+                        char_query,
+                    )
+                overrides = (
+                    query_tokens,
+                    entity_tokens,
+                    char_query,
+                    tuple(sorted(repair_terms)),
+                )
+        if rows is not None:
+            self._repair_cache[query] = overrides
+        return overrides
 
     def candidates(
         self, query: str, *, carry_document_id: str | None = None
@@ -546,24 +677,33 @@ class EvidenceSelector:
                 if row["chunk_id"] not in seen:
                     rows.append(row)
                     seen.add(row["chunk_id"])
-        repairs = self._spelling_repairs(query)
-        if repairs:
-            # Orthographic repair probe: corrected variants of zero-occurrence
-            # terms plus the query's known terms for context; bounded like the
-            # expansion probe.
-            context = sorted(
-                {
-                    term
-                    for term in TOKEN_RE.findall(query.casefold())
-                    if len(term) > 2 and term not in STOP and self._term_in_corpus(term)
-                }
-            )[:4]
-            for row in self.store.search(
-                " ".join([*repairs, *context]), max(12, int(12 * self.probe_scale))
-            ):
-                if row["chunk_id"] not in seen:
-                    rows.append(row)
-                    seen.add(row["chunk_id"])
+        # Phase 7 (Lane C): without the edit-distance index the legacy
+        # edit-1 repair probe runs here, before carry and supplemental.
+        # With the index the probe moves AFTER the full natural pool is
+        # assembled: measured (v09 laneC-ed2nat-10k), pool-supported
+        # corrections make the probe fire for nearly every misspelling case,
+        # and its rows then displaced linked-doc supplemental evidence
+        # (41/42 losses were pool ejections).  Appended last, probe rows can
+        # only add candidates, never displace them.
+        if self._spelling_index is None:
+            repairs = self._spelling_repairs(query)
+            if repairs:
+                # Orthographic repair probe: corrected variants of
+                # zero-occurrence terms plus the query's known terms for
+                # context; bounded like the expansion probe.
+                context = sorted(
+                    {
+                        term
+                        for term in TOKEN_RE.findall(query.casefold())
+                        if len(term) > 2 and term not in STOP and self._term_in_corpus(term)
+                    }
+                )[:4]
+                for row in self.store.search(
+                    " ".join([*repairs, *context]), max(12, int(12 * self.probe_scale))
+                ):
+                    if row["chunk_id"] not in seen:
+                        rows.append(row)
+                        seen.add(row["chunk_id"])
         if carry_document_id is not None:
             # Discourse carry-over: the previous turn's resolved document joins
             # the pool as a bounded probe; the soft boost in select() orders it.
@@ -627,6 +767,26 @@ class EvidenceSelector:
                 seen.add(row["chunk_id"])
             if len(rows) >= self.candidate_limit:
                 break
+        if self._spelling_index is not None:
+            # Pool-aware overrides over the FULL natural pool (lexical,
+            # entity, expansion, carry, linked supplemental), then the
+            # bounded repair probe appended last (see note above).
+            self._repair_overrides(query, rows)
+            repairs = self._spelling_repairs(query)
+            if repairs:
+                context = sorted(
+                    {
+                        term
+                        for term in TOKEN_RE.findall(query.casefold())
+                        if len(term) > 2 and term not in STOP and self._term_in_corpus(term)
+                    }
+                )[:4]
+                for row in self.store.search(
+                    " ".join([*repairs, *context]), max(12, int(12 * self.probe_scale))
+                ):
+                    if row["chunk_id"] not in seen:
+                        rows.append(row)
+                        seen.add(row["chunk_id"])
         scores: list[CandidateScore] = []
         bm25_values = [float(row["rank"] or 0.0) for row in rows]
         # SQLite FTS5 bm25() is negative and better-is-lower; invert then scale to [0,1].

@@ -1,0 +1,17 @@
+{
+  "pack": "/media/cloud/2982-E16B/work/packs/selector-10k-p3.sqlite",
+  "workers": 3,
+  "wall_seconds": 1211.08,
+  "cases": 2050,
+  "answer_cases": 1280,
+  "article_recall_strict": 0.81328125,
+  "article_recall_lenient": 0.87109375,
+  "io_rchar_total": 1017283101269,
+  "config": {
+    "candidate_limit": 96,
+    "probe_scale": 1.0,
+    "discourse_boost": 0.0,
+    "discourse_gate": "none",
+    "all_dispositions": true
+  }
+}

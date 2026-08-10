@@ -1,0 +1,88 @@
+{
+  "marginals_pp": {
+    "candidate_generation": 9.22,
+    "controller_gap_canonical_rung0_to_rung3": 19.22,
+    "controller_residual_canonical": 47.11,
+    "evidence_construction": 19.77,
+    "ranking": 8.05
+  },
+  "pack": "/media/cloud/2982-E16B/work/packs/selector-10k-p3.sqlite",
+  "rungs": {
+    "rung0": {
+      "article_recall_lenient": 0.88515625,
+      "article_recall_strict": 0.82734375,
+      "canonical_value": 0.3367,
+      "evidence_recall": 0.69609375,
+      "exact_answer_surface": 0.3328125,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 132,
+        "B_CANDIDATE_MISRANKED": 89,
+        "C_EVIDENCE_FAILED": 208,
+        "D_CONTROLLER_FAILED": 425,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 854
+      }
+    },
+    "rung1_candidate": {
+      "article_recall_lenient": 0.97734375,
+      "article_recall_strict": 0.91953125,
+      "canonical_value": 0.3508,
+      "evidence_recall": 0.78046875,
+      "exact_answer_surface": 0.346875,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 103,
+        "C_EVIDENCE_FAILED": 218,
+        "D_CONTROLLER_FAILED": 515,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 836
+      }
+    },
+    "rung2_ranking": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 0.3633,
+      "evidence_recall": 0.80234375,
+      "exact_answer_surface": 0.359375,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 253,
+        "D_CONTROLLER_FAILED": 567,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 820
+      }
+    },
+    "rung3_evidence": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 0.5289,
+      "evidence_recall": 1.0,
+      "exact_answer_surface": 0.52109375,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 0,
+        "D_CONTROLLER_FAILED": 613,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 613
+      }
+    },
+    "rung4_controller": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 1.0,
+      "evidence_recall": 1.0,
+      "exact_answer_surface": 1.0,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 0,
+        "D_CONTROLLER_FAILED": 0,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 0
+      }
+    }
+  },
+  "trace_cache": "/tmp/trace-cache-10k.json"
+}
