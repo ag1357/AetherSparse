@@ -1,0 +1,17 @@
+{
+  "pack": "/root/work/artifacts/packs/selector-full-p3.sqlite",
+  "workers": 8,
+  "wall_seconds": 13761.72,
+  "cases": 2050,
+  "answer_cases": 1280,
+  "article_recall_strict": 0.6859375,
+  "article_recall_lenient": 0.7671875,
+  "io_rchar_total": 42601416441336,
+  "config": {
+    "candidate_limit": 96,
+    "probe_scale": 1.0,
+    "discourse_boost": 0.35,
+    "discourse_gate": "compat",
+    "all_dispositions": true
+  }
+}
