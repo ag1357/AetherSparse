@@ -1,0 +1,17 @@
+{
+  "pack": "/root/work/artifacts/packs/selector-25k-p3.sqlite",
+  "workers": 8,
+  "wall_seconds": 882.15,
+  "cases": 2050,
+  "answer_cases": 1280,
+  "article_recall_strict": 0.81640625,
+  "article_recall_lenient": 0.8765625,
+  "io_rchar_total": 2285651505897,
+  "config": {
+    "candidate_limit": 96,
+    "probe_scale": 1.0,
+    "discourse_boost": 0.0,
+    "discourse_gate": "none",
+    "all_dispositions": true
+  }
+}
