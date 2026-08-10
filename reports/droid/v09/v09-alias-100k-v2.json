@@ -1,0 +1,1841 @@
+{
+  "anchor_doc_count": {
+    "max": 20,
+    "mean": 2.17,
+    "p50": 1
+  },
+  "n_alias_redirect_answer_cases": 140,
+  "outcomes": "/root/work/v08/eval-100k-percase.json",
+  "pack": "/root/work/artifacts/packs/selector-100k-p3.sqlite",
+  "per_case": [
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:001f91c578fe8e9a865b0521",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "dancer",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:033133bf228b236b1823f406",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "1980's",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:03a0d9c40b11ae1e5c5c1fbf",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnic",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "cultural life",
+      "case_id": "v050r1-case:03a2049aa8a04a82d6069001",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "cultural life",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "gold rush",
+      "case_id": "v050r1-case:03ad9b33984b2587cad426f3",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "gold rush",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "our universe",
+      "case_id": "v050r1-case:04604f3e0793218e54a73ac8",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "our universe",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 4,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:0a9ac7738805e7410b8d79e9",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "flooding",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:0b0f8bbacde0d171756d3f7a",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "1920's",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:0b63ef3b6a56345228f766a0",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "out",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "elliptical orbit",
+      "case_id": "v050r1-case:0de6736cfd46dcdb14d477a9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "elliptical orbit",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:0f06c94f91d4ecde4f5064b0",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnically",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "blood sausage",
+      "case_id": "v050r1-case:0f3eb8d5ec6a21d14e84d911",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "blood sausage",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "web color",
+      "case_id": "v050r1-case:1104d69dcbe2209cce7f8049",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "brown",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 6,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:11da29642a0e040c122cecda",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "britain",
+      "gold_anchor_doc_count": 12,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:14aa97291305981c9bbd78b9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "country",
+      "gold_anchor_doc_count": 19,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "civil engineers",
+      "case_id": "v050r1-case:1717663fdbfcf4fcd923546d",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "civil engineers",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:174589976d8362177dfda9c8",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "membranes",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:190d1c4427ed8cc7f544947e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "dialects",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "breathing apparatus",
+      "case_id": "v050r1-case:19a211fdfd4aea5ca88964f9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "breathing apparatus",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:1b03601df53fd17242c7e5c6",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "kin",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:1b12e6b947dbdadb21f03d32",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "dancer",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:1d1242995ce8b6a7ca1a617f",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "endings",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:1e5f71078032dfb8c664cab9",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "males",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "britain's oldest colonies",
+      "case_id": "v050r1-case:2056e783835037a34bbce032",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "britain's oldest colonies",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "ethnic groups",
+      "case_id": "v050r1-case:208495efc8926d189ed94874",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnic groups",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:20d875039ea250d869a72039",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "80's",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:215f55beadb2beb605ae81b7",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "distances",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:233a573604bc1feed758033f",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "culturally",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:23d17a825b534a97418fcdb1",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "city's",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "political parties",
+      "case_id": "v050r1-case:263f1b6ac950ea7617de70be",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "political parties",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:269f4a8ce6059d5b6cad4fb0",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "cultures",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:277d91c4c9757021f3f7b41e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "evolve",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "absorption lines",
+      "case_id": "v050r1-case:282b873ad3248609d4b2c786",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "absorption lines",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:29859ff98a680c2b5191bce8",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "breasts",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "50 cent",
+      "case_id": "v050r1-case:3398ceec7262c3f2bf8d31bf",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "50 cent",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "chat system",
+      "case_id": "v050r1-case:339d23bc5c57b8f0cd8d1937",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "chat system",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "disney channel original movies",
+      "case_id": "v050r1-case:33f64da2dc1cd1dde8074142",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "disney channel original movies",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 8,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "disabled people",
+      "case_id": "v050r1-case:358801d284980568195b2434",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "disabled people",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 2,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:38f15bdba5e5914bcea29176",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "inside",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "a political party",
+      "case_id": "v050r1-case:392bced46ee8ab7471031991",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "a political party",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 7,
+      "pool_disambiguation_pages": 2,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:392ce5d91c0c37ffa1cc6fc2",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "orbits",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:3f31b23914c84ae5da52afa5",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "created",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:435b1edf9cfbc752c27021c6",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "device",
+      "gold_anchor_doc_count": 7,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 2,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:44af53ff7e0259091f7e9e6c",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "evolved",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:4501bd4d4708f5ac3176b341",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "predict",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "british empire",
+      "case_id": "v050r1-case:45216d005109894cb777f646",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "british empire",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:45921e8a35f8c93d0b0a1bcb",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "executive",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:47409700a3293a352079d705",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnicities",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "special needs",
+      "case_id": "v050r1-case:48d44aa50debf31550dece60",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "special needs",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "displaced_in_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:49792d0caa6b402ce1b865f4",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "albums",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:4ae653fb8f8ddc7ab0a2ac2d",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "boobs",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:4d51829925c1d66e47243416",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "chatting",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:4d5234a15bde0101e1e51254",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "employment",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "british rule",
+      "case_id": "v050r1-case:4eb1a2b575e796740f225ef1",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "british rule",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:524de7dc47e9233f0a59c41e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "colonialism",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "displaced_in_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5443ca7b31386758798ceb46",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "dancing",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:585a44eb1257caa979330baf",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "compressed",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5adb2c7e9639d23e0711d5f8",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "middle",
+      "gold_anchor_doc_count": 6,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "ethnic minority",
+      "case_id": "v050r1-case:5d0700f6b37882b6d82b0632",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnic minority",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5d9de93ae61141ee10cb594c",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "materials",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5e642c274b1513b8f2686287",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "dancers",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "emergency department",
+      "case_id": "v050r1-case:5eb3bab25141bf4e6b40637c",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "emergency department",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5eef9ee7ee5fa96b6a6a650a",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "hallucinations",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:5f6c44e5709ad4e465857729",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "speak",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "alexander iii of macedonia",
+      "case_id": "v050r1-case:5fa3840e07c6586e3dbbcbee",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "alexander iii of macedonia",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 7,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "ethnic minority groups",
+      "case_id": "v050r1-case:61f0ba21f8f300c8009e5bef",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnic minority groups",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 8,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "basic human right",
+      "case_id": "v050r1-case:6682b92803e2f1cf41ec13ea",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "basic human right",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 7,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:67c1f9f67a8a8560792daf29",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "distant",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:68c72f83a1df6f2280251fca",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "cities",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:6f64ab3f9431ffaad3ea5d2f",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "british",
+      "gold_anchor_doc_count": 20,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:713626db606f8dfbefd0267a",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "cultural",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:74f45549ef3918aba3b84b71",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "17th",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:770f918c6e6054dff2a0d063",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "area",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:7916c01c336bad8a6f3c7ee9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": null,
+      "gold_anchor_doc_count": 0,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 2,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:7b49c0f719d9888f3792ccda",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "electrical",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:8116a669948f6ed89f473eed",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "1930's",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:821520b358c5ae947004a79e",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "nursing",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:821c04fa90fbaaf7f860619a",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "calendars",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:84979418148821dfd8e70377",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "rangoon",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "dysfunctional family",
+      "case_id": "v050r1-case:85854644f804d24eab2416db",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "dysfunctional family",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 4,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:869dcad5e05fef0595afa1db",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "disabilities",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "demo version",
+      "case_id": "v050r1-case:8800dcd583ba1c32badfdc4b",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "demo",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:886595a34b51b26495a66b23",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "fridge",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "computer viruses",
+      "case_id": "v050r1-case:88f49fedf5815017b3197f51",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "computer viruses",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "the world",
+      "case_id": "v050r1-case:896a8d4ab91de794736d2ced",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "country",
+      "gold_anchor_doc_count": 19,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 8,
+      "pool_disambiguation_pages": 1,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "emergency medicine",
+      "case_id": "v050r1-case:8a8896453cd9262d30e8b039",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "emergency medicine",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "human right",
+      "case_id": "v050r1-case:8c81a7117cdd734785541fb2",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "human right",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:8d2178bae0e76b434dc193b3",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "empire",
+      "gold_anchor_doc_count": 7,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:9732f301815e19154a537b47",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "evolutionary",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:9764399116911eb125e342db",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "disasters",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:98e2e598f564e051f07a7ca3",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "handicapped",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:9ef3a40bf20ec88d1f20172b",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "friday",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 4,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:a00d103ba58f1c7d19947629",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "in",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "evolutionary history",
+      "case_id": "v050r1-case:a307b1f3738d83ef70408e1e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "evolutionary history",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:a6797dd003df2d7f7e95494a",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "developmental",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:a928816b0b85b221a8ea654f",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "create",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:aa225b0b91aa1e528df9587e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "compressing",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ac8cee061cbda7a9cb7b49bf",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "far",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:acc6fb22a8d6a49ab271861f",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "funnels",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ae555c9fb3e99066089cbe2e",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "16th",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "british control",
+      "case_id": "v050r1-case:af86ffb14b1cc999ecca92d9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "british control",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b0db467e7ade4cf94f2d9cbf",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "near",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b147842775af2076011e23d3",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "debts",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b1d1cbd3a53804a803edf9de",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "communities",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b2f140f021e00247d92b756c",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "date",
+      "gold_anchor_doc_count": 4,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b549b65a68f5142d6934d02a",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": null,
+      "gold_anchor_doc_count": 0,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 2,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:b93eb59e2248a012375bc609",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "divers",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:bc66b09778d9e7df43ffd98a",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "games",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:bcacc8e3ecdad9906c363b6d",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "artistic",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:bda5000dbf8b0a4711708080",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "outside",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:be26838024e2b03db331e701",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "breasts",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:bebfc7a3182bda7aebe4e234",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "crucibles",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "english speaking",
+      "case_id": "v050r1-case:c13b6f4b163cde9d4c127750",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": null,
+      "gold_anchor_doc_count": 0,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 6,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:c1b72590bdfdf9135d0d10a9",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "dancing",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:c49b1b70460683e38aa8ecc4",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ethnicity",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:c79e8719ab34a877560cfe20",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "authors",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:cf66477691adfcc9653840dc",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "disabled",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:cfb461140d0632a2baea79a2",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "evolving",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:d397ad492a440d7657cf7447",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "borrowing",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "ethnic group",
+      "case_id": "v050r1-case:d9c1defe411538eff640aa5d",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "ethnic group",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:db6cacdebfcd27868428b2e6",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "floods",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ddaf8fdbf81dc1764c9e3fd6",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "commands",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:dff65031c98bd37153238312",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "esoteric",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e174a59a02089a3fabdd613d",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "empires",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e263448e746ec173dc172a14",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "ending",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e33050fa391b20be1fa153fa",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "conductive",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e47ffa9c6cbc2232bcd6ccb0",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "disabled",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e49f7d6fdaa0b129f956f7c9",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "commandment",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "eccentric orbits",
+      "case_id": "v050r1-case:e79537e6f31d1c7fc8036165",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "eccentric orbits",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:e8328f194fc5ae05ca536992",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "expressions",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "cultural backgrounds",
+      "case_id": "v050r1-case:e9cfaa0bd80ca164443de66b",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "cultural backgrounds",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 4,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ea62e3aa9de2e20093e922dc",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "cities",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 1,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "emergency medical treatment",
+      "case_id": "v050r1-case:eb32befad8950433490f7872",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "emergency medical treatment",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 7,
+      "pool_disambiguation_pages": 0,
+      "status": "displaced_in_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ed20c6be9314c57adfb65271",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "construction",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:f0eb08d6156412893c1ffb11",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "accidents",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:f5debafeb5f4992f60c0cad3",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "crash",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "political party",
+      "case_id": "v050r1-case:f8b34796935b042ea5a42434",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "political party",
+      "gold_anchor_doc_count": 3,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 5,
+      "pool_disambiguation_pages": 2,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:fc1a4c4d469876ad660bb6a5",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "dances",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "present_top8"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:fed0af0e2def72388e9cb796",
+      "categories": [
+        "alias"
+      ],
+      "gold_anchor": "abbreviated",
+      "gold_anchor_doc_count": 1,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    },
+    {
+      "anchor": "does",
+      "case_id": "v050r1-case:ff510dd177d7fd36f6d6643f",
+      "categories": [
+        "redirect"
+      ],
+      "gold_anchor": "handicap",
+      "gold_anchor_doc_count": 2,
+      "gold_is_disambiguation": false,
+      "ngrams_with_alias_rows": 3,
+      "pool_disambiguation_pages": 0,
+      "status": "absent_from_pool"
+    }
+  ],
+  "status_counts": {
+    "absent_from_pool": 54,
+    "displaced_in_pool": 3,
+    "gold_anchor_multi_pageid": 57,
+    "pool_has_disambiguation": 19,
+    "present_top8": 83,
+    "question_alias_maps_to_gold": 137,
+    "question_alias_misses_gold": 3
+  }
+}
