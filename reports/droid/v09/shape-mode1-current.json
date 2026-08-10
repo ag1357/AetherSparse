@@ -1,0 +1,193 @@
+{
+  "agreement_by_partition": {
+    "development": {
+      "_overall": {
+        "accuracy": 1.0,
+        "n": 166
+      },
+      "comparison": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 18
+      },
+      "date": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 23
+      },
+      "definition": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 71
+      },
+      "list": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 26
+      },
+      "quantity": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 14
+      },
+      "quotation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 14
+      }
+    },
+    "evaluation": {
+      "_overall": {
+        "accuracy": 1.0,
+        "n": 658
+      },
+      "comparison": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 62
+      },
+      "date": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 46
+      },
+      "definition": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 357
+      },
+      "list": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 97
+      },
+      "quantity": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 52
+      },
+      "quotation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 44
+      }
+    },
+    "final_held": {
+      "_overall": {
+        "accuracy": 1.0,
+        "n": 198
+      },
+      "comparison": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 20
+      },
+      "date": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 23
+      },
+      "definition": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 89
+      },
+      "list": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 29
+      },
+      "quantity": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 20
+      },
+      "quotation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 17
+      }
+    },
+    "tuning": {
+      "_overall": {
+        "accuracy": 1.0,
+        "n": 258
+      },
+      "comparison": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 10
+      },
+      "date": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 18
+      },
+      "definition": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 143
+      },
+      "list": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 38
+      },
+      "quantity": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 24
+      },
+      "quotation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "support": 25
+      }
+    }
+  },
+  "confusion_gold_to_predicted": {
+    "comparison": {
+      "comparison": 110
+    },
+    "date": {
+      "date": 110
+    },
+    "definition": {
+      "definition": 660
+    },
+    "list": {
+      "list": 190
+    },
+    "quantity": {
+      "quantity": 110
+    },
+    "quotation": {
+      "quotation": 100
+    }
+  },
+  "majority_baseline_by_partition": {
+    "development": {
+      "accuracy": 0.4277,
+      "n": 166
+    },
+    "evaluation": {
+      "accuracy": 0.5426,
+      "n": 658
+    },
+    "final_held": {
+      "accuracy": 0.4495,
+      "n": 198
+    },
+    "tuning": {
+      "accuracy": 0.5543,
+      "n": 258
+    }
+  },
+  "majority_class": "definition",
+  "mode_gap": {
+    "gap_pp": 0.0,
+    "mode1_oracle_shape_exact": 0.5211,
+    "mode2_predicted_shape_exact": 0.5211,
+    "n": 1280
+  }
+}
