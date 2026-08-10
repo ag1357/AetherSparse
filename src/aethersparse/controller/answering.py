@@ -128,6 +128,37 @@ def _value_fit(frame: QueryFrame, claim: StructuredClaim) -> float:
     return 0.0
 
 
+_SLOT_SHAPE_BY_RELATION: dict[str, AnswerShape] = {
+    "definition": AnswerShape.DEFINITION,
+    "date": AnswerShape.DATE,
+    "birth": AnswerShape.DATE,
+    "death": AnswerShape.DATE,
+    "quantity": AnswerShape.QUANTITY,
+    "comparison": AnswerShape.QUANTITY,
+    "quotation": AnswerShape.QUOTATION,
+}
+
+
+def _slot_shape(frame: QueryFrame) -> AnswerShape | None:
+    """Per-slot shape demand for LIST containers (Phase 4.1).
+
+    A LIST frame is a container; each slot carries the question's underlying
+    per-item demand.  'Using both sources, what are X and Y?' requests the
+    definition relation, so each slot wants a DEFINITION-shaped claim — not
+    a LIST-shaped one.  Measured @10k (taxonomy list:wrong_parts): without
+    slot shapes, LIST-shaped extraction residue ('{{reflist}}', infobox
+    tails) outranks the per-entity gloss claims (shape_fit 1.0 vs 0.2) even
+    though the glosses are present in the graph with higher confidence.
+    """
+
+    requested = set(frame.requested_relation_families)
+    shapes = {_SLOT_SHAPE_BY_RELATION.get(relation) for relation in requested}
+    shapes.discard(None)
+    if len(shapes) == 1:
+        return shapes.pop()
+    return None
+
+
 def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | None:
     if not graph.claims or graph.contradictions:
         return None
@@ -200,18 +231,45 @@ def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | 
 
     if frame.answer_shape is AnswerShape.LIST:
         list_targets = tuple(dict.fromkeys(frame.candidate_entity_ids))
+        slot = _slot_shape(frame)
+
+        def _slot_key(item: tuple[float, StructuredClaim]) -> tuple[object, ...]:
+            score, claim = item
+            compatible = {AnswerShape.ENTITY, AnswerShape.DEFINITION, AnswerShape.LIST}
+            if claim.answer_shape is AnswerShape.LIST:
+                container_fit = 1.0
+            elif {claim.answer_shape, AnswerShape.LIST} <= compatible:
+                container_fit = 0.2
+            else:
+                container_fit = 0.0
+            if slot is None or claim.answer_shape is slot:
+                slot_fit = 1.0
+            elif {claim.answer_shape, slot} <= compatible:
+                slot_fit = 0.2
+            else:
+                slot_fit = 0.0
+            # Recompute the shape_fit term against the slot shape instead of
+            # the LIST container (0.21 is the shape_fit weight in _claim_fit).
+            return (
+                -(score - 0.21 * container_fit + 0.21 * slot_fit),
+                -claim.confidence,
+                _salience(claim),
+                claim.claim_id,
+            )
+
+        ordered = sorted(scored, key=_slot_key) if slot is not None else scored
         selected_rows: list[tuple[float, StructuredClaim]] = []
         if list_targets:
             for target in list_targets:
                 matching = [
-                    item for item in scored if item[1].subject_entity_id == target
+                    item for item in ordered if item[1].subject_entity_id == target
                 ]
                 if not matching:
                     return None
                 selected_rows.append(matching[0])
         else:
             seen_subjects: set[str] = set()
-            for item in scored:
+            for item in ordered:
                 if item[1].subject_entity_id in seen_subjects:
                     continue
                 selected_rows.append(item)
