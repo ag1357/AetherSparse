@@ -129,6 +129,17 @@ class QueryFrame(FrozenModel):
     clarification_need: bool
 
 
+# Entity ID bands (schema reservation, Mission 4 — landed as schema, not
+# capability).  Corpus compiles mint "as:v050:entity:{sha256[:24]}" (see
+# sqlite_provider._entity_id).  The reserved high band
+# "as:user:entity:{sha256[:24]}" belongs to user-defined entities created by
+# a later mission's persistent conversational memory.  Both bands share the
+# binder's ID space; resolvers MUST NOT mint user-band IDs from corpus
+# content, nor corpus-band IDs from conversation content.
+CORPUS_ENTITY_ID_PREFIX = "as:v050:entity:"
+USER_ENTITY_ID_PREFIX = "as:user:entity:"
+
+
 class ExactSourceSpan(FrozenModel):
     span_id: str
     document_id: str
@@ -136,6 +147,11 @@ class ExactSourceSpan(FrozenModel):
     source_revision: str
     source_url: str
     source_family: str
+    # Schema reservation (Mission 4): CORPUS spans are document+revision+span;
+    # CONVERSATION spans (a later mission) will be conversation+turn+span,
+    # carried in the same fields (document_id=conversation id,
+    # source_revision=turn id, char bounds=span within the turn).
+    source_class: Literal["CORPUS", "CONVERSATION"] = "CORPUS"
     char_start: int = Field(ge=0)
     char_end: int = Field(gt=0)
     text: str
@@ -155,6 +171,12 @@ class StructuredClaim(FrozenModel):
     object_value: str
     answer_shape: AnswerShape
     source_span_ids: tuple[str, ...] = Field(min_length=1)
+    # Schema reservation (Mission 4): CORPUS_GROUNDED claims are extracted
+    # from corpus evidence; USER_ASSERTED claims originate from user
+    # statements in conversation.  USER_ASSERTED claims are ineligible to
+    # satisfy any factual verification path (verification.py treats
+    # grounding as a hard gate once conversation sources exist).
+    grounding: Literal["CORPUS_GROUNDED", "USER_ASSERTED"] = "CORPUS_GROUNDED"
     polarity: Literal["positive", "negative"] = "positive"
     object_entity_id: str | None = None
     occurred_at: str | None = None
