@@ -99,7 +99,7 @@ def _demanded_value_kind(frame: QueryFrame) -> str | None:
     """Value kind demanded by the question's shape and quantity cues."""
     if frame.answer_shape is AnswerShape.DATE:
         return "date"
-    if frame.answer_shape is not AnswerShape.QUANTITY:
+    if frame.answer_shape not in (AnswerShape.QUANTITY, AnswerShape.COMPARISON):
         return None
     query = frame.normalized_query.casefold()
     if any(
@@ -108,7 +108,12 @@ def _demanded_value_kind(frame: QueryFrame) -> str | None:
                     "how many days", "how many months", "how many hours")
     ):
         return "duration"
-    if "percentage" in query or "percent" in query or "what proportion" in query:
+    if (
+        "percentage" in query
+        or "percent" in query
+        or "what proportion" in query
+        or "%" in query
+    ):
         return "percent"
     if "how many" in query or "how much" in query:
         return "count"
@@ -159,6 +164,43 @@ def _slot_shape(frame: QueryFrame) -> AnswerShape | None:
     return None
 
 
+def _compare_pair_selection(
+    frame: QueryFrame,
+    scored: list[tuple[float, StructuredClaim]],
+    compatible: list[tuple[float, StructuredClaim]],
+    *,
+    lenient: bool,
+) -> AnswerSelection | None:
+    """One comparison pairing pass over the compatible pool."""
+
+    for index, (left_score, left) in enumerate(compatible):
+        for right_score, right in compatible[index + 1 :]:
+            if left.subject_entity_id == right.subject_entity_id:
+                continue
+            if left.relation_family != right.relation_family:
+                continue
+            comparison = compare_quantities(
+                left, right, surface_percent_compat=lenient
+            )
+            if comparison is None:
+                continue
+            symbol = "=" if comparison == 0 else ">" if comparison > 0 else "<"
+            text = f"{left.object_value} {symbol} {right.object_value}"
+            return AnswerSelection(
+                answer_text=text,
+                answer_shape=AnswerShape.COMPARISON,
+                selected_claim_ids=(left.claim_id, right.claim_id),
+                selected_source_span_ids=tuple(
+                    dict.fromkeys((*left.source_span_ids, *right.source_span_ids))
+                ),
+                confidence=min(left_score, right_score),
+                rejected_claim_ids=tuple(
+                    claim.claim_id for _, claim in scored if claim not in {left, right}
+                ),
+            )
+    return None
+
+
 def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | None:
     if not graph.claims or graph.contradictions:
         return None
@@ -192,6 +234,22 @@ def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | 
             for score, claim in scored
             if not targets or claim.subject_entity_id in targets
         ]
+        # Phase 4.2: pair claims of the demanded value kind only.  Without
+        # the filter, 'Compare the stated % values ...' paired year- or
+        # count-valued claims (taxonomy comparison:value_mismatch).  Fall
+        # back to the unfiltered pool when the kind is under-populated.
+        demanded = _demanded_value_kind(frame)
+        if demanded is not None:
+            typed = [
+                item
+                for item in compatible
+                if _claim_value_kind(item[1]) == demanded
+            ]
+            # Apply only when a typed pair across two subjects can exist;
+            # otherwise keep the unfiltered pool (answering with a
+            # cross-kind pair beats abstaining on an answer-case).
+            if len({item[1].subject_entity_id for item in typed}) >= 2:
+                compatible = typed
         if len(frame.candidate_entity_ids) >= 2:
             target_order = {
                 entity_id: index
@@ -204,29 +262,14 @@ def select_answer(frame: QueryFrame, graph: EvidenceGraph) -> AnswerSelection | 
                     item[1].claim_id,
                 )
             )
-        for index, (left_score, left) in enumerate(compatible):
-            for right_score, right in compatible[index + 1 :]:
-                if left.subject_entity_id == right.subject_entity_id:
-                    continue
-                if left.relation_family != right.relation_family:
-                    continue
-                comparison = compare_quantities(left, right)
-                if comparison is None:
-                    continue
-                symbol = "=" if comparison == 0 else ">" if comparison > 0 else "<"
-                text = f"{left.object_value} {symbol} {right.object_value}"
-                return AnswerSelection(
-                    answer_text=text,
-                    answer_shape=AnswerShape.COMPARISON,
-                    selected_claim_ids=(left.claim_id, right.claim_id),
-                    selected_source_span_ids=tuple(
-                        dict.fromkeys((*left.source_span_ids, *right.source_span_ids))
-                    ),
-                    confidence=min(left_score, right_score),
-                    rejected_claim_ids=tuple(
-                        claim.claim_id for _, claim in scored if claim not in {left, right}
-                    ),
-                )
+        # Strict unit equality first; a lenient percent-surface pass only
+        # when no strict pair exists (preserves strict pair ordering).
+        for lenient in (False, True):
+            selection = _compare_pair_selection(
+                frame, scored, compatible, lenient=lenient
+            )
+            if selection is not None:
+                return selection
         return None
 
     if frame.answer_shape is AnswerShape.LIST:

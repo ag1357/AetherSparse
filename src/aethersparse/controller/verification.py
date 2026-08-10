@@ -173,7 +173,15 @@ def verify_realization(
         comparison_claims = [
             claim_map[planned.structured_claim_ids[0]] for planned in plan.planned_claims
         ]
+        # Mirror select_answer: strict unit equality first, lenient
+        # percent-surface compatibility as the fallback pass.
         comparison = compare_quantities(comparison_claims[0], comparison_claims[1])
+        if comparison is None:
+            comparison = compare_quantities(
+                comparison_claims[0],
+                comparison_claims[1],
+                surface_percent_compat=True,
+            )
         expected_operator = (
             None
             if comparison is None

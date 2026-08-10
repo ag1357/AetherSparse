@@ -220,16 +220,28 @@ def _decimal(value: str | None) -> Decimal | None:
 def compare_quantities(
     left: StructuredClaim,
     right: StructuredClaim,
+    *,
+    surface_percent_compat: bool = False,
 ) -> int | None:
-    """Return -1/0/1 only when exact units are compatible."""
+    """Return -1/0/1 only when exact units are compatible.
+
+    With surface_percent_compat, a '%' in both surfaces is treated as unit
+    evidence: extraction often leaves quantity_unit empty on one side of an
+    otherwise clean percent pair.  Callers should try the strict form first
+    and use this only as a fallback pass.
+    """
 
     left_value = _decimal(left.quantity_value or left.object_value)
     right_value = _decimal(right.quantity_value or right.object_value)
     if left_value is None or right_value is None:
         return None
-    left_unit = (left.quantity_unit or "").casefold()
-    right_unit = (right.quantity_unit or "").casefold()
-    if left_unit != right_unit:
+    def _unit(claim: StructuredClaim, surface_pct: bool) -> str:
+        surface = claim.quantity_value or claim.object_value or ""
+        if surface_pct and "%" in surface:
+            return "%"
+        return (claim.quantity_unit or "").casefold()
+
+    if _unit(left, surface_percent_compat) != _unit(right, surface_percent_compat):
         return None
     return (left_value > right_value) - (left_value < right_value)
 

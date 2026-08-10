@@ -73,6 +73,9 @@ def canonicalize(value: str) -> str:
     text = re.sub(r"\s+", " ", str(value).strip().lower())
     text = re.sub(r"^(the|a|an) ", "", text)
     text = text.strip(" .,\"'")
+    # A leading positive sign carries no information ('+24%' == '24%');
+    # the negative sign is semantic and stays.
+    text = re.sub(r"^\+(?=\d)", "", text)
     # dates: "march 4, 1998" / "4 march 1998" / "1998-03-04" -> iso
     m = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", text)
     if m:
