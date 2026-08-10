@@ -1,0 +1,115 @@
+{
+  "by_category": {
+    "alias": {
+      "VALUE_MISRANKED": 6,
+      "VALUE_NOT_ENUMERATED": 1
+    },
+    "comparison": {
+      "COMPOSITION_OPERATOR_MISSING": 91
+    },
+    "date": {
+      "CANONICALIZATION_ONLY": 10,
+      "DISPOSITION_WRONG": 28,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_NOT_ENUMERATED": 7
+    },
+    "direct_fact": {
+      "DISPOSITION_WRONG": 2,
+      "VALUE_MISRANKED": 10
+    },
+    "follow_up": {
+      "DISPOSITION_WRONG": 1
+    },
+    "misspelling": {
+      "DISPOSITION_WRONG": 4,
+      "VALUE_MISRANKED": 52,
+      "VALUE_NOT_ENUMERATED": 6
+    },
+    "pronoun": {
+      "DISPOSITION_WRONG": 3,
+      "VALUE_MISRANKED": 2
+    },
+    "quantity": {
+      "DISPOSITION_WRONG": 26,
+      "VALUE_MISRANKED": 11,
+      "VALUE_NOT_ENUMERATED": 42
+    },
+    "quotation": {
+      "DISPOSITION_WRONG": 7,
+      "VALUE_MISRANKED": 41,
+      "VALUE_NOT_ENUMERATED": 17
+    },
+    "redirect": {
+      "DISPOSITION_WRONG": 35,
+      "VALUE_MISRANKED": 6,
+      "VALUE_NOT_ENUMERATED": 1
+    },
+    "three_to_six_source": {
+      "COMPOSITION_OPERATOR_MISSING": 58
+    },
+    "two_source": {
+      "COMPOSITION_OPERATOR_MISSING": 89
+    }
+  },
+  "by_shape": {
+    "comparison": {
+      "COMPOSITION_OPERATOR_MISSING": 91
+    },
+    "date": {
+      "CANONICALIZATION_ONLY": 10,
+      "DISPOSITION_WRONG": 28,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_NOT_ENUMERATED": 7
+    },
+    "definition": {
+      "DISPOSITION_WRONG": 45,
+      "VALUE_MISRANKED": 76,
+      "VALUE_NOT_ENUMERATED": 8
+    },
+    "list": {
+      "COMPOSITION_OPERATOR_MISSING": 147
+    },
+    "quantity": {
+      "DISPOSITION_WRONG": 26,
+      "VALUE_MISRANKED": 11,
+      "VALUE_NOT_ENUMERATED": 42
+    },
+    "quotation": {
+      "DISPOSITION_WRONG": 7,
+      "VALUE_MISRANKED": 41,
+      "VALUE_NOT_ENUMERATED": 17
+    }
+  },
+  "by_source_count": {
+    "multi": {
+      "COMPOSITION_OPERATOR_MISSING": 238
+    },
+    "single": {
+      "CANONICALIZATION_ONLY": 10,
+      "DISPOSITION_WRONG": 106,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_MISRANKED": 128,
+      "VALUE_NOT_ENUMERATED": 74
+    }
+  },
+  "denominators": {
+    "answer_cases": 1280,
+    "classified_failures": 613,
+    "exact_answer_correct": 667
+  },
+  "oracles": [
+    "candidate",
+    "ranking",
+    "evidence"
+  ],
+  "pack": "/media/cloud/2982-E16B/work/artifacts/packs/selector-10k-p3.sqlite",
+  "taxonomy": {
+    "CANONICALIZATION_ONLY": 10,
+    "COMPOSITION_OPERATOR_MISSING": 238,
+    "DISPOSITION_WRONG": 106,
+    "TEMPORAL_SCOPE_WRONG": 57,
+    "VALUE_MISRANKED": 128,
+    "VALUE_NOT_ENUMERATED": 74
+  },
+  "trace_cache": "/tmp/trace-cache-10k.json"
+}

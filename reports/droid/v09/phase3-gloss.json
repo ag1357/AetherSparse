@@ -1,0 +1,45 @@
+{
+  "modes": {
+    "mode2": {
+      "canonical_value": 0.5289,
+      "disposition_accuracy_all": 0.8785,
+      "exact_surface": 0.5211,
+      "n": 1280,
+      "per_category_canonical": {
+        "alias": 0.9222,
+        "comparison": 0.1727,
+        "date": 0.1636,
+        "direct_fact": 0.9455,
+        "follow_up": 0.99,
+        "misspelling": 0.38,
+        "pronoun": 0.95,
+        "quantity": 0.2818,
+        "quotation": 0.35,
+        "redirect": 0.16,
+        "three_to_six_source": 0.275,
+        "two_source": 0.1909
+      }
+    },
+    "mode3": {
+      "canonical_value": 0.3367,
+      "disposition_accuracy_all": 0.7512,
+      "exact_surface": 0.3328,
+      "n": 1280,
+      "per_category_canonical": {
+        "alias": 0.7333,
+        "comparison": 0.1182,
+        "date": 0.0636,
+        "direct_fact": 0.9091,
+        "follow_up": 0.0,
+        "misspelling": 0.2,
+        "pronoun": 0.87,
+        "quantity": 0.1455,
+        "quotation": 0.09,
+        "redirect": 0.12,
+        "three_to_six_source": 0.0,
+        "two_source": 0.0636
+      }
+    }
+  },
+  "tag": "gloss-tiebreak"
+}

@@ -908,6 +908,13 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="replay candidate pools from a Phase 0B trace cache instead of "
         "running retrieval (counterfactual controller iteration)",
     )
+    parser.add_argument(
+        "--trajectory-trace",
+        type=Path,
+        default=None,
+        help="Amendment A: write per-operation trajectory records (JSONL) to "
+        "this path; diagnostic artifact, never a runtime input",
+    )
     return parser.parse_args(argv)
 
 
@@ -932,6 +939,7 @@ def run_evaluation(
     trace_cache: Path | None = None,
     _collect_results: bool = False,
     _frame_shape_overrides: dict[str, str] | None = None,
+    _tracer: Any = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Run the four-stage harness; return (report, per-case outcomes).
 
@@ -983,6 +991,42 @@ def run_evaluation(
         io_before = _io_counters()
         case_started = time.perf_counter_ns()
         is_answer = case.accepted_disposition is ControllerDisposition.ANSWER
+        if _tracer is not None:
+            _tracer.begin_case(case.case_id)
+        _trace_state: dict[str, Any] = {"query": case.question}
+
+        def _trace_step(
+            operator_id: int,
+            *,
+            arguments: dict[str, Any],
+            result: dict[str, Any],
+            updates: dict[str, Any] | None = None,
+            io_start_bytes: int | None = None,
+            started_us: int | None = None,
+        ) -> None:
+            """Amendment A2: append one per-operation record (diagnostic only)."""
+            if _tracer is None:
+                return
+            from aethersparse.controller.operators import OPERATORS_BY_ID
+            from aethersparse.controller.trace import io_read_bytes
+
+            state_before = dict(_trace_state)
+            _trace_state.update(updates or {})
+            _tracer.record(
+                operator=OPERATORS_BY_ID[operator_id],
+                state_before=state_before,
+                arguments=arguments,
+                result=result,
+                state_after=dict(_trace_state),
+                io_before=(
+                    io_start_bytes if io_start_bytes is not None else io_read_bytes()
+                ),
+                started_us=(
+                    started_us
+                    if started_us is not None
+                    else time.perf_counter_ns() // 1000
+                ),
+            )
         gold_pageids = case_gold_pageids(case) if is_answer else set()
         defect: str | None = None
         bounds_exact: bool | None = None
@@ -1015,6 +1059,12 @@ def run_evaluation(
             injection_totals["candidate"] += injected_candidates
         pool_pageids = [pageid(item.document_id) for item in pool]
         pool_set = set(pool_pageids)
+        _trace_step(
+            1,
+            arguments={"question_chars": len(case.question)},
+            result={"pool_size": len(pool)},
+            updates={"pool": pool_pageids},
+        )
 
         # Stage 2: ranking; the reranker stage's selected evidence is the top-8.
         stage_started = time.perf_counter_ns()
@@ -1032,6 +1082,12 @@ def run_evaluation(
         scores = [item.final_score for item in trace.reranked_candidates[:2]]
         margin = scores[0] - scores[1] if len(scores) == 2 else 0.0
         top1_score = scores[0] if scores else 0.0
+        _trace_step(
+            2,
+            arguments={"pool_size": len(pool)},
+            result={"reranked": len(trace.reranked_candidates)},
+            updates={"ranking": [c.chunk_id for c in trace.reranked_candidates[:8]]},
+        )
 
         # Stage 3: controller-package evidence construction over top-8 chunks.
         stage_started = time.perf_counter_ns()
@@ -1045,6 +1101,23 @@ def run_evaluation(
         prior_memo[case.case_id] = frame.candidate_entity_ids
         link_ms = (time.perf_counter_ns() - stage_started) / 1_000_000
         latencies["link"].append(link_ms)
+        _trace_step(
+            3,
+            arguments={"question_chars": len(case.question)},
+            result={"answer_shape": str(frame.answer_shape)},
+            updates={
+                "frame": {
+                    "answer_shape": str(frame.answer_shape),
+                    "uncertainty": frame.uncertainty,
+                }
+            },
+        )
+        _trace_step(
+            4,
+            arguments={"mentions": len(frame.entity_mentions)},
+            result={"bound_entities": list(frame.candidate_entity_ids)},
+            updates={"entity_bindings": list(frame.candidate_entity_ids)},
+        )
         top8_document_ids = tuple(sorted({item.document_id for item in top8}))
         records = linker.records_for_documents(frame, top8_document_ids)
         injected_evidence = 0
@@ -1065,6 +1138,7 @@ def run_evaluation(
             records,
             corpus_coverage=linker.corpus_coverage(frame),
             premise_status="UNKNOWN",
+            _trace_step=_trace_step if _tracer is not None else None,
         )
         controller_oracle_applied = "controller" in oracles
         if controller_oracle_applied:
@@ -1162,6 +1236,19 @@ def run_evaluation(
                 "io_syscr": io_after[2] - io_before[2],
             }
         )
+        if _tracer is not None:
+            # Amendment A3: retain every sequence with its gold-scored outcome.
+            if is_answer:
+                outcome_label = "correct" if exact_answer else "incorrect"
+                if result.disposition is ControllerDisposition.VERIFICATION_FAILURE:
+                    outcome_label = "aborted"
+            else:
+                outcome_label = "correct" if disposition_correct else "incorrect"
+            _tracer.end_case(
+                partition=str(case.partition),
+                outcome=outcome_label,
+                terminal=str(result.disposition).split(".")[-1],
+            )
         if progress and (index % 25 == 0 or index == len(cases)):
             print(f"evaluated {index}/{len(cases)} cases", file=sys.stderr, flush=True)
 
@@ -1297,6 +1384,11 @@ def run_evaluation_with_results(
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv)
     oracles = _resolve_oracles(args)
+    tracer = None
+    if args.trajectory_trace is not None:
+        from aethersparse.controller.trace import TrajectoryTracer
+
+        tracer = TrajectoryTracer(path=args.trajectory_trace)
     report, outcomes, _ = run_evaluation(
         pack=args.pack,
         benchmark_path=args.benchmark,
@@ -1307,6 +1399,7 @@ def main(argv: list[str] | None = None) -> int:
         selected_limit=args.selected_limit,
         progress=True,
         trace_cache=args.trace_cache,
+        _tracer=tracer,
     )
     write_report(args.output, report)
     if args.outcomes is not None:

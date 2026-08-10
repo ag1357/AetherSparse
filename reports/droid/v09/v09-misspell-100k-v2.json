@@ -1,0 +1,207 @@
+{
+  "displaced_cases": [
+    {
+      "case_id": "v050r1-case:00439f9037bd34d437861938",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Data ocmpression?",
+      "suspect_tokens": [
+        "ocmpression"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:39d23fcdabe5e3fb9b4c12c1",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aMrco Polo?",
+      "suspect_tokens": [
+        "amrco"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:46bbb20c6e668e95d9d88e95",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is iDsaster?",
+      "suspect_tokens": [
+        "idsaster"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:50881270f2b0bb3915eda026",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aMchine code?",
+      "suspect_tokens": [
+        "amchine"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:6230a786a665ea62023f8c8a",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is iDsability?",
+      "suspect_tokens": [
+        "idsability"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:795bc6049c1cd01836ed1883",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is eHnry the Navigator?",
+      "suspect_tokens": [
+        "ehnry"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:79a680102a55d31bff820830",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is mImunity (medical)?",
+      "suspect_tokens": [
+        "mimunity"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:873e99f0bdcd5a2d3c881cd7",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aJmmu and Kashmir (state)?",
+      "suspect_tokens": [
+        "ajmmu"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:8c4b29a5438c7908274d1700",
+      "classes": [
+        "edit_distance_needed",
+        "unrecoverable_token"
+      ],
+      "question": "What is eKrnel (computer science)?",
+      "suspect_tokens": [
+        "ekrnel",
+        "science"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:8df96931e56b15954cad4984",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Needx?",
+      "suspect_tokens": [
+        "needx"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:9dfa072b89afe01a993a60dc",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is oPsition?",
+      "suspect_tokens": [
+        "opsition"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:c605bb049bbd1510e73e3704",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is rPediction?",
+      "suspect_tokens": [
+        "rpediction"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:cc903cff7e23fede8cf62569",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aDnce?",
+      "suspect_tokens": [
+        "adnce"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:cd27357b6c0862a929c7db05",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Gold rushx?",
+      "suspect_tokens": [
+        "rushx"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:d1103b54e18b87620fc62ef8",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is oFssil?",
+      "suspect_tokens": [
+        "ofssil"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:e548ea9738f5c6b4398d5c54",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is lPane (mathematics)?",
+      "suspect_tokens": [
+        "lpane"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:e8348b042a38ee77e513ab59",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is eDvelopmental biology?",
+      "suspect_tokens": [
+        "edvelopmental"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:f1902fa62504f9d530b3e273",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is iDsney Channel?",
+      "suspect_tokens": [
+        "idsney"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:fc3d6062db7c213e0184d1a9",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is mEergency medicine?",
+      "suspect_tokens": [
+        "meergency"
+      ]
+    }
+  ],
+  "outcomes": "/root/work/v08/eval-100k-percase.json",
+  "pack": "/root/work/artifacts/packs/selector-100k-p3.sqlite",
+  "status_counts": {
+    "absent_from_pool": 21,
+    "displaced_in_pool": 19,
+    "present_top8": 60
+  },
+  "token_classification": {
+    "edit_distance_needed": 19,
+    "unrecoverable_token": 1
+  }
+}

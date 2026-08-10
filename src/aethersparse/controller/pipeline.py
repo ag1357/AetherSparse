@@ -96,19 +96,72 @@ class StructuredController:
         *,
         corpus_coverage: bool,
         premise_status: str,
+        _trace_step=None,
     ) -> ControllerResult:
+        """Run the deterministic controller pipeline.
+
+        ``_trace_step`` is the Amendment A diagnostic hook: when not None it
+        receives (operator_id, arguments=..., result=..., updates=...) per
+        stage.  It never influences control flow.
+        """
         graph = build_evidence_graph(query_id, frame, evidence)
+        if _trace_step is not None:
+            _trace_step(
+                5,
+                arguments={"evidence_records": len(evidence)},
+                result={"claims": len(graph.claims)},
+                updates={
+                    "claims": [claim.object_value for claim in graph.claims],
+                    "facets_open": [str(f) for f in graph.missing_facets],
+                },
+            )
         if premise_status == "UNKNOWN":
             premise_status = evaluate_frame_premise(frame, graph)
         evidence_trace = make_evidence_rank_trace(evidence, graph)
         selection = select_answer(frame, graph)
+        if _trace_step is not None:
+            _trace_step(
+                6,
+                arguments={"claims": len(graph.claims)},
+                result={
+                    "selected_claim_ids": (
+                        list(selection.selected_claim_ids) if selection else []
+                    )
+                },
+                updates={
+                    "selection": (
+                        list(selection.selected_claim_ids) if selection else None
+                    )
+                },
+            )
         verification = None
         realized = None
         plan = None
         if selection is not None:
             plan = make_answer_plan(selection, graph)
+            if _trace_step is not None:
+                _trace_step(
+                    7,
+                    arguments={"selection": list(selection.selected_claim_ids)},
+                    result={"planned_claims": len(plan.planned_claims)},
+                    updates={"plan": [c.surface for c in plan.planned_claims]},
+                )
             realized = realize_plan(plan)
+            if _trace_step is not None:
+                _trace_step(
+                    8,
+                    arguments={"planned_claims": len(plan.planned_claims)},
+                    result={"text_chars": len(realized.text)},
+                    updates={"realized": realized.text},
+                )
             verification = verify_realization(frame, graph, plan, realized)
+            if _trace_step is not None:
+                _trace_step(
+                    9,
+                    arguments={"realized_chars": len(realized.text)},
+                    result={"passed": verification.passed},
+                    updates={"verification": verification.passed},
+                )
         disposition, reason = choose_disposition(
             frame,
             graph,
@@ -117,6 +170,13 @@ class StructuredController:
             corpus_coverage=corpus_coverage,
             premise_status=premise_status,
         )
+        if _trace_step is not None:
+            _trace_step(
+                10,
+                arguments={"premise_status": premise_status},
+                result={"disposition": str(disposition), "reason": reason},
+                updates={"disposition": str(disposition)},
+            )
         if disposition.value != "ANSWER":
             realized = None
         return ControllerResult(

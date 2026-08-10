@@ -1,0 +1,187 @@
+{
+  "displaced_cases": [
+    {
+      "case_id": "v050r1-case:00439f9037bd34d437861938",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Data ocmpression?",
+      "suspect_tokens": [
+        "ocmpression"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:14b466c9d2933ff9a94e7b8f",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is oPlitical status of Taiwan?",
+      "suspect_tokens": [
+        "oplitical"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:1d044f9fa993a0b5e155350a",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is rPeview (computing)?",
+      "suspect_tokens": [
+        "rpeview"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:79a680102a55d31bff820830",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is mImunity (medical)?",
+      "suspect_tokens": [
+        "mimunity"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:873e99f0bdcd5a2d3c881cd7",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aJmmu and Kashmir (state)?",
+      "suspect_tokens": [
+        "ajmmu"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:8c4b29a5438c7908274d1700",
+      "classes": [
+        "edit_distance_needed",
+        "unrecoverable_token"
+      ],
+      "question": "What is eKrnel (computer science)?",
+      "suspect_tokens": [
+        "ekrnel",
+        "science"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:8df96931e56b15954cad4984",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Needx?",
+      "suspect_tokens": [
+        "needx"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:9ce9da5193df0232b9c25f5c",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aPlette?",
+      "suspect_tokens": [
+        "aplette"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:9dfa072b89afe01a993a60dc",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is oPsition?",
+      "suspect_tokens": [
+        "opsition"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:cc903cff7e23fede8cf62569",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is aDnce?",
+      "suspect_tokens": [
+        "adnce"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:cd27357b6c0862a929c7db05",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Gold rushx?",
+      "suspect_tokens": [
+        "rushx"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:ceab77362ce3b45dc1a60d25",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is uLcid dream?",
+      "suspect_tokens": [
+        "ulcid"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:cf424e71800e5cd53adc5c2e",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is Mailx?",
+      "suspect_tokens": [
+        "mailx"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:d1103b54e18b87620fc62ef8",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is oFssil?",
+      "suspect_tokens": [
+        "ofssil"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:e548ea9738f5c6b4398d5c54",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is lPane (mathematics)?",
+      "suspect_tokens": [
+        "lpane"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:e8348b042a38ee77e513ab59",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is eDvelopmental biology?",
+      "suspect_tokens": [
+        "edvelopmental"
+      ]
+    },
+    {
+      "case_id": "v050r1-case:fc3d6062db7c213e0184d1a9",
+      "classes": [
+        "edit_distance_needed"
+      ],
+      "question": "What is mEergency medicine?",
+      "suspect_tokens": [
+        "meergency"
+      ]
+    }
+  ],
+  "outcomes": "/root/work/v08/ladder-25k-rung0-outcomes.json",
+  "pack": "/root/work/artifacts/packs/selector-25k-p3.sqlite",
+  "status_counts": {
+    "absent_from_pool": 11,
+    "displaced_in_pool": 17,
+    "present_top8": 72
+  },
+  "token_classification": {
+    "edit_distance_needed": 17,
+    "unrecoverable_token": 1
+  }
+}
