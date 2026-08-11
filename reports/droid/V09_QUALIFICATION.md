@@ -1,5 +1,13 @@
 # V09 Qualification — Mission 4: Controller-First Remediation
 
+> **Headline (read this first):** product accuracy at the shipping corpus
+> size (397k) is **24.30% canonical**. The per-decade erosion is steepening
+> in the product metric: −0.4 canonical pp/decade from 10k→25k, −8.7 from
+> 25k→100k, −12.8 from 100k→397k. **The headline of this mission is not the
+> +3.67 pp controller gain; it is that the gain is constant across tiers
+> while the curve is not.** Controller work transfers (100%/66% transfer
+> rates); the erosion is retrieval-side and compounds with scale.
+
 Branch `droid/controller-v09`. Benchmark INDEPENDENT_NATURAL_QUERY_SET_V050_R1
 (sha256 `1e8b89427898df3c…`, verified identical in both evaluation locations).
 Product metric: **mode-3 canonical value accuracy** (oracle-free, canonical
@@ -142,6 +150,36 @@ Landed in src/aethersparse/controller/models.py with contract tests
 - Trace corpus replicated to s600 (`/root/work/v08/battery9/`).
 - Pack set on s600: 10k / 25k / 100k / full(397k) + ed2 sidecars for
   25k/100k/397k (10k sidecar local).
+
+## 7a. Addendum: oracle ladder at 397k (Mission 5 decision input)
+
+Every prior ladder measurement was at 10k/25k, and the scaling curve shows
+canonical accuracy tracking strict recall almost exactly at scale
+(25k→100k: −8.7 canonical vs −9.4 strict pp/decade; 100k→397k: −12.8 vs
+−13.4).  That coupling suggests the stage ordering at 397k may differ from
+the 10k/25k ladder that deprioritized Phases 5/6.  Measured 2026-08-11 on
+the shipped code (chain-aware sharded cache build ×8, then ladder replay;
+rung 0 cross-checks the battery's 24.30%):
+
+| rung | canonical @397k | marginal |
+|---|---|---|
+| 0 none (mode 3, product) | PENDING-LADDER | — |
+| 1 +candidate | PENDING-LADDER | PENDING |
+| 2 +ranking | PENDING-LADDER | PENDING |
+| 3 +evidence (mode 2) | PENDING-LADDER | PENDING |
+| 4 +controller (identity) | PENDING-LADDER | controller residual PENDING |
+
+Reference marginals (canonical): @10k candidate +1.41 / ranking +1.25 /
+evidence +16.56, controller residual 47.11; @25k +1.48 / +1.57 / +7.89,
+residual 55.23.
+
+## 7b. Note for future training work (trajectory-cost objectives)
+
+A4 block_reads is uninformative from warm-cache host runs (it reads
+/proc/self/io read_bytes; with packs fully page-cached every tier measured
+0).  Embedded cost weights for any trajectory-cost objective must be
+sourced from the P4 hardware measurements (~1401 µs per random 4 KB read),
+not from the trace corpus.  Recorded here so it is not rediscovered.
 
 ## 8. Deferred, not dismissed
 

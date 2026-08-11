@@ -52,7 +52,8 @@ def _sha256(path: Path) -> str:
 
 
 def build(args) -> int:
-    benchmark = load_benchmark()
+    benchmark_path = Path(args.benchmark) if args.benchmark else BENCHMARK_PATH
+    benchmark = load_benchmark(benchmark_path)
     cases = answer_cases(benchmark)
     if args.all_dispositions:
         cases = list(benchmark.cases)
@@ -97,7 +98,7 @@ def build(args) -> int:
         "candidate_limit": args.candidate_limit,
         "probe_scale": args.probe_scale,
         "all_dispositions": args.all_dispositions,
-        "benchmark_sha256": _sha256(BENCHMARK_PATH),
+        "benchmark_sha256": _sha256(benchmark_path),
         "build_seconds": round(time.perf_counter() - started, 2),
         "cases": records,
     }
@@ -113,6 +114,35 @@ def load_cache(path: Path) -> dict[str, dict]:
     return payload
 
 
+def merge(args) -> int:
+    """Merge sharded cache builds (same pack/config, disjoint cases)."""
+
+    payloads = [json.loads(Path(path).read_text()) for path in args.inputs]
+    first = payloads[0]
+    for payload in payloads[1:]:
+        for key in ("config_hash", "pack_sha256", "candidate_limit", "probe_scale", "all_dispositions"):
+            if payload[key] != first[key]:
+                raise ValueError(f"cache shard config mismatch on {key}")
+    seen: set[str] = set()
+    cases: list[dict] = []
+    for payload in payloads:
+        for entry in payload["cases"]:
+            if entry["case_id"] in seen:
+                raise ValueError(f"duplicate case {entry['case_id']} across shards")
+            seen.add(entry["case_id"])
+            cases.append(entry)
+    merged = dict(first)
+    merged["cases"] = cases
+    merged["benchmark_sha256"] = _sha256(Path(args.parent_benchmark))
+    merged["merged_from_shards"] = len(payloads)
+    merged["build_seconds"] = round(sum(p["build_seconds"] for p in payloads), 2)
+    out = Path(args.output)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(merged))
+    print(f"merged={out} cases={len(cases)} shards={len(payloads)}")
+    return 0
+
+
 def pool_from_cache(entry: dict) -> list[CandidateScore]:
     return [CandidateScore.model_validate(item) for item in entry["pool"]]
 
@@ -123,13 +153,25 @@ def main() -> int:
     b = sub.add_parser("build")
     b.add_argument("--pack", required=True)
     b.add_argument("--output", required=True)
+    b.add_argument(
+        "--benchmark",
+        default=None,
+        help="benchmark path (default: the frozen v0.5 set); shard files "
+        "from v09_shard_benchmark.py enable parallel cache builds",
+    )
     b.add_argument("--limit", type=int)
     b.add_argument("--candidate-limit", type=int, default=96)
     b.add_argument("--probe-scale", type=float, default=1.0)
     b.add_argument("--all-dispositions", action="store_true")
+    m = sub.add_parser("merge")
+    m.add_argument("--inputs", nargs="+", required=True)
+    m.add_argument("--parent-benchmark", required=True)
+    m.add_argument("--output", required=True)
     args = parser.parse_args()
     if args.command == "build":
         return build(args)
+    if args.command == "merge":
+        return merge(args)
     return 1
 
 
