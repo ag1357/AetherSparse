@@ -3,8 +3,11 @@
 
 Each shard is a valid FrozenBenchmark (re-frozen with its own content hash,
 so load_benchmark's integrity check passes).  Sharding is round-robin over
-sorted case IDs: deterministic, category-mixed, and the union of shards is
-exactly the full benchmark.  Used to run the serial harness in parallel
+conversation chains (union-find over prior_case_ids; a chain never splits,
+because the harness replays priors from cases already processed in the same
+run); within a shard, cases keep benchmark file order so parents precede
+children.  The union of shards is exactly the full benchmark.  Used to run
+the serial harness in parallel
 processes at 25k/100k/397k and to produce the sharded Amendment A trace
 corpus (A5 keys each trace to its shard benchmark hash; the manifest records
 the parent benchmark sha256).
@@ -34,22 +37,59 @@ def main() -> int:
 
     benchmark = load_benchmark(args.benchmark)
     parent_sha = hashlib.sha256(args.benchmark.read_bytes()).hexdigest()
-    case_ids = sorted(case.case_id for case in benchmark.cases)
     by_id = {case.case_id: case for case in benchmark.cases}
+
+    # Conversation chains must stay in one shard: the harness replays
+    # prior_case_ids from cases already processed in the same run, so a
+    # follow-up whose parent lands in another shard fails with
+    # "unknown prior case".  Union-find over prior_case_ids edges.
+    parent = {case.case_id: case.case_id for case in benchmark.cases}
+
+    def find(case_id: str) -> str:
+        while parent[case_id] != case_id:
+            parent[case_id] = parent[parent[case_id]]
+            case_id = parent[case_id]
+        return case_id
+
+    def union(a: str, b: str) -> None:
+        ra, rb = find(a), find(b)
+        if ra != rb:
+            parent[max(ra, rb)] = min(ra, rb)
+
+    for case in benchmark.cases:
+        for prior_id in case.prior_case_ids:
+            if prior_id not in by_id:
+                raise ValueError(f"{case.case_id} names unknown prior {prior_id}")
+            union(case.case_id, prior_id)
+
+    groups: dict[str, list[str]] = {}
+    for case in benchmark.cases:
+        groups.setdefault(find(case.case_id), []).append(case.case_id)
+    ordered_groups = sorted(groups.values(), key=lambda ids: min(ids))
+
+    shard_ids: list[list[str]] = [[] for _ in range(args.shards)]
+    for position, group in enumerate(ordered_groups):
+        shard_ids[position % args.shards].extend(group)
+    shard_membership = {
+        case_id: index for index, ids in enumerate(shard_ids) for case_id in ids
+    }
+    for case in benchmark.cases:
+        for prior_id in case.prior_case_ids:
+            if shard_membership[prior_id] != shard_membership[case.case_id]:
+                raise AssertionError("chain split across shards")
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "parent_benchmark_sha256": parent_sha,
         "shards": args.shards,
-        "cases_total": len(case_ids),
+        "cases_total": len(by_id),
+        "chains": sum(1 for ids in groups.values() if len(ids) > 1),
         "shard_files": [],
     }
     for index in range(args.shards):
-        shard_cases = [
-            by_id[case_id]
-            for position, case_id in enumerate(case_ids)
-            if position % args.shards == index
-        ]
+        members = set(shard_ids[index])
+        # Benchmark file order guarantees parents precede children.
+        shard_cases = [case for case in benchmark.cases if case.case_id in members]
         frozen = freeze_benchmark(
             shard_cases,
             author_roles=benchmark.author_roles,
