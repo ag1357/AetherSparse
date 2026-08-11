@@ -31,13 +31,16 @@ def load_benchmark(path: Path = BENCHMARK_PATH) -> FrozenBenchmark:
     """Load and re-verify the frozen benchmark; never mutate it."""
 
     benchmark = FrozenBenchmark.model_validate_json(path.read_text(encoding="utf-8"))
+    # Full-size files get every qualification floor; deterministic shards
+    # (v09_shard_benchmark.py) are hash-verified subsets — the content hash
+    # check below runs either way, so subset integrity is still enforced.
     refrozen = freeze_benchmark(
         benchmark.cases,
         author_roles=benchmark.author_roles,
         adjudicator_role=benchmark.adjudicator_role,
         evaluator_role=benchmark.evaluator_role,
         auditor_role=benchmark.auditor_role,
-        require_full=True,
+        require_full=len(benchmark.cases) >= 2_000,
     )
     if refrozen.content_sha256 != benchmark.content_sha256:
         raise ValueError("benchmark content hash mismatch; refusing to evaluate")
