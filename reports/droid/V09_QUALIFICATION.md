@@ -8,17 +8,27 @@ dual-measured in mode 2 (oracle evidence, diagnostic) and mode 3 (product).
 
 ## 1. Headline: mode-3 canonical scaling curve
 
-| tier | mode-3 canonical | strict article recall |
-|---|---|---|
-| 10k | **37.34%** | 83.05% |
-| 25k | PENDING-BATTERY | PENDING-BATTERY |
-| 100k | PENDING-BATTERY | PENDING-BATTERY |
-| 397k | PENDING-BATTERY | PENDING-BATTERY |
+| tier | mode-3 canonical | mode-3 exact surface | strict article recall | disposition |
+|---|---|---|---|---|
+| 10k | **37.34%** | 36.80% | 83.05% | 75.12% |
+| 25k | **37.19%** | 36.64% | 81.64% | 74.63% |
+| 100k | **31.95%** | 31.48% | 75.94% | 69.71% |
+| 397k | **24.30%** | 23.83% | 67.97% | 63.71% |
 
 Mode-3 is the product number; strict article recall is secondary (retrieval
-diagnostic). Battery: sharded ×8 serial harness, mode-3 product conditions,
-Amendment A traced, Lane C sidecar + Lane D compat + Phase 3/4 active
-(`battery9.service` on s600, 2026-08-11).
+diagnostic). Battery: chain-aware sharded ×8 serial harness, mode-3 product
+conditions, Amendment A traced, Lane C sidecar + Lane D compat + Phase 3/4
+active (`battery9.service` on s600, completed 2026-08-11 03:56 UTC; merged
+artifact reports/droid/v09/phase9-battery-merged.json; shard union verified
+== full 2050-case benchmark at every tier).
+
+Reading: 10k→25k is flat (−0.15 pp) — the controller holds while retrieval
+is still near-saturated; the drop comes at 100k (−5.24 pp) and 397k
+(−12.89 pp), tracking strict recall (81.6 → 75.9 → 68.0) and the known
+alias@100k candidate-absence defect (deferred, not dismissed). Phase 4's
+mode-3 gains transfer across tiers: 25k canonical was 33.83% pre-Phase-4
+(ladder rung 0) and is 37.19% shipped (+3.36 pp, matching the @10k
+transfer exactly).
 
 ## 2. Transfer rates — the methodological result of the mission
 
@@ -91,7 +101,26 @@ the majority of the composition residual.
     behaviour at 397k differs materially from 10k — candidate absence is
     far higher — and a policy trained only on 10k traces would learn
     decision rules from a regime where retrieval rarely fails.
-- A6 stats block: PENDING.
+- A6 trace-corpus stats (per tier, full 2050 cases each; merged artifact
+  has the full breakdown):
+
+  | tier | trace records | records/case | training_eligible | wall (CPU h) |
+  |---|---|---|---|---|
+  | 10k | 17,548 | 8.56 | 685 | 0.16 |
+  | 25k | 17,611 | 8.59 | 685 | 1.13 |
+  | 100k | 17,419 | 8.50 | 685 | 4.10 |
+  | 397k | 17,323 | 8.45 | 685 | 19.29 |
+
+  training_eligible = tuning+development partitions only (685);
+  evaluation/final_held carry training_eligible=false per A5.  Records/case
+  < 10 reflects abstention paths (fewer operators invoked).  Outcome mix
+  shifts with scale as designed for policy seeding: correct 1184 → 1112 →
+  999 across 25k/100k/397k.
+  **A4 instrumentation note:** block_reads reads /proc/self/io read_bytes
+  (storage-layer 4 KB units); it is 0 at every tier because packs are fully
+  page-cached on the eval hosts — the accounting works but is uninformative
+  in a warm-cache regime.  Not a metric-path issue (Amendment A is
+  trace/metadata only).
 
 ## 6. Schema reservations (schema and documentation only, no capability)
 

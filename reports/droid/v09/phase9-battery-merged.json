@@ -1,0 +1,109 @@
+{
+ "tiers": {
+  "25k": {
+   "cases": 2050,
+   "answer_cases": 1280,
+   "mode3_canonical": 0.3719,
+   "mode3_exact_surface": 0.3664,
+   "disposition_accuracy": 0.7463,
+   "article_recall_strict": 0.8164,
+   "article_recall_lenient": 0.8766,
+   "per_category_canonical": {
+    "alias": 0.7,
+    "comparison": 0.1545,
+    "date": 0.0636,
+    "direct_fact": 0.8591,
+    "follow_up": 0.26,
+    "misspelling": 0.19,
+    "pronoun": 0.83,
+    "quantity": 0.1455,
+    "quotation": 0.09,
+    "redirect": 0.12,
+    "three_to_six_source": 0.0,
+    "two_source": 0.3727
+   },
+   "a6": {
+    "trace_records": 17611,
+    "records_per_case": 8.59,
+    "total_block_reads": 0,
+    "max_step_block_reads": 0,
+    "outcome_distribution": {
+     "incorrect": 866,
+     "correct": 1184
+    },
+    "training_eligible_cases": 685,
+    "wall_hours": 1.133
+   }
+  },
+  "100k": {
+   "cases": 2050,
+   "answer_cases": 1280,
+   "mode3_canonical": 0.3195,
+   "mode3_exact_surface": 0.3148,
+   "disposition_accuracy": 0.6971,
+   "article_recall_strict": 0.7594,
+   "article_recall_lenient": 0.8258,
+   "per_category_canonical": {
+    "alias": 0.4111,
+    "comparison": 0.1455,
+    "date": 0.0455,
+    "direct_fact": 0.7818,
+    "follow_up": 0.2,
+    "misspelling": 0.21,
+    "pronoun": 0.73,
+    "quantity": 0.1364,
+    "quotation": 0.08,
+    "redirect": 0.06,
+    "three_to_six_source": 0.0,
+    "two_source": 0.3545
+   },
+   "a6": {
+    "trace_records": 17419,
+    "records_per_case": 8.5,
+    "total_block_reads": 0,
+    "max_step_block_reads": 0,
+    "outcome_distribution": {
+     "incorrect": 938,
+     "correct": 1112
+    },
+    "training_eligible_cases": 685,
+    "wall_hours": 4.102
+   }
+  },
+  "397k": {
+   "cases": 2050,
+   "answer_cases": 1280,
+   "mode3_canonical": 0.243,
+   "mode3_exact_surface": 0.2383,
+   "disposition_accuracy": 0.6371,
+   "article_recall_strict": 0.6797,
+   "article_recall_lenient": 0.7609,
+   "per_category_canonical": {
+    "alias": 0.2333,
+    "comparison": 0.1273,
+    "date": 0.0545,
+    "direct_fact": 0.65,
+    "follow_up": 0.14,
+    "misspelling": 0.09,
+    "pronoun": 0.56,
+    "quantity": 0.1091,
+    "quotation": 0.07,
+    "redirect": 0.04,
+    "three_to_six_source": 0.0,
+    "two_source": 0.2455
+   },
+   "a6": {
+    "trace_records": 17323,
+    "records_per_case": 8.45,
+    "total_block_reads": 0,
+    "max_step_block_reads": 0,
+    "outcome_distribution": {
+     "incorrect": 1051,
+     "correct": 999
+    },
+    "training_eligible_cases": 685,
+    "wall_hours": 19.294
+   }
+  }
+ }
+}
