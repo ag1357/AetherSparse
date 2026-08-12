@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -12,19 +13,30 @@ from aethersparse.controller.replay import (
     load_replay_bundle,
     verify_replay_bundle,
 )
-from aethersparse.controller.search import SearchConfig, posthoc_reachable, search
+from aethersparse.controller.search import (
+    SearchConfig,
+    candidate_set_oracle,
+    posthoc_reachable,
+    search,
+)
 
 
 def _trace_payload(partition: str = "evaluation") -> dict[str, object]:
     text = "Ada Lovelace was born in 1815."
     frame = {
         "normalized_query": "when was ada lovelace born?",
+        "entity_mentions": [],
         "candidate_entity_ids": ["entity:ada"],
         "requested_relation_families": ["birth"],
         "answer_shape": "date",
         "required_facets": ["subject", "relation", "time", "source"],
         "temporal_constraints": [],
+        "location_constraints": [],
         "attribution_constraints": [],
+        "comparison_targets": [],
+        "premise_claims": [],
+        "discourse_references": [],
+        "uncertainty": 0.0,
         "clarification_need": False,
     }
     claims = [
@@ -57,7 +69,7 @@ def _trace_payload(partition: str = "evaluation") -> dict[str, object]:
             "char_start": 0,
             "char_end": 4,
             "text": "1915",
-            "text_hash": "sha256:wrong",
+            "text_hash": "sha256:" + hashlib.sha256(b"1915").hexdigest(),
             "unused_article_text": "must be pruned",
         },
         {
@@ -71,7 +83,7 @@ def _trace_payload(partition: str = "evaluation") -> dict[str, object]:
             "char_start": 0,
             "char_end": len(text),
             "text": text,
-            "text_hash": "sha256:fixture",
+            "text_hash": "sha256:" + hashlib.sha256(text.encode()).hexdigest(),
         },
     ]
     state = {
@@ -161,14 +173,21 @@ def test_micro_ops_and_gold_blind_search_never_invent_values(tmp_path: Path) -> 
         SearchConfig(max_depth=6, max_expansions=5000, max_terminal_candidates=256),
     )
     assert result.gold_used_during_search is False
-    assert posthoc_reachable(result, ("1815",)) is True
+    assert posthoc_reachable(result, ("1815",)) is False
+    oracle = search(
+        initial,
+        SearchConfig(max_depth=6, max_expansions=5000, max_terminal_candidates=256),
+        accepted_answers=("1815",),
+        allow_gold=True,
+    )
+    assert candidate_set_oracle(oracle, ("1815",)) is True
     emitted = {value for terminal in result.terminal_candidates for value in terminal.answer_values}
     assert emitted <= {"1815", "1915"}
 
 
-def test_fixture_reachability_gate_keeps_evaluation_search_gold_blind(tmp_path: Path) -> None:
+def test_fixture_reachability_gate_uses_training_eligible_oracle_only(tmp_path: Path) -> None:
     trace = tmp_path / "trace.jsonl"
-    _write_trace(trace)
+    _write_trace(trace, "development")
     bundle = tmp_path / "bundle"
     export_replay_bundle((trace,), bundle, corpus_tier="10k")
     benchmark = tmp_path / "benchmark.json"
@@ -178,7 +197,7 @@ def test_fixture_reachability_gate_keeps_evaluation_search_gold_blind(tmp_path: 
                 "cases": [
                     {
                         "case_id": "case:ada",
-                        "partition": "evaluation",
+                        "partition": "development",
                         "accepted_answers": ["1815"],
                     }
                 ]

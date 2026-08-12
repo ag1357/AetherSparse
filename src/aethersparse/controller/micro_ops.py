@@ -13,7 +13,17 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from aethersparse.controller.answering import make_answer_plan, realize_plan
+from aethersparse.controller.models import (
+    AnswerSelection,
+    AnswerShape,
+    EvidenceGraph,
+    ExactSourceSpan,
+    QueryFrame,
+    StructuredClaim,
+)
 from aethersparse.controller.replay import ReplayCase
+from aethersparse.controller.verification import verify_realization
 
 CostClass = Literal["read-bearing", "compute-only", "free"]
 
@@ -377,6 +387,8 @@ class MicroState(BaseModel):
     plan_values: tuple[str, ...] = ()
     plan_claim_ids: tuple[str, ...] = ()
     plan_source_ids: tuple[str, ...] = ()
+    plan_shape: str | None = None
+    plan_answer_text: str | None = None
     verification_passed: bool = False
     terminal: str | None = None
     answer_values: tuple[str, ...] = ()
@@ -388,7 +400,18 @@ class MicroState(BaseModel):
 def state_from_replay(case: ReplayCase) -> MicroState:
     if not case.replay_complete:
         raise ValueError(f"replay case {case.case_id} incomplete: {case.incompleteness_reasons}")
-    decision = max(case.decisions, key=lambda item: len(item.structured_claims))
+    # Choose the latest richest replay checkpoint.  The old max(claim-count)
+    # tie-break selected step zero for claimless dispositions and silently
+    # discarded the query frame present at later decisions.
+    decision = max(
+        case.decisions,
+        key=lambda item: (
+            len(item.structured_claims),
+            len(item.source_spans),
+            bool(item.query_frame),
+            item.step_index,
+        ),
+    )
     return MicroState(
         case_id=case.case_id,
         frame=decision.query_frame,
@@ -402,8 +425,13 @@ def _claim_id(claim: dict[str, Any]) -> str:
     return str(value) if value is not None else ""
 
 
-def _claim_value(claim: dict[str, Any]) -> str:
-    for key in ("quantity_value", "quotation", "object_value"):
+def _claim_value(claim: dict[str, Any], shape: str | None = None) -> str:
+    keys = (
+        ("quotation", "object_value")
+        if shape == "quotation"
+        else ("object_value", "quantity_value", "quotation")
+    )
+    for key in keys:
         value = claim.get(key)
         if isinstance(value, str) and value:
             return value
@@ -412,6 +440,79 @@ def _claim_value(claim: dict[str, Any]) -> str:
 
 def _claim_map(state: MicroState) -> dict[str, dict[str, Any]]:
     return {_claim_id(claim): claim for claim in state.claims if _claim_id(claim)}
+
+
+def _claim_can_pass_static_verifier(state: MicroState, claim: dict[str, Any]) -> bool:
+    entities = set(_frame_strings(state.frame, "candidate_entity_ids"))
+    if entities and not entities.intersection(
+        {
+            str(claim.get("subject_entity_id", "")),
+            str(claim.get("object_entity_id", "")),
+        }
+    ):
+        return False
+    relations = set(_frame_strings(state.frame, "requested_relation_families"))
+    if relations and str(claim.get("relation_family", "")) not in relations:
+        return False
+    shape = str(state.frame.get("answer_shape", ""))
+    surface = _claim_value(claim, shape)
+    spans = {str(span.get("span_id", "")): span for span in state.source_spans}
+    return bool(surface) and any(
+        surface in str(spans[source_id].get("text", ""))
+        for source_id in claim.get("source_span_ids", ())
+        if source_id in spans
+    )
+
+
+def verifier_eligible_claim_values(state: MicroState) -> tuple[str, ...]:
+    """Exact copied surfaces that are not statically doomed by the verifier."""
+
+    shape = str(state.frame.get("answer_shape", ""))
+    return _unique(
+        [
+            _claim_value(claim, shape)
+            for claim in state.claims
+            if _claim_can_pass_static_verifier(state, claim)
+        ]
+    )
+
+
+def _list_target(state: MicroState) -> int:
+    mention_count = len(state.frame.get("entity_mentions", ()))
+    return min(6, max(2, mention_count - 1 if mention_count > 2 else mention_count))
+
+
+def static_verifier_answer_possible(state: MicroState) -> bool:
+    """Whether any claim tuple can satisfy static exact-verifier constraints."""
+
+    eligible = [claim for claim in state.claims if _claim_can_pass_static_verifier(state, claim)]
+    shape = str(state.frame.get("answer_shape", ""))
+    if shape not in {"list", "comparison"}:
+        return bool(eligible)
+    subjects = {str(claim.get("subject_entity_id", "")) for claim in eligible}
+    if shape == "comparison":
+        relations: dict[str, set[str]] = {}
+        for claim in eligible:
+            relations.setdefault(str(claim.get("relation_family", "")), set()).add(
+                str(claim.get("subject_entity_id", ""))
+            )
+        return any(len(items) >= 2 for items in relations.values())
+    span_families = {
+        str(span.get("span_id", "")): str(span.get("source_family", ""))
+        for span in state.source_spans
+    }
+    families = {
+        tuple(
+            sorted(
+                {
+                    span_families.get(str(source_id), "")
+                    for source_id in claim.get("source_span_ids", ())
+                }
+            )
+        )
+        for claim in eligible
+    }
+    return len(subjects) >= _list_target(state) and len(families) >= _list_target(state)
 
 
 def _unique(values: list[str] | tuple[str, ...]) -> tuple[str, ...]:
@@ -468,10 +569,89 @@ def legal_actions(state: MicroState, *, argument_cap: int = 16) -> tuple[MicroAc
     actions: list[MicroAction] = []
     claims = _claim_map(state)
     span_ids = tuple(str(span.get("span_id", "")) for span in state.source_spans)
-    for spec in legal_operation_specs(state):
+    specs = legal_operation_specs(state)
+    if state.verification_passed:
+        specs = tuple(spec for spec in specs if spec.name is MicroOpName.ANSWER)
+    elif state.plan_values:
+        specs = tuple(spec for spec in specs if spec.name is MicroOpName.VERIFY_PLAN)
+    shape = str(state.frame.get("answer_shape", ""))
+    list_target = _list_target(state)
+    if not state.plan_values and shape == "comparison" and state.selected_claim_ids:
+        if len(state.selected_claim_ids) < 2:
+            wanted = {MicroOpName.SELECT_CLAIM}
+        elif not state.bound_claim_ids:
+            wanted = {MicroOpName.PAIR_COMPARISON_VALUES}
+        elif not state.derived_values:
+            wanted = {MicroOpName.COMPARE_VALUES}
+        else:
+            wanted = {MicroOpName.BUILD_COMPARISON_PLAN}
+        specs = tuple(spec for spec in specs if spec.name in wanted)
+    elif not state.plan_values and shape == "list" and state.selected_claim_ids:
+        if len(state.selected_claim_ids) < list_target:
+            wanted = {MicroOpName.SELECT_CLAIM}
+        elif len(state.bound_claim_ids) < len(state.selected_claim_ids):
+            wanted = {MicroOpName.BIND_LIST_SLOT}
+        else:
+            wanted = {MicroOpName.BUILD_LIST_PLAN}
+        specs = tuple(spec for spec in specs if spec.name in wanted)
+    elif not state.plan_values and state.selected_claim_ids and shape not in {"list", "comparison"}:
+        specs = tuple(spec for spec in specs if spec.name is MicroOpName.BUILD_DIRECT_PLAN)
+    for spec in specs:
         args: list[dict[str, str]] = [{}]
         if spec.name in {MicroOpName.SELECT_CLAIM, MicroOpName.REJECT_CLAIM}:
-            args = [{"claim_id": item} for item in state.active_claim_ids[:argument_cap]]
+            ids = state.active_claim_ids
+            if spec.name is MicroOpName.SELECT_CLAIM:
+                ids = tuple(
+                    item
+                    for item in ids
+                    if item not in state.selected_claim_ids
+                    and _claim_can_pass_static_verifier(state, claims[item])
+                )
+                limit = 6 if shape == "list" else 2 if shape == "comparison" else 1
+                if shape in {"list", "comparison"} and state.selected_claim_ids:
+                    selected = [claims[item] for item in state.selected_claim_ids]
+                    selected_subjects = {
+                        str(claim.get("subject_entity_id", "")) for claim in selected
+                    }
+                    ids = tuple(
+                        item
+                        for item in ids
+                        if str(claims[item].get("subject_entity_id", "")) not in selected_subjects
+                    )
+                    if shape == "comparison":
+                        relation = str(selected[0].get("relation_family", ""))
+                        ids = tuple(
+                            item
+                            for item in ids
+                            if str(claims[item].get("relation_family", "")) == relation
+                        )
+                    if shape == "list":
+                        span_families = {
+                            str(span.get("span_id", "")): str(span.get("source_family", ""))
+                            for span in state.source_spans
+                        }
+
+                        def families(
+                            claim_id: str,
+                            span_families: dict[str, str] = span_families,
+                            claims: dict[str, dict[str, Any]] = claims,
+                        ) -> tuple[str, ...]:
+                            return tuple(
+                                sorted(
+                                    {
+                                        span_families.get(str(source_id), "")
+                                        for source_id in claims[claim_id].get("source_span_ids", ())
+                                    }
+                                )
+                            )
+
+                        selected_families = {
+                            families(claim_id) for claim_id in state.selected_claim_ids
+                        }
+                        ids = tuple(item for item in ids if families(item) not in selected_families)
+                if len(state.selected_claim_ids) >= limit:
+                    ids = ()
+            args = [{"claim_id": item} for item in ids[:argument_cap]]
         elif spec.name is MicroOpName.BIND_LIST_SLOT:
             args = [
                 {"claim_id": item}
@@ -496,6 +676,15 @@ def legal_actions(state: MicroState, *, argument_cap: int = 16) -> tuple[MicroAc
                 [str(claims[item].get("occurred_at", "")) for item in state.active_claim_ids]
             )
             args = [{"event": item} for item in events[:argument_cap]]
+        # Shape-incompatible plan constructors only create dead branches.
+        shape = str(state.frame.get("answer_shape", ""))
+        incompatible_plan = (
+            (spec.name is MicroOpName.BUILD_DIRECT_PLAN and shape in {"list", "comparison"})
+            or (spec.name is MicroOpName.BUILD_LIST_PLAN and shape != "list")
+            or (spec.name is MicroOpName.BUILD_COMPARISON_PLAN and shape != "comparison")
+        )
+        if incompatible_plan:
+            args = []
         for arguments in args:
             actions.append(MicroAction(operation_id=spec.operation_id, arguments=arguments))
     return tuple(actions)
@@ -538,7 +727,10 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
         updates["active_claim_ids"] = tuple(claims)
     elif name is MicroOpName.ENUMERATE_VALUES:
         updates["enumerated_values"] = _unique(
-            [_claim_value(claims[item]) for item in state.active_claim_ids]
+            [
+                _claim_value(claims[item], str(state.frame.get("answer_shape", "")))
+                for item in state.active_claim_ids
+            ]
         )
     elif name is MicroOpName.ENUMERATE_ENTITIES:
         updates["enumerated_entity_ids"] = _unique(
@@ -578,7 +770,7 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
             if (
                 str(claims[item].get("answer_shape", "")) == shape
                 if name is MicroOpName.FILTER_ANSWER_SHAPE
-                else _value_kind(_claim_value(claims[item])) == allowed
+                else _value_kind(_claim_value(claims[item], shape)) == allowed
             )
         )
     elif name is MicroOpName.FILTER_TIME_SCOPE:
@@ -606,6 +798,8 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
         claim_id = action.arguments.get("claim_id", "")
         if claim_id not in state.active_claim_ids:
             raise ValueError("claim is not active")
+        if claim_id in state.selected_claim_ids:
+            raise ValueError("claim is already selected")
         updates["selected_claim_ids"] = _unique([*state.selected_claim_ids, claim_id])
     elif name is MicroOpName.REJECT_CLAIM:
         claim_id = action.arguments.get("claim_id", "")
@@ -629,6 +823,8 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
         claim_id = action.arguments.get("claim_id", "")
         if claim_id not in state.selected_claim_ids:
             raise ValueError("list slot requires a selected claim")
+        if claim_id in state.bound_claim_ids:
+            raise ValueError("list slot is already bound")
         updates["bound_claim_ids"] = _unique([*state.bound_claim_ids, claim_id])
     elif name is MicroOpName.PAIR_COMPARISON_VALUES:
         if len(state.selected_claim_ids) < 2:
@@ -659,8 +855,8 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
     elif name is MicroOpName.COMPARE_VALUES:
         if len(state.bound_claim_ids) != 2:
             raise ValueError("comparison requires exactly two bound claims")
-        left = _numeric(_claim_value(claims[state.bound_claim_ids[0]]))
-        right = _numeric(_claim_value(claims[state.bound_claim_ids[1]]))
+        left = _numeric(_claim_value(claims[state.bound_claim_ids[0]], "comparison"))
+        right = _numeric(_claim_value(claims[state.bound_claim_ids[1]], "comparison"))
         if left is None or right is None:
             raise ValueError("comparison values are not numeric")
         updates["derived_values"] = ("<" if left < right else ">" if left > right else "=",)
@@ -675,14 +871,25 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
         updates["derived_values"] = _unique(values)
     elif name is MicroOpName.BUILD_DIRECT_PLAN:
         claim_id = state.selected_claim_ids[0]
-        updates.update(plan_values=(_claim_value(claims[claim_id]),), plan_claim_ids=(claim_id,))
+        shape = str(state.frame.get("answer_shape", ""))
+        updates.update(
+            plan_values=(_claim_value(claims[claim_id], shape),),
+            plan_claim_ids=(claim_id,),
+            plan_shape=shape,
+        )
     elif name is MicroOpName.BUILD_LIST_PLAN:
         updates.update(
             plan_values=tuple(_claim_value(claims[item]) for item in state.bound_claim_ids),
             plan_claim_ids=state.bound_claim_ids,
+            plan_shape="list",
         )
     elif name is MicroOpName.BUILD_COMPARISON_PLAN:
-        updates.update(plan_values=state.derived_values, plan_claim_ids=state.bound_claim_ids)
+        values = tuple(_claim_value(claims[item], "comparison") for item in state.bound_claim_ids)
+        updates.update(
+            plan_values=values,
+            plan_claim_ids=state.bound_claim_ids,
+            plan_shape="comparison",
+        )
     elif name is MicroOpName.BUILD_VERIFICATION_PLAN:
         updates["plan_source_ids"] = _unique(
             [
@@ -692,7 +899,6 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
             ]
         )
     elif name is MicroOpName.VERIFY_PLAN:
-        known_spans = {str(span.get("span_id", "")) for span in state.source_spans}
         source_ids = _unique(
             [
                 str(source_id)
@@ -700,12 +906,51 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
                 for source_id in claims[item].get("source_span_ids", ())
             ]
         )
-        values_exist = all(item and item in claims for item in state.plan_claim_ids)
-        source_bound = bool(source_ids) and set(source_ids) <= known_spans
         updates["plan_source_ids"] = source_ids
-        updates["verification_passed"] = values_exist and source_bound and bool(state.plan_values)
+        try:
+            frame = QueryFrame.model_validate(state.frame)
+            graph_claims = tuple(StructuredClaim.model_validate(item) for item in state.claims)
+            spans = tuple(ExactSourceSpan.model_validate(item) for item in state.source_spans)
+            graph = EvidenceGraph(
+                query_id=state.case_id,
+                entities=frame.candidate_entity_ids,
+                claims=graph_claims,
+                source_spans=spans,
+                source_families=tuple(dict.fromkeys(span.source_family for span in spans)),
+                contradictions=(),
+                required_facets=frame.required_facets,
+                missing_facets=(),
+            )
+            shape = AnswerShape(state.plan_shape or frame.answer_shape.value)
+            if shape is AnswerShape.COMPARISON:
+                operator = state.derived_values[0] if state.derived_values else None
+                answer_text = f"{state.plan_values[0]} {operator} {state.plan_values[1]}"
+            else:
+                operator = None
+                answer_text = "; ".join(state.plan_values)
+            selection = AnswerSelection(
+                answer_text=answer_text,
+                answer_shape=shape,
+                selected_claim_ids=state.plan_claim_ids,
+                selected_source_span_ids=source_ids,
+                confidence=1.0,
+            )
+            plan = make_answer_plan(selection, graph)
+            realized = realize_plan(plan)
+            report = verify_realization(frame, graph, plan, realized)
+            updates["verification_passed"] = report.passed
+            if report.passed:
+                updates["plan_values"] = tuple(claim.surface for claim in plan.planned_claims)
+                updates["plan_answer_text"] = realized.text
+        except (KeyError, IndexError, TypeError, ValueError):
+            updates["verification_passed"] = False
     elif name is MicroOpName.ANSWER:
-        updates.update(terminal="ANSWER", answer_values=state.plan_values)
+        values = (
+            (state.plan_answer_text,)
+            if state.plan_shape == "comparison" and state.plan_answer_text
+            else state.plan_values
+        )
+        updates.update(terminal="ANSWER", answer_values=values)
     elif name in {
         MicroOpName.CLARIFY,
         MicroOpName.ABSTAIN,

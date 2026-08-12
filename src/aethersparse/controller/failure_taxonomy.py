@@ -24,6 +24,8 @@ class ControllerFailureClass(StrEnum):
     DISPOSITION_WRONG = "DISPOSITION_WRONG"
     REALIZATION_ONLY = "REALIZATION_ONLY"
     CURRENT_TOOLS_REACHABLE = "CURRENT_TOOLS_REACHABLE"
+    SEARCH_BUDGET_EXHAUSTED = "SEARCH_BUDGET_EXHAUSTED"
+    TOOLSET_REACHABLE = "TOOLSET_REACHABLE"
 
 
 LEGACY_CLASS_MAP: dict[str, ControllerFailureClass] = {
@@ -56,7 +58,7 @@ class FailureRecord(BaseModel):
 
 def normalize_failure_class(label: str, *, reachable: bool = False) -> ControllerFailureClass:
     if reachable:
-        return ControllerFailureClass.CURRENT_TOOLS_REACHABLE
+        return ControllerFailureClass.TOOLSET_REACHABLE
     if label in LEGACY_CLASS_MAP:
         return LEGACY_CLASS_MAP[label]
     try:
