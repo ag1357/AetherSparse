@@ -157,21 +157,45 @@ Every prior ladder measurement was at 10k/25k, and the scaling curve shows
 canonical accuracy tracking strict recall almost exactly at scale
 (25k→100k: −8.7 canonical vs −9.4 strict pp/decade; 100k→397k: −12.8 vs
 −13.4).  That coupling suggests the stage ordering at 397k may differ from
-the 10k/25k ladder that deprioritized Phases 5/6.  Measured 2026-08-11 on
-the shipped code (chain-aware sharded cache build ×8, then ladder replay;
-rung 0 cross-checks the battery's 24.30%):
+the 10k/25k ladder that deprioritized Phases 5/6.  Measured 2026-08-11/12
+on the shipped code (chain-aware sharded cache build ×8 in 4-way waves,
+then ladder replay; rung 0 cross-checks the battery's 24.30% exactly):
 
 | rung | canonical @397k | marginal |
 |---|---|---|
-| 0 none (mode 3, product) | PENDING-LADDER | — |
-| 1 +candidate | PENDING-LADDER | PENDING |
-| 2 +ranking | PENDING-LADDER | PENDING |
-| 3 +evidence (mode 2) | PENDING-LADDER | PENDING |
-| 4 +controller (identity) | PENDING-LADDER | controller residual PENDING |
+| 0 none (mode 3, product) | 24.30% | — |
+| 1 +candidate | 29.45% | +5.15 pp |
+| 2 +ranking | 31.56% | +2.11 pp |
+| 3 +evidence (mode 2) | 38.12% | +6.56 pp |
+| 4 +controller (identity) | 100.00% | controller residual 61.88 pp |
 
 Reference marginals (canonical): @10k candidate +1.41 / ranking +1.25 /
 evidence +16.56, controller residual 47.11; @25k +1.48 / +1.57 / +7.89,
 residual 55.23.
+
+Findings (Mission 5 decision input):
+
+1. **The stage ordering flips at scale.**  Candidate generation's
+   canonical marginal grows 3.5× (10k +1.41 → 397k +5.15) while evidence
+   construction's collapses (10k +16.56 → 397k +6.56).  The 10k/25k
+   ladder that deprioritized Phases 5/6 does not transfer to the shipping
+   tier: candidate generation is the largest non-controller lever at
+   397k.
+2. **Controller residual grows with scale** (47.11 → 55.23 → 61.88 pp) —
+   the controller remains the dominant term at every tier, and its share
+   of the gap rises as the corpus grows.
+3. Stage-native marginals (per-stage recall metrics, from
+   `v09/ladder-397k.json`): candidate +20.47 pp strict article recall
+   (67.97→88.44%), ranking +11.56 pp (88.44→100%), evidence +6.72 pp
+   evidence recall (93.28→100%).
+4. Rung-0 stage attribution @397k (975 failed answer cases of 1280):
+   A_CANDIDATE_MISSING 326 / B_CANDIDATE_MISRANKED 84 /
+   C_EVIDENCE_FAILED 56 / D_CONTROLLER_FAILED 509 — candidate absence is
+   the largest single non-controller bucket, consistent with Lane B's
+   38.6% candidate-absence rate at 100k.
+5. Cross-checks: rung 0 canonical 24.30% == Phase 9 battery (exact);
+   rung 4 = 100% by construction (identity oracle).  Artifact:
+   `reports/droid/v09/ladder-397k.json`.
 
 ## 7b. Note for future training work (trajectory-cost objectives)
 

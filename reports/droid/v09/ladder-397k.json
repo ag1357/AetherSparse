@@ -1,0 +1,88 @@
+{
+  "marginals_pp": {
+    "candidate_generation": 20.47,
+    "controller_gap_canonical_rung0_to_rung3": 13.82,
+    "controller_residual_canonical": 61.88,
+    "evidence_construction": 6.72,
+    "ranking": 11.56
+  },
+  "pack": "/root/work/artifacts/packs/selector-full-p3.sqlite",
+  "rungs": {
+    "rung0": {
+      "article_recall_lenient": 0.7609375,
+      "article_recall_strict": 0.6796875,
+      "canonical_value": 0.243,
+      "evidence_recall": 0.7046875,
+      "exact_answer_surface": 0.23828125,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 326,
+        "B_CANDIDATE_MISRANKED": 84,
+        "C_EVIDENCE_FAILED": 56,
+        "D_CONTROLLER_FAILED": 509,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 975
+      }
+    },
+    "rung1_candidate": {
+      "article_recall_lenient": 0.94140625,
+      "article_recall_strict": 0.884375,
+      "canonical_value": 0.2945,
+      "evidence_recall": 0.878125,
+      "exact_answer_surface": 0.28984375,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 148,
+        "C_EVIDENCE_FAILED": 70,
+        "D_CONTROLLER_FAILED": 691,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 909
+      }
+    },
+    "rung2_ranking": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 0.3156,
+      "evidence_recall": 0.9328125,
+      "exact_answer_surface": 0.3109375,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 86,
+        "D_CONTROLLER_FAILED": 796,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 882
+      }
+    },
+    "rung3_evidence": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 0.3812,
+      "evidence_recall": 1.0,
+      "exact_answer_surface": 0.37421875,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 0,
+        "D_CONTROLLER_FAILED": 801,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 801
+      }
+    },
+    "rung4_controller": {
+      "article_recall_lenient": 1.0,
+      "article_recall_strict": 1.0,
+      "canonical_value": 1.0,
+      "evidence_recall": 1.0,
+      "exact_answer_surface": 1.0,
+      "stage_attribution": {
+        "A_CANDIDATE_MISSING": 0,
+        "B_CANDIDATE_MISRANKED": 0,
+        "C_EVIDENCE_FAILED": 0,
+        "D_CONTROLLER_FAILED": 0,
+        "E_BENCHMARK_DEFECT": 0,
+        "failed_answer_cases": 0
+      }
+    }
+  },
+  "trace_cache": "/root/work/v08/ladder397/trace-cache-397k.json"
+}
