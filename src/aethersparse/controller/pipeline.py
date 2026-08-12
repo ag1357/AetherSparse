@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Protocol
 
 from aethersparse.controller.answering import make_answer_plan, realize_plan, select_answer
@@ -96,7 +97,7 @@ class StructuredController:
         *,
         corpus_coverage: bool,
         premise_status: str,
-        _trace_step=None,
+        _trace_step: Callable[..., None] | None = None,
     ) -> ControllerResult:
         """Run the deterministic controller pipeline.
 
@@ -112,6 +113,10 @@ class StructuredController:
                 result={"claims": len(graph.claims)},
                 updates={
                     "claims": [claim.object_value for claim in graph.claims],
+                    "structured_claims": [claim.model_dump(mode="json") for claim in graph.claims],
+                    "source_spans": [span.model_dump(mode="json") for span in graph.source_spans],
+                    "required_facets": [str(f) for f in graph.required_facets],
+                    "missing_facets": [str(f) for f in graph.missing_facets],
                     "facets_open": [str(f) for f in graph.missing_facets],
                 },
             )
@@ -124,14 +129,11 @@ class StructuredController:
                 6,
                 arguments={"claims": len(graph.claims)},
                 result={
-                    "selected_claim_ids": (
-                        list(selection.selected_claim_ids) if selection else []
-                    )
+                    "selected_claim_ids": (list(selection.selected_claim_ids) if selection else [])
                 },
                 updates={
-                    "selection": (
-                        list(selection.selected_claim_ids) if selection else None
-                    )
+                    "selection": (list(selection.selected_claim_ids) if selection else None),
+                    "selection_state": (selection.model_dump(mode="json") if selection else {}),
                 },
             )
         verification = None
@@ -144,7 +146,10 @@ class StructuredController:
                     7,
                     arguments={"selection": list(selection.selected_claim_ids)},
                     result={"planned_claims": len(plan.planned_claims)},
-                    updates={"plan": [c.surface for c in plan.planned_claims]},
+                    updates={
+                        "plan": [c.surface for c in plan.planned_claims],
+                        "plan_state": plan.model_dump(mode="json"),
+                    },
                 )
             realized = realize_plan(plan)
             if _trace_step is not None:
@@ -160,7 +165,10 @@ class StructuredController:
                     9,
                     arguments={"realized_chars": len(realized.text)},
                     result={"passed": verification.passed},
-                    updates={"verification": verification.passed},
+                    updates={
+                        "verification": verification.passed,
+                        "verification_state": verification.model_dump(mode="json"),
+                    },
                 )
         disposition, reason = choose_disposition(
             frame,
@@ -175,7 +183,13 @@ class StructuredController:
                 10,
                 arguments={"premise_status": premise_status},
                 result={"disposition": str(disposition), "reason": reason},
-                updates={"disposition": str(disposition)},
+                updates={
+                    "disposition": str(disposition),
+                    "disposition_state": {
+                        "disposition": str(disposition),
+                        "reason": reason,
+                    },
+                },
             )
         if disposition.value != "ANSWER":
             realized = None

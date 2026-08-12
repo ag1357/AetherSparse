@@ -993,7 +993,10 @@ def run_evaluation(
         is_answer = case.accepted_disposition is ControllerDisposition.ANSWER
         if _tracer is not None:
             _tracer.begin_case(case.case_id)
-        _trace_state: dict[str, Any] = {"query": case.question}
+        _trace_state: dict[str, Any] = {
+            "query": case.question,
+            "accepted_disposition": str(case.accepted_disposition),
+        }
 
         def _trace_step(
             operator_id: int,
@@ -1003,6 +1006,7 @@ def run_evaluation(
             updates: dict[str, Any] | None = None,
             io_start_bytes: int | None = None,
             started_us: int | None = None,
+            _state: dict[str, Any] = _trace_state,
         ) -> None:
             """Amendment A2: append one per-operation record (diagnostic only)."""
             if _tracer is None:
@@ -1010,23 +1014,20 @@ def run_evaluation(
             from aethersparse.controller.operators import OPERATORS_BY_ID
             from aethersparse.controller.trace import io_read_bytes
 
-            state_before = dict(_trace_state)
-            _trace_state.update(updates or {})
+            state_before = dict(_state)
+            _state.update(updates or {})
             _tracer.record(
                 operator=OPERATORS_BY_ID[operator_id],
                 state_before=state_before,
                 arguments=arguments,
                 result=result,
-                state_after=dict(_trace_state),
-                io_before=(
-                    io_start_bytes if io_start_bytes is not None else io_read_bytes()
-                ),
+                state_after=dict(_state),
+                io_before=(io_start_bytes if io_start_bytes is not None else io_read_bytes()),
                 started_us=(
-                    started_us
-                    if started_us is not None
-                    else time.perf_counter_ns() // 1000
+                    started_us if started_us is not None else time.perf_counter_ns() // 1000
                 ),
             )
+
         gold_pageids = case_gold_pageids(case) if is_answer else set()
         defect: str | None = None
         bounds_exact: bool | None = None
@@ -1086,7 +1087,17 @@ def run_evaluation(
             2,
             arguments={"pool_size": len(pool)},
             result={"reranked": len(trace.reranked_candidates)},
-            updates={"ranking": [c.chunk_id for c in trace.reranked_candidates[:8]]},
+            updates={
+                "ranking": [c.chunk_id for c in trace.reranked_candidates[:8]],
+                "ranked_evidence_metadata": [
+                    {
+                        "chunk_id": candidate.chunk_id,
+                        "document_id": candidate.document_id,
+                        "final_score": candidate.final_score,
+                    }
+                    for candidate in trace.reranked_candidates[:64]
+                ],
+            },
         )
 
         # Stage 3: controller-package evidence construction over top-8 chunks.
@@ -1106,17 +1117,29 @@ def run_evaluation(
             arguments={"question_chars": len(case.question)},
             result={"answer_shape": str(frame.answer_shape)},
             updates={
-                "frame": {
-                    "answer_shape": str(frame.answer_shape),
-                    "uncertainty": frame.uncertainty,
-                }
+                "frame": frame.model_dump(mode="json"),
+                "query_frame": frame.model_dump(mode="json"),
+                "discourse_state": {
+                    "prior_entity_ids": list(prior_ids),
+                    "references": [
+                        reference.model_dump(mode="json")
+                        for reference in frame.discourse_references
+                    ],
+                },
             },
         )
         _trace_step(
             4,
             arguments={"mentions": len(frame.entity_mentions)},
             result={"bound_entities": list(frame.candidate_entity_ids)},
-            updates={"entity_bindings": list(frame.candidate_entity_ids)},
+            updates={
+                "entity_bindings": list(frame.candidate_entity_ids),
+                "linked_entity_candidates": [
+                    candidate.model_dump(mode="json")
+                    for mention in frame.entity_mentions
+                    for candidate in mention.candidates
+                ],
+            },
         )
         top8_document_ids = tuple(sorted({item.document_id for item in top8}))
         records = linker.records_for_documents(frame, top8_document_ids)

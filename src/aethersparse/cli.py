@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 import typer
 import uvicorn
@@ -74,6 +74,119 @@ cells_app = typer.Typer(
     help="Cognitive-cell topology qualification workflows.",
 )
 app.add_typer(cells_app, name="cells")
+controller_app = typer.Typer(
+    no_args_is_help=True,
+    pretty_exceptions_enable=False,
+    help="Certified AetherCore replay and micro-operation qualification workflows.",
+)
+app.add_typer(controller_app, name="controller")
+
+
+@controller_app.command("export-replay")
+def controller_export_replay(
+    traces: Annotated[
+        list[Path],
+        typer.Option("--trace", help="Retained v09 controller trajectory JSONL; repeatable."),
+    ],
+    output: Annotated[Path, typer.Option(help="Replay bundle output directory.")],
+    corpus_tier: Annotated[
+        str,
+        typer.Option(help="Frozen corpus tier represented by these traces (10k/25k/100k/397k)."),
+    ],
+) -> None:
+    """Export a compact deterministic replay bundle without corpus retrieval."""
+    from aethersparse.controller.replay import export_replay_bundle
+
+    manifest = export_replay_bundle(traces, output, corpus_tier=corpus_tier)
+    typer.echo(json.dumps(manifest.model_dump(mode="json"), indent=2, sort_keys=True))
+
+
+@controller_app.command("verify-replay")
+def controller_verify_replay(
+    bundle: Annotated[Path, typer.Option(help="Replay bundle directory.")],
+) -> None:
+    """Verify hashes, counts, schemas, and protected-partition markings."""
+    from aethersparse.controller.replay import verify_replay_bundle
+
+    manifest = verify_replay_bundle(bundle)
+    typer.echo(json.dumps(manifest.model_dump(mode="json"), indent=2, sort_keys=True))
+
+
+@controller_app.command("qualify-reachability")
+def controller_qualify_reachability(
+    bundle: Annotated[Path, typer.Option(help="Verified controller replay bundle.")],
+    benchmark: Annotated[Path, typer.Option(help="Frozen benchmark used only under split rules.")],
+    output: Annotated[Path, typer.Option(help="Qualification report JSON.")],
+    max_depth: Annotated[int, typer.Option(min=1, max=64)] = 12,
+    max_expansions: Annotated[int, typer.Option(min=1)] = 5000,
+    beam_width: Annotated[int, typer.Option(min=1, max=4096)] = 64,
+) -> None:
+    """Run best-first and beam reachability search with protected split handling."""
+    from aethersparse.controller.reachability import qualify_reachability
+
+    report = qualify_reachability(
+        bundle,
+        benchmark,
+        max_depth=max_depth,
+        max_expansions=max_expansions,
+        beam_width=beam_width,
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    typer.echo(json.dumps(report, indent=2, sort_keys=True))
+
+
+@controller_app.command("classify-failures")
+def controller_classify_failures(
+    inputs: Annotated[
+        list[str],
+        typer.Option(
+            "--input",
+            help="Legacy taxonomy per-case file as TIER=PATH; repeatable.",
+        ),
+    ],
+    output: Annotated[Path, typer.Option(help="Mission 5 taxonomy report JSON.")],
+    reachability_report: Annotated[
+        Path | None,
+        typer.Option(help="Optional completed reachability report used to mark reachable cases."),
+    ] = None,
+) -> None:
+    """Normalize D_CONTROLLER_FAILED records into the Mission 5 taxonomy."""
+    from aethersparse.controller.failure_taxonomy import (
+        aggregate_failures,
+        failure_record_from_legacy,
+    )
+
+    reachable: set[tuple[str, str]] = set()
+    if reachability_report is not None:
+        reachability = json.loads(reachability_report.read_text(encoding="utf-8"))
+        reachable = {
+            (str(item["corpus_tier"]), str(item["case_id"]))
+            for item in reachability.get("per_case", ())
+            if item.get("reachable")
+        }
+    records: list[Any] = []
+    for item in inputs:
+        try:
+            tier, raw_path = item.split("=", 1)
+        except ValueError as error:
+            raise typer.BadParameter("failure input must be TIER=PATH") from error
+        payload = json.loads(Path(raw_path).read_text(encoding="utf-8"))
+        if not isinstance(payload, list):
+            raise typer.BadParameter(f"failure input is not a list: {raw_path}")
+        records.extend(
+            failure_record_from_legacy(
+                case,
+                corpus_tier=tier,
+                reachable=(tier, str(case.get("case_id", ""))) in reachable,
+            )
+            for case in payload
+            if isinstance(case, dict)
+        )
+    report = aggregate_failures(tuple(records))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    typer.echo(json.dumps(report, indent=2, sort_keys=True))
 
 
 @cells_app.command("qualify-frozen")

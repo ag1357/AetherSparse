@@ -1,0 +1,116 @@
+{
+  "by_answer_shape": {
+    "comparison": {
+      "COMPOSITION_OPERATOR_MISSING": 91
+    },
+    "date": {
+      "DISPOSITION_WRONG": 28,
+      "REALIZATION_ONLY": 10,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_NOT_ENUMERATED": 7
+    },
+    "definition": {
+      "DISPOSITION_WRONG": 45,
+      "VALUE_MISRANKED": 76,
+      "VALUE_NOT_ENUMERATED": 8
+    },
+    "list": {
+      "COMPOSITION_OPERATOR_MISSING": 147
+    },
+    "quantity": {
+      "DISPOSITION_WRONG": 26,
+      "VALUE_MISRANKED": 11,
+      "VALUE_NOT_ENUMERATED": 42
+    },
+    "quotation": {
+      "DISPOSITION_WRONG": 7,
+      "VALUE_MISRANKED": 41,
+      "VALUE_NOT_ENUMERATED": 17
+    }
+  },
+  "by_category": {
+    "alias": {
+      "VALUE_MISRANKED": 6,
+      "VALUE_NOT_ENUMERATED": 1
+    },
+    "comparison": {
+      "COMPOSITION_OPERATOR_MISSING": 91
+    },
+    "date": {
+      "DISPOSITION_WRONG": 28,
+      "REALIZATION_ONLY": 10,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_NOT_ENUMERATED": 7
+    },
+    "direct_fact": {
+      "DISPOSITION_WRONG": 2,
+      "VALUE_MISRANKED": 10
+    },
+    "follow_up": {
+      "DISPOSITION_WRONG": 1
+    },
+    "misspelling": {
+      "DISPOSITION_WRONG": 4,
+      "VALUE_MISRANKED": 52,
+      "VALUE_NOT_ENUMERATED": 6
+    },
+    "pronoun": {
+      "DISPOSITION_WRONG": 3,
+      "VALUE_MISRANKED": 2
+    },
+    "quantity": {
+      "DISPOSITION_WRONG": 26,
+      "VALUE_MISRANKED": 11,
+      "VALUE_NOT_ENUMERATED": 42
+    },
+    "quotation": {
+      "DISPOSITION_WRONG": 7,
+      "VALUE_MISRANKED": 41,
+      "VALUE_NOT_ENUMERATED": 17
+    },
+    "redirect": {
+      "DISPOSITION_WRONG": 35,
+      "VALUE_MISRANKED": 6,
+      "VALUE_NOT_ENUMERATED": 1
+    },
+    "three_to_six_source": {
+      "COMPOSITION_OPERATOR_MISSING": 58
+    },
+    "two_source": {
+      "COMPOSITION_OPERATOR_MISSING": 89
+    }
+  },
+  "by_source_mode": {
+    "composition": {
+      "COMPOSITION_OPERATOR_MISSING": 238
+    },
+    "single-source": {
+      "DISPOSITION_WRONG": 106,
+      "REALIZATION_ONLY": 10,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_MISRANKED": 128,
+      "VALUE_NOT_ENUMERATED": 74
+    }
+  },
+  "by_tier": {
+    "10k": {
+      "COMPOSITION_OPERATOR_MISSING": 238,
+      "DISPOSITION_WRONG": 106,
+      "REALIZATION_ONLY": 10,
+      "TEMPORAL_SCOPE_WRONG": 57,
+      "VALUE_MISRANKED": 128,
+      "VALUE_NOT_ENUMERATED": 74
+    }
+  },
+  "compiler_or_knowledge_defect_count": 238,
+  "policy_recoverable_count": 375,
+  "record_count": 613,
+  "taxonomy": {
+    "COMPOSITION_OPERATOR_MISSING": 238,
+    "DISPOSITION_WRONG": 106,
+    "REALIZATION_ONLY": 10,
+    "TEMPORAL_SCOPE_WRONG": 57,
+    "VALUE_MISRANKED": 128,
+    "VALUE_NOT_ENUMERATED": 74
+  }
+}
