@@ -1,0 +1,74 @@
+{
+  "cases_seen": 2055,
+  "gold_or_outcome_fields_consumed": false,
+  "limitations": [
+    "This label-free lane measures uncertainty behavior, not semantic correctness.",
+    "The learned fusion parameters are neutral and must be fitted on development then selected on tuning.",
+    "The confident-conflict result is a controlled stress test over real candidate sets."
+  ],
+  "methods": {
+    "learned": {
+      "controlled_conflict_detection_fraction": 0.6888888888888889,
+      "controlled_conflict_mean_top_probability": 0.6784293519820435,
+      "mean_expert_disagreement": 0.5766438166719462,
+      "mean_posterior_normalized_entropy": 0.49871092301213643,
+      "mean_posterior_top_probability": 0.7027106728934016,
+      "mean_prior_normalized_entropy": 0.9968959557594036,
+      "sample_count": 630,
+      "selection_status": "UNFITTED_NEUTRAL_PARAMETERS",
+      "top_choice_change_fraction": 0.0015873015873015873
+    },
+    "particle_top_k": {
+      "controlled_conflict_detection_fraction": 0.6888888888888889,
+      "controlled_conflict_mean_top_probability": 0.7068658515914251,
+      "mean_expert_disagreement": 0.5766438166719462,
+      "mean_posterior_normalized_entropy": 0.4613685217835272,
+      "mean_posterior_top_probability": 0.7492736051605169,
+      "mean_prior_normalized_entropy": 0.9968959557594036,
+      "sample_count": 630,
+      "selection_status": "LABEL_FREE_ABLATION_ONLY",
+      "top_choice_change_fraction": 0.0015873015873015873
+    },
+    "precision_residual": {
+      "controlled_conflict_detection_fraction": 0.6888888888888889,
+      "controlled_conflict_mean_top_probability": 0.565122470823909,
+      "mean_expert_disagreement": 0.5766438166719462,
+      "mean_posterior_normalized_entropy": 0.5320125691654137,
+      "mean_posterior_top_probability": 0.6616054857932403,
+      "mean_prior_normalized_entropy": 0.9968959557594036,
+      "sample_count": 630,
+      "selection_status": "LABEL_FREE_ABLATION_ONLY",
+      "top_choice_change_fraction": 0.0015873015873015873
+    },
+    "temperature_product": {
+      "controlled_conflict_detection_fraction": 0.6888888888888889,
+      "controlled_conflict_mean_top_probability": 0.7068658515914251,
+      "mean_expert_disagreement": 0.5766438166719462,
+      "mean_posterior_normalized_entropy": 0.4613685217835272,
+      "mean_posterior_top_probability": 0.7492736051605169,
+      "mean_prior_normalized_entropy": 0.9968959557594036,
+      "sample_count": 630,
+      "selection_status": "LABEL_FREE_ABLATION_ONLY",
+      "top_choice_change_fraction": 0.0015873015873015873
+    },
+    "weighted_logit": {
+      "controlled_conflict_detection_fraction": 0.6888888888888889,
+      "controlled_conflict_mean_top_probability": 0.7068658515914251,
+      "mean_expert_disagreement": 0.5766438166719462,
+      "mean_posterior_normalized_entropy": 0.4613685217835272,
+      "mean_posterior_top_probability": 0.7492736051605169,
+      "mean_prior_normalized_entropy": 0.9968959557594036,
+      "sample_count": 630,
+      "selection_status": "LABEL_FREE_ABLATION_ONLY",
+      "top_choice_change_fraction": 0.0015873015873015873
+    }
+  },
+  "multi_candidate_mentions": 630,
+  "partitions": {
+    "development": 813,
+    "tuning": 1242
+  },
+  "protected_partitions_consumed": false,
+  "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+  "schema_version": "aethercore.workspace-fusion-ablation.v1"
+}
