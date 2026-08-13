@@ -1,0 +1,77 @@
+{
+  "analysis": {
+    "clustered_route_count": 2,
+    "expert_count": 2,
+    "pca_module_count": 2,
+    "route_count": 2
+  },
+  "compact_record_bytes": {
+    "full_activation_default_count": 0,
+    "maximum": 1720,
+    "mean": 1393.25,
+    "selected_activation_limit": 256
+  },
+  "counterfactual_attribution": {
+    "correct_attribution_count": 8,
+    "results": [
+      {
+        "expected": "gate_failure",
+        "measured": "gate_failure",
+        "passed": true
+      },
+      {
+        "expected": "expert_failure",
+        "measured": "expert_failure",
+        "passed": true
+      },
+      {
+        "expected": "fusion_failure",
+        "measured": "fusion_failure",
+        "passed": true
+      },
+      {
+        "expected": "insufficient_depth",
+        "measured": "insufficient_depth",
+        "passed": true
+      },
+      {
+        "expected": "excessive_depth",
+        "measured": "excessive_depth",
+        "passed": true
+      },
+      {
+        "expected": "bad_upstream_state",
+        "measured": "bad_upstream_state",
+        "passed": true
+      },
+      {
+        "expected": "missing_evidence",
+        "measured": "missing_evidence",
+        "passed": true
+      },
+      {
+        "expected": "verifier_rejection",
+        "measured": "verifier_rejection",
+        "passed": true
+      }
+    ],
+    "scenario_count": 8
+  },
+  "production_dependency_audit": {
+    "production_import_count": 0,
+    "production_imports": []
+  },
+  "route_determinism": {
+    "repeat_hash_equal": true,
+    "repeat_signature_equal": true
+  },
+  "sampling": {
+    "case_count": 5,
+    "dropped_confident_success_count": 1,
+    "failure_retained": true,
+    "high_uncertainty_retained": true,
+    "novel_routes_retained": 2,
+    "sampled_count": 4
+  },
+  "schema_version": "aethercore.observer-qualification.v1"
+}

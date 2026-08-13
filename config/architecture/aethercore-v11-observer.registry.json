@@ -1,0 +1,83 @@
+{
+  "architecture_id": "aethercore-v11-observer-checkpoint",
+  "architecture_version": "11.0.0-observer.1",
+  "modules": [
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": null,
+      "dependencies": [],
+      "inputs": [
+        "query_frame",
+        "evidence_graph"
+      ],
+      "known_failure_clusters": [
+        "ENTITY_BINDING_WRONG",
+        "VALUE_NOT_ENUMERATED"
+      ],
+      "model_hash": "none",
+      "module_id": "aethercore.exact-controller",
+      "module_version": "10.0.0",
+      "outputs": [
+        "verified_answer",
+        "clarification",
+        "abstention"
+      ],
+      "parameter_count": 0,
+      "purpose": "Exact evidence control and deterministic truth invariants",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span",
+        "verification_report"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": null,
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "completed_cycle_telemetry",
+        "completed_case_outcome"
+      ],
+      "known_failure_clusters": [
+        "observer_not_enabled",
+        "selected_activation_unavailable"
+      ],
+      "model_hash": "none",
+      "module_id": "aethercore.research-observer",
+      "module_version": "11.0.0",
+      "outputs": [
+        "sampled_telemetry",
+        "route_analysis",
+        "counterfactual_record",
+        "optimization_proposal"
+      ],
+      "parameter_count": 0,
+      "purpose": "Optional training/research telemetry and causal diagnosis",
+      "quantization": "not_applicable",
+      "status": "training_only",
+      "supported_state_types": [
+        "telemetry_record",
+        "counterfactual_record",
+        "architecture_registry",
+        "optimization_proposal"
+      ]
+    }
+  ],
+  "registry_sha256": "3072210567ac465da5bb87b6ff49f7a118a1f52c2439a06484f1c14a8c834be9",
+  "schema_version": "aethercore.architecture-registry.v1"
+}
