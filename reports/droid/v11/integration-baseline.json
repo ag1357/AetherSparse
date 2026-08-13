@@ -1,0 +1,24 @@
+{
+  "active_parameters": 0,
+  "calibration": null,
+  "canonical_answer_accuracy": 0.52265625,
+  "case_count": 6150,
+  "configuration_id": "v10-certified-controller",
+  "exact_case_accuracy": 0.6413008130081301,
+  "limitations": [
+    "The v10 per-case payload contains controller failures, not all baseline cases.",
+    "Matched calibration and route ablations require new v11 case records.",
+    "Held-out replay is oracle-evidence controller isolation, not product evaluation."
+  ],
+  "p4_latency": null,
+  "p4_latency_status": "RELATIVE_OPERATION_UNITS_ONLY",
+  "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+  "schema_version": "aethercore.v11-integration-baseline.v1",
+  "source_report_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+  "training_entity_binding_residual": 346,
+  "training_reachability": 0.37410071942446044,
+  "training_value_not_enumerated_residual": 89,
+  "trajectory_length_median": 5,
+  "trajectory_length_p95": 8.0,
+  "unsupported_claim_count": null
+}

@@ -1,0 +1,230 @@
+{
+  "architecture_id": "aethercore-v11-qualified-static-upstream-repair",
+  "architecture_version": "11.0.0-work.1",
+  "modules": [
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": null,
+      "dependencies": [],
+      "inputs": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span"
+      ],
+      "known_failure_clusters": [
+        "ENTITY_BINDING_WRONG",
+        "VALUE_NOT_ENUMERATED"
+      ],
+      "model_hash": "752036b7736e722276f749a8a7981b99eed53c8e70c2b0fe04f43cb2464ec2cd",
+      "module_id": "aethercore.exact-controller",
+      "module_version": "10.0.0",
+      "outputs": [
+        "verified_answer",
+        "clarification",
+        "abstention"
+      ],
+      "parameter_count": 0,
+      "purpose": "Exact micro-operations and deterministic truth invariants",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span",
+        "verification_report"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 1374,
+        "macs": 0,
+        "memory_bytes": 1037,
+        "scratch_ram_bytes": 14515
+      },
+      "calibration_artifact": "reports/droid/v11/reachability-rerun.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "query_frame",
+        "exact_source_span",
+        "structured_claim"
+      ],
+      "known_failure_clusters": [
+        "VALUE_NOT_ENUMERATED",
+        "quotation_without_development_support",
+        "missing_pre_pruning_evidence"
+      ],
+      "model_hash": "ec10abed972aa673f80fcb579d26c659c36f865299c0ecd132e54013a463fc7b",
+      "module_id": "aethercore.value-exact-scan",
+      "module_version": "11.0.0",
+      "outputs": [
+        "typed_value_lattice",
+        "source_bound_claim_hypothesis"
+      ],
+      "parameter_count": 0,
+      "purpose": "Bounded typed value hypotheses copied from retained exact spans",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "date",
+        "quantity",
+        "comparison",
+        "quotation"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 9,
+        "macs": 9,
+        "memory_bytes": 72,
+        "scratch_ram_bytes": 128
+      },
+      "calibration_artifact": "reports/droid/v11/entity-specialist-baselines.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "bounded_entity_candidates",
+        "retained_candidate_scores"
+      ],
+      "known_failure_clusters": [
+        "correct_entity_not_generated",
+        "missing_mention_alignment",
+        "missing_anchor_occurrence_statistics"
+      ],
+      "model_hash": "2a750a30b5def160c24831dde740deaff22ceef38a76ba96c0f195a7ee88d6b4",
+      "module_id": "aethercore.entity-linear-baseline",
+      "module_version": "11.0.0",
+      "outputs": [
+        "candidate_relevance_probability"
+      ],
+      "parameter_count": 9,
+      "purpose": "Development-fitted candidate relevance calibration baseline",
+      "quantization": "not_qualified",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_candidate"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/workspace-fusion-ablation.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "categorical_belief",
+        "expert_update",
+        "reliability_precision"
+      ],
+      "known_failure_clusters": [
+        "unfitted_reliability",
+        "confident_conflict_detection_incomplete"
+      ],
+      "model_hash": "855e337facb2a2bad9ce0f7a595b121d0da16d9794a66ef3105f358d4c06e449",
+      "module_id": "aethercore.probabilistic-fusion",
+      "module_version": "11.0.0",
+      "outputs": [
+        "posterior_belief",
+        "expert_disagreement"
+      ],
+      "parameter_count": 0,
+      "purpose": "Preserve and fuse specialist uncertainty distributions",
+      "quantization": "not_selected",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_distribution",
+        "relation_distribution",
+        "answer_shape_distribution",
+        "value_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/depth-data-audit.json",
+      "dependencies": [
+        "aethercore.probabilistic-fusion",
+        "aethercore.value-exact-scan"
+      ],
+      "inputs": [
+        "shared_workspace",
+        "pre_outcome_uncertainty",
+        "compute_budget"
+      ],
+      "known_failure_clusters": [
+        "counterfactual_cycle_labels_absent",
+        "workspace_cycle_checkpoints_absent"
+      ],
+      "model_hash": "e8937fd8d794ca5c37fd790326a09793c7b0870c92bbfa5fdc20afe4de637102",
+      "module_id": "aethercore.adaptive-depth",
+      "module_version": "11.0.0",
+      "outputs": [
+        "parallel_specialist_groups",
+        "halt_decision"
+      ],
+      "parameter_count": 0,
+      "purpose": "Bounded specialist routing by expected value of computation",
+      "quantization": "not_trained",
+      "status": "inactive",
+      "supported_state_types": [
+        "shared_workspace",
+        "route_decision"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/observer-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "completed_cycle_telemetry",
+        "completed_case_outcome"
+      ],
+      "known_failure_clusters": [
+        "observer_not_enabled",
+        "selected_activation_unavailable"
+      ],
+      "model_hash": "1498ba1ccb27f092bd7ae66b09c7c3f592260528b800bc4c6d18ddd3a86f1e43",
+      "module_id": "aethercore.research-observer",
+      "module_version": "11.0.0",
+      "outputs": [
+        "sampled_telemetry",
+        "route_analysis",
+        "optimization_proposal"
+      ],
+      "parameter_count": 0,
+      "purpose": "Optional training/research telemetry and causal diagnosis",
+      "quantization": "not_applicable",
+      "status": "training_only",
+      "supported_state_types": [
+        "telemetry_record",
+        "counterfactual_record",
+        "architecture_registry"
+      ]
+    }
+  ],
+  "registry_sha256": "4f6dcc3c0a6977f53968ffe8cfe3713c473e508fecbeb081f826b50e800e35de",
+  "schema_version": "aethercore.architecture-registry.v1"
+}

@@ -1,0 +1,315 @@
+{
+  "baseline_support": {
+    "A_current_linker": "measured",
+    "B_anchor_prior": "blocked: tier SQLite packs absent; targeted exporter implemented",
+    "C_ambiguity_entropy": "blocked with B",
+    "D_actual_type_compatibility": "unsupported: actual types absent",
+    "E_relation_compatibility": "already present as current binary relation_score",
+    "F_discourse_compatibility": "unsupported: no mention-to-gold antecedent alignment",
+    "G_calibrated_linear_scoring": "measured with development fitting and tuning evaluation",
+    "H_compact_nonlinear_tabular": "not justified before candidate generation is repaired"
+  },
+  "contextual_specialist_decision": {
+    "decision": "DO_NOT_TRAIN_CONTEXTUAL_ENTITY_SPECIALIST_FROM_V10_REPLAY",
+    "parameter_sweep_started": false,
+    "reason": [
+      "most residual replicas lack at least one required candidate",
+      "correct entities are labeled only at case level, not per mention",
+      "candidate context and occurrence-level anchor evidence are absent",
+      "a bounded scorer cannot recover an entity outside its candidate set"
+    ]
+  },
+  "current_linker": {
+    "development": {
+      "candidate_recall_all": 38,
+      "candidate_recall_all_rate": 0.24836601307189543,
+      "candidate_recall_any": 84,
+      "candidate_recall_any_rate": 0.5490196078431373,
+      "candidate_relevance_calibration": {
+        "brier": 0.4653013744249265,
+        "count": 378,
+        "ece_10": 0.5168367195767195,
+        "nll": 3.034812182297268,
+        "positive_count": 125
+      },
+      "replica_count": 153,
+      "selected_all_required": 0,
+      "selected_all_required_rate": 0.0,
+      "selected_any_required": 65,
+      "selected_contains_wrong": 78,
+      "selected_empty": 19,
+      "single_entity_candidate_generated": 18,
+      "single_entity_replicas": 72,
+      "single_entity_top1_accuracy_all": 0.1388888888888889,
+      "single_entity_top1_accuracy_when_generated": 0.5555555555555556,
+      "single_entity_top1_correct": 10,
+      "taxonomy": {
+        "correct_entity_not_generated": 69,
+        "correct_entity_not_generated_partial": 46,
+        "correct_entity_present_but_misranked": 11,
+        "correct_entity_top_ranked_but_rejected": 27
+      },
+      "top1_candidate_relevant": 70,
+      "top1_candidate_relevant_rate": 0.45751633986928103,
+      "top1_selective_risk": [
+        {
+          "coverage": 0.9215686274509803,
+          "covered": 141,
+          "risk": 0.5035460992907801,
+          "threshold": 0.2
+        },
+        {
+          "coverage": 0.9215686274509803,
+          "covered": 141,
+          "risk": 0.5035460992907801,
+          "threshold": 0.4
+        },
+        {
+          "coverage": 0.9150326797385621,
+          "covered": 140,
+          "risk": 0.5,
+          "threshold": 0.6
+        },
+        {
+          "coverage": 0.8954248366013072,
+          "covered": 137,
+          "risk": 0.4890510948905109,
+          "threshold": 0.8
+        }
+      ],
+      "top2_recall_all": 17,
+      "top4_recall_all": 36
+    },
+    "tuning": {
+      "candidate_recall_all": 37,
+      "candidate_recall_all_rate": 0.19170984455958548,
+      "candidate_recall_any": 91,
+      "candidate_recall_any_rate": 0.47150259067357514,
+      "candidate_relevance_calibration": {
+        "brier": 0.5245473907966864,
+        "count": 493,
+        "ece_10": 0.5908452815609002,
+        "nll": 3.3733117098410563,
+        "positive_count": 119
+      },
+      "replica_count": 193,
+      "selected_all_required": 0,
+      "selected_all_required_rate": 0.0,
+      "selected_any_required": 59,
+      "selected_contains_wrong": 101,
+      "selected_empty": 35,
+      "single_entity_candidate_generated": 26,
+      "single_entity_replicas": 122,
+      "single_entity_top1_accuracy_all": 0.06557377049180328,
+      "single_entity_top1_accuracy_when_generated": 0.3076923076923077,
+      "single_entity_top1_correct": 8,
+      "taxonomy": {
+        "correct_entity_not_generated": 84,
+        "correct_entity_not_generated_partial": 54,
+        "correct_entity_present_but_misranked": 10,
+        "correct_entity_top_ranked_but_rejected": 27,
+        "mention_not_detected": 18
+      },
+      "top1_candidate_relevant": 67,
+      "top1_candidate_relevant_rate": 0.3471502590673575,
+      "top1_selective_risk": [
+        {
+          "coverage": 0.8911917098445595,
+          "covered": 172,
+          "risk": 0.6104651162790697,
+          "threshold": 0.2
+        },
+        {
+          "coverage": 0.8911917098445595,
+          "covered": 172,
+          "risk": 0.6104651162790697,
+          "threshold": 0.4
+        },
+        {
+          "coverage": 0.8911917098445595,
+          "covered": 172,
+          "risk": 0.6104651162790697,
+          "threshold": 0.6
+        },
+        {
+          "coverage": 0.8756476683937824,
+          "covered": 169,
+          "risk": 0.6153846153846154,
+          "threshold": 0.8
+        }
+      ],
+      "top2_recall_all": 22,
+      "top4_recall_all": 36
+    }
+  },
+  "dataset": "ENTITY_HARD_NEGATIVES_V11",
+  "development_fitted_linear_reranker": {
+    "case_replica_weighting": "each case has unit total weight; candidates divide replica weight",
+    "feature_names": [
+      "bias",
+      "name_score",
+      "relation_score",
+      "context_score",
+      "method_exact_title",
+      "method_redirect",
+      "method_alias",
+      "method_anchor",
+      "method_fuzzy"
+    ],
+    "fit_partition": "development",
+    "parameter_count": 9,
+    "partitions": {
+      "development": {
+        "candidate_recall_all": 38,
+        "candidate_recall_all_rate": 0.24836601307189543,
+        "candidate_recall_any": 84,
+        "candidate_recall_any_rate": 0.5490196078431373,
+        "candidate_relevance_calibration": {
+          "brier": 0.15665250524710536,
+          "count": 378,
+          "ece_10": 0.15038750904845805,
+          "nll": 0.47597608592871543,
+          "positive_count": 125
+        },
+        "replica_count": 153,
+        "selected_all_required": 0,
+        "selected_all_required_rate": 0.0,
+        "selected_any_required": 65,
+        "selected_contains_wrong": 78,
+        "selected_empty": 19,
+        "single_entity_candidate_generated": 18,
+        "single_entity_replicas": 72,
+        "single_entity_top1_accuracy_all": 0.19444444444444445,
+        "single_entity_top1_accuracy_when_generated": 0.7777777777777778,
+        "single_entity_top1_correct": 14,
+        "taxonomy": {
+          "correct_entity_not_generated": 69,
+          "correct_entity_not_generated_partial": 46,
+          "correct_entity_present_but_misranked": 11,
+          "correct_entity_top_ranked_but_rejected": 27
+        },
+        "top1_candidate_relevant": 77,
+        "top1_candidate_relevant_rate": 0.5032679738562091,
+        "top1_selective_risk": [
+          {
+            "coverage": 0.8562091503267973,
+            "covered": 131,
+            "risk": 0.41984732824427484,
+            "threshold": 0.2
+          },
+          {
+            "coverage": 0.48366013071895425,
+            "covered": 74,
+            "risk": 0.28378378378378377,
+            "threshold": 0.4
+          },
+          {
+            "coverage": 0.0,
+            "covered": 0,
+            "risk": null,
+            "threshold": 0.6
+          },
+          {
+            "coverage": 0.0,
+            "covered": 0,
+            "risk": null,
+            "threshold": 0.8
+          }
+        ],
+        "top2_recall_all": 25,
+        "top4_recall_all": 37
+      },
+      "tuning": {
+        "candidate_recall_all": 37,
+        "candidate_recall_all_rate": 0.19170984455958548,
+        "candidate_recall_any": 91,
+        "candidate_recall_any_rate": 0.47150259067357514,
+        "candidate_relevance_calibration": {
+          "brier": 0.14581078539952708,
+          "count": 493,
+          "ece_10": 0.11886295313641439,
+          "nll": 0.46070409703055826,
+          "positive_count": 119
+        },
+        "replica_count": 193,
+        "selected_all_required": 0,
+        "selected_all_required_rate": 0.0,
+        "selected_any_required": 59,
+        "selected_contains_wrong": 101,
+        "selected_empty": 35,
+        "single_entity_candidate_generated": 26,
+        "single_entity_replicas": 122,
+        "single_entity_top1_accuracy_all": 0.10655737704918032,
+        "single_entity_top1_accuracy_when_generated": 0.5,
+        "single_entity_top1_correct": 13,
+        "taxonomy": {
+          "correct_entity_not_generated": 84,
+          "correct_entity_not_generated_partial": 54,
+          "correct_entity_present_but_misranked": 10,
+          "correct_entity_top_ranked_but_rejected": 27,
+          "mention_not_detected": 18
+        },
+        "top1_candidate_relevant": 75,
+        "top1_candidate_relevant_rate": 0.38860103626943004,
+        "top1_selective_risk": [
+          {
+            "coverage": 0.8341968911917098,
+            "covered": 161,
+            "risk": 0.5465838509316769,
+            "threshold": 0.2
+          },
+          {
+            "coverage": 0.38860103626943004,
+            "covered": 75,
+            "risk": 0.5066666666666666,
+            "threshold": 0.4
+          },
+          {
+            "coverage": 0.0,
+            "covered": 0,
+            "risk": null,
+            "threshold": 0.6
+          },
+          {
+            "coverage": 0.0,
+            "covered": 0,
+            "risk": null,
+            "threshold": 0.8
+          }
+        ],
+        "top2_recall_all": 24,
+        "top4_recall_all": 37
+      }
+    },
+    "weights": [
+      -1.883287077643457,
+      -0.9957100610094178,
+      0.2976799526853127,
+      2.8269785191372243,
+      -0.3914971649923186,
+      0.0,
+      0.03750988613938502,
+      0.0,
+      -0.8936231627546906
+    ]
+  },
+  "metric_scope": {
+    "calibration": "candidate relevance under weak case-level multi-label supervision",
+    "strict_entity_binding": "all case-level required IDs are selected",
+    "top1_candidate_relevant": "top pooled candidate is any case-level required ID",
+    "warning": "per-mention correctness is not measurable from this replay"
+  },
+  "schema_version": "aethersparse.entity-specialist-baselines.v11",
+  "unique_case_summary": {
+    "development": {
+      "candidate_complete_in_any_replica": 25,
+      "candidate_complete_in_any_replica_rate": 0.33783783783783783,
+      "unique_cases": 74
+    },
+    "tuning": {
+      "candidate_complete_in_any_replica": 30,
+      "candidate_complete_in_any_replica_rate": 0.297029702970297,
+      "unique_cases": 101
+    }
+  }
+}

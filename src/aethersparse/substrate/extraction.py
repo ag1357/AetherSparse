@@ -11,6 +11,9 @@ from __future__ import annotations
 import re
 from collections.abc import Iterable, Iterator, Sequence
 
+from pydantic import Field
+
+from aethersparse.models import StrictModel
 from aethersparse.substrate.builder import normalize_surface
 from aethersparse.substrate.models import (
     ClaimAttribute,
@@ -95,6 +98,26 @@ NON_FACT_FIELD_PARTS = (
     "style",
     "template",
 )
+
+
+class CompilerValueMatchTrace(StrictModel):
+    relation_family: str
+    object_value: str
+    object_kind: ObjectKind
+    claim_kind: ClaimKind
+    char_start: int = Field(ge=0)
+    char_end: int = Field(gt=0)
+    exact_surface_bound: bool
+
+
+class CompilerValueEnumerationDiagnostic(StrictModel):
+    """Value-only compiler boundary trace before type and page caps."""
+
+    schema_version: str = "aethersparse.value-compiler-boundary.v11"
+    all_typed_matches_before_type_caps: tuple[CompilerValueMatchTrace, ...]
+    typed_matches_after_type_caps: tuple[CompilerValueMatchTrace, ...]
+    typed_matches_after_page_cap: tuple[CompilerValueMatchTrace, ...]
+    max_claims_per_page: int = Field(ge=1, le=128)
 
 
 def _template_end(text: str, start: int) -> int:
@@ -201,6 +224,38 @@ def _infobox_seeds(page: SourcePage) -> Iterator[ClaimSeed]:
         )
 
 
+def _typed_sentence_seeds(page: SourcePage, *, apply_type_caps: bool) -> Iterator[ClaimSeed]:
+    text = page.text[:16_384]
+    typed_patterns: tuple[
+        tuple[re.Pattern[str], str, ObjectKind, ClaimKind, int], ...
+    ] = (
+        (DATE_RE, "date mentioned", ObjectKind.DATE, ClaimKind.DATE, 2),
+        (YEAR_RE, "year mentioned", ObjectKind.DATE, ClaimKind.DATE, 3),
+        (QUANTITY_RE, "quantity mentioned", ObjectKind.QUANTITY, ClaimKind.QUANTITY, 3),
+        (QUOTATION_RE, "quotation", ObjectKind.QUOTATION, ClaimKind.QUOTATION, 2),
+    )
+    for pattern, relation, object_kind, claim_kind, limit in typed_patterns:
+        emitted = 0
+        for match in pattern.finditer(text):
+            group = 1 if pattern is QUOTATION_RE else 0
+            value = match.group(group).strip()
+            start, end = match.span(group)
+            if not value:
+                continue
+            yield _seed(
+                page,
+                relation=relation,
+                value=value,
+                start=start,
+                end=end,
+                object_kind=object_kind,
+                claim_kind=claim_kind,
+            )
+            emitted += 1
+            if apply_type_caps and emitted >= limit:
+                break
+
+
 def _sentence_seeds(page: SourcePage) -> Iterator[ClaimSeed]:
     # Keep active extraction bounded to the lead-sized source prefix.
     text = page.text[:16_384]
@@ -243,34 +298,53 @@ def _sentence_seeds(page: SourcePage) -> Iterator[ClaimSeed]:
             break
 
     # Dates, quantities, and quotations retain the exact matched surface.
-    typed_patterns: tuple[
-        tuple[re.Pattern[str], str, ObjectKind, ClaimKind, int], ...
-    ] = (
-        (DATE_RE, "date mentioned", ObjectKind.DATE, ClaimKind.DATE, 2),
-        (YEAR_RE, "year mentioned", ObjectKind.DATE, ClaimKind.DATE, 3),
-        (QUANTITY_RE, "quantity mentioned", ObjectKind.QUANTITY, ClaimKind.QUANTITY, 3),
-        (QUOTATION_RE, "quotation", ObjectKind.QUOTATION, ClaimKind.QUOTATION, 2),
+    yield from _typed_sentence_seeds(page, apply_type_caps=True)
+
+
+def _compiler_trace(seed: ClaimSeed, page: SourcePage) -> CompilerValueMatchTrace:
+    assert seed.char_start is not None and seed.char_end is not None
+    return CompilerValueMatchTrace(
+        relation_family=seed.relation_family,
+        object_value=seed.object_value,
+        object_kind=seed.object_kind,
+        claim_kind=seed.claim_kind,
+        char_start=seed.char_start,
+        char_end=seed.char_end,
+        exact_surface_bound=page.text[seed.char_start : seed.char_end] == seed.object_value,
     )
-    for pattern, relation, object_kind, claim_kind, limit in typed_patterns:
-        emitted = 0
-        for match in pattern.finditer(text):
-            group = 1 if pattern is QUOTATION_RE else 0
-            value = match.group(group).strip()
-            start, end = match.span(group)
-            if not value:
-                continue
-            yield _seed(
-                page,
-                relation=relation,
-                value=value,
-                start=start,
-                end=end,
-                object_kind=object_kind,
-                claim_kind=claim_kind,
-            )
-            emitted += 1
-            if emitted >= limit:
-                break
+
+
+def diagnose_value_enumeration(
+    page: SourcePage, *, max_claims_per_page: int = 32
+) -> CompilerValueEnumerationDiagnostic:
+    """Expose compiler value matches before type and whole-page claim caps."""
+
+    if max_claims_per_page < 1 or max_claims_per_page > 128:
+        raise ValueError("max_claims_per_page must be between 1 and 128")
+    typed_kinds = {ClaimKind.DATE, ClaimKind.QUANTITY, ClaimKind.QUOTATION}
+    uncapped_candidates = (
+        *tuple(_infobox_seeds(page)),
+        *tuple(_typed_sentence_seeds(page, apply_type_caps=False)),
+    )
+    type_capped_candidates = (
+        *tuple(_infobox_seeds(page)),
+        *tuple(_typed_sentence_seeds(page, apply_type_caps=True)),
+    )
+    uncapped = tuple(seed for seed in uncapped_candidates if seed.claim_kind in typed_kinds)
+    type_capped = tuple(
+        seed for seed in type_capped_candidates if seed.claim_kind in typed_kinds
+    )
+    page_capped = tuple(
+        seed
+        for seed in iter_claim_seeds((page,), max_claims_per_page=max_claims_per_page)
+        if seed.claim_kind in typed_kinds
+    )
+    return CompilerValueEnumerationDiagnostic(
+        all_typed_matches_before_type_caps=tuple(_compiler_trace(seed, page) for seed in uncapped),
+        typed_matches_after_type_caps=tuple(_compiler_trace(seed, page) for seed in type_capped),
+        typed_matches_after_page_cap=tuple(_compiler_trace(seed, page) for seed in page_capped),
+        max_claims_per_page=max_claims_per_page,
+    )
 
 
 def iter_claim_seeds(
