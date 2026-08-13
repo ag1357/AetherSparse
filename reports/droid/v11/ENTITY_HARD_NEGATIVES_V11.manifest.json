@@ -1,0 +1,59 @@
+{
+  "baseline": {
+    "file": "entity-specialist-baselines.json",
+    "sha256": "2a750a30b5def160c24831dde740deaff22ceef38a76ba96c0f195a7ee88d6b4"
+  },
+  "input_hashes": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_report_gzip_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "mission5_report_json_sha256": "37a4e5cc075a676d6321271a14419ef540aa66f5a65e2a326c0e3d508bdb1c66",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "replay_cases_gzip_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+    "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+    "replay_manifest_sha256": "a3ed0e2bede5db16d93f8a91a4051bddbae51c2e7fee5b7e9e90ff8ac54e0552"
+  },
+  "name": "ENTITY_HARD_NEGATIVES_V11",
+  "output": {
+    "compressed_bytes": 44288,
+    "file": "ENTITY_HARD_NEGATIVES_V11.json.gz",
+    "gzip_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+    "json_sha256": "6626c50dcb4526c09a54a2fedecd466e5151a12f61f673612ecdb83c6a649f85",
+    "uncompressed_bytes": 718569
+  },
+  "partition_case_id_sha256": {
+    "development": "bdd649e8f128c85501b6fd2706a158898ae3dc2c42eebec04b1e35b6d5e104b0",
+    "tuning": "749261f13868782cd46865ede635f5df0962c512f1ae2d1d2d5b76bfc7ff6a98"
+  },
+  "partition_counts": {
+    "development": {
+      "replicas": 153,
+      "unique_cases": 74
+    },
+    "tuning": {
+      "replicas": 193,
+      "unique_cases": 101
+    }
+  },
+  "replica_count": 346,
+  "schema_version": "aethersparse.entity-hard-negatives-manifest.v11",
+  "sealed_partitions_excluded": [
+    "evaluation",
+    "final_held"
+  ],
+  "unavailable_fields": {
+    "actual_entity_type": "type_score=1.0 is a neutral placeholder in this replay",
+    "alias_redirect_anchor_support": "only the winning method enum is retained per candidate",
+    "anchor_occurrence_count": "canonical v0.5 SQLite pack is not present in Work",
+    "anchor_prior": "requires occurrence-level anchor rows from the tier pack",
+    "candidate_cap_failure": "pre-cap candidates and generation counts are absent",
+    "candidate_pool_before_top8": "only each mention's retained bounded candidates are present",
+    "correct_entity_outside_top_k": "cannot be distinguished from not generated",
+    "correct_entity_per_mention": "gold required IDs are case-level and have no mention alignment",
+    "discourse_coreference_mismatch": "case-level entity labels are not aligned to references",
+    "edit_similarity": "name_score is retained, but the underlying edit distance is not",
+    "redirect_canonicalization_failure": "raw redirect path is absent",
+    "type_mismatch": "actual candidate entity types are absent",
+    "wrong_alias_target": "raw alias-to-target support is absent"
+  },
+  "unique_case_count": 175
+}

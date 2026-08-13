@@ -1,0 +1,58 @@
+{
+  "artifact": "ENTITY_ANCHOR_STATISTICS_V11_TARGETED_HANDOFF",
+  "blocked_reason": "The canonical v0.5 SQLite tier packs are not present in the Work environment. The committed manifests describe external pack files, and the replay retains candidate methods but not hyperlink occurrences.",
+  "command_template": "python scripts/droid/v11_entity_specialist.py anchor-export --pack /path/to/tier-pack.sqlite --hard-negatives reports/droid/v11/ENTITY_HARD_NEGATIVES_V11.json.gz --output /output/entity-anchor-statistics-TIER.json.gz --alpha 1.0",
+  "do_not_request": "No broad corpus battery is required. Run the exporter only against the existing tier pack and only for mention surfaces named by ENTITY_HARD_NEGATIVES_V11.",
+  "known_pack_identity": {
+    "10k_manifest": "data/real_corpus/v050/simplewiki-v050-20260701-10k-final.manifest.json",
+    "10k_pack_sha256": "cb93db732eaf314806700b38ef7ec9d5cf85dea69f32deb51f97a3aa890023e5",
+    "10k_anchor_occurrences": 779447,
+    "25k_pack_sha256": null,
+    "397k_pack_sha256": null
+  },
+  "output_fields": [
+    "count(m -> e)",
+    "count(m -> *)",
+    "add-alpha P(e | m)",
+    "ambiguity count",
+    "entropy in nats",
+    "distinct source-document support",
+    "resolved target entity ID when unique",
+    "title indicator/prior",
+    "redirect indicator/support/prior",
+    "alias types"
+  ],
+  "required_schema": {
+    "anchors": [
+      "anchor_id",
+      "source_document_id",
+      "target_title",
+      "anchor_text",
+      "raw_start",
+      "raw_end",
+      "raw_text",
+      "source_span_sha256"
+    ],
+    "aliases": [
+      "alias",
+      "document_id",
+      "kind"
+    ],
+    "documents": [
+      "document_id",
+      "title",
+      "normalized_title",
+      "redirect_target"
+    ],
+    "redirects": [
+      "source_document_id",
+      "target_title"
+    ],
+    "sqlite_user_version": 500
+  },
+  "schema_audit": "Each anchors row is one hyperlink occurrence with source document and raw offsets; the source schema did not discard occurrences. Only the external pack bytes are unavailable locally.",
+  "sealed_partitions": [
+    "evaluation",
+    "final_held"
+  ]
+}
