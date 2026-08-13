@@ -27,6 +27,11 @@ from aethersparse.controller.models import (
     ResolutionMethod,
     StructuredClaim,
 )
+from aethersparse.controller.value_diagnostics import (
+    EnumerationMatchTrace,
+    EnumerationRegionTrace,
+    RuntimeEnumerationDiagnostic,
+)
 
 TOKEN_RE = re.compile(r"[\w'-]{2,}", re.UNICODE)
 SENTENCE_RE = re.compile(r"[^\n.!?]{3,480}[.!?]?")
@@ -632,12 +637,15 @@ class SQLiteControllerProvider:
             )
         return score
 
-    def _regions(self, frame: QueryFrame, raw: str) -> list[tuple[int, int, str]]:
+    def _all_regions(self, frame: QueryFrame, raw: str) -> list[tuple[int, int, str]]:
         regions = [
             (match.start(), match.end(), match.group(0)) for match in SENTENCE_RE.finditer(raw)
         ]
         regions.sort(key=lambda item: (-self._region_score(frame, item[2]), item[0]))
-        return regions[:8]
+        return regions
+
+    def _regions(self, frame: QueryFrame, raw: str) -> list[tuple[int, int, str]]:
+        return self._all_regions(frame, raw)[:8]
 
     @staticmethod
     def _shape_facets(
@@ -675,11 +683,15 @@ class SQLiteControllerProvider:
         self,
         frame: QueryFrame,
         raw: str,
+        *,
+        regions: list[tuple[int, int, str]] | None = None,
+        deduplicate: bool = True,
+        value_cap: int | None = 4,
     ) -> list[tuple[int, int, str, AnswerShape, str | None, str | None]]:
         """Return local offsets, exact value, shape, speaker and unit."""
 
         results: list[tuple[int, int, str, AnswerShape, str | None, str | None]] = []
-        regions = self._regions(frame, raw)
+        regions = self._regions(frame, raw) if regions is None else regions
         relation = (
             frame.requested_relation_families[0] if frame.requested_relation_families else "unknown"
         )
@@ -821,13 +833,92 @@ class SQLiteControllerProvider:
             value = region.strip()
             local = start + (len(region) - len(region.lstrip()))
             results.append((local, local + len(value), value, frame.answer_shape, None, None))
+        if not deduplicate:
+            return results if value_cap is None else results[:value_cap]
         # Stable exact-deduplication; a chunk may contribute at most four values.
         unique: dict[
             tuple[int, int, str], tuple[int, int, str, AnswerShape, str | None, str | None]
         ] = {}
         for item in results:
             unique.setdefault((item[0], item[1], item[2]), item)
-        return list(unique.values())[:4]
+        values = list(unique.values())
+        return values if value_cap is None else values[:value_cap]
+
+    def diagnose_value_enumeration(
+        self, frame: QueryFrame, raw: str
+    ) -> RuntimeEnumerationDiagnostic:
+        """Trace current extraction before/after region, dedup, and value caps."""
+
+        regions = self._all_regions(frame, raw)
+        selected_regions = regions[:8]
+        all_matches = self._extractions(
+            frame,
+            raw,
+            regions=regions,
+            deduplicate=False,
+            value_cap=None,
+        )
+        selected_matches = self._extractions(
+            frame,
+            raw,
+            regions=selected_regions,
+            deduplicate=False,
+            value_cap=None,
+        )
+        deduplicated = self._extractions(
+            frame,
+            raw,
+            regions=selected_regions,
+            deduplicate=True,
+            value_cap=None,
+        )
+        capped = deduplicated[:4]
+
+        def match_trace(
+            item: tuple[int, int, str, AnswerShape, str | None, str | None]
+        ) -> EnumerationMatchTrace:
+            start, end, surface, shape, speaker, unit = item
+            containing = next(
+                (
+                    rank
+                    for rank, (region_start, region_end, _text) in enumerate(regions, start=1)
+                    if region_start <= start and end <= region_end
+                ),
+                None,
+            )
+            return EnumerationMatchTrace(
+                start=start,
+                end=end,
+                surface=surface,
+                value_shape=shape,
+                speaker=speaker,
+                unit=unit,
+                region_rank=containing,
+                selected_top8=containing is None or containing <= 8,
+                exact_surface_bound=raw[start:end] == surface,
+            )
+
+        return RuntimeEnumerationDiagnostic(
+            regions=tuple(
+                EnumerationRegionTrace(
+                    start=start,
+                    end=end,
+                    text=text,
+                    score=self._region_score(frame, text),
+                    rank=rank,
+                    selected_top8=rank <= 8,
+                )
+                for rank, (start, end, text) in enumerate(regions, start=1)
+            ),
+            all_matches_before_region_pruning=tuple(match_trace(item) for item in all_matches),
+            top8_matches_before_deduplication=tuple(
+                match_trace(item) for item in selected_matches
+            ),
+            pre_dedup_values=tuple(item[2] for item in selected_matches),
+            post_dedup_values=tuple(item[2] for item in deduplicated),
+            pre_cap_values=tuple(item[2] for item in deduplicated),
+            post_cap_values=tuple(item[2] for item in capped),
+        )
 
     def _records_for_row(self, frame: QueryFrame, row: sqlite3.Row) -> list[EvidenceRecord]:
         raw = str(row["raw_text"])

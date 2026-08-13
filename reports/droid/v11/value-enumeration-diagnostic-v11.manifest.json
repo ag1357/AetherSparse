@@ -1,0 +1,19 @@
+{
+  "artifact_id": "VALUE_ENUMERATION_DIAGNOSTIC_V11",
+  "evaluation_and_final_held_used": false,
+  "output_compressed_bytes": 158275,
+  "output_file": "value-enumeration-diagnostic-v11.json.gz",
+  "output_sha256": "8eecc69255e5c78c4a71fcec0eec6621a270aa6d0ea64cc8824de56172d48ae8",
+  "output_uncompressed_bytes": 873510,
+  "output_uncompressed_sha256": "b2aad6f4ea4a86c58971c3aca147f2b9879df02953dc9c18925d27936b5b979b",
+  "residual_replicas": 89,
+  "schema_version": "aethersparse.value-enumeration-diagnostic-manifest.v11",
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "pack_sha256_by_tier": {},
+    "reachability_report_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa"
+  },
+  "unique_case_ids": 34
+}
