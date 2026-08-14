@@ -1,0 +1,93 @@
+{
+  "artifact_count": 8,
+  "artifacts": [
+    {
+      "bytes": 44288,
+      "filename": "ENTITY_HARD_NEGATIVES_V11.json.gz",
+      "partition_restrictions": "development/tuning only; evaluation and final_held excluded by construction (freeze rejects cross-partition grouping and non-training rows)",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_entity_specialist.py freeze --mission5-report reports/droid/v10/mission5-real-reachability.json.gz --replay-bundle /root/work/v10/controller-replay-3tier --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json --output-directory /root/work/v11/freeze  # @ work/v11-integration fd973da, s600",
+      "purpose": "Frozen development/tuning ENTITY_BINDING_WRONG hard-negative replicas (346 replicas, 175 unique cases) selected from the Mission 5 replay bundle; input to anchor-export.",
+      "sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+      "source_identity": "Mission 5 replay bundle sha256 099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246 (tiers 10k/25k/397k); benchmark 1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113; M5 reachability report 280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd"
+    },
+    {
+      "bytes": 2913,
+      "filename": "ENTITY_HARD_NEGATIVES_V11.manifest.json",
+      "partition_restrictions": "same as ENTITY_HARD_NEGATIVES_V11.json.gz",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_entity_specialist.py freeze --mission5-report reports/droid/v10/mission5-real-reachability.json.gz --replay-bundle /root/work/v10/controller-replay-3tier --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json --output-directory /root/work/v11/freeze  # @ work/v11-integration fd973da, s600",
+      "purpose": "Freeze manifest: input/output hashes, partition counts, per-partition case-id hashes, unavailable-field registry.",
+      "sha256": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+      "source_identity": "same as ENTITY_HARD_NEGATIVES_V11.json.gz"
+    },
+    {
+      "bytes": 10640,
+      "filename": "entity-anchor-statistics-10k.json.gz",
+      "partition_restrictions": "corpus-level statistics over mention surfaces derived from development/tuning cases only; no evaluation/final-held content",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_entity_specialist.py anchor-export --pack /media/cloud/2982-E16B/work/artifacts/packs/simplewiki-v050-20260701-10k.sqlite --hard-negatives /media/cloud/2982-E16B/work/v11/ENTITY_HARD_NEGATIVES_V11.json.gz --output entity-anchor-statistics-10k.json.gz --alpha 1.0  # @ work/v11-integration fd973da, Pi",
+      "purpose": "Occurrence-level anchor statistics (occurrence counts, distinct source-document support, alias/redirect/title priors) for the residual mention surfaces; 126/152 surfaces covered, 345 statistics.",
+      "sha256": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+      "source_identity": "raw v0.5 10k corpus simplewiki-v050-20260701-10k.sqlite sha256 8e2e03d35b847a67364256afd1144c908128765ed02280c059a3d3299d542521 (tier 10k only; 25k/397k raw corpora do not exist and selector packs lack occurrence-level anchors)"
+    },
+    {
+      "bytes": 556,
+      "filename": "entity-anchor-statistics-10k.json.gz.manifest.json",
+      "partition_restrictions": "same as entity-anchor-statistics-10k.json.gz",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_entity_specialist.py anchor-export --pack /media/cloud/2982-E16B/work/artifacts/packs/simplewiki-v050-20260701-10k.sqlite --hard-negatives /media/cloud/2982-E16B/work/v11/ENTITY_HARD_NEGATIVES_V11.json.gz --output entity-anchor-statistics-10k.json.gz --alpha 1.0  # @ work/v11-integration fd973da, Pi",
+      "purpose": "Anchor-export manifest: source pack hash, mention coverage, output hashes.",
+      "sha256": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520",
+      "source_identity": "same as entity-anchor-statistics-10k.json.gz"
+    },
+    {
+      "bytes": 2340,
+      "filename": "sidecar-derivation-report.json",
+      "partition_restrictions": "rows serve development/tuning residual replicas only",
+      "producing_command": "PYTHONPATH=/root/work/AetherSparse-v11/src python /root/work/v11/v11_build_value_sidecars.py  # s600; committed as scripts/droid/v11_build_value_sidecars.py",
+      "purpose": "Provenance and verification record for the three canonical-schema value sidecars: column mapping, row counts, completeness (329/329 chunks, 0 gold missing, 0 text mismatches), empty-stub disclosure, source/sidecar SHA-256 pairs.",
+      "sha256": "7465e7677294984847b93b7295116277aa8289db49595086f7ad4462b2f1233e",
+      "source_identity": "selector packs: 10k aef284ff0f157d2d7ae3915f02624e10214c859e5dfbc9dd25f0886cf4c36c66, 25k 04ea224214b540a4083e302c0e35a17088561829f407e52784012d154b32c486, 397k 4f232260041f4c8100ece19fbb02a546c5bef9f7a84fb12f3e62f50748e06d54; sidecars fb25b32c3edbf163518397ea33dbcf435fb9e8a2e83ff652604b62479b64e161 / 61c751421904f783dc5b24f0a713406dcc80a5dac30ebfe2cf0cf7ddb1d0e16b / 54e691a13f092cbde99450e5932cc22b707e5acb943bd6a01e9dafe826183463"
+    },
+    {
+      "bytes": 349778,
+      "filename": "value-enumeration-diagnostic-v11.json.gz",
+      "partition_restrictions": "development/tuning only; manifest asserts evaluation_and_final_held_used=false; exporter rejects protected/non-training replay rows",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_value_diagnostic.py --replay-bundle /root/work/v10/controller-replay-3tier --reachability-report /root/work/v11/value-remaining-43.json --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json --pack 10k=/root/work/v11/sidecars/value-tier-10k.sqlite --pack 25k=/root/work/v11/sidecars/value-tier-25k.sqlite --pack 397k=/root/work/v11/sidecars/value-tier-397k.sqlite --output /root/work/v11/value-enumeration-diagnostic-v11.json.gz --manifest-output /root/work/v11/value-enumeration-diagnostic-v11.manifest.json  # @ work/v11-integration fd973da, s600",
+      "purpose": "Value capture for the 43 remaining VALUE_NOT_ENUMERATED replicas (16 unique cases): complete selected chunk text, all regions/matches before top-eight pruning, pre/post dedup and pre/post cap values, exact document rebinding, full-page compiler boundary trace.",
+      "sha256": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+      "source_identity": "Mission 5 replay bundle 099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246; per-tier sidecars (hashes above) derived from selector packs; reachability projection 66203ba67c924c985148822d5e9bda72317dde6b789bfdb9d0977f4c550e72d9 (lossless re-key of reachability-rerun.json old_failure_class->failure_class, filtered to the 43 unrecovered dev/tuning replicas)"
+    },
+    {
+      "bytes": 1245,
+      "filename": "value-enumeration-diagnostic-v11.manifest.json",
+      "partition_restrictions": "same as value-enumeration-diagnostic-v11.json.gz",
+      "producing_command": "PYTHONPATH=<v11-worktree>/src python scripts/droid/v11_value_diagnostic.py --replay-bundle /root/work/v10/controller-replay-3tier --reachability-report /root/work/v11/value-remaining-43.json --benchmark data/v050/benchmark/INDEPENDENT_NATURAL_QUERY_SET_V050_R1.json --pack 10k=/root/work/v11/sidecars/value-tier-10k.sqlite --pack 25k=/root/work/v11/sidecars/value-tier-25k.sqlite --pack 397k=/root/work/v11/sidecars/value-tier-397k.sqlite --output /root/work/v11/value-enumeration-diagnostic-v11.json.gz --manifest-output /root/work/v11/value-enumeration-diagnostic-v11.manifest.json  # @ work/v11-integration fd973da, s600",
+      "purpose": "Value diagnostic manifest: source identities (replay bundle, benchmark, per-tier sidecar hashes, projection hash), replica/case counts, output hashes.",
+      "sha256": "2cf5bbd5cea6de63ebdea2f971a99687d03dc52df7a16ff17e9d859463966d23",
+      "source_identity": "same as value-enumeration-diagnostic-v11.json.gz"
+    },
+    {
+      "bytes": 4909,
+      "filename": "V11_TARGETED_DATA_REPORT.md",
+      "partition_restrictions": "documents the partition policy; contains no case labels",
+      "producing_command": "authored (no command)",
+      "purpose": "Human-readable completion report and index for this handoff, including blocked-lane rationale (25k/397k entity tiers) and the sidecar deviation disclosure.",
+      "sha256": "0053bee98e025ba775534bab23f49974a44dc2c5c577a7d36911c84300b090f2",
+      "source_identity": "n/a (report)"
+    }
+  ],
+  "branch_tip_at_execution": "fd973da306bc9c93d1d68cf39d1b7c65c65f025d",
+  "development_branch": "work/v11-integration",
+  "executor": "Droid (corpus host: Pi + s600)",
+  "generated_utc": "2026-08-14",
+  "integrity_inputs_verified": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_report_gzip_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  },
+  "job": "Mission 6 minimal targeted data handoff (V11_TARGETED_DATA_HANDOFF.md)",
+  "notes": [
+    "All eight artifacts are excluded from normal Git per job instruction and Work convention (derived row-level data integrates via manifest/hash only).",
+    "Entity anchor statistics exist for the 10k tier only; 25k/397k raw v0.5 corpora do not exist and selector packs lack occurrence-level anchors.",
+    "The value diagnostic ran against schema-translation sidecars; see sidecar-derivation-report.json for the full mapping and verification record."
+  ],
+  "schema_version": "aethersparse.v11-targeted-data-artifacts-manifest.v1"
+}
