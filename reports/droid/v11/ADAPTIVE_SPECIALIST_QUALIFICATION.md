@@ -1,5 +1,14 @@
 # Mission 6 adaptive specialist qualification
 
+> **Upstream continuation (2026-08-13).** This report records the original
+> Mission 6 checkpoint. The subsequently supplied targeted handoff has now
+> been integrated and independently revalidated across all 695 states. Strict
+> certified reachability is 324/695 (46.6187%); even the non-certified legacy
+> carry-forward counterfactual is only 410/695 (58.9928%). The greater-than-60%
+> policy gate therefore remains closed. See
+> `UPSTREAM_SEMANTIC_ADDRESS_QUALIFICATION.md` for the current decision and
+> decomposition.
+
 ## Architecture decision
 
 `UPSTREAM_REPRESENTATION_STILL_LIMITING`

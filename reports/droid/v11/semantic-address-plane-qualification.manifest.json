@@ -1,0 +1,15 @@
+{
+  "inputs": {
+    "hard_negatives_gzip_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+    "hard_negatives_manifest_sha256": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+    "occurrence_statistics_gzip_sha256": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+    "occurrence_statistics_manifest_sha256": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520"
+  },
+  "private_payload_included": false,
+  "report": {
+    "bytes": 8652,
+    "file": "semantic-address-plane-qualification.json",
+    "sha256": "8200a3aa5cedc6fda0960746b909a933224e83b8335891afd95bc8f4994712fb"
+  },
+  "schema_version": "aethersparse.semantic-address-plane-qualification-manifest.v1"
+}

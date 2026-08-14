@@ -1,0 +1,46 @@
+{
+  "artifact_id": "VALUE_TARGETED_RESIDUAL_RERUN_V11",
+  "counts": {
+    "capacity_exhausted": 11,
+    "goal_possible": 34,
+    "reachable": 32,
+    "replicas": 43,
+    "semantic_entity_binding_valid": 43
+  },
+  "first_success": {
+    "best_first": 32
+  },
+  "partition_counts": {
+    "development_goal_possible": 16,
+    "development_reachable": 14,
+    "tuning_goal_possible": 18,
+    "tuning_reachable": 18
+  },
+  "residual_trace_counts": {
+    "COMPILER_AND_RUNTIME_EXTRACTION": 3,
+    "SOURCE_CHUNK_ABSENT": 8,
+    "TOOLSET_CONTROLLER_SEARCH": 2
+  },
+  "schema_version": "aethersparse.value-targeted-residual-rerun.v11",
+  "scope": {
+    "evaluation_and_final_held_used": false,
+    "partitions": [
+      "development",
+      "tuning"
+    ],
+    "replicas": 43,
+    "search": {
+      "argument_cap": 64,
+      "beam_width": 32,
+      "max_depth": 14,
+      "max_expansions": 4096
+    },
+    "unique_cases": 16
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "capture_sha256": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+    "replay_archive_sha256": "572c4e3c4d210e058d9384571618e7fa4abcea7c91b9775e47f7451847ebc1ad",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  }
+}

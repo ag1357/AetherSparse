@@ -1,0 +1,117 @@
+{
+  "artifact_integrity": {
+    "completion_report_is_trust_root": true,
+    "hashes": {
+      "ENTITY_HARD_NEGATIVES_V11.json.gz": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+      "ENTITY_HARD_NEGATIVES_V11.manifest.json": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+      "V11_TARGETED_DATA_REPORT.md": "0053bee98e025ba775534bab23f49974a44dc2c5c577a7d36911c84300b090f2",
+      "entity-anchor-statistics-10k.json.gz": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+      "entity-anchor-statistics-10k.json.gz.manifest.json": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520",
+      "sidecar-derivation-report.json": "7465e7677294984847b93b7295116277aa8289db49595086f7ad4462b2f1233e",
+      "value-enumeration-diagnostic-v11.json.gz": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+      "value-enumeration-diagnostic-v11.manifest.json": "2cf5bbd5cea6de63ebdea2f971a99687d03dc52df7a16ff17e9d859463966d23"
+    },
+    "verified": true
+  },
+  "entity": {
+    "aligned_mentions": 0,
+    "anchor_covered_surfaces": 126,
+    "anchor_missing_surfaces": 26,
+    "anchor_occurrences": 6112,
+    "anchor_rows": 345,
+    "anchor_target_entities": 124,
+    "anchor_tiers": [
+      "10k"
+    ],
+    "at_retained_cap_mentions": 26,
+    "canonical_anchor_rows": 133,
+    "failure_taxonomy": {
+      "correct_entity_not_generated": 153,
+      "correct_entity_not_generated_partial": 100,
+      "correct_entity_present_but_misranked": 21,
+      "correct_entity_top_ranked_but_rejected": 54,
+      "mention_not_detected": 18
+    },
+    "mention_surfaces": 152,
+    "mentions": 528,
+    "partitions": [
+      "development",
+      "tuning"
+    ],
+    "replicas": 346,
+    "unique_cases": 175,
+    "unresolved_anchor_rows": 212
+  },
+  "entity_field_coverage": {
+    "alias_redirect_title_features": true,
+    "all_anchor_targets_resolved": false,
+    "ambiguity_entropy": true,
+    "candidate_outside_cap_distinguishable": false,
+    "canonical_entity_ids": true,
+    "mention_level_gold_alignment": false,
+    "occurrence_probabilities": true,
+    "pre_cap_candidate_pool": false,
+    "source_diversity": true,
+    "support_counts": true,
+    "tier_coverage": "10k_ONLY"
+  },
+  "entity_handoff_complete": false,
+  "partition_policy": {
+    "evaluation_final_held_labels_permitted": false,
+    "evaluation_final_held_rows_consumed": 0,
+    "training_partitions": [
+      "development",
+      "tuning"
+    ],
+    "verified": true
+  },
+  "schema_version": "aethersparse.v11-targeted-handoff-audit.v1",
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_report_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa"
+  },
+  "status": "ACCEPTED_WITH_ENTITY_SCOPE_LIMITATIONS",
+  "training_authorization": {
+    "contextual_entity_specialist": "BLOCKED_PENDING_CANDIDATE_RECALL_AND_MENTION_ALIGNMENT",
+    "development": "model fitting and feature construction",
+    "evaluation_final_held": "prohibited until architecture and thresholds are frozen",
+    "neural_value_specialist": "CONDITIONAL_ON_POST_DETERMINISTIC_RESIDUAL",
+    "tuning": "calibration, successive-halving selection, and frozen threshold choice"
+  },
+  "value": {
+    "classification_taxonomy": {
+      "BLOCKED_MISSING_SOURCE_CHUNK_PREPRUNING_STATE": 10,
+      "COMPILER_NEVER_EXTRACTED_CORRECT_VALUE": 17,
+      "CORRECT_VALUE_PRESENT_NOT_BOUND_TO_SUBJECT_RELATION": 11,
+      "RUNTIME_EXTRACTOR_NEVER_EXTRACTED_CORRECT_VALUE": 5
+    },
+    "compiler_documents": 75,
+    "exact_rebinding_failures": 0,
+    "partitions": [
+      "development",
+      "tuning"
+    ],
+    "replicas": 43,
+    "runtime_matches": 83,
+    "selected_chunks": 344,
+    "tiers": {
+      "10k": 16,
+      "25k": 16,
+      "397k": 11
+    },
+    "unique_cases": 16
+  },
+  "value_field_coverage": {
+    "all_targeted_tiers": true,
+    "compiler_pre_post_caps": true,
+    "complete_selected_chunk_text": true,
+    "exact_document_rebinding": true,
+    "runtime_pre_post_cap": true,
+    "runtime_pre_post_dedup": true,
+    "runtime_regions_before_top8": true,
+    "source_chunk_membership": true
+  },
+  "value_handoff_complete": true
+}

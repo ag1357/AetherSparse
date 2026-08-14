@@ -96,8 +96,15 @@ def _hypotheses(
             local_entities.append(entity)
         if isinstance(relation, str) and relation and relation not in local_relations:
             local_relations.append(relation)
-    entities: tuple[str | None, ...] = tuple(local_entities) or frame_entities or (None,)
-    relations: tuple[str | None, ...] = tuple(local_relations) or frame_relations or (None,)
+    # A local claim is evidence for an address, not proof that every other
+    # frame-supported address is impossible.  Preserve the stable local-first
+    # union so ambiguous source regions retain multiple exact hypotheses.
+    entities: tuple[str | None, ...] = (
+        tuple(dict.fromkeys((*local_entities, *frame_entities))) or (None,)
+    )
+    relations: tuple[str | None, ...] = (
+        tuple(dict.fromkeys((*local_relations, *frame_relations))) or (None,)
+    )
     return tuple((entity, relation) for entity in entities for relation in relations)
 
 
@@ -147,11 +154,18 @@ def _iter_candidates(
     *,
     scan_capacity_per_hypothesis: int,
 ) -> Iterable[TypedValueCandidate]:
+    # Enumerate the primary address for every source region before alternate
+    # addresses.  A flat region/address loop lets the first ambiguous region
+    # consume the global claim budget with address replicas and can erase every
+    # value from later documents.  This preserves the original source/value
+    # order while delaying only competing address hypotheses.
+    groups: list[tuple[tuple[TypedValueCandidate, ...], ...]] = []
     for raw_span in state.source_spans:
         region = _region(raw_span)
         if region is None:
             continue
         source_span_id = str(raw_span.get("span_id", ""))
+        hypotheses: list[tuple[TypedValueCandidate, ...]] = []
         for entity, relation in _hypotheses(state, source_span_id):
             lattice = scan_typed_value_region(
                 region,
@@ -160,7 +174,13 @@ def _iter_candidates(
                 relation=relation,
                 capacity=scan_capacity_per_hypothesis,
             )
-            yield from lattice.candidates
+            hypotheses.append(lattice.candidates)
+        groups.append(tuple(hypotheses))
+    max_hypotheses = max((len(group) for group in groups), default=0)
+    for hypothesis_index in range(max_hypotheses):
+        for group in groups:
+            if hypothesis_index < len(group):
+                yield from group[hypothesis_index]
 
 
 def repair_state_with_typed_values(

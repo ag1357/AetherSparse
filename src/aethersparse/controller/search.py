@@ -138,6 +138,11 @@ def canonicalize(value: str) -> str:
     text = re.sub(r"^(the|a|an) ", "", text)
     text = text.strip(" .,\"'")
     text = re.sub(r"^\+(?=\d)", "", text)
+    # Normalize percent typography in both atomic values and realized compound
+    # answers.  The numeric whole-string path already emitted ``number %``, but
+    # compound comparisons previously retained ``number%`` and made their
+    # exact components invisible to the reachability precheck.
+    text = re.sub(r"(?<=\d)\s*%", " %", text)
     match = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", text)
     if match:
         return f"{match.group(1)}-{int(match.group(2)):02d}-{int(match.group(3)):02d}"

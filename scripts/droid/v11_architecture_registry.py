@@ -19,13 +19,13 @@ def _sha256(path: Path) -> str:
 
 def build_registry(repository: Path) -> ArchitectureRegistry:
     p4 = json.loads(
-        (repository / "reports/droid/v11/p4-cost-qualification.json").read_text(
+        (repository / "reports/droid/v11/upstream-p4-cost-qualification.json").read_text(
             encoding="utf-8"
         )
     )
     return ArchitectureRegistry(
-        architecture_id="aethercore-v11-qualified-static-upstream-repair",
-        architecture_version="11.0.0-work.1",
+        architecture_id="aethercore-v11-semantic-address-work-checkpoint",
+        architecture_version="11.0.0-work.2",
         modules=(
             ArchitectureModule(
                 module_id="aethercore.exact-controller",
@@ -56,6 +56,42 @@ def build_registry(repository: Path) -> ArchitectureRegistry:
                 status="active",
             ),
             ArchitectureModule(
+                module_id="aethercore.semantic-address-plane",
+                module_version="11.0.0",
+                purpose=(
+                    "Preserve bounded occurrence-backed canonical entity-address "
+                    "distributions"
+                ),
+                inputs=("query_frame", "anchor_occurrence_statistics"),
+                outputs=("semantic_address_distribution", "bounded_entity_candidates"),
+                parameter_count=0,
+                quantization="none",
+                activation_cost=ActivationCost(
+                    integer_ops=0,
+                    macs=0,
+                    memory_bytes=136_164,
+                    scratch_ram_bytes=1_536,
+                ),
+                supported_state_types=(
+                    "entity_mention",
+                    "entity_distribution",
+                    "query_frame",
+                ),
+                dependencies=("aethercore.exact-controller",),
+                model_hash=_sha256(
+                    repository / "src/aethersparse/controller/semantic_state.py"
+                ),
+                calibration_artifact=(
+                    "reports/droid/v11/semantic-address-plane-qualification.json"
+                ),
+                known_failure_clusters=(
+                    "missing_mention_alignment",
+                    "missing_pre_cap_candidates",
+                    "missing_25k_397k_occurrence_statistics",
+                ),
+                status="active",
+            ),
+            ArchitectureModule(
                 module_id="aethercore.value-exact-scan",
                 module_version="11.0.0",
                 purpose="Bounded typed value hypotheses copied from retained exact spans",
@@ -75,11 +111,14 @@ def build_registry(repository: Path) -> ArchitectureRegistry:
                     "comparison",
                     "quotation",
                 ),
-                dependencies=("aethercore.exact-controller",),
+                dependencies=(
+                    "aethercore.exact-controller",
+                    "aethercore.semantic-address-plane",
+                ),
                 model_hash=_sha256(
                     repository / "src/aethersparse/controller/value_repair.py"
                 ),
-                calibration_artifact="reports/droid/v11/reachability-rerun.json",
+                calibration_artifact="reports/droid/v11/upstream-reachability.json",
                 known_failure_clusters=(
                     "VALUE_NOT_ENUMERATED",
                     "quotation_without_development_support",

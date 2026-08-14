@@ -8,6 +8,8 @@ def test_integrated_registry_is_sealed_and_keeps_unqualified_modules_inactive() 
         Path("config/architecture/aethercore-v11-integrated.registry.json")
     )
     modules = {module.module_id: module for module in registry.modules}
+    assert modules["aethercore.semantic-address-plane"].status == "active"
+    assert modules["aethercore.semantic-address-plane"].parameter_count == 0
     assert modules["aethercore.value-exact-scan"].status == "active"
     assert modules["aethercore.value-exact-scan"].parameter_count == 0
     assert modules["aethercore.entity-linear-baseline"].status == "inactive"

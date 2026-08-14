@@ -1,0 +1,26 @@
+{
+  "contextual_model_trained": false,
+  "decision": "BLOCK_CONTEXTUAL_ENTITY_SUCCESSIVE_HALVING",
+  "input_sha256": {
+    "anchor_manifest_sha256": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520",
+    "anchor_statistics_gzip_sha256": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+    "anchor_statistics_json_sha256": "5f8a7ab198ba52cb93b6cb42f894b80276289124a4ae1bc57da7b288fd898af8",
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "entity_hard_negatives_gzip_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+    "entity_hard_negatives_json_sha256": "6626c50dcb4526c09a54a2fedecd466e5151a12f61f673612ecdb83c6a649f85",
+    "entity_manifest_sha256": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+    "mission5_report_gzip_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "reachability_sha256": "98e4149e415a75241d416d93733d2e8e2de9c932ea800b3669cde905f8768098",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "value_diagnostic_gzip_sha256": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+    "value_diagnostic_json_sha256": "c5ca03d61e6557219658ec6932fde27cfd8e8ad5ea5287a31efd820cc4ddc176",
+    "value_manifest_sha256": "2cf5bbd5cea6de63ebdea2f971a99687d03dc52df7a16ff17e9d859463966d23"
+  },
+  "output": {
+    "bytes": 9079,
+    "file": "specialist-readiness.json",
+    "sha256": "91638cc76954c2c338c41ccf10bcd0be9f786f8ad0c09b81e31071a2d53fba30"
+  },
+  "protected_partition_labels_consumed": false,
+  "schema_version": "aethercore.specialist-readiness-manifest.v1"
+}

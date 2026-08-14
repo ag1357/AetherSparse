@@ -1,0 +1,223 @@
+{
+  "candidate_address_coverage": {
+    "address_augmented_complete_replicas": 77,
+    "address_augmented_complete_unique_cases": 56,
+    "by_partition_and_tier": {
+      "development:10k": {
+        "address_augmented_complete": 7,
+        "current_complete": 7,
+        "replicas": 42
+      },
+      "development:25k": {
+        "address_augmented_complete": 10,
+        "current_complete": 10,
+        "replicas": 53
+      },
+      "development:397k": {
+        "address_augmented_complete": 21,
+        "current_complete": 21,
+        "replicas": 58
+      },
+      "tuning:10k": {
+        "address_augmented_complete": 3,
+        "current_complete": 3,
+        "replicas": 42
+      },
+      "tuning:25k": {
+        "address_augmented_complete": 6,
+        "current_complete": 6,
+        "replicas": 65
+      },
+      "tuning:397k": {
+        "address_augmented_complete": 30,
+        "current_complete": 28,
+        "replicas": 86
+      }
+    },
+    "current_complete_replicas": 75,
+    "current_complete_unique_cases": 55,
+    "new_complete_replicas": 2,
+    "replica_surface_coverage": {
+      "at_least_one_covered_surface": 302,
+      "no_detected_mentions": 18,
+      "only_uncovered_surfaces": 26
+    }
+  },
+  "certified_reachability_context": {
+    "eligible_replicas": 695,
+    "mission5_rate": 0.37410071942446044,
+    "mission5_reachable": 260,
+    "mission6_rate": 0.44028776978417267,
+    "mission6_reachable": 306,
+    "new_address_only_optimistic_ceiling": 308,
+    "new_address_only_optimistic_ceiling_rate": 0.44316546762589926,
+    "perfect_selection_within_address_complete_optimistic_ceiling": 383,
+    "perfect_selection_within_address_complete_optimistic_ceiling_rate": 0.5510791366906475,
+    "warning": "ceilings are candidate-set upper bounds, not measured semantic recovery"
+  },
+  "decision": "IMPLEMENT_GENERIC_PLANE_DEFER_CONTEXTUAL_SPECIALIST",
+  "failure_distinguishability": {
+    "candidate_misranked": "case-level required set is present but selection is incomplete; no per-mention gold",
+    "candidate_outside_cap": "not observable and never emitted",
+    "candidate_rejected_by_confidence": "top-ranked required set not selected is observable; threshold versus margin requires current-linker policy context",
+    "correct_candidate_absent": "observable only as absent from the retained set; generation provenance unknown",
+    "mention_missing": "only a fully empty retained mention set is observable"
+  },
+  "field_audit": {
+    "available": [
+      "mention surface and copied query offsets",
+      "retained candidate IDs, titles, methods, scores, confidence, and margin",
+      "occurrence count and distinct source-document support",
+      "Laplace-smoothed P(entity|mention) and ambiguity entropy",
+      "title, redirect, and alias-channel indicators",
+      "case-level development/tuning correct entity IDs"
+    ],
+    "consequence": "absence from the retained set cannot be separated into never-generated versus outside-cap, and partial mention misses are not labelable",
+    "missing": [
+      "correct canonical entity ID aligned to each mention",
+      "pre-cap candidate pool, generation count, and pre-cap rank",
+      "raw occurrence context and occurrence source-document IDs",
+      "25k and 397k occurrence statistics",
+      "actual entity type and raw edit similarity"
+    ]
+  },
+  "integrity": {
+    "hard_negative_input_hashes": {
+      "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+      "mission5_report_gzip_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+      "mission5_report_json_sha256": "37a4e5cc075a676d6321271a14419ef540aa66f5a65e2a326c0e3d508bdb1c66",
+      "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+      "replay_cases_gzip_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+      "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+      "replay_manifest_sha256": "a3ed0e2bede5db16d93f8a91a4051bddbae51c2e7fee5b7e9e90ff8ac54e0552"
+    },
+    "hard_negatives": {
+      "compressed_bytes": 44288,
+      "gzip_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+      "json_sha256": "6626c50dcb4526c09a54a2fedecd466e5151a12f61f673612ecdb83c6a649f85",
+      "manifest_sha256": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+      "uncompressed_bytes": 718569
+    },
+    "occurrence_statistics": {
+      "gzip_sha256": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+      "hard_negatives_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+      "json_sha256": "5f8a7ab198ba52cb93b6cb42f894b80276289124a4ae1bc57da7b288fd898af8",
+      "manifest_sha256": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520",
+      "source_pack_sha256": "8e2e03d35b847a67364256afd1144c908128765ed02280c059a3d3299d542521"
+    },
+    "split_audit": {
+      "mention_count": 528,
+      "mention_offsets_verified": 528,
+      "mentions_at_retained_cap_8": 26,
+      "null_correct_entity_per_mention": 528,
+      "partition_case_id_sha256": {
+        "development": "bdd649e8f128c85501b6fd2706a158898ae3dc2c42eebec04b1e35b6d5e104b0",
+        "tuning": "749261f13868782cd46865ede635f5df0962c512f1ae2d1d2d5b76bfc7ff6a98"
+      },
+      "partition_counts": {
+        "development": {
+          "replicas": 153,
+          "unique_cases": 74
+        },
+        "tuning": {
+          "replicas": 193,
+          "unique_cases": 101
+        }
+      },
+      "partitions_present": [
+        "development",
+        "tuning"
+      ],
+      "replicas_never_cross_partitions": true,
+      "sealed_partitions_excluded": [
+        "evaluation",
+        "final_held"
+      ]
+    }
+  },
+  "occurrence_statistics": {
+    "ambiguous_mentions": 76,
+    "covered_normalized_surfaces": 126,
+    "entropy_nats": {
+      "maximum": 2.628416385094389,
+      "mean": 0.43155030452591103,
+      "median": 0.23797761450462884,
+      "minimum": -0.0,
+      "p25": -0.0,
+      "p75": 0.6931471805599453,
+      "p95": 1.4811172559600023
+    },
+    "mean_resolved_probability_mass": 0.7035369491958823,
+    "mentions_with_any_canonical_address": 108,
+    "mentions_without_canonical_address": 18,
+    "missing_normalized_surfaces": 25,
+    "occurrence_support": {
+      "maximum": 1296.0,
+      "mean": 17.715942028985506,
+      "median": 1.0,
+      "minimum": 1.0,
+      "p25": 1.0,
+      "p75": 6.0,
+      "p95": 57.0
+    },
+    "probability_validation": "all rows match alpha=1 Laplace smoothing and entropy",
+    "redirect_signal_rows": 8,
+    "requested_normalized_surfaces": 151,
+    "requested_raw_surfaces": 152,
+    "resolved_canonical_rows": 133,
+    "source_diversity": {
+      "maximum": 1.0,
+      "mean": 0.9512830236021511,
+      "median": 1.0,
+      "minimum": 0.3333333333333333,
+      "p25": 1.0,
+      "p75": 1.0,
+      "p95": 1.0
+    },
+    "source_document_support": {
+      "maximum": 496.0,
+      "mean": 13.014492753623188,
+      "median": 1.0,
+      "minimum": 1.0,
+      "p25": 1.0,
+      "p75": 6.0,
+      "p95": 47.0
+    },
+    "statistic_rows": 345,
+    "title_signal_rows": 85,
+    "total_occurrences": 6112,
+    "unambiguous_mentions": 50,
+    "unresolved_target_rows": 212
+  },
+  "retained_failure_taxonomy": {
+    "mention_set_empty": 18,
+    "required_absent_from_retained_set": 153,
+    "required_present_selection_incomplete": 21,
+    "required_set_incomplete_in_retained_set": 100,
+    "required_top_ranked_not_selected": 54
+  },
+  "schema_version": "aethersparse.semantic-address-plane-qualification.v1",
+  "scope": {
+    "contextual_specialist_training_started": false,
+    "occurrence_statistics_tiers_missing": [
+      "25k",
+      "397k"
+    ],
+    "occurrence_statistics_tiers_present": [
+      "10k"
+    ],
+    "private_payload_copied_into_checkpoint": false,
+    "source_pack_available_for_independent_reverification": false
+  },
+  "status": "PARTIAL_TARGETED_SEMANTIC_ADDRESS_QUALIFIED",
+  "training_gate": {
+    "contextual_specialist_started": false,
+    "permitted_next_training_input": "development-only mention-aligned examples after candidate-generation provenance is captured; tuning remains calibration/model-selection only",
+    "reasons": [
+      "all mention-level correct_entity_per_mention fields are null",
+      "only 10k aggregate occurrences are present; raw occurrence context is absent",
+      "the occurrence overlay raises complete retained-address coverage by only 2 replicas",
+      "outside-cap and never-generated candidates remain observationally confounded"
+    ]
+  }
+}

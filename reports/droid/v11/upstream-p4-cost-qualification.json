@@ -1,0 +1,68 @@
+{
+  "active_case_count": 351,
+  "active_learned_parameters_mean": 0,
+  "active_learned_parameters_p95": 0,
+  "assumptions": [
+    "one scalar integer operation per cycle; no SIMD or accelerator credit",
+    "retained replay source spans are sequentially resident in PSRAM",
+    "zero flash bytes and zero random reads for this compute-only repair",
+    "scratch RAM uses source-span bytes plus 256 bytes per bounded candidate",
+    "projections are not board measurements"
+  ],
+  "case_count": 695,
+  "evaluation_final_held_consumed": false,
+  "host_measurement": {
+    "median_batch_ms": 388.985062,
+    "median_per_case_ms": 0.5596907366906475,
+    "p95_batch_ms": 480.64787950000004,
+    "p95_per_case_ms": 0.691579682733813,
+    "trials": 11,
+    "warmups": 3,
+    "work_host_batch_cases": 695
+  },
+  "integer_operations_mean": 728.8330935251798,
+  "integer_operations_p95": 2375.999999999992,
+  "macs_mean": 0,
+  "macs_p95": 0,
+  "model_bytes": 0,
+  "p4_scenarios": {
+    "conservative_200mhz": {
+      "active_mean_virtual_latency_ms": 0.04583374643874644,
+      "active_p95_virtual_latency_ms": 0.0717725,
+      "all_unresolved_mean_virtual_latency_ms": 0.02314769064748201,
+      "all_unresolved_p95_virtual_latency_ms": 0.06561,
+      "clock_mhz": 200,
+      "evidence_class": "analytical_projection_not_hardware_measurement",
+      "flash_bandwidth_mb_s": 5.0,
+      "psram_bandwidth_mb_s": 20.0
+    },
+    "nominal_300mhz": {
+      "active_mean_virtual_latency_ms": 0.0241194824311491,
+      "active_p95_virtual_latency_ms": 0.03765916666666667,
+      "all_unresolved_mean_virtual_latency_ms": 0.01218120623501199,
+      "all_unresolved_p95_virtual_latency_ms": 0.03386583333333333,
+      "clock_mhz": 300,
+      "evidence_class": "analytical_projection_not_hardware_measurement",
+      "flash_bandwidth_mb_s": 10.0,
+      "psram_bandwidth_mb_s": 40.0
+    },
+    "optimistic_plausible_400mhz": {
+      "active_mean_virtual_latency_ms": 0.013262350427350427,
+      "active_p95_virtual_latency_ms": 0.020794999999999998,
+      "all_unresolved_mean_virtual_latency_ms": 0.006697964028776978,
+      "all_unresolved_p95_virtual_latency_ms": 0.018404999999999998,
+      "clock_mhz": 400,
+      "evidence_class": "analytical_projection_not_hardware_measurement",
+      "flash_bandwidth_mb_s": 20.0,
+      "psram_bandwidth_mb_s": 80.0
+    }
+  },
+  "peak_workspace_ram_bytes": 16866,
+  "reachability_report_sha256": "b72d353d9b1888799e37d37af7ec7399736fab34f5f3cea28f0ead79fb5263e3",
+  "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+  "schema_version": "aethercore.v11-p4-qualification.v1",
+  "scope": "typed exact value repair over 695 targeted training replicas",
+  "source_bytes_mean": 390.0705035971223,
+  "source_bytes_p95": 1087.4999999999998,
+  "stored_learned_parameters": 0
+}

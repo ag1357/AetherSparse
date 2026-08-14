@@ -85,6 +85,64 @@ def test_repair_preserves_competing_entity_hypotheses_without_selection() -> Non
     }
 
 
+def test_repair_preserves_local_and_frame_address_hypotheses() -> None:
+    state = _state().model_copy(
+        update={
+            "claims": (
+                {
+                    "claim_id": "claim:local",
+                    "subject_entity_id": "entity:local",
+                    "relation_family": "local relation",
+                    "object_value": "1915",
+                    "answer_shape": "date",
+                    "source_span_ids": ["span:source"],
+                },
+            )
+        }
+    )
+    result = repair_state_with_typed_values(state)
+    repaired = result.state.claims[1:]
+
+    assert result.added_claims == 4
+    assert {
+        (item["subject_entity_id"], item["relation_family"]) for item in repaired
+    } == {
+        ("entity:local", "local relation"),
+        ("entity:local", "birth"),
+        ("entity:ada", "local relation"),
+        ("entity:ada", "birth"),
+    }
+
+
+def test_repair_covers_source_documents_before_alternate_addresses() -> None:
+    first = _span("First has 1 people and 2 people.")
+    second = {
+        **_span("Second has 3 people and 4 people."),
+        "span_id": "span:second",
+        "document_id": "doc:second",
+        "source_title": "Second",
+    }
+    state = _state("quantity").model_copy(
+        update={
+            "frame": {
+                **_state("quantity").frame,
+                "candidate_entity_ids": ["entity:ada", "entity:other"],
+            },
+            "source_spans": (first, second),
+        }
+    )
+
+    result = repair_state_with_typed_values(state, total_claim_capacity=3)
+
+    assert result.added_claims == 3
+    assert {item["object_value"] for item in result.state.claims} == {
+        "1 people",
+        "2 people",
+        "3 people",
+    }
+    assert {item["subject_entity_id"] for item in result.state.claims} == {"entity:ada"}
+
+
 def test_repair_is_bounded_and_does_not_handle_unsupported_shapes() -> None:
     assert repair_state_with_typed_values(_state("definition")).added_claims == 0
     state = _state().model_copy(

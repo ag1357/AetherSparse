@@ -1,6 +1,6 @@
 {
-  "architecture_id": "aethercore-v11-qualified-static-upstream-repair",
-  "architecture_version": "11.0.0-work.1",
+  "architecture_id": "aethercore-v11-semantic-address-work-checkpoint",
+  "architecture_version": "11.0.0-work.2",
   "modules": [
     {
       "activation_cost": {
@@ -41,14 +41,52 @@
     },
     {
       "activation_cost": {
-        "integer_ops": 1374,
+        "integer_ops": 0,
         "macs": 0,
-        "memory_bytes": 1037,
-        "scratch_ram_bytes": 14515
+        "memory_bytes": 136164,
+        "scratch_ram_bytes": 1536
       },
-      "calibration_artifact": "reports/droid/v11/reachability-rerun.json",
+      "calibration_artifact": "reports/droid/v11/semantic-address-plane-qualification.json",
       "dependencies": [
         "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "query_frame",
+        "anchor_occurrence_statistics"
+      ],
+      "known_failure_clusters": [
+        "missing_mention_alignment",
+        "missing_pre_cap_candidates",
+        "missing_25k_397k_occurrence_statistics"
+      ],
+      "model_hash": "9f80c42ca35943beef01a65b6badf1407872d9372eb67222111ddbac3f196119",
+      "module_id": "aethercore.semantic-address-plane",
+      "module_version": "11.0.0",
+      "outputs": [
+        "semantic_address_distribution",
+        "bounded_entity_candidates"
+      ],
+      "parameter_count": 0,
+      "purpose": "Preserve bounded occurrence-backed canonical entity-address distributions",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution",
+        "query_frame"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 2376,
+        "macs": 0,
+        "memory_bytes": 1088,
+        "scratch_ram_bytes": 16866
+      },
+      "calibration_artifact": "reports/droid/v11/upstream-reachability.json",
+      "dependencies": [
+        "aethercore.exact-controller",
+        "aethercore.semantic-address-plane"
       ],
       "inputs": [
         "query_frame",
@@ -60,7 +98,7 @@
         "quotation_without_development_support",
         "missing_pre_pruning_evidence"
       ],
-      "model_hash": "ec10abed972aa673f80fcb579d26c659c36f865299c0ecd132e54013a463fc7b",
+      "model_hash": "b0999b1fc625706b21137fa75c608fb294a50adea568d1e5b6ed878f81a04404",
       "module_id": "aethercore.value-exact-scan",
       "module_version": "11.0.0",
       "outputs": [
@@ -225,6 +263,6 @@
       ]
     }
   ],
-  "registry_sha256": "4f6dcc3c0a6977f53968ffe8cfe3713c473e508fecbeb081f826b50e800e35de",
+  "registry_sha256": "b8306df3a6f0a69ab9a938426107b7e58132681ede4b0e76a0479218e9f02338",
   "schema_version": "aethercore.architecture-registry.v1"
 }

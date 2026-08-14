@@ -1,0 +1,87 @@
+{
+  "artifact_id": "VALUE_UPSTREAM_QUALIFICATION_V11",
+  "capture_counts": {
+    "compiler_documents": 75,
+    "compiler_documents_missing": 0,
+    "runtime_exact_document_rebindings": 83,
+    "runtime_exact_surface_matches": 83,
+    "runtime_matches_after_region_pruning": 79,
+    "runtime_matches_before_region_pruning": 83,
+    "runtime_regions": 2493,
+    "selected_chunk_replicas": 344,
+    "selected_chunks_missing": 0,
+    "selected_chunks_unique_by_tier": 329
+  },
+  "deterministic_decision": {
+    "extraction_residual_partition_counts": {
+      "tuning": 3
+    },
+    "neural_value_specialist": "NOT_TRAINED",
+    "reason": "the only target-present extraction residual is tuning-only; development failures are source-chunk availability or already-enumerated address binding",
+    "selected_chunk_runtime_change": "NOT_JUSTIFIED_BY_DEVELOPMENT_DATA"
+  },
+  "first_loss_classification_counts": {
+    "COMPILER_AND_RUNTIME_EXTRACTION": 3,
+    "SOURCE_CHUNK_ABSENT": 29,
+    "VALUE_PRESENT_ADDRESS_BINDING_UNRESOLVED": 11
+  },
+  "integrity": {
+    "checks": {
+      "compressed_bytes": true,
+      "compressed_sha256": true,
+      "uncompressed_bytes": true,
+      "uncompressed_sha256": true
+    },
+    "uncompressed_bytes": 2519253,
+    "uncompressed_sha256": "c5ca03d61e6557219658ec6932fde27cfd8e8ad5ea5287a31efd820cc4ddc176"
+  },
+  "schema_version": "aethersparse.value-upstream-qualification.v11",
+  "scope": {
+    "evaluation_and_final_held_used": false,
+    "partition_counts": {
+      "development": 16,
+      "tuning": 27
+    },
+    "partitions": [
+      "development",
+      "tuning"
+    ],
+    "replicas": 43,
+    "tier_counts": {
+      "10k": 16,
+      "25k": 16,
+      "397k": 11
+    },
+    "unique_cases": 16
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "capture_file": "value-enumeration-diagnostic-v11.json.gz",
+    "capture_sha256": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+    "manifest_file": "value-enumeration-diagnostic-v11.manifest.json",
+    "manifest_sha256": "2cf5bbd5cea6de63ebdea2f971a99687d03dc52df7a16ff17e9d859463966d23",
+    "pack_sha256_by_tier": {
+      "10k": "fb25b32c3edbf163518397ea33dbcf435fb9e8a2e83ff652604b62479b64e161",
+      "25k": "61c751421904f783dc5b24f0a713406dcc80a5dac30ebfe2cf0cf7ddb1d0e16b",
+      "397k": "54e691a13f092cbde99450e5932cc22b707e5acb943bd6a01e9dafe826183463"
+    },
+    "reachability_report_sha256": "66203ba67c924c985148822d5e9bda72317dde6b789bfdb9d0977f4c550e72d9",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa"
+  },
+  "stage_counts": {
+    "compiler_page_cap_loss_nonexclusive": 3,
+    "compiler_pre_target_alignment_failure_nonexclusive": 21,
+    "compiler_type_cap_loss_nonexclusive": 3,
+    "deduplication_loss": 0,
+    "rebinding_loss": 0,
+    "region_pruning_loss": 0,
+    "runtime_extraction_failure_after_target_chunk_present": 3,
+    "source_chunk_absent": 29,
+    "source_document_absent": 0,
+    "source_document_outside_top8": 0,
+    "value_cap_loss": 0,
+    "value_missing_from_replay": 32,
+    "value_present_address_binding_unresolved": 11
+  }
+}

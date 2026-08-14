@@ -1,0 +1,233 @@
+{
+  "contextual_model_trained": false,
+  "decision": "BLOCK_CONTEXTUAL_ENTITY_SUCCESSIVE_HALVING",
+  "entity_readiness": {
+    "anchor_covered_mention_count": 126,
+    "anchor_expanded_candidate_complete_replicas": 77,
+    "anchor_expanded_candidate_complete_unique_cases": 56,
+    "anchor_expanded_candidate_complete_unique_cases_by_partition": {
+      "development": 25,
+      "tuning": 31
+    },
+    "anchor_requested_mention_count": 152,
+    "anchor_resolved_entity_statistic_count": 133,
+    "anchor_statistic_count": 345,
+    "anchor_unresolved_entity_statistic_count": 212,
+    "available_anchor_tiers": [
+      "10k"
+    ],
+    "current_candidate_complete_replicas": 75,
+    "current_candidate_complete_unique_cases": 55,
+    "current_candidate_complete_unique_cases_by_partition": {
+      "development": 25,
+      "tuning": 30
+    },
+    "development_unique_cases": 74,
+    "explicit_mention_alignment_coverage": 0.0,
+    "explicit_mention_alignment_records": 0,
+    "explicitly_aligned_development_unique_cases": 0,
+    "gates": {
+      "all_tier_anchor_coverage_available": false,
+      "candidate_recall_sufficient": false,
+      "explicit_mention_alignment_complete": false,
+      "pre_cap_candidate_state_available": false
+    },
+    "hard_negative_normalized_surface_count": 151,
+    "mention_records": 528,
+    "minimum_tuning_candidate_complete_recall": 0.9,
+    "partition_metrics": {
+      "development": {
+        "anchor_expanded_candidate_complete": 38,
+        "current_candidate_complete": 38,
+        "mention_missing": 0,
+        "replicas": 153
+      },
+      "tuning": {
+        "anchor_expanded_candidate_complete": 39,
+        "current_candidate_complete": 37,
+        "mention_missing": 18,
+        "replicas": 193
+      }
+    },
+    "replica_count": 346,
+    "required_anchor_tiers": [
+      "10k",
+      "25k",
+      "397k"
+    ],
+    "taxonomy": {
+      "correct_entity_not_generated": 153,
+      "correct_entity_not_generated_partial": 100,
+      "correct_entity_present_but_misranked": 21,
+      "correct_entity_top_ranked_but_rejected": 54,
+      "mention_not_detected": 18
+    },
+    "tier_metrics": {
+      "10k": {
+        "anchor_expanded_candidate_complete": 10,
+        "current_candidate_complete": 10,
+        "replicas": 84,
+        "tuning_anchor_expanded_candidate_complete": 3,
+        "tuning_replicas": 42
+      },
+      "25k": {
+        "anchor_expanded_candidate_complete": 16,
+        "current_candidate_complete": 16,
+        "replicas": 118,
+        "tuning_anchor_expanded_candidate_complete": 6,
+        "tuning_replicas": 65
+      },
+      "397k": {
+        "anchor_expanded_candidate_complete": 51,
+        "current_candidate_complete": 49,
+        "replicas": 144,
+        "tuning_anchor_expanded_candidate_complete": 30,
+        "tuning_replicas": 86
+      }
+    },
+    "tuning_anchor_expanded_candidate_complete_recall": 0.20207253886010362,
+    "tuning_anchor_expanded_candidate_complete_recall_by_tier": {
+      "10k": 0.07142857142857142,
+      "25k": 0.09230769230769231,
+      "397k": 0.3488372093023256
+    },
+    "unique_case_count": 175
+  },
+  "fusion_or_depth_architecture_changed": false,
+  "integration_dependencies": [
+    "explicit mention-to-canonical-entity labels and gold mention spans",
+    "pre-cap candidate generation records with channel and rejection provenance",
+    "occurrence statistics covering 10k, 25k, and 397k source tiers",
+    "gold-blind semantic-address constructor preserving exact IDs and uncertainty",
+    "controller-state regeneration that separates candidate support from selected binding",
+    "full affected-cohort reachability rerun rather than carrying forward changed states"
+  ],
+  "integrity": {
+    "all_verified": true,
+    "benchmark_identity_verified": true,
+    "compressed_and_uncompressed_payload_hashes_verified": true,
+    "evaluation_and_final_held_used": false,
+    "mission5_report_identity_verified": true,
+    "replay_bundle_identity_consistent": true
+  },
+  "protected_partition_labels_consumed": false,
+  "readiness_gates": {
+    "all_tier_anchor_coverage_available": false,
+    "artifact_integrity_verified": true,
+    "candidate_recall_sufficient": false,
+    "explicit_mention_alignment_complete": false,
+    "pre_cap_candidate_state_available": false,
+    "protected_partitions_excluded": true
+  },
+  "schema_version": "aethercore.specialist-readiness.v1",
+  "source_identity": {
+    "anchor_manifest_sha256": "1ca7b85500ac7a21d5beec3235391262e8ddce8f5c3834be94c2720d0c404520",
+    "anchor_statistics_gzip_sha256": "51fc63821b5291a12e4537563f5d085cfd1c52d38f02c017eef2ae73a047bb6b",
+    "anchor_statistics_json_sha256": "5f8a7ab198ba52cb93b6cb42f894b80276289124a4ae1bc57da7b288fd898af8",
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "entity_hard_negatives_gzip_sha256": "b544edbb46570d09c6efc415bd77806f24331efa655f93682ebab28c40ec33ec",
+    "entity_hard_negatives_json_sha256": "6626c50dcb4526c09a54a2fedecd466e5151a12f61f673612ecdb83c6a649f85",
+    "entity_manifest_sha256": "f8446446798fabb99832d690e75686514f0c0e59933eca2e530f67b60652c7a6",
+    "mission5_report_gzip_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "reachability_sha256": "98e4149e415a75241d416d93733d2e8e2de9c932ea800b3669cde905f8768098",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "value_diagnostic_gzip_sha256": "d73de7b357ff9ec82aa23d9b40496b66cccb33405b76bb2a74a42ef19300145c",
+    "value_diagnostic_json_sha256": "c5ca03d61e6557219658ec6932fde27cfd8e8ad5ea5287a31efd820cc4ddc176",
+    "value_manifest_sha256": "2cf5bbd5cea6de63ebdea2f971a99687d03dc52df7a16ff17e9d859463966d23"
+  },
+  "split_policy": {
+    "calibration_and_selection_partitions": [
+      "tuning"
+    ],
+    "development_and_tuning_never_fit_jointly": true,
+    "fit_partitions": [
+      "development"
+    ],
+    "group_key": "case_id",
+    "protected_partitions_not_consumed": [
+      "evaluation",
+      "final_held"
+    ],
+    "tier_replicas_never_cross_partitions": true
+  },
+  "status": "COMPLETE",
+  "strict_60_feasibility": {
+    "additional_certified_recoveries_required": 112,
+    "anchor_expanded_candidate_complete_entity_replicas": 77,
+    "current_reachability": 0.44028776978417267,
+    "current_reachable": 306,
+    "loose_combined_ceiling_can_exceed_60": true,
+    "loose_combined_oracle_ceiling_count": 426,
+    "loose_combined_oracle_ceiling_fraction": 0.6129496402877698,
+    "loose_entity_only_oracle_ceiling_count": 383,
+    "loose_entity_only_oracle_ceiling_fraction": 0.5510791366906475,
+    "minimum_count_strictly_exceeding_threshold": 418,
+    "minimum_value_recoveries_if_every_candidate_complete_entity_recovers": 35,
+    "remaining_value_residual_replicas": 43,
+    "strict_threshold_fraction": 0.6,
+    "training_failure_count": 695,
+    "warning": "Candidate completeness is only an availability ceiling; it is not semantic selection, value availability, or controller reachability."
+  },
+  "successive_halving": {
+    "block_reasons": [
+      "explicit_mention_alignment_complete",
+      "pre_cap_candidate_state_available",
+      "all_tier_anchor_coverage_available",
+      "candidate_recall_sufficient"
+    ],
+    "protocol_after_unblock": [
+      "fit every requested size on development only with case-group weighting",
+      "promote configurations by frozen tuning metrics only",
+      "calibrate confidence and abstention thresholds on tuning only",
+      "freeze model, fusion, gate, and registry identities before held-out use"
+    ],
+    "requested_parameter_counts": [
+      250000,
+      1000000,
+      3000000,
+      5000000
+    ],
+    "started": false,
+    "status": "NOT_STARTED"
+  },
+  "value_readiness": {
+    "compiler_document_missing_from_pack": 0,
+    "direct_unique_development_spans": 116,
+    "document_binding_failures": 0,
+    "historical_classification_counts": {
+      "BLOCKED_MISSING_SOURCE_CHUNK_PREPRUNING_STATE": 10,
+      "COMPILER_NEVER_EXTRACTED_CORRECT_VALUE": 17,
+      "CORRECT_VALUE_PRESENT_NOT_BOUND_TO_SUBJECT_RELATION": 11,
+      "RUNTIME_EXTRACTOR_NEVER_EXTRACTED_CORRECT_VALUE": 5
+    },
+    "neural_value_specialist_decision": "NOT_TRAINED_INSUFFICIENT_EXACT_DEVELOPMENT_SPANS",
+    "pack_capture_count": 43,
+    "partition_counts": {
+      "development": 16,
+      "tuning": 27
+    },
+    "previously_missing_boundary_fields_complete": true,
+    "replica_count": 43,
+    "selected_chunk_count": 344,
+    "selected_chunk_missing_from_pack": 0,
+    "tier_counts": {
+      "10k": 16,
+      "25k": 16,
+      "397k": 11
+    },
+    "trace_recomputed_causal_decomposition_counts": {
+      "CAP": 0,
+      "COMPILER_EXTRACTION": 0,
+      "DEDUPLICATION": 0,
+      "DUAL_COMPILER_RUNTIME_QUOTATION_EXTRACTION": 3,
+      "PRE_CAP_PIPELINE_DROP": 0,
+      "PRE_DEDUP_PIPELINE_DROP": 0,
+      "REBINDING": 0,
+      "REGION_PRUNING": 0,
+      "RUNTIME_EXTRACTION": 0,
+      "SELECTED_SOURCE_CHUNK_ABSENCE": 29,
+      "SEMANTIC_SUBJECT_RELATION_BINDING": 11
+    },
+    "unique_case_count": 16
+  }
+}

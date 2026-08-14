@@ -157,7 +157,7 @@ def qualify(
         }
     return {
         "schema_version": "aethercore.v11-p4-qualification.v1",
-        "scope": "typed exact value repair over 435 Mission 5 unresolved training replicas",
+        "scope": f"typed exact value repair over {len(states)} targeted training replicas",
         "replay_bundle_sha256": manifest.bundle_sha256,
         "reachability_report_sha256": __import__("hashlib").sha256(
             reachability_report.read_bytes()
