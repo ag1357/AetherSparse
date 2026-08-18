@@ -1,0 +1,1439 @@
+{
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "data_scope": "authenticated development/tuning post-cap 397k candidate titles joined to authenticated 397k replay query frames; not full-corpus address recall",
+  "development_threshold_selection": {
+    "char_ngram": [
+      {
+        "mean_candidates": 6.329545454545454,
+        "recall_at_16": 0.8522727272727273,
+        "threshold": 0.46
+      },
+      {
+        "mean_candidates": 5.041666666666667,
+        "recall_at_16": 0.8257575757575758,
+        "threshold": 0.52
+      },
+      {
+        "mean_candidates": 3.962121212121212,
+        "recall_at_16": 0.7954545454545454,
+        "threshold": 0.58
+      }
+    ],
+    "chosen_char_threshold": 0.46,
+    "chosen_simhash_max_hamming": 16,
+    "fit_partition": "development-derived real-title perturbations only",
+    "simhash_lsh": [
+      {
+        "max_hamming": 8,
+        "mean_candidates": 0.4356060606060606,
+        "recall_at_16": 0.14015151515151514
+      },
+      {
+        "max_hamming": 12,
+        "mean_candidates": 0.9772727272727273,
+        "recall_at_16": 0.2916666666666667
+      },
+      {
+        "max_hamming": 16,
+        "mean_candidates": 2.5606060606060606,
+        "recall_at_16": 0.4090909090909091
+      }
+    ]
+  },
+  "index_footprint": {
+    "address_surface_bytes": 6204955,
+    "edit_posting_bytes": 7253398,
+    "fuzzy_all_channel_standalone_bytes": 15568004,
+    "fuzzy_normalized_exact_char_edit_standalone_bytes": 14765797,
+    "fuzzy_normalized_exact_char_standalone_bytes": 7151500,
+    "ngram_posting_bytes": 946545,
+    "serialized_gzip_bytes": 5553478,
+    "serialized_json_bytes": 15568259,
+    "simhash_lsh_bytes": 802207,
+    "token_dictionary_bytes": 96253,
+    "token_surface_posting_bytes": 264646
+  },
+  "index_scope": {
+    "address_count": 10000,
+    "source": "post-cap query-conditioned title surfaces",
+    "surface_count": 9972,
+    "unresolved_record_count": 0
+  },
+  "integrity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "candidate_diagnostic": {
+      "allowed_rows_loaded": 685,
+      "canonical_title_display_variants_collapsed": 91,
+      "gzip_sha256": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158",
+      "manifest_sha256": "33dfe4b6105ee3c5385d9877a680f27f06ac3d4bf436713af83ce4f1ad9fbd7b",
+      "protected_rows_rejected_before_candidate_consumption": {
+        "evaluation": 1019,
+        "final_held": 346
+      },
+      "schema": "aethersparse.v10-candidate-diagnostic.v1",
+      "title_surface_records": 10091,
+      "total_rows_verified": 2050,
+      "unavailable_fields": {
+        "alias_candidates": "unavailable: alias-channel candidates are not identified in the v09 cache schema",
+        "channel_provenance": "unavailable: v09 cache pool entries carry no retrieval-channel field (lexical/alias/semantic origin not recorded)",
+        "pre_cap_candidates": "unavailable: the v09 cache retains the post-cap candidate pool only (pool=70, candidate_limit=96); pre-cap retrieval sets were never persisted",
+        "redirect_alias_resolution": "unavailable: redirect/alias resolution records are not persisted in the v09 cache",
+        "semantic_candidates": "unavailable: no semantic sidecar exists for the 397k pack and no semantic candidate list was cached"
+      },
+      "unusable_punctuation_only_title_rows_excluded": 1
+    },
+    "external_index": {
+      "address_count": 10000,
+      "canonical_registry": "v050.normalized-title-sha256-96bit",
+      "compressed_bytes": 5553478,
+      "payload_file": "fuzzy-address-397k-postcap.json.gz",
+      "payload_gzip_sha256": "a6e30c394ef2fc7b36796b8140476eab0982a5210fdb131d433fbb160eb0f591",
+      "payload_json_sha256": "16a956a152a8acb36d3e64a587d8585bff14992cbb6daf1f08cdc54f3c88d7cb",
+      "schema_version": "aethersparse.fuzzy-address-manifest.v12",
+      "selected_runtime": {
+        "case_count": 685,
+        "channels": [
+          "fuzzy_normalized_exact",
+          "char_ngram"
+        ],
+        "cost_evidence_class": "analytical_projection_not_hardware_measurement",
+        "external_storage_projection": "not_projected_missing_physical_layout",
+        "global_address_cap": 64,
+        "inactive_channels": [
+          "edit_distance_not_selected",
+          "simhash_lsh_rejected",
+          "semantic_ann_not_active"
+        ],
+        "logical_io_evidence": "analytical_ideal_resident_not_physical_io",
+        "name": "fuzzy_normalized_exact_plus_char_ngram",
+        "nominal_300mhz_virtual_latency_ms": {
+          "p50": 4.022038333333334,
+          "p95": 4.677822666666667
+        },
+        "p50_p95": {
+          "analytical_working_bytes": {
+            "p50": 29442.0,
+            "p95": 38202.6
+          },
+          "estimated_bytes_touched": {
+            "p50": 67028.0,
+            "p95": 68048.0
+          },
+          "ideal_packed_4kb_pages": {
+            "p50": 17.0,
+            "p95": 17.0
+          },
+          "integer_operations": {
+            "p50": 654190.0,
+            "p95": 808153.0
+          },
+          "posting_entries_read": {
+            "p50": 16384.0,
+            "p95": 16384.0
+          },
+          "pre_global_cap_candidates": {
+            "p50": 3.0,
+            "p95": 26.0
+          },
+          "random_logical_index_reads": {
+            "p50": 162.0,
+            "p95": 290.0
+          },
+          "sequential_logical_posting_reads": {
+            "p50": 16384.0,
+            "p95": 16384.0
+          },
+          "xor_popcount_operations": {
+            "p50": 0.0,
+            "p95": 0.0
+          }
+        },
+        "standalone_resident_index_bytes": 7151500
+      },
+      "surface_count": 9972,
+      "uncompressed_bytes": 15568259,
+      "unresolved_record_count": 0
+    },
+    "external_index_manifest_sha256": "ba19eb2127df4090a0229566e5b715319c08d486553fe9270dbb9a0724700089",
+    "replay": {
+      "allowed_397k_rows_loaded": 685,
+      "bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+      "cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+      "full_case_count_verified": 6150,
+      "full_decision_count_verified": 54477,
+      "manifest_sha256": "a3ed0e2bede5db16d93f8a91a4051bddbae51c2e7fee5b7e9e90ff8ac54e0552",
+      "other_allowed_tier_rows_rejected": 1370,
+      "protected_rows_rejected_before_query_consumption": {
+        "evaluation": 3057,
+        "final_held": 1038
+      }
+    }
+  },
+  "lane_decision": "IMPLEMENTED_NOT_FULL_CORPUS_QUALIFIED",
+  "limitations": [
+    "no full 397k title/alias/redirect registry",
+    "no pre-cap candidate generation provenance",
+    "no retrieval-channel provenance",
+    "no mention-level gold alignment; natural-query recall uses case-level required IDs",
+    "query-conditioned post-cap title coverage is not full-corpus address recall",
+    "fuzzy-normalized exact is not the ExactAddressIndex FST",
+    "selected standalone table bytes are not an additive/shared integration footprint",
+    "P4 latency is analytical under ideal resident layout, not a hardware measurement",
+    "external storage latency is unprojected without physical bytes/page layout"
+  ],
+  "natural_query_qualification": {
+    "development": {
+      "addressable_case_completeness": {
+        "char_ngram": {
+          "at_1": 0.21604938271604937,
+          "at_16": 0.2716049382716049,
+          "at_32": 0.2716049382716049,
+          "at_4": 0.24691358024691357,
+          "at_8": 0.25925925925925924
+        },
+        "deterministic_union": {
+          "at_1": 0.47530864197530864,
+          "at_16": 0.9506172839506173,
+          "at_32": 0.9567901234567902,
+          "at_4": 0.8950617283950617,
+          "at_8": 0.9506172839506173
+        },
+        "edit_distance": {
+          "at_1": 0.043209876543209874,
+          "at_16": 0.05555555555555555,
+          "at_32": 0.05555555555555555,
+          "at_4": 0.05555555555555555,
+          "at_8": 0.05555555555555555
+        },
+        "exact": {
+          "at_1": 0.5123456790123457,
+          "at_16": 0.8765432098765432,
+          "at_32": 0.8765432098765432,
+          "at_4": 0.8271604938271605,
+          "at_8": 0.8765432098765432
+        },
+        "exact_char_union": {
+          "at_1": 0.4444444444444444,
+          "at_16": 0.9567901234567902,
+          "at_32": 0.9567901234567902,
+          "at_4": 0.8765432098765432,
+          "at_8": 0.9444444444444444
+        },
+        "exact_edit_union": {
+          "at_1": 0.5617283950617284,
+          "at_16": 0.9320987654320988,
+          "at_32": 0.9320987654320988,
+          "at_4": 0.8765432098765432,
+          "at_8": 0.9320987654320988
+        },
+        "exact_simhash_union": {
+          "at_1": 0.5123456790123457,
+          "at_16": 0.9135802469135802,
+          "at_32": 0.9135802469135802,
+          "at_4": 0.8518518518518519,
+          "at_8": 0.9135802469135802
+        },
+        "simhash_lsh": {
+          "at_1": 0.5123456790123457,
+          "at_16": 0.9135802469135802,
+          "at_32": 0.9135802469135802,
+          "at_4": 0.8580246913580247,
+          "at_8": 0.9135802469135802
+        },
+        "union": {
+          "at_1": 0.4382716049382716,
+          "at_16": 0.9567901234567902,
+          "at_32": 0.9629629629629629,
+          "at_4": 0.8888888888888888,
+          "at_8": 0.9567901234567902
+        }
+      },
+      "addressable_required_entity_count": 217,
+      "case_count_with_required_entities": 194,
+      "cases_with_all_required_entities_in_available_title_index": 162,
+      "cost": {
+        "char_ngram": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.28350515463917525,
+            "at_16": 0.15979381443298968,
+            "at_32": 0.0,
+            "at_4": 0.23195876288659795,
+            "at_8": 0.23195876288659795
+          },
+          "mean_candidates": 4.974226804123711,
+          "mean_estimated_bytes_read": 57176.29381443299,
+          "mean_integer_ops": 545198.5670103093,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 23,
+          "p95_estimated_bytes_read": 66049,
+          "p95_integer_ops": 809477,
+          "p95_xor_popcount_ops": 0
+        },
+        "deterministic_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9432989690721649,
+            "at_16": 0.6804123711340206,
+            "at_32": 0.12371134020618557,
+            "at_4": 0.8402061855670103,
+            "at_8": 0.8144329896907216
+          },
+          "mean_candidates": 21.283505154639176,
+          "mean_estimated_bytes_read": 58862.030927835054,
+          "mean_integer_ops": 549154.3659793815,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 43,
+          "p95_estimated_bytes_read": 68737,
+          "p95_integer_ops": 809813,
+          "p95_xor_popcount_ops": 0
+        },
+        "edit_distance": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.6752577319587629,
+            "at_16": 0.42783505154639173,
+            "at_32": 0.08762886597938144,
+            "at_4": 0.654639175257732,
+            "at_8": 0.6391752577319587
+          },
+          "mean_candidates": 14.706185567010309,
+          "mean_estimated_bytes_read": 625.7113402061856,
+          "mean_integer_ops": 3914.2886597938145,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 41,
+          "p95_estimated_bytes_read": 1393,
+          "p95_integer_ops": 15726,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.634020618556701,
+            "at_16": 0.0,
+            "at_32": 0.0,
+            "at_4": 0.05670103092783505,
+            "at_8": 0.0
+          },
+          "mean_candidates": 2.1288659793814433,
+          "mean_estimated_bytes_read": 1060.0257731958764,
+          "mean_integer_ops": 41.51030927835052,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 5,
+          "p95_estimated_bytes_read": 2033,
+          "p95_integer_ops": 74,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_char_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.8917525773195877,
+            "at_16": 0.15979381443298968,
+            "at_32": 0.0,
+            "at_4": 0.31443298969072164,
+            "at_8": 0.23195876288659795
+          },
+          "mean_candidates": 6.664948453608248,
+          "mean_estimated_bytes_read": 58236.31958762887,
+          "mean_integer_ops": 545240.0773195876,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 23,
+          "p95_estimated_bytes_read": 67857,
+          "p95_integer_ops": 809516,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_edit_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.8041237113402062,
+            "at_16": 0.5154639175257731,
+            "at_32": 0.08762886597938144,
+            "at_4": 0.6752577319587629,
+            "at_8": 0.6443298969072165
+          },
+          "mean_candidates": 16.835051546391753,
+          "mean_estimated_bytes_read": 1685.7371134020618,
+          "mean_integer_ops": 3955.798969072165,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 43,
+          "p95_estimated_bytes_read": 2938,
+          "p95_integer_ops": 15762,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_simhash_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9948453608247423,
+            "at_16": 0.4742268041237113,
+            "at_32": 0.03608247422680412,
+            "at_4": 0.8762886597938144,
+            "at_8": 0.7061855670103093
+          },
+          "mean_candidates": 15.175257731958762,
+          "mean_estimated_bytes_read": 14667.036082474227,
+          "mean_integer_ops": 56557.798969072166,
+          "mean_xor_popcount_ops": 571.5670103092783,
+          "mention_cap_saturation_rate": 0.005154639175257732,
+          "p95_candidates": 30,
+          "p95_estimated_bytes_read": 26179,
+          "p95_integer_ops": 109193,
+          "p95_xor_popcount_ops": 991
+        },
+        "simhash_lsh": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9948453608247423,
+            "at_16": 0.4742268041237113,
+            "at_32": 0.03608247422680412,
+            "at_4": 0.8762886597938144,
+            "at_8": 0.7061855670103093
+          },
+          "mean_candidates": 15.175257731958762,
+          "mean_estimated_bytes_read": 13607.01030927835,
+          "mean_integer_ops": 56516.28865979381,
+          "mean_xor_popcount_ops": 571.5670103092783,
+          "mention_cap_saturation_rate": 0.005154639175257732,
+          "p95_candidates": 30,
+          "p95_estimated_bytes_read": 24164,
+          "p95_integer_ops": 109120,
+          "p95_xor_popcount_ops": 991
+        },
+        "union": {
+          "address_cap_saturation_rate": {
+            "at_1": 1.0,
+            "at_16": 0.8917525773195877,
+            "at_32": 0.4896907216494845,
+            "at_4": 0.9948453608247423,
+            "at_8": 0.9948453608247423
+          },
+          "mean_candidates": 33.06185567010309,
+          "mean_estimated_bytes_read": 72469.0412371134,
+          "mean_integer_ops": 605670.6546391753,
+          "mean_xor_popcount_ops": 571.5670103092783,
+          "mention_cap_saturation_rate": 0.005154639175257732,
+          "p95_candidates": 60,
+          "p95_estimated_bytes_read": 93905,
+          "p95_integer_ops": 859413,
+          "p95_xor_popcount_ops": 991
+        }
+      },
+      "entity_recall": {
+        "char_ngram": {
+          "at_1": 0.18473895582329317,
+          "at_16": 0.2248995983935743,
+          "at_32": 0.2248995983935743,
+          "at_4": 0.20883534136546184,
+          "at_8": 0.21686746987951808
+        },
+        "deterministic_union": {
+          "at_1": 0.42168674698795183,
+          "at_16": 0.8393574297188755,
+          "at_32": 0.8433734939759037,
+          "at_4": 0.8032128514056225,
+          "at_8": 0.8393574297188755
+        },
+        "edit_distance": {
+          "at_1": 0.028112449799196786,
+          "at_16": 0.03614457831325301,
+          "at_32": 0.03614457831325301,
+          "at_4": 0.03614457831325301,
+          "at_8": 0.03614457831325301
+        },
+        "exact": {
+          "at_1": 0.43373493975903615,
+          "at_16": 0.7911646586345381,
+          "at_32": 0.7911646586345381,
+          "at_4": 0.7590361445783133,
+          "at_8": 0.7911646586345381
+        },
+        "exact_char_union": {
+          "at_1": 0.40160642570281124,
+          "at_16": 0.8433734939759037,
+          "at_32": 0.8433734939759037,
+          "at_4": 0.7911646586345381,
+          "at_8": 0.8353413654618473
+        },
+        "exact_edit_union": {
+          "at_1": 0.46586345381526106,
+          "at_16": 0.8273092369477911,
+          "at_32": 0.8273092369477911,
+          "at_4": 0.7911646586345381,
+          "at_8": 0.8273092369477911
+        },
+        "exact_simhash_union": {
+          "at_1": 0.43373493975903615,
+          "at_16": 0.8152610441767069,
+          "at_32": 0.8152610441767069,
+          "at_4": 0.7751004016064257,
+          "at_8": 0.8152610441767069
+        },
+        "simhash_lsh": {
+          "at_1": 0.43373493975903615,
+          "at_16": 0.8152610441767069,
+          "at_32": 0.8152610441767069,
+          "at_4": 0.7791164658634538,
+          "at_8": 0.8152610441767069
+        },
+        "union": {
+          "at_1": 0.39759036144578314,
+          "at_16": 0.8433734939759037,
+          "at_32": 0.8473895582329317,
+          "at_4": 0.7991967871485943,
+          "at_8": 0.8433734939759037
+        }
+      },
+      "entity_recall_on_addressable": {
+        "char_ngram": {
+          "at_1": 0.2119815668202765,
+          "at_16": 0.25806451612903225,
+          "at_32": 0.25806451612903225,
+          "at_4": 0.23963133640552994,
+          "at_8": 0.2488479262672811
+        },
+        "deterministic_union": {
+          "at_1": 0.4838709677419355,
+          "at_16": 0.9631336405529954,
+          "at_32": 0.967741935483871,
+          "at_4": 0.9216589861751152,
+          "at_8": 0.9631336405529954
+        },
+        "edit_distance": {
+          "at_1": 0.03225806451612903,
+          "at_16": 0.041474654377880185,
+          "at_32": 0.041474654377880185,
+          "at_4": 0.041474654377880185,
+          "at_8": 0.041474654377880185
+        },
+        "exact": {
+          "at_1": 0.4976958525345622,
+          "at_16": 0.9078341013824884,
+          "at_32": 0.9078341013824884,
+          "at_4": 0.8709677419354839,
+          "at_8": 0.9078341013824884
+        },
+        "exact_char_union": {
+          "at_1": 0.4608294930875576,
+          "at_16": 0.967741935483871,
+          "at_32": 0.967741935483871,
+          "at_4": 0.9078341013824884,
+          "at_8": 0.9585253456221198
+        },
+        "exact_edit_union": {
+          "at_1": 0.5345622119815668,
+          "at_16": 0.9493087557603687,
+          "at_32": 0.9493087557603687,
+          "at_4": 0.9078341013824884,
+          "at_8": 0.9493087557603687
+        },
+        "exact_simhash_union": {
+          "at_1": 0.4976958525345622,
+          "at_16": 0.9354838709677419,
+          "at_32": 0.9354838709677419,
+          "at_4": 0.8894009216589862,
+          "at_8": 0.9354838709677419
+        },
+        "simhash_lsh": {
+          "at_1": 0.4976958525345622,
+          "at_16": 0.9354838709677419,
+          "at_32": 0.9354838709677419,
+          "at_4": 0.8940092165898618,
+          "at_8": 0.9354838709677419
+        },
+        "union": {
+          "at_1": 0.45622119815668205,
+          "at_16": 0.967741935483871,
+          "at_32": 0.9723502304147466,
+          "at_4": 0.9170506912442397,
+          "at_8": 0.967741935483871
+        }
+      },
+      "mention_hypothesis_recall": {
+        "char_ngram": 0.2248995983935743,
+        "deterministic_union": 0.8433734939759037,
+        "edit_distance": 0.03614457831325301,
+        "exact": 0.7911646586345381,
+        "exact_char_union": 0.8433734939759037,
+        "exact_edit_union": 0.8273092369477911,
+        "exact_simhash_union": 0.8152610441767069,
+        "simhash_lsh": 0.8152610441767069,
+        "union": 0.8473895582329317
+      },
+      "mention_hypothesis_recall_on_addressable": {
+        "char_ngram": 0.25806451612903225,
+        "deterministic_union": 0.967741935483871,
+        "edit_distance": 0.041474654377880185,
+        "exact": 0.9078341013824884,
+        "exact_char_union": 0.967741935483871,
+        "exact_edit_union": 0.9493087557603687,
+        "exact_simhash_union": 0.9354838709677419,
+        "simhash_lsh": 0.9354838709677419,
+        "union": 0.9723502304147466
+      },
+      "multi_entity_completeness": {
+        "char_ngram": {
+          "at_1": 0.18041237113402062,
+          "at_16": 0.2268041237113402,
+          "at_32": 0.2268041237113402,
+          "at_4": 0.20618556701030927,
+          "at_8": 0.21649484536082475
+        },
+        "deterministic_union": {
+          "at_1": 0.39690721649484534,
+          "at_16": 0.7938144329896907,
+          "at_32": 0.7989690721649485,
+          "at_4": 0.7474226804123711,
+          "at_8": 0.7938144329896907
+        },
+        "edit_distance": {
+          "at_1": 0.03608247422680412,
+          "at_16": 0.04639175257731959,
+          "at_32": 0.04639175257731959,
+          "at_4": 0.04639175257731959,
+          "at_8": 0.04639175257731959
+        },
+        "exact": {
+          "at_1": 0.42783505154639173,
+          "at_16": 0.7319587628865979,
+          "at_32": 0.7319587628865979,
+          "at_4": 0.6907216494845361,
+          "at_8": 0.7319587628865979
+        },
+        "exact_char_union": {
+          "at_1": 0.3711340206185567,
+          "at_16": 0.7989690721649485,
+          "at_32": 0.7989690721649485,
+          "at_4": 0.7319587628865979,
+          "at_8": 0.788659793814433
+        },
+        "exact_edit_union": {
+          "at_1": 0.4690721649484536,
+          "at_16": 0.7783505154639175,
+          "at_32": 0.7783505154639175,
+          "at_4": 0.7319587628865979,
+          "at_8": 0.7783505154639175
+        },
+        "exact_simhash_union": {
+          "at_1": 0.42783505154639173,
+          "at_16": 0.7628865979381443,
+          "at_32": 0.7628865979381443,
+          "at_4": 0.711340206185567,
+          "at_8": 0.7628865979381443
+        },
+        "simhash_lsh": {
+          "at_1": 0.42783505154639173,
+          "at_16": 0.7628865979381443,
+          "at_32": 0.7628865979381443,
+          "at_4": 0.7164948453608248,
+          "at_8": 0.7628865979381443
+        },
+        "union": {
+          "at_1": 0.36597938144329895,
+          "at_16": 0.7989690721649485,
+          "at_32": 0.8041237113402062,
+          "at_4": 0.7422680412371134,
+          "at_8": 0.7989690721649485
+        }
+      },
+      "required_entity_count": 249,
+      "union_gain_over_exact_at_32": {
+        "complete_cases": 14,
+        "required_entities": 14
+      },
+      "unique_required_recovery_at_32": {
+        "char_ngram": 2,
+        "simhash_lsh": 1
+      }
+    },
+    "tuning": {
+      "addressable_case_completeness": {
+        "char_ngram": {
+          "at_1": 0.241635687732342,
+          "at_16": 0.3271375464684015,
+          "at_32": 0.3271375464684015,
+          "at_4": 0.2936802973977695,
+          "at_8": 0.31226765799256506
+        },
+        "deterministic_union": {
+          "at_1": 0.5390334572490706,
+          "at_16": 0.9182156133828996,
+          "at_32": 0.9219330855018587,
+          "at_4": 0.8810408921933085,
+          "at_8": 0.9070631970260223
+        },
+        "edit_distance": {
+          "at_1": 0.05204460966542751,
+          "at_16": 0.05947955390334572,
+          "at_32": 0.05947955390334572,
+          "at_4": 0.055762081784386616,
+          "at_8": 0.05947955390334572
+        },
+        "exact": {
+          "at_1": 0.5613382899628253,
+          "at_16": 0.8252788104089219,
+          "at_32": 0.8252788104089219,
+          "at_4": 0.7955390334572491,
+          "at_8": 0.8215613382899628
+        },
+        "exact_char_union": {
+          "at_1": 0.49070631970260226,
+          "at_16": 0.9144981412639405,
+          "at_32": 0.9144981412639405,
+          "at_4": 0.8550185873605948,
+          "at_8": 0.8996282527881041
+        },
+        "exact_edit_union": {
+          "at_1": 0.6096654275092936,
+          "at_16": 0.8847583643122676,
+          "at_32": 0.8847583643122676,
+          "at_4": 0.8513011152416357,
+          "at_8": 0.8773234200743495
+        },
+        "exact_simhash_union": {
+          "at_1": 0.5687732342007435,
+          "at_16": 0.8438661710037175,
+          "at_32": 0.8438661710037175,
+          "at_4": 0.8104089219330854,
+          "at_8": 0.8401486988847584
+        },
+        "simhash_lsh": {
+          "at_1": 0.5687732342007435,
+          "at_16": 0.8438661710037175,
+          "at_32": 0.8438661710037175,
+          "at_4": 0.8104089219330854,
+          "at_8": 0.8401486988847584
+        },
+        "union": {
+          "at_1": 0.4944237918215613,
+          "at_16": 0.9182156133828996,
+          "at_32": 0.9219330855018587,
+          "at_4": 0.8587360594795539,
+          "at_8": 0.895910780669145
+        }
+      },
+      "addressable_required_entity_count": 333,
+      "case_count_with_required_entities": 302,
+      "cases_with_all_required_entities_in_available_title_index": 269,
+      "cost": {
+        "char_ngram": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.33774834437086093,
+            "at_16": 0.20198675496688742,
+            "at_32": 0.006622516556291391,
+            "at_4": 0.2682119205298013,
+            "at_8": 0.24172185430463577
+          },
+          "mean_candidates": 5.7781456953642385,
+          "mean_estimated_bytes_read": 56246.47350993378,
+          "mean_integer_ops": 550408.0894039735,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 25,
+          "p95_estimated_bytes_read": 66049,
+          "p95_integer_ops": 830994,
+          "p95_xor_popcount_ops": 0
+        },
+        "deterministic_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9304635761589404,
+            "at_16": 0.5927152317880795,
+            "at_32": 0.12251655629139073,
+            "at_4": 0.7748344370860927,
+            "at_8": 0.7516556291390728
+          },
+          "mean_candidates": 19.26158940397351,
+          "mean_estimated_bytes_read": 57744.198675496686,
+          "mean_integer_ops": 553769.4933774834,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 43,
+          "p95_estimated_bytes_read": 68473,
+          "p95_integer_ops": 831338,
+          "p95_xor_popcount_ops": 0
+        },
+        "edit_distance": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.6390728476821192,
+            "at_16": 0.3211920529801324,
+            "at_32": 0.0728476821192053,
+            "at_4": 0.5860927152317881,
+            "at_8": 0.5695364238410596
+          },
+          "mean_candidates": 12.142384105960264,
+          "mean_estimated_bytes_read": 561.2417218543046,
+          "mean_integer_ops": 3324.2781456953644,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 41,
+          "p95_estimated_bytes_read": 1393,
+          "p95_integer_ops": 15726,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.5927152317880795,
+            "at_16": 0.0,
+            "at_32": 0.0,
+            "at_4": 0.046357615894039736,
+            "at_8": 0.0033112582781456954
+          },
+          "mean_candidates": 2.006622516556291,
+          "mean_estimated_bytes_read": 936.4834437086092,
+          "mean_integer_ops": 37.12582781456954,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 4,
+          "p95_estimated_bytes_read": 1830,
+          "p95_integer_ops": 67,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_char_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.8774834437086093,
+            "at_16": 0.20198675496688742,
+            "at_32": 0.006622516556291391,
+            "at_4": 0.33774834437086093,
+            "at_8": 0.24503311258278146
+          },
+          "mean_candidates": 7.264900662251655,
+          "mean_estimated_bytes_read": 57182.95695364238,
+          "mean_integer_ops": 550445.2152317881,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 25,
+          "p95_estimated_bytes_read": 67672,
+          "p95_integer_ops": 831041,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_edit_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.7847682119205298,
+            "at_16": 0.3973509933774834,
+            "at_32": 0.076158940397351,
+            "at_4": 0.609271523178808,
+            "at_8": 0.5728476821192053
+          },
+          "mean_candidates": 14.149006622516556,
+          "mean_estimated_bytes_read": 1497.7251655629138,
+          "mean_integer_ops": 3361.4039735099336,
+          "mean_xor_popcount_ops": 0.0,
+          "mention_cap_saturation_rate": 0.0,
+          "p95_candidates": 43,
+          "p95_estimated_bytes_read": 2665,
+          "p95_integer_ops": 15762,
+          "p95_xor_popcount_ops": 0
+        },
+        "exact_simhash_union": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9966887417218543,
+            "at_16": 0.39403973509933776,
+            "at_32": 0.019867549668874173,
+            "at_4": 0.8841059602649006,
+            "at_8": 0.6721854304635762
+          },
+          "mean_candidates": 13.771523178807946,
+          "mean_estimated_bytes_read": 13099.013245033113,
+          "mean_integer_ops": 49920.46357615894,
+          "mean_xor_popcount_ops": 509.2317880794702,
+          "mention_cap_saturation_rate": 0.006622516556291391,
+          "p95_candidates": 28,
+          "p95_estimated_bytes_read": 23444,
+          "p95_integer_ops": 99201,
+          "p95_xor_popcount_ops": 879
+        },
+        "simhash_lsh": {
+          "address_cap_saturation_rate": {
+            "at_1": 0.9966887417218543,
+            "at_16": 0.39403973509933776,
+            "at_32": 0.019867549668874173,
+            "at_4": 0.8841059602649006,
+            "at_8": 0.6721854304635762
+          },
+          "mean_candidates": 13.771523178807946,
+          "mean_estimated_bytes_read": 12162.529801324503,
+          "mean_integer_ops": 49883.33774834437,
+          "mean_xor_popcount_ops": 509.2317880794702,
+          "mention_cap_saturation_rate": 0.006622516556291391,
+          "p95_candidates": 28,
+          "p95_estimated_bytes_read": 21632,
+          "p95_integer_ops": 99136,
+          "p95_xor_popcount_ops": 879
+        },
+        "union": {
+          "address_cap_saturation_rate": {
+            "at_1": 1.0,
+            "at_16": 0.8708609271523179,
+            "at_32": 0.39072847682119205,
+            "at_4": 0.9933774834437086,
+            "at_8": 0.9701986754966887
+          },
+          "mean_candidates": 29.83112582781457,
+          "mean_estimated_bytes_read": 69906.7284768212,
+          "mean_integer_ops": 603652.8311258279,
+          "mean_xor_popcount_ops": 509.2317880794702,
+          "mention_cap_saturation_rate": 0.006622516556291391,
+          "p95_candidates": 54,
+          "p95_estimated_bytes_read": 89984,
+          "p95_integer_ops": 888939,
+          "p95_xor_popcount_ops": 879
+        }
+      },
+      "entity_recall": {
+        "char_ngram": {
+          "at_1": 0.21584699453551912,
+          "at_16": 0.2896174863387978,
+          "at_32": 0.2896174863387978,
+          "at_4": 0.25956284153005466,
+          "at_8": 0.2786885245901639
+        },
+        "deterministic_union": {
+          "at_1": 0.4972677595628415,
+          "at_16": 0.8497267759562842,
+          "at_32": 0.8524590163934426,
+          "at_4": 0.8224043715846995,
+          "at_8": 0.8415300546448088
+        },
+        "edit_distance": {
+          "at_1": 0.03825136612021858,
+          "at_16": 0.04371584699453552,
+          "at_32": 0.04371584699453552,
+          "at_4": 0.040983606557377046,
+          "at_8": 0.04371584699453552
+        },
+        "exact": {
+          "at_1": 0.5081967213114754,
+          "at_16": 0.7814207650273224,
+          "at_32": 0.7814207650273224,
+          "at_4": 0.7568306010928961,
+          "at_8": 0.7786885245901639
+        },
+        "exact_char_union": {
+          "at_1": 0.46174863387978143,
+          "at_16": 0.8469945355191257,
+          "at_32": 0.8469945355191257,
+          "at_4": 0.8032786885245902,
+          "at_8": 0.8360655737704918
+        },
+        "exact_edit_union": {
+          "at_1": 0.5437158469945356,
+          "at_16": 0.825136612021858,
+          "at_32": 0.825136612021858,
+          "at_4": 0.7978142076502732,
+          "at_8": 0.819672131147541
+        },
+        "exact_simhash_union": {
+          "at_1": 0.5136612021857924,
+          "at_16": 0.7950819672131147,
+          "at_32": 0.7950819672131147,
+          "at_4": 0.76775956284153,
+          "at_8": 0.7923497267759563
+        },
+        "simhash_lsh": {
+          "at_1": 0.5136612021857924,
+          "at_16": 0.7950819672131147,
+          "at_32": 0.7950819672131147,
+          "at_4": 0.76775956284153,
+          "at_8": 0.7923497267759563
+        },
+        "union": {
+          "at_1": 0.4644808743169399,
+          "at_16": 0.8497267759562842,
+          "at_32": 0.8524590163934426,
+          "at_4": 0.8060109289617486,
+          "at_8": 0.8333333333333334
+        }
+      },
+      "entity_recall_on_addressable": {
+        "char_ngram": {
+          "at_1": 0.23723723723723725,
+          "at_16": 0.3183183183183183,
+          "at_32": 0.3183183183183183,
+          "at_4": 0.2852852852852853,
+          "at_8": 0.3063063063063063
+        },
+        "deterministic_union": {
+          "at_1": 0.5465465465465466,
+          "at_16": 0.933933933933934,
+          "at_32": 0.9369369369369369,
+          "at_4": 0.9039039039039038,
+          "at_8": 0.924924924924925
+        },
+        "edit_distance": {
+          "at_1": 0.042042042042042045,
+          "at_16": 0.04804804804804805,
+          "at_32": 0.04804804804804805,
+          "at_4": 0.04504504504504504,
+          "at_8": 0.04804804804804805
+        },
+        "exact": {
+          "at_1": 0.5585585585585585,
+          "at_16": 0.8588588588588588,
+          "at_32": 0.8588588588588588,
+          "at_4": 0.8318318318318318,
+          "at_8": 0.8558558558558559
+        },
+        "exact_char_union": {
+          "at_1": 0.5075075075075075,
+          "at_16": 0.9309309309309309,
+          "at_32": 0.9309309309309309,
+          "at_4": 0.8828828828828829,
+          "at_8": 0.918918918918919
+        },
+        "exact_edit_union": {
+          "at_1": 0.5975975975975976,
+          "at_16": 0.9069069069069069,
+          "at_32": 0.9069069069069069,
+          "at_4": 0.8768768768768769,
+          "at_8": 0.9009009009009009
+        },
+        "exact_simhash_union": {
+          "at_1": 0.5645645645645646,
+          "at_16": 0.8738738738738738,
+          "at_32": 0.8738738738738738,
+          "at_4": 0.8438438438438438,
+          "at_8": 0.8708708708708709
+        },
+        "simhash_lsh": {
+          "at_1": 0.5645645645645646,
+          "at_16": 0.8738738738738738,
+          "at_32": 0.8738738738738738,
+          "at_4": 0.8438438438438438,
+          "at_8": 0.8708708708708709
+        },
+        "union": {
+          "at_1": 0.5105105105105106,
+          "at_16": 0.933933933933934,
+          "at_32": 0.9369369369369369,
+          "at_4": 0.8858858858858859,
+          "at_8": 0.9159159159159159
+        }
+      },
+      "mention_hypothesis_recall": {
+        "char_ngram": 0.2896174863387978,
+        "deterministic_union": 0.8524590163934426,
+        "edit_distance": 0.04371584699453552,
+        "exact": 0.7814207650273224,
+        "exact_char_union": 0.8469945355191257,
+        "exact_edit_union": 0.825136612021858,
+        "exact_simhash_union": 0.7950819672131147,
+        "simhash_lsh": 0.7950819672131147,
+        "union": 0.8524590163934426
+      },
+      "mention_hypothesis_recall_on_addressable": {
+        "char_ngram": 0.3183183183183183,
+        "deterministic_union": 0.9369369369369369,
+        "edit_distance": 0.04804804804804805,
+        "exact": 0.8588588588588588,
+        "exact_char_union": 0.9309309309309309,
+        "exact_edit_union": 0.9069069069069069,
+        "exact_simhash_union": 0.8738738738738738,
+        "simhash_lsh": 0.8738738738738738,
+        "union": 0.9369369369369369
+      },
+      "multi_entity_completeness": {
+        "char_ngram": {
+          "at_1": 0.2152317880794702,
+          "at_16": 0.2913907284768212,
+          "at_32": 0.2913907284768212,
+          "at_4": 0.26158940397350994,
+          "at_8": 0.2781456953642384
+        },
+        "deterministic_union": {
+          "at_1": 0.48013245033112584,
+          "at_16": 0.8178807947019867,
+          "at_32": 0.8211920529801324,
+          "at_4": 0.7847682119205298,
+          "at_8": 0.8079470198675497
+        },
+        "edit_distance": {
+          "at_1": 0.046357615894039736,
+          "at_16": 0.052980132450331126,
+          "at_32": 0.052980132450331126,
+          "at_4": 0.04966887417218543,
+          "at_8": 0.052980132450331126
+        },
+        "exact": {
+          "at_1": 0.5,
+          "at_16": 0.7350993377483444,
+          "at_32": 0.7350993377483444,
+          "at_4": 0.7086092715231788,
+          "at_8": 0.7317880794701986
+        },
+        "exact_char_union": {
+          "at_1": 0.4370860927152318,
+          "at_16": 0.8145695364238411,
+          "at_32": 0.8145695364238411,
+          "at_4": 0.7615894039735099,
+          "at_8": 0.8013245033112583
+        },
+        "exact_edit_union": {
+          "at_1": 0.543046357615894,
+          "at_16": 0.7880794701986755,
+          "at_32": 0.7880794701986755,
+          "at_4": 0.7582781456953642,
+          "at_8": 0.7814569536423841
+        },
+        "exact_simhash_union": {
+          "at_1": 0.5066225165562914,
+          "at_16": 0.7516556291390728,
+          "at_32": 0.7516556291390728,
+          "at_4": 0.7218543046357616,
+          "at_8": 0.7483443708609272
+        },
+        "simhash_lsh": {
+          "at_1": 0.5066225165562914,
+          "at_16": 0.7516556291390728,
+          "at_32": 0.7516556291390728,
+          "at_4": 0.7218543046357616,
+          "at_8": 0.7483443708609272
+        },
+        "union": {
+          "at_1": 0.44039735099337746,
+          "at_16": 0.8178807947019867,
+          "at_32": 0.8211920529801324,
+          "at_4": 0.7649006622516556,
+          "at_8": 0.7980132450331126
+        }
+      },
+      "required_entity_count": 366,
+      "union_gain_over_exact_at_32": {
+        "complete_cases": 26,
+        "required_entities": 26
+      },
+      "unique_required_recovery_at_32": {
+        "char_ngram": 9,
+        "edit_distance": 2
+      }
+    }
+  },
+  "real_title_perturbation_qualification": {
+    "by_kind": {
+      "morphology": {
+        "count": 81,
+        "recall_at_16": {
+          "char_ngram": 1.0,
+          "edit_distance": 0.8271604938271605,
+          "exact": 0.0,
+          "simhash_lsh": 0.5802469135802469,
+          "union": 1.0
+        }
+      },
+      "partial_alias": {
+        "count": 46,
+        "recall_at_16": {
+          "char_ngram": 0.782608695652174,
+          "edit_distance": 0.0,
+          "exact": 0.0,
+          "simhash_lsh": 0.2608695652173913,
+          "union": 0.782608695652174
+        }
+      },
+      "tokenization": {
+        "count": 46,
+        "recall_at_16": {
+          "char_ngram": 1.0,
+          "edit_distance": 0.13043478260869565,
+          "exact": 0.06521739130434782,
+          "simhash_lsh": 0.5652173913043478,
+          "union": 1.0
+        }
+      },
+      "typo": {
+        "count": 91,
+        "recall_at_16": {
+          "char_ngram": 0.6813186813186813,
+          "edit_distance": 0.8461538461538461,
+          "exact": 0.0,
+          "simhash_lsh": 0.25274725274725274,
+          "union": 0.9340659340659341
+        }
+      }
+    },
+    "count": 264,
+    "scope": "deterministic perturbations of real development title surfaces; not natural-query recall"
+  },
+  "schema_version": "aethersparse.fuzzy-address-qualification.v12",
+  "sealed_partitions": {
+    "evaluation": "rejected before candidate/query consumption",
+    "final_held": "rejected before candidate/query consumption"
+  },
+  "selected_fuzzy_exact_char_p4_accounting": {
+    "assumptions": [
+      "all selected index bytes are ideally resident in PSRAM",
+      "one scalar integer operation per cycle and zero MACs",
+      "logical bytes are charged once through the v11 PSRAM bandwidth calibration",
+      "logical random probes are charged through the v11 PSRAM random-access calibration",
+      "4KB pages are packed lower bounds, not physical layout measurements",
+      "working bytes are a packed analytical buffer estimate, not Python RSS",
+      "no board timing, cache behavior, eMMC bandwidth, or physical page order was measured"
+    ],
+    "cap_saturation": {
+      "char_ngram_local_address_cap": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "char_ngram_mention_cap": {
+        "count": 1,
+        "rate": 0.00145985401459854
+      },
+      "char_ngram_postings_cap": {
+        "count": 515,
+        "rate": 0.7518248175182481
+      },
+      "fuzzy_exact_local_address_cap": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "fuzzy_exact_mention_cap": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "global_address_cap": {
+        "count": 0,
+        "rate": 0.0
+      }
+    },
+    "case_count": 685,
+    "distributions": {
+      "analytical_working_bytes": {
+        "maximum": 43905,
+        "mean": 26335.29197080292,
+        "p50": 29442.0,
+        "p95": 38202.6
+      },
+      "char_ngram_locally_pruned_candidates": {
+        "maximum": 0,
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "estimated_bytes_touched": {
+        "maximum": 68905,
+        "mean": 55274.71386861314,
+        "p50": 67028.0,
+        "p95": 68048.0
+      },
+      "fuzzy_exact_locally_pruned_candidates": {
+        "maximum": 0,
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "global_pruned_candidates_at_64": {
+        "maximum": 0,
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      },
+      "ideal_packed_4kb_pages": {
+        "maximum": 17,
+        "mean": 14.083211678832116,
+        "p50": 17.0,
+        "p95": 17.0
+      },
+      "integer_operations": {
+        "maximum": 840234,
+        "mean": 537494.5737226277,
+        "p50": 654190.0,
+        "p95": 808153.0
+      },
+      "posting_entries_read": {
+        "maximum": 16384,
+        "mean": 13497.883211678833,
+        "p50": 16384.0,
+        "p95": 16384.0
+      },
+      "posting_list_lookups": {
+        "maximum": 272,
+        "mean": 119.14014598540146,
+        "p50": 116.0,
+        "p95": 248.0
+      },
+      "pre_global_cap_candidates": {
+        "maximum": 43,
+        "mean": 7.110948905109489,
+        "p50": 3.0,
+        "p95": 26.0
+      },
+      "random_logical_index_reads": {
+        "maximum": 314,
+        "mean": 155.69051094890511,
+        "p50": 162.0,
+        "p95": 290.0
+      },
+      "retained_candidates_at_64": {
+        "maximum": 43,
+        "mean": 7.110948905109489,
+        "p50": 3.0,
+        "p95": 26.0
+      },
+      "sequential_logical_posting_reads": {
+        "maximum": 16384,
+        "mean": 13497.883211678833,
+        "p50": 16384.0,
+        "p95": 16384.0
+      },
+      "xor_popcount_operations": {
+        "maximum": 0,
+        "mean": 0.0,
+        "p50": 0.0,
+        "p95": 0.0
+      }
+    },
+    "evidence_class": "analytical_projection_not_hardware_measurement",
+    "global_address_cap": 64,
+    "inactive_channels": [
+      "edit_distance_not_selected",
+      "simhash_lsh_rejected",
+      "semantic_ann_not_active"
+    ],
+    "learned_parameter_count": 0,
+    "logical_io": {
+      "ideal_packed_page_count_semantics": "ceil(logical bytes touched / 4096), a lower bound under ideal packing; not a measured physical page count",
+      "page_size_bytes": 4096,
+      "physical_random_pages": null,
+      "physical_sequential_pages": null,
+      "random_read_semantics": "exact hash/surface probes plus char posting-list probes; logical, not physical page-order observations",
+      "sequential_read_semantics": "posting entries scanned plus ideal packed-page transfer counters; logical, not measured storage reads"
+    },
+    "macs": {
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "memory": {
+      "analytical_working_bytes": {
+        "maximum": 43905,
+        "mean": 26335.29197080292,
+        "p50": 29442.0,
+        "p95": 38202.6
+      },
+      "resident_index_bytes": 7151500,
+      "resident_index_scope": "standalone serialized fuzzy-normalized title records plus char-ngram postings; no allocator/runtime overhead and no shared-FST deduction",
+      "resident_plus_peak_working_bytes": 7195405
+    },
+    "p4_scenarios": {
+      "conservative_200mhz": {
+        "assumptions": {
+          "clock_mhz": 200,
+          "flash_bandwidth_mb_s": 5.0,
+          "flash_random_access_us": 100.0,
+          "integer_ops_per_cycle": 1.0,
+          "macs_per_cycle": 1.0,
+          "psram_bandwidth_mb_s": 20.0,
+          "psram_random_access_us": 2.0
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "latency_ms": {
+          "compute_ms": {
+            "p50": 3.27095,
+            "p95": 4.0407649999999995
+          },
+          "flash_transfer_ms": {
+            "p50": 0.0,
+            "p95": 0.0
+          },
+          "psram_transfer_ms": {
+            "p50": 3.3514,
+            "p95": 3.4024
+          },
+          "random_access_ms": {
+            "p50": 0.324,
+            "p95": 0.58
+          },
+          "virtual_latency_ms": {
+            "p50": 6.958255,
+            "p95": 7.967981000000001
+          }
+        },
+        "nominal": false
+      },
+      "nominal_300mhz": {
+        "assumptions": {
+          "clock_mhz": 300,
+          "flash_bandwidth_mb_s": 10.0,
+          "flash_random_access_us": 60.0,
+          "integer_ops_per_cycle": 1.0,
+          "macs_per_cycle": 1.0,
+          "psram_bandwidth_mb_s": 40.0,
+          "psram_random_access_us": 1.0
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "latency_ms": {
+          "compute_ms": {
+            "p50": 2.180633333333333,
+            "p95": 2.6938433333333336
+          },
+          "flash_transfer_ms": {
+            "p50": 0.0,
+            "p95": 0.0
+          },
+          "psram_transfer_ms": {
+            "p50": 1.6757,
+            "p95": 1.7012
+          },
+          "random_access_ms": {
+            "p50": 0.162,
+            "p95": 0.29
+          },
+          "virtual_latency_ms": {
+            "p50": 4.022038333333334,
+            "p95": 4.677822666666667
+          }
+        },
+        "nominal": true
+      },
+      "optimistic_plausible_400mhz": {
+        "assumptions": {
+          "clock_mhz": 400,
+          "flash_bandwidth_mb_s": 20.0,
+          "flash_random_access_us": 30.0,
+          "integer_ops_per_cycle": 1.0,
+          "macs_per_cycle": 1.0,
+          "psram_bandwidth_mb_s": 80.0,
+          "psram_random_access_us": 0.5
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "latency_ms": {
+          "compute_ms": {
+            "p50": 1.635475,
+            "p95": 2.0203824999999997
+          },
+          "flash_transfer_ms": {
+            "p50": 0.0,
+            "p95": 0.0
+          },
+          "psram_transfer_ms": {
+            "p50": 0.83785,
+            "p95": 0.8506
+          },
+          "random_access_ms": {
+            "p50": 0.081,
+            "p95": 0.145
+          },
+          "virtual_latency_ms": {
+            "p50": 2.5570850000000003,
+            "p95": 3.0166279999999994
+          }
+        },
+        "nominal": false
+      }
+    },
+    "partition_counts": {
+      "development": 271,
+      "tuning": 414
+    },
+    "selected_channels": [
+      "fuzzy_normalized_exact",
+      "char_ngram"
+    ],
+    "selected_runtime": "fuzzy_normalized_exact_plus_char_ngram",
+    "storage": {
+      "external_bandwidth_mb_s": null,
+      "external_bytes": null,
+      "external_latency_formula_ms": "external_bytes/(bandwidth_mb_s*1e6)*1000 + random_pages*random_access_us/1000",
+      "external_random_access_us": null,
+      "external_random_pages": null,
+      "external_storage_projection": "not_projected_missing_physical_layout",
+      "note": "v11 flash calibration fields are reported for scenario continuity but are inactive because no external bytes/pages are assigned; they are not an eMMC spec",
+      "resident_mode": "ideal_resident_psram_analytical_assumption"
+    },
+    "union_semantics": "complete channel pre-cap proposals are canonical-ID unioned before the one global K=64 cap; local pruned records remain exposed for audit"
+  }
+}

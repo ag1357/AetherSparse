@@ -1,0 +1,28 @@
+{
+  "base_commit": "3f74d44f11e6d913520e8d3f110ce3d8912f1f0d",
+  "inputs": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "candidate_diagnostic_manifest_sha256": "33dfe4b6105ee3c5385d9877a680f27f06ac3d4bf436713af83ce4f1ad9fbd7b",
+    "candidate_diagnostic_sha256": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158"
+  },
+  "output": {
+    "file": "semantic-encoder-ann-ablation.json",
+    "sha256": "92b8e30cadd7f2583ded8eaf50307c3bcc479c0ba4814ae4fa68360c359ab2a9"
+  },
+  "partition_policy": {
+    "case_id_partition_identity_verified": true,
+    "development": "static index and PQ codebook fitting only",
+    "duplicate_case_ids": 0,
+    "evaluation_final_held_used": false,
+    "semantic_correctness_labels_used": false,
+    "tuning": "fixed label-free compression-fidelity queries only"
+  },
+  "query_limit": 64,
+  "schema_version": "aethersparse.semantic-encoder-ann-manifest.v2",
+  "source": {
+    "index_manifest_schema_sha256": "af7d0e74ed0f74aab83ef5a36688f64f3c59e788424318cc1c591f036fc9fb93",
+    "qualifier_sha256": "05c8fffcab4c8eda305fe2ea89805fd409cd3fb83fd6604641483fb048826d87",
+    "semantic_ann_sha256": "0a4120f39416c1733d21b4ce3ed5298a01296cf69b7712e357476e2b0e8dd658",
+    "supervision_manifest_schema_sha256": "b03fa16d9b8e58cced3b998873bb53c0528646550d9d3e4176f3314abbf4499a"
+  }
+}

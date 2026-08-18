@@ -1,0 +1,161 @@
+{
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "blockers": [
+    "full v12 channel outputs are not yet integrated",
+    "mention-aligned development/tuning examples are absent in this lane",
+    "v11 tuning candidate-completeness proxy is 39/193 (20.2073%)",
+    "K=32/64 and recall@16 cannot be inferred from post-cap v11 evidence",
+    "no hashed v12 tuning qualification or verified pre-cap/alignment/source manifests exist"
+  ],
+  "calibration": {
+    "fixed_confidence_threshold_selected": false,
+    "implemented_metrics": [
+      "availability_state_multiclass_nll",
+      "availability_state_multiclass_brier",
+      "availability_state_ece_10",
+      "resolved_address_ece_10",
+      "resolved_address_coverage-indexed_selective_risk",
+      "normalized_entropy",
+      "channel_disagreement"
+    ],
+    "metric_scopes": {
+      "availability_state": "P(E1..EN, UNRESOLVED); an unavailable target is labelled UNRESOLVED",
+      "resolved_address": "entity predictions only; UNRESOLVED is abstention and reduces coverage against all examples"
+    },
+    "reason": "zero mention-aligned development labels and incomplete candidate generation",
+    "v11_weak_case_level_candidate_relevance_reference": {
+      "brier": 0.14581078539952708,
+      "ece_10": 0.11886295313641439,
+      "nll": 0.46070409703055826,
+      "warning": "not a calibrated P(entity|mention,context) result"
+    },
+    "v12_address_distribution_fitted": false
+  },
+  "current_lawful_measurement": {
+    "candidate_completeness": {
+      "k32": null,
+      "k64": null,
+      "retained_plus_10k_overlay_at_most_16_per_mention_proxy": {
+        "complete": 39,
+        "rate": 0.20207253886010362
+      },
+      "retained_post_cap_at_most_8": {
+        "complete": 37,
+        "rate": 0.19170984455958548
+      }
+    },
+    "channel_availability": {
+      "anchor_prior": "10k aggregate overlay only",
+      "fst_title_alias_redirect": "awaiting lane B",
+      "fuzzy": "awaiting lane C",
+      "pre_cap_provenance": "unavailable in current evidence",
+      "retained": "post-cap only",
+      "semantic_ann": "awaiting lanes D/E"
+    },
+    "mention_aligned_entity_recall": {
+      "at16": null,
+      "at32": null,
+      "at64": null,
+      "at8": null
+    },
+    "multi_entity_completeness": {
+      "note": "case-level required-set proxy only; mention alignment is absent",
+      "retained_at_most_8": 0.19170984455958548,
+      "v1_union_at_most_16_per_mention": 0.20207253886010362
+    },
+    "readiness_authorization_use": "none; legacy post-cap aggregate is reported only and cannot open the gate",
+    "scope": "v11 retained entity candidates plus 10k aggregate anchor overlay",
+    "tuning_replicas": 193
+  },
+  "decision": "ADDRESS_SUBSTRATE_INADEQUATE",
+  "implemented_contract": {
+    "belief_labels": "P(E1..EN, UNRESOLVED)",
+    "canonical_corpus_id_syntax_and_title_hash_authority": true,
+    "canonical_union_before_global_cap": true,
+    "complete_pruned_candidate_sidecar": true,
+    "observer_contract": "aethercore.observer.v1",
+    "retained_features": [
+      "mention_hypothesis",
+      "channel_provenance",
+      "channel_and_global_pre_cap_ranks",
+      "source_subchannel_and_source_record_id",
+      "raw_score_bounded_score_and_transform",
+      "exact_fuzzy_semantic_scores",
+      "anchor_prior_support_source_diversity",
+      "title_redirect_alias_indicators",
+      "type_relation_context_scores",
+      "ambiguity_entropy",
+      "unresolved_mass",
+      "channel_generated_emitted_counts",
+      "channel_cap_and_pre_cap_completeness",
+      "source_artifact_bundle_sha256_and_schema_version"
+    ],
+    "retained_pruned_entity_ids_disjoint": true,
+    "specialist_readiness_evidence": "hashed tuning AddressQualification bound to verified pre-cap and mention-alignment and source manifests",
+    "temporary_k_values": [
+      8,
+      16,
+      32,
+      64
+    ],
+    "versioned_persisted_belief_envelope": "aethersparse.address-belief-envelope.v12",
+    "versioned_persisted_union_envelope": "aethersparse.address-union-envelope.v12"
+  },
+  "readiness": {
+    "aspirational_recall_at_16_met": false,
+    "blockers": [
+      "verified_tuning_address_qualification_unavailable",
+      "v11_aggregate_is_not_a_hashed_v12_tuning_qualification",
+      "verified_pre_cap_capture_manifest_unavailable",
+      "verified_mention_alignment_manifest_unavailable",
+      "verified_source_manifest_unavailable"
+    ],
+    "candidate_generation_ready": false,
+    "decision": "ADDRESS_SUBSTRATE_INADEQUATE",
+    "evidence_qualification_sha256": null,
+    "lawful_development_examples": 0,
+    "lawful_tuning_examples": 0,
+    "mention_alignment_complete": false,
+    "pre_cap_provenance_available": false,
+    "schema_version": "aethersparse.specialist-readiness.v12",
+    "source_manifest_verified": false,
+    "specialist_authorized": false,
+    "tuning_candidate_completeness": null,
+    "tuning_recall_at_16": null
+  },
+  "schema_version": "aethersparse.address-fusion-qualification.v12",
+  "source_artifacts": {
+    "reports/droid/v11/entity-specialist-baselines.json": "2a750a30b5def160c24831dde740deaff22ceef38a76ba96c0f195a7ee88d6b4",
+    "reports/droid/v11/semantic-address-plane-qualification.json": "8200a3aa5cedc6fda0960746b909a933224e83b8335891afd95bc8f4994712fb",
+    "reports/droid/v11/specialist-readiness.json": "91638cc76954c2c338c41ccf10bcd0be9f786f8ad0c09b81e31071a2d53fba30"
+  },
+  "successive_halving": {
+    "authorized": false,
+    "blockers": [
+      "verified_tuning_address_qualification_unavailable",
+      "v11_aggregate_is_not_a_hashed_v12_tuning_qualification",
+      "verified_pre_cap_capture_manifest_unavailable",
+      "verified_mention_alignment_manifest_unavailable",
+      "verified_source_manifest_unavailable"
+    ],
+    "requested_parameter_counts": [
+      250000,
+      1000000,
+      3000000,
+      5000000
+    ],
+    "schema_version": "aethersparse.successive-halving-plan.v12",
+    "split_policy": "fit_development_calibrate_select_tuning",
+    "started": false,
+    "trials": []
+  },
+  "truth_boundary": {
+    "authenticated_replay_used": false,
+    "calibration_selection_partition": "tuning",
+    "candidate_diagnostic_397k_used": false,
+    "evaluation_final_held_labels_used": false,
+    "fit_partition": "development",
+    "sealed_partitions_consumed": [],
+    "why_diagnostic_excluded": "post-cap evidence candidates lack entity-channel and pre-cap provenance"
+  }
+}

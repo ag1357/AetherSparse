@@ -1,0 +1,48 @@
+{
+  "activation_condition": "inactive until canonical entity/relation union recall is qualified and the direct path is no longer recall-dominated",
+  "activation_cost_basis": "formula-derived per-query maximum under psram_postings_external_source_regions_v1; not runtime counters or hardware measurement",
+  "module": {
+    "activation_cost": {
+      "integer_ops": 6813,
+      "macs": 0,
+      "memory_bytes": 172032,
+      "scratch_ram_bytes": 6144
+    },
+    "calibration_artifact": "reports/droid/v12/claim-address-p4-qualification.json",
+    "dependencies": [
+      "aethercore.exact-controller",
+      "aethercore.semantic-address-plane-v2"
+    ],
+    "inputs": [
+      "canonical_entity_id",
+      "relation_address",
+      "typed_answer_shape",
+      "exact_source_region"
+    ],
+    "known_failure_clusters": [
+      "wrong_or_incomplete_entity_relation_address",
+      "direct_recall_below_retained_fts_bm25_selected_evidence",
+      "full_corpus_claim_index_footprint_unavailable",
+      "nominal_p95_above_target_under_v11_reference_assumptions"
+    ],
+    "model_hash": "none",
+    "module_id": "aethercore.claim-address-direct",
+    "module_version": "12.0.0-work.1",
+    "outputs": [
+      "bounded_source_bound_claims",
+      "typed_value_lattice"
+    ],
+    "parameter_count": 0,
+    "purpose": "Exact bounded entity-to-relation-to-typed-claim and source-region lookup",
+    "quantization": "none",
+    "status": "inactive",
+    "supported_state_types": [
+      "query_frame",
+      "structured_claim",
+      "exact_source_span",
+      "typed_value_lattice"
+    ]
+  },
+  "schema_version": "aethercore.architecture-registry-fragment.v1",
+  "target_architecture_id": "aethercore-v12-semantic-address-v2"
+}

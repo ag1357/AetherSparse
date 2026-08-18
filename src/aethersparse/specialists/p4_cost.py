@@ -6,6 +6,8 @@ from pydantic import Field
 
 from aethersparse.controller.models import FrozenModel
 
+V11_P4_CALIBRATION_ID = "aethercore.v11-p4-scalar-reference.v1"
+
 
 class P4Assumptions(FrozenModel):
     clock_mhz: int = Field(ge=200, le=400)
@@ -49,8 +51,7 @@ def project_p4(costs: tuple[P4OperationCost, ...], assumptions: P4Assumptions) -
     integer_operations = sum(item.integer_operations for item in costs)
     macs = sum(item.macs for item in costs)
     cycles = (
-        integer_operations / assumptions.integer_ops_per_cycle
-        + macs / assumptions.macs_per_cycle
+        integer_operations / assumptions.integer_ops_per_cycle + macs / assumptions.macs_per_cycle
     )
     compute_ms = cycles / (assumptions.clock_mhz * 1_000.0)
     psram_bytes = sum(item.psram_bytes for item in costs)
@@ -99,3 +100,42 @@ def clock_sensitivity(
         )
         for clock in (200, 300, 400)
     )
+
+
+def v11_reference_assumptions() -> dict[str, P4Assumptions]:
+    """Return the unchanged v11 200/300/400 MHz analytical scenarios.
+
+    ``flash_*`` remains the historical digital-twin name for parameterized
+    external storage.  These values are not an eMMC specification or hardware
+    measurement.  Callers must report them as the v11 reference assumptions.
+    """
+
+    return {
+        "conservative_200mhz": P4Assumptions(
+            clock_mhz=200,
+            integer_ops_per_cycle=1.0,
+            macs_per_cycle=1.0,
+            psram_bandwidth_mb_s=20.0,
+            flash_bandwidth_mb_s=5.0,
+            psram_random_access_us=2.0,
+            flash_random_access_us=100.0,
+        ),
+        "nominal_300mhz": P4Assumptions(
+            clock_mhz=300,
+            integer_ops_per_cycle=1.0,
+            macs_per_cycle=1.0,
+            psram_bandwidth_mb_s=40.0,
+            flash_bandwidth_mb_s=10.0,
+            psram_random_access_us=1.0,
+            flash_random_access_us=60.0,
+        ),
+        "optimistic_plausible_400mhz": P4Assumptions(
+            clock_mhz=400,
+            integer_ops_per_cycle=1.0,
+            macs_per_cycle=1.0,
+            psram_bandwidth_mb_s=80.0,
+            flash_bandwidth_mb_s=20.0,
+            psram_random_access_us=0.5,
+            flash_random_access_us=30.0,
+        ),
+    }

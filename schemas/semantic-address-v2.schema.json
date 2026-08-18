@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ag1357/AetherSparse/schemas/semantic-address-v2.schema.json",
+  "title": "AetherSparse Semantic Address Plane v2 records",
+  "oneOf": [
+    {"$ref": "#/$defs/entity"},
+    {"$ref": "#/$defs/alias"},
+    {"$ref": "#/$defs/redirect"},
+    {"$ref": "#/$defs/hyperlinkOccurrence"},
+    {"$ref": "#/$defs/surfaceStatistics"},
+    {"$ref": "#/$defs/duplicateTitle"},
+    {"$ref": "#/$defs/unresolvedRedirect"},
+    {"$ref": "#/$defs/benchmarkRuntime"},
+    {"$ref": "#/$defs/benchmarkLabel"},
+    {"$ref": "#/$defs/alignmentQuarantine"}
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "recordId": {"type": "string", "pattern": "^as:v2:record:[0-9a-f]{64}$"},
+    "canonicalEntityId": {"type": "string", "pattern": "^as:v050:entity:[0-9a-f]{24}$"},
+    "nullableCanonicalEntityId": {"oneOf": [{"$ref": "#/$defs/canonicalEntityId"}, {"type": "null"}]},
+    "resolutionState": {"enum": ["canonical", "missing", "ambiguous", "redirect_cycle"]},
+    "redirectPath": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "base": {
+      "type": "object",
+      "required": ["schema_version", "record_type", "record_id"],
+      "properties": {
+        "schema_version": {"const": "aethersparse.semantic-address-export.v2"},
+        "record_type": {"type": "string"},
+        "record_id": {"$ref": "#/$defs/recordId"}
+      }
+    },
+    "entity": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["entity_id", "title", "normalized_title", "document_id", "source_text_sha256"], "properties": {
+          "record_type": {"const": "entity"},
+          "entity_id": {"$ref": "#/$defs/canonicalEntityId"},
+          "title": {"type": "string", "minLength": 1},
+          "normalized_title": {"type": "string", "minLength": 1},
+          "document_id": {"type": "string", "minLength": 1},
+          "source_text_sha256": {"$ref": "#/$defs/sha256"}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "alias": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["surface", "kind", "source_document_id", "canonical_entity_id", "canonical_title", "resolution_state", "redirect_path"], "properties": {
+          "record_type": {"const": "alias"},
+          "surface": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "source_document_id": {"type": "string", "minLength": 1},
+          "canonical_entity_id": {"$ref": "#/$defs/nullableCanonicalEntityId"},
+          "canonical_title": {"type": ["string", "null"]},
+          "resolution_state": {"$ref": "#/$defs/resolutionState"},
+          "redirect_path": {"$ref": "#/$defs/redirectPath"}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "redirect": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["source_document_id", "source_title", "target_title", "canonical_entity_id", "canonical_title", "resolution_state", "redirect_path", "source_text_sha256"], "properties": {
+          "record_type": {"const": "redirect"},
+          "source_document_id": {"type": "string", "minLength": 1},
+          "source_title": {"type": "string", "minLength": 1},
+          "target_title": {"type": "string", "minLength": 1},
+          "canonical_entity_id": {"$ref": "#/$defs/nullableCanonicalEntityId"},
+          "canonical_title": {"type": ["string", "null"]},
+          "resolution_state": {"$ref": "#/$defs/resolutionState"},
+          "redirect_path": {"$ref": "#/$defs/redirectPath"},
+          "source_text_sha256": {"$ref": "#/$defs/sha256"}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "hyperlinkOccurrence": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["corpus_tier", "anchor_id", "source_document_id", "source_text_sha256", "source_split", "mention", "normalized_mention", "mention_start", "mention_end", "link_start", "link_end", "offset_unit", "context", "context_start", "context_end", "raw_target_title", "canonical_entity_id", "canonical_title", "resolution_state", "redirect_path", "source_span_sha256"], "properties": {
+          "record_type": {"const": "hyperlink_occurrence"},
+          "corpus_tier": {"type": "string", "minLength": 1},
+          "anchor_id": {"type": "string", "minLength": 1},
+          "source_document_id": {"type": "string", "minLength": 1},
+          "source_text_sha256": {"$ref": "#/$defs/sha256"},
+          "source_split": {"enum": ["fit", "calibration", "holdout"]},
+          "mention": {"type": "string", "minLength": 1},
+          "normalized_mention": {"type": "string", "minLength": 1},
+          "mention_start": {"type": "integer", "minimum": 0},
+          "mention_end": {"type": "integer", "minimum": 1},
+          "link_start": {"type": "integer", "minimum": 0},
+          "link_end": {"type": "integer", "minimum": 1},
+          "offset_unit": {"const": "unicode_codepoint"},
+          "context": {"type": "string"},
+          "context_start": {"type": "integer", "minimum": 0},
+          "context_end": {"type": "integer", "minimum": 0},
+          "raw_target_title": {"type": "string", "minLength": 1},
+          "canonical_entity_id": {"$ref": "#/$defs/nullableCanonicalEntityId"},
+          "canonical_title": {"type": ["string", "null"]},
+          "resolution_state": {"$ref": "#/$defs/resolutionState"},
+          "redirect_path": {"$ref": "#/$defs/redirectPath"},
+          "source_span_sha256": {"$ref": "#/$defs/sha256"}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "surfaceCandidate": {
+      "type": "object",
+      "required": ["canonical_entity_id", "canonical_title", "resolution_state", "occurrence_count", "source_document_count", "probability", "source_diversity"],
+      "properties": {
+        "canonical_entity_id": {"$ref": "#/$defs/nullableCanonicalEntityId"},
+        "canonical_title": {"type": ["string", "null"]},
+        "resolution_state": {"$ref": "#/$defs/resolutionState"},
+        "occurrence_count": {"type": "integer", "minimum": 1},
+        "source_document_count": {"type": "integer", "minimum": 1},
+        "probability": {"type": "number", "minimum": 0, "maximum": 1},
+        "source_diversity": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": false
+    },
+    "surfaceStatistics": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["statistics_view", "included_source_splits", "usage", "surface", "occurrence_count", "ambiguity_count", "entropy_nats", "unresolved_probability_mass", "support_bin", "source_splits_present", "unseen_surface_in_holdout", "candidates"], "properties": {
+          "record_type": {"const": "surface_statistics"},
+          "statistics_view": {"enum": ["fit", "fit+calibration", "all"]},
+          "included_source_splits": {"type": "array", "items": {"enum": ["fit", "calibration", "holdout"]}, "uniqueItems": true},
+          "usage": {"enum": ["fit_and_selection", "holdout_qualification_only", "descriptive_only"]},
+          "surface": {"type": "string", "minLength": 1},
+          "occurrence_count": {"type": "integer", "minimum": 1},
+          "ambiguity_count": {"type": "integer", "minimum": 1},
+          "entropy_nats": {"type": "number", "minimum": 0},
+          "unresolved_probability_mass": {"type": "number", "minimum": 0, "maximum": 1},
+          "support_bin": {"enum": ["head", "torso", "tail"]},
+          "source_splits_present": {"type": "array", "items": {"enum": ["fit", "calibration", "holdout"]}, "uniqueItems": true},
+          "unseen_surface_in_holdout": {"type": "boolean"},
+          "candidates": {"type": "array", "items": {"$ref": "#/$defs/surfaceCandidate"}, "minItems": 1}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "duplicateTitle": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["normalized_title", "source_document_ids"], "properties": {"record_type": {"const": "duplicate_title"}, "normalized_title": {"type": "string", "minLength": 1}, "source_document_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 2, "uniqueItems": true}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "unresolvedRedirect": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["source_document_id", "source_title", "target_title", "resolution_state", "redirect_path"], "properties": {"record_type": {"const": "unresolved_redirect"}, "source_document_id": {"type": "string", "minLength": 1}, "source_title": {"type": "string", "minLength": 1}, "target_title": {"type": "string", "minLength": 1}, "resolution_state": {"$ref": "#/$defs/resolutionState"}, "redirect_path": {"$ref": "#/$defs/redirectPath"}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "candidateProvenance": {
+      "type": "object",
+      "required": ["entity_id", "canonical_title", "channel", "channel_rank", "global_pre_cap_rank", "raw_score", "channel_score", "provenance_ids"],
+      "properties": {
+        "entity_id": {"$ref": "#/$defs/canonicalEntityId"},
+        "canonical_title": {"type": "string", "minLength": 1},
+        "channel": {"enum": ["title", "alias", "redirect", "anchor", "fuzzy", "semantic"]},
+        "channel_rank": {"type": "integer", "minimum": 1},
+        "global_pre_cap_rank": {"type": "integer", "minimum": 1},
+        "raw_score": {"type": ["number", "null"]},
+        "channel_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "provenance_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "uniqueItems": true}
+      },
+      "additionalProperties": false
+    },
+    "benchmarkRuntime": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"type": "object", "required": ["case_id", "partition", "corpus_tier", "query_sha256", "mention_id", "surface", "char_start", "char_end", "mention_detected", "candidate_count_generated", "pre_cap_candidates", "retained_entity_ids", "selected_entity_ids", "confidence_rejected_entity_ids", "retained_cap"], "properties": {
+          "record_type": {"const": "benchmark_mention_runtime"},
+          "case_id": {"type": "string", "minLength": 1},
+          "partition": {"enum": ["development", "tuning"]},
+          "corpus_tier": {"type": "string", "minLength": 1},
+          "query_sha256": {"$ref": "#/$defs/sha256"},
+          "mention_id": {"type": "string", "minLength": 1},
+          "surface": {"type": "string"},
+          "char_start": {"type": "integer", "minimum": 0},
+          "char_end": {"type": "integer", "minimum": 0},
+          "mention_detected": {"type": "boolean"},
+          "candidate_count_generated": {"type": "integer", "minimum": 0},
+          "pre_cap_candidates": {"type": "array", "items": {"$ref": "#/$defs/candidateProvenance"}},
+          "retained_entity_ids": {"type": "array", "items": {"$ref": "#/$defs/canonicalEntityId"}, "uniqueItems": true},
+          "selected_entity_ids": {"type": "array", "items": {"$ref": "#/$defs/canonicalEntityId"}, "uniqueItems": true},
+          "confidence_rejected_entity_ids": {"type": "array", "items": {"$ref": "#/$defs/canonicalEntityId"}, "uniqueItems": true},
+          "retained_cap": {"type": "integer", "minimum": 1}
+        }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "labelFields": {
+      "type": "object",
+      "required": ["case_id", "partition", "corpus_tier", "mention_id", "correct_entity_ids", "alignment_basis", "alignment_evidence_sha256", "alignment_exact", "quarantine_reason"],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "partition": {"enum": ["development", "tuning"]},
+        "corpus_tier": {"type": "string", "minLength": 1},
+        "mention_id": {"type": "string", "minLength": 1},
+        "correct_entity_ids": {"type": "array", "items": {"$ref": "#/$defs/canonicalEntityId"}, "minItems": 1, "uniqueItems": true},
+        "alignment_basis": {"type": "string", "minLength": 1},
+        "alignment_evidence_sha256": {"type": "string"},
+        "alignment_exact": {"type": "boolean"},
+        "quarantine_reason": {"type": ["string", "null"]}
+      }
+    },
+    "benchmarkLabel": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"$ref": "#/$defs/labelFields"},
+        {"type": "object", "required": ["failure_state"], "properties": {"record_type": {"const": "benchmark_mention_label"}, "alignment_evidence_sha256": {"$ref": "#/$defs/sha256"}, "failure_state": {"enum": ["mention_missing", "correct_candidate_absent", "candidate_outside_cap", "correct_selected", "candidate_rejected_by_confidence", "candidate_misranked"]}}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "alignmentQuarantine": {
+      "allOf": [
+        {"$ref": "#/$defs/base"},
+        {"$ref": "#/$defs/labelFields"},
+        {"type": "object", "properties": {"record_type": {"const": "alignment_quarantine"}}}
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

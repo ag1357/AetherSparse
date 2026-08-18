@@ -1,0 +1,351 @@
+{
+  "base_commit": "3f74d44f11e6d913520e8d3f110ce3d8912f1f0d",
+  "compiler_interoperability": {
+    "benchmark_partition_controls_source_split": false,
+    "canonical_registry_validation_required": true,
+    "compiler_bundle_loaded_for_this_measurement": false,
+    "compiler_export_schema": "aethersparse.semantic-address-export.v2",
+    "compiler_manifest_schema": "aethersparse.semantic-address-manifest.v2",
+    "corpus_only_qualification_source_split": "holdout",
+    "index_authority": "canonical entity IDs/titles come only from the verified compiler registry; ANN codes are non-authoritative proposals",
+    "index_manifest_emitted_for_this_measurement": false,
+    "index_manifest_schema": "aethersparse.semantic-ann-index-manifest.v2",
+    "learned_fit_source_split": "fit",
+    "reason": "the available post-cap candidate diagnostic is not a v2 compiler hyperlink-supervision bundle",
+    "required_occurrence_identity_fields": [
+      "corpus_tier",
+      "anchor_id",
+      "source_document_id",
+      "source_text_sha256",
+      "source_span_sha256",
+      "mention_start",
+      "mention_end",
+      "link_start",
+      "link_end"
+    ],
+    "source_split_policy": {
+      "benchmark_partitions_used": false,
+      "calibration_buckets": "80-89",
+      "fit_buckets": "0-79",
+      "hash": "sha256-first-32-bits-mod-100",
+      "holdout_buckets": "90-99",
+      "unit": "source_document_id"
+    },
+    "source_split_roles": {
+      "calibration": "successive-halving and model selection only",
+      "fit": "encoder/rotation/PQ fit only",
+      "holdout": "corpus-only qualification; never fit or selection"
+    },
+    "successive_halving_and_model_selection_source_split": "calibration",
+    "supervision_manifest_emitted_for_this_measurement": false,
+    "supervision_manifest_schema": "aethersparse.semantic-ann-supervision-manifest.v2",
+    "unresolved_occurrence_policy": "retain as explicit quarantine rows and reconcile against surface statistics"
+  },
+  "compression_ablation": {
+    "binary": [
+      {
+        "bits": 64,
+        "bytes_per_address": 8,
+        "index_code_bytes": 39304,
+        "mean_top16_overlap_with_float_static": 0.0546875,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "raw_sign_bq"
+      },
+      {
+        "bits": 128,
+        "bytes_per_address": 16,
+        "index_code_bytes": 78608,
+        "mean_top16_overlap_with_float_static": 0.08984375,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "raw_sign_bq"
+      },
+      {
+        "bits": 256,
+        "bytes_per_address": 32,
+        "index_code_bytes": 157216,
+        "mean_top16_overlap_with_float_static": 0.1337890625,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "raw_sign_bq"
+      },
+      {
+        "bits": 256,
+        "bytes_per_address": 32,
+        "index_code_bytes": 157216,
+        "mean_top16_overlap_with_float_static": 0.3095703125,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0625,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "global_fwht_sign"
+      },
+      {
+        "bits": 64,
+        "bytes_per_address": 8,
+        "index_code_bytes": 39304,
+        "mean_top16_overlap_with_float_static": 0.0810546875,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "prefix_block_fwht_sign"
+      },
+      {
+        "bits": 128,
+        "bytes_per_address": 16,
+        "index_code_bytes": 78608,
+        "mean_top16_overlap_with_float_static": 0.171875,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "prefix_block_fwht_sign"
+      },
+      {
+        "bits": 256,
+        "bytes_per_address": 32,
+        "index_code_bytes": 157216,
+        "mean_top16_overlap_with_float_static": 0.322265625,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "p05_top16_overlap_with_float_static": 0.125,
+        "qualification_scope": "sparse_static_proxy",
+        "semantic_accuracy_measured": false,
+        "variant": "prefix_block_fwht_sign"
+      }
+    ],
+    "int8": {
+      "bytes_per_address": 260,
+      "index_code_bytes": 1277380,
+      "mean_top16_overlap_with_float_static": 0.982421875,
+      "metric_scope": "compression fidelity to untrained float static reference",
+      "p05_top16_overlap_with_float_static": 0.9375,
+      "semantic_accuracy_measured": false,
+      "variant": "int8_full_vector_rerank"
+    },
+    "learned_rotation_bq": {
+      "reason": "semantic-supervised rotation is unqualified without occurrence labels; an unsupervised development-only rotation was not evaluated",
+      "status": "NOT_RUN"
+    },
+    "matryoshka_fwht_constraint": {
+      "global_fwht": "diagnostic only; its prefix is not original-prefix semantic",
+      "prefix_block_fwht": "64-coordinate blocks preserve 64/128/256 boundaries"
+    },
+    "pq": [
+      {
+        "bytes_per_address": 8,
+        "centroids_per_subquantizer": 16,
+        "codebook_bytes_float32": 16384,
+        "effective_bits_per_subquantizer": 4,
+        "index_code_bytes": 39304,
+        "mean_top16_overlap_with_float_static": 0.1484375,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "minimum_packed_code_bytes": 4,
+        "p05_top16_overlap_with_float_static": 0.0,
+        "qualification_status": "PARTIAL_SMALL_DATA_SCREEN",
+        "semantic_accuracy_measured": false,
+        "small_data_centroid_screen": true,
+        "variant": "pq_adc_8_byte"
+      },
+      {
+        "bytes_per_address": 16,
+        "centroids_per_subquantizer": 16,
+        "codebook_bytes_float32": 16384,
+        "effective_bits_per_subquantizer": 4,
+        "index_code_bytes": 78608,
+        "mean_top16_overlap_with_float_static": 0.1796875,
+        "metric_scope": "compression fidelity to untrained float static reference",
+        "minimum_packed_code_bytes": 8,
+        "p05_top16_overlap_with_float_static": 0.0625,
+        "qualification_status": "PARTIAL_SMALL_DATA_SCREEN",
+        "semantic_accuracy_measured": false,
+        "small_data_centroid_screen": true,
+        "variant": "pq_adc_16_byte"
+      }
+    ]
+  },
+  "data_scope": {
+    "benchmark_counts": {
+      "development": 271,
+      "protected_excluded": 1365,
+      "tuning": 414
+    },
+    "candidate_diagnostic": "397k post-cap title/document mechanics only",
+    "case_id_partition_identity_verified": true,
+    "development_index_documents": 4913,
+    "diagnostic_counts": {
+      "development_candidate_rows": 20790,
+      "development_cases": 271,
+      "protected_rows_excluded": 1365,
+      "title_conflicts": 0,
+      "tuning_cases": 414
+    },
+    "duplicate_case_ids": 0,
+    "evaluation_final_held_used": false,
+    "query_selection": "lexicographically first IDs; fixed before metrics",
+    "semantic_correctness_labels_used": false,
+    "static_proxy_index_source_partition": "benchmark development",
+    "static_proxy_partitions_are_not_corpus_source_splits": true,
+    "static_proxy_query_partition": "benchmark tuning",
+    "tuning_queries_available": 414,
+    "tuning_queries_measured": 64,
+    "warning": "top-k overlap measures compression fidelity to a parameter-free static reference, not entity correctness or hyperlink-supervised recall"
+  },
+  "decision": "DO_NOT_TRAIN_WITHOUT_HYPERLINK_OCCURRENCE_SUPERVISION",
+  "hamming_associative_baseline": {
+    "code_bits": 256,
+    "kind": "exhaustive raw-sign BQ Hamming lookup",
+    "mean_top16_overlap_with_float_static": 0.1337890625
+  },
+  "integrity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "candidate_manifest_sha256": "33dfe4b6105ee3c5385d9877a680f27f06ac3d4bf436713af83ce4f1ad9fbd7b",
+    "candidate_payload_sha256": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158"
+  },
+  "ivf_progressive_io": [
+    {
+      "coarse_partition": "first log2(nlist) raw-BQ bits; no float k-means binarization",
+      "list_distribution": {
+        "coefficient_of_variation": 9.262461684036387,
+        "empty_lists": 162,
+        "maximum_list_size": 2806,
+        "mean_list_size": 19.19140625,
+        "nonempty_lists": 94,
+        "p95_list_size": 20.0
+      },
+      "mean_probed_candidates": 1390.03125,
+      "mean_progressive_bytes_read": 12109.375,
+      "mean_top16_overlap_with_exhaustive_hamming": 0.13671875,
+      "mean_top16_overlap_with_float_static": 0.072265625,
+      "nlist": 256,
+      "nprobe": 8,
+      "p95_4k_pages": 9.0,
+      "p95_probed_candidates": 4179.0,
+      "p95_progressive_bytes_read": 34456.0,
+      "page_count_semantics": "ideal contiguous ceil(total_staged_bytes/4096)",
+      "physical_io_measured": false,
+      "physical_layout_serialized": false,
+      "qualification_scope": "sparse_static_raw_bq_prefix_proxy",
+      "variant": "binary_ivf_256"
+    },
+    {
+      "coarse_partition": "first log2(nlist) raw-BQ bits; no float k-means binarization",
+      "list_distribution": {
+        "coefficient_of_variation": 11.0897288896354,
+        "empty_lists": 360,
+        "maximum_list_size": 2329,
+        "mean_list_size": 9.595703125,
+        "nonempty_lists": 152,
+        "p95_list_size": 12.0
+      },
+      "mean_probed_candidates": 1057.8125,
+      "mean_progressive_bytes_read": 9337.0,
+      "mean_top16_overlap_with_exhaustive_hamming": 0.08984375,
+      "mean_top16_overlap_with_float_static": 0.060546875,
+      "nlist": 512,
+      "nprobe": 8,
+      "p95_4k_pages": 8.0,
+      "p95_probed_candidates": 3671.0,
+      "p95_progressive_bytes_read": 30392.0,
+      "page_count_semantics": "ideal contiguous ceil(total_staged_bytes/4096)",
+      "physical_io_measured": false,
+      "physical_layout_serialized": false,
+      "qualification_scope": "sparse_static_raw_bq_prefix_proxy",
+      "variant": "binary_ivf_512"
+    },
+    {
+      "coarse_partition": "first log2(nlist) raw-BQ bits; no float k-means binarization",
+      "list_distribution": {
+        "coefficient_of_variation": 14.28457775580505,
+        "empty_lists": 805,
+        "maximum_list_size": 2110,
+        "mean_list_size": 4.7978515625,
+        "nonempty_lists": 219,
+        "p95_list_size": 9.0
+      },
+      "mean_probed_candidates": 917.265625,
+      "mean_progressive_bytes_read": 7982.125,
+      "mean_top16_overlap_with_exhaustive_hamming": 0.0791015625,
+      "mean_top16_overlap_with_float_static": 0.0517578125,
+      "nlist": 1024,
+      "nprobe": 8,
+      "p95_4k_pages": 7.0,
+      "p95_probed_candidates": 3401.0,
+      "p95_progressive_bytes_read": 28232.0,
+      "page_count_semantics": "ideal contiguous ceil(total_staged_bytes/4096)",
+      "physical_io_measured": false,
+      "physical_layout_serialized": false,
+      "qualification_scope": "sparse_static_raw_bq_prefix_proxy",
+      "variant": "binary_ivf_1024"
+    }
+  ],
+  "learned_encoder_readiness": {
+    "additional_blockers": [
+      "397k diagnostic has no hyperlink mention-to-target supervision",
+      "25k/397k raw occurrence contexts are absent",
+      "verified compiler fit/calibration/holdout hyperlink supervision bundle was not supplied",
+      "pre-cap semantic candidate provenance is absent"
+    ],
+    "blockers": [
+      "resolved occurrence-level hyperlink labels are absent",
+      "fit hyperlink occurrences are absent",
+      "calibration hyperlink occurrences are absent",
+      "holdout hyperlink occurrences are absent"
+    ],
+    "calibration_occurrences": 0,
+    "fit_occurrences": 0,
+    "has_head_tail_support": false,
+    "has_occurrence_labels": false,
+    "has_source_document_holdout": false,
+    "has_unseen_surface_calibration": false,
+    "has_unseen_surface_holdout": false,
+    "holdout_occurrences": 0,
+    "learned_rotation_started": false,
+    "learned_training_authorized": false,
+    "mention_surface_count": 0,
+    "occurrence_count": 0,
+    "requested_parameter_sweep": [
+      250000,
+      1000000,
+      3000000,
+      5000000
+    ],
+    "resolved_occurrences": 0,
+    "source_document_count": 0,
+    "source_document_overlap": 0,
+    "sweep_started": false,
+    "target_entity_count": 0,
+    "unresolved_occurrences": 0
+  },
+  "limitations": [
+    "candidate diagnostic is post-cap and carries no semantic-channel provenance",
+    "document titles are mechanics proxies, not canonical entity-address supervision",
+    "no entity recall, multi-entity completeness, NLL/Brier/ECE, or policy gate is claimed",
+    "PQ uses 16 centroids per byte for a small-data screen; 256-centroid scaling is untested",
+    "host timing is omitted because this pure-Python reference is not the P4 digital twin",
+    "global FWHT used one deterministic sign seed; no seed-robust conclusion is claimed",
+    "IVF used fixed nprobe=8 over a sparse static proxy; learned dense IVF is untested"
+  ],
+  "progressive_io_evidence": {
+    "physical_io_measured": false,
+    "physical_layout_serialized": false,
+    "random_vs_sequential_reads_measured": false,
+    "status": "ANALYTICAL_STAGED_BYTE_ACCOUNTING_ONLY"
+  },
+  "schema_version": "aethersparse.semantic-encoder-ann-qualification.v2",
+  "static_reference": {
+    "active_parameters": 0,
+    "dimension": 256,
+    "float32_index_bytes": 5030912,
+    "kind": "parameter-free signed word/character n-gram hashing",
+    "metric_reference": "exact cosine-equivalent dot-product top16"
+  },
+  "status": "STATIC_MECHANICS_QUALIFIED_LEARNED_TRAINING_BLOCKED"
+}

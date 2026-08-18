@@ -1,0 +1,30 @@
+{
+  "schema_version": "aethersparse.semantic-address-v2-qualification-manifest.v1",
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "qualification_source_commit": "d69f9aa1e73c9c290576c38ef16b6b94d17b0973",
+  "decision": "ADDRESS_SUBSTRATE_INADEQUATE",
+  "outputs": {
+    "config/architecture/aethercore-v12-semantic-address-v2.registry.json": "ed3ffe3f8b270c572a46303c4c2b18df8b6a638d0acc03f197f9638cd4f5f673",
+    "reports/droid/v12/COOP_REVIEW_HANDOFF.md": "662c444b0c86cb00407a79577ff638ae6e2efbedf0351e0d4b9273d7559abde9",
+    "reports/droid/v12/SEMANTIC_ADDRESS_V2_QUALIFICATION.md": "7e8316e1786176c7923853d24f39b63159c388f84cc62f873c54d03a24dfeb4e",
+    "reports/droid/v12/semantic-address-v2-qualification.json": "634ae88f63f8e3db5ebd0316733139853ecc88b82d0674e8578383e730900f06",
+    "scripts/droid/v12_architecture_registry.py": "81ab44e9827f4a5eb4d2b0dbc0340aa891c918e6ec48bb0ac5ccc2e049375309"
+  },
+  "schemas": {
+    "schemas/semantic-address-v2-manifest.schema.json": "c1bff773e8eed98373b92b446838dcc98e55f4b714e6bbbc322055b72fb54be7",
+    "schemas/semantic-address-v2.schema.json": "14a11efce2d6306866a32c83e958528ab5a19f33305b013475d0a74c43a4bed3"
+  },
+  "source_aggregates": {
+    "reports/droid/v12/address-data-evaluation.json": "94cd13b819992bdaedcef161f84e7d7d6fb8f03d9b0aa20f58b7a546cf171a4d",
+    "reports/droid/v12/address-fusion-qualification.json": "e17ba9ddf8d7e1f6933ec82455fbd261bdda551bfdee3dd1f5be1927a5b6030d",
+    "reports/droid/v12/claim-address-p4-qualification.json": "d37c16da9b28326b50965d58458de47149607bce3f66a47d4863bd8af79e282d",
+    "reports/droid/v12/fst-prior-qualification.json": "4d66abb7f4140848a834503ffc3e80e2b3fe92dde5b27d0d10430ed71395b0a0",
+    "reports/droid/v12/fuzzy-address-qualification.json": "60eef0643a296ad03454e15d5048e6e927dae2dc9884cc581f3898c0d30b1bf3",
+    "reports/droid/v12/semantic-encoder-ann-ablation.json": "92b8e30cadd7f2583ded8eaf50307c3bcc479c0ba4814ae4fa68360c359ab2a9"
+  },
+  "truth_boundary": {
+    "evaluation_or_final_held_labels_consumed": false,
+    "fresh_search_rerun": false,
+    "full_factory_occurrence_bundle_present": false
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "decision": "EXACT_FST_CHANNEL_IMPLEMENTED_FULL_CORPUS_DATA_REQUIRED",
+  "format": {
+    "canonical_ids_authoritative": true,
+    "cap_loss_explicit": true,
+    "content_addressed_sections": true,
+    "deterministic_serialization": true,
+    "dictionary": "normalized UTF-8 path-compressed acyclic byte FST",
+    "prior_quantization": "not applicable: exact integer support/total ratios are smaller and lossless",
+    "selection_behavior": "returns distribution; never forces entity",
+    "terminal_output": "posting group offset",
+    "unresolved_mass_preserved": true
+  },
+  "integrity": {
+    "authenticated_replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "authenticated_replay_case_count": 6150,
+    "authenticated_replay_decision_count": 54477,
+    "diagnostic_case_count": 2050,
+    "diagnostic_manifest_sha256": "33dfe4b6105ee3c5385d9877a680f27f06ac3d4bf436713af83ce4f1ad9fbd7b",
+    "diagnostic_partition_counts": {
+      "development": 271,
+      "evaluation": 1019,
+      "final_held": 346,
+      "tuning": 414
+    },
+    "diagnostic_sha256": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158",
+    "partition_join_verified": true
+  },
+  "limitations": [
+    "Targeted diagnostic contains post-cap titles only and cannot qualify global mention or entity recall.",
+    "No alias, redirect, or anchor rows are available in the 397k diagnostic.",
+    "Tuning transfer measures title-table coverage, not gold semantic-address correctness.",
+    "A full-corpus Factory export is required for production footprint and recall claims."
+  ],
+  "non_benchmark_catalog_fixture": {
+    "artifact": {
+      "address_core_bytes_excluding_provenance": 4201,
+      "bytes_per_surface": 285.4375,
+      "dictionary_bytes": 1550,
+      "entity_count": 6,
+      "file_sha256": "87086107efeeb7c6e82e1ab62a1fa9e57468ac2ae404dde6de2d0674d74347aa",
+      "header_bytes": 1629,
+      "manifest_sha256": "5eb84623fe003abc7bc1874805363a0cb6188466828d1471373bbbc278e80155",
+      "posting_bytes": 1022,
+      "posting_count": 16,
+      "prior_encoding": "lossless_integer_support_ratio",
+      "prior_quantization_retained": false,
+      "provenance_bytes": 366,
+      "root_sha256": "66a36e9b5bd29fc2edbfb0a74dcdacdfdddf90f023fd80b6caef710ddbc0e60b",
+      "surface_count": 16,
+      "total_bytes": 4567
+    },
+    "roundtrip": {
+      "collision_surfaces_seen": 0,
+      "entity_recall": {
+        "at_1": 1.0,
+        "at_16": 1.0,
+        "at_32": 1.0,
+        "at_4": 1.0,
+        "at_8": 1.0
+      },
+      "maximum_candidates_per_surface": 1,
+      "surface_coverage": 1.0,
+      "surface_found_pairs": 16,
+      "unique_surface_entity_pairs": 16
+    },
+    "scope": {
+      "declarations": 23,
+      "entities": 6
+    },
+    "source_sha256": "c1e04e33ab39b4d177ff1c535527e9c2f02307c4160faefd8867b8fe5126c106"
+  },
+  "partition_policy": {
+    "benchmark_labels_or_answers_used": false,
+    "construction_partitions": [
+      "development"
+    ],
+    "measurement_partitions": [
+      "development",
+      "tuning"
+    ],
+    "sealed_partitions_excluded": [
+      "evaluation",
+      "final_held"
+    ],
+    "sealed_partitions_loaded_into_compiler": [],
+    "tuning_used_for_format_or_feature_selection": false
+  },
+  "real_data_scope": {
+    "description": "targeted 397k post-cap canonical title rows",
+    "development": {
+      "candidate_occurrences": 20790,
+      "cases": 271
+    },
+    "global_fst_or_full_corpus_recall_claimed": false,
+    "known_absences": [
+      "full title registry",
+      "alias rows",
+      "redirect rows",
+      "anchor occurrences",
+      "pre-cap provenance",
+      "retrieval-channel provenance"
+    ],
+    "tuning": {
+      "candidate_occurrences": 32117,
+      "cases": 414
+    }
+  },
+  "schema_version": "aethersparse.fst-prior-qualification.v12",
+  "targeted_development_index": {
+    "artifact": {
+      "address_core_bytes_excluding_provenance": 967765,
+      "bytes_per_surface": 316.9737004314773,
+      "dictionary_bytes": 487420,
+      "entity_count": 4913,
+      "file_sha256": "c5a373e41703367233f067bd18d94d1f90fb3bcc026643842805dba73417ba94",
+      "header_bytes": 1698,
+      "manifest_sha256": "dab16e48601d2e276187488768241189ae581dc06869a009f481d9c30626eb52",
+      "posting_bytes": 478647,
+      "posting_count": 4913,
+      "prior_encoding": "lossless_integer_support_ratio",
+      "prior_quantization_retained": false,
+      "provenance_bytes": 574946,
+      "root_sha256": "1964e0f0a3571de3bd09c6199561e4b32cd69c6804fd6dd74a5d79880aef6033",
+      "surface_count": 4867,
+      "total_bytes": 1542711
+    },
+    "development_self_roundtrip": {
+      "collision_surfaces_seen": 46,
+      "entity_recall": {
+        "at_1": 0.9906370852839406,
+        "at_16": 1.0,
+        "at_32": 1.0,
+        "at_4": 1.0,
+        "at_8": 1.0
+      },
+      "maximum_candidates_per_surface": 2,
+      "surface_coverage": 1.0,
+      "surface_found_pairs": 4913,
+      "unique_surface_entity_pairs": 4913
+    },
+    "source_diversity_semantics": "distinct canonical source documents",
+    "support_semantics": "post-cap candidate occurrence count",
+    "tuning_title_transfer": {
+      "collision_surfaces_seen": 14,
+      "entity_recall": {
+        "at_1": 0.23620309050772628,
+        "at_16": 0.23782192788815307,
+        "at_32": 0.23782192788815307,
+        "at_4": 0.23782192788815307,
+        "at_8": 0.23782192788815307
+      },
+      "maximum_candidates_per_surface": 2,
+      "surface_coverage": 0.23841059602649006,
+      "surface_found_pairs": 1620,
+      "unique_surface_entity_pairs": 6795
+    }
+  }
+}

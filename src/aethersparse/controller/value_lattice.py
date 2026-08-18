@@ -106,10 +106,7 @@ class TypedValueLattice(FrozenModel):
         return self
 
 
-_MONTHS = (
-    "January|February|March|April|May|June|July|August|September|October|"
-    "November|December"
-)
+_MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 TYPED_DATE_RE = re.compile(
     rf"\b(?:{_MONTHS})\s+\d{{1,2}}(?:st|nd|rd|th)?(?:,?\s+\d{{4}})?\b"
     rf"|\b\d{{1,2}}\s+(?:{_MONTHS})(?:\s+\d{{4}})?\b"
@@ -309,8 +306,38 @@ def lattice_from_evidence(
                     provenance=(span.span_id, record.claim.claim_id),
                 )
             )
-    return merge_value_lattices(
-        (TypedValueLattice(candidates=tuple(candidates)),), capacity=capacity
+    # One exact span may support multiple claim records that collapse to the
+    # same typed address.  Deduplicate before constructing the validated
+    # lattice; constructing first made a lawful multi-claim evidence bundle
+    # fail before ``merge_value_lattices`` could apply its stable deduplication.
+    candidates.sort(
+        key=lambda item: (
+            -item.confidence,
+            item.source_document_id,
+            item.source_span.char_start,
+            item.source_span.char_end,
+            item.value_type.value,
+            item.subject_entity_hypothesis or "",
+            item.relation_hypothesis or "",
+        )
+    )
+    unique: list[TypedValueCandidate] = []
+    seen: set[tuple[str, ValueType, str | None, str | None]] = set()
+    for candidate in candidates:
+        key = (
+            candidate.source_span.span_id,
+            candidate.value_type,
+            candidate.subject_entity_hypothesis,
+            candidate.relation_hypothesis,
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(candidate)
+    return TypedValueLattice(
+        candidates=tuple(unique[:capacity]),
+        capacity=capacity,
+        dropped_candidates=max(0, len(unique) - capacity),
     )
 
 

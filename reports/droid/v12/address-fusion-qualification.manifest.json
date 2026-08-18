@@ -1,0 +1,12 @@
+{
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "output_bytes": 6439,
+  "output_file": "address-fusion-qualification.json",
+  "output_sha256": "e17ba9ddf8d7e1f6933ec82455fbd261bdda551bfdee3dd1f5be1927a5b6030d",
+  "schema_version": "aethersparse.address-fusion-qualification-manifest.v12",
+  "source_artifacts": {
+    "reports/droid/v11/entity-specialist-baselines.json": "2a750a30b5def160c24831dde740deaff22ceef38a76ba96c0f195a7ee88d6b4",
+    "reports/droid/v11/semantic-address-plane-qualification.json": "8200a3aa5cedc6fda0960746b909a933224e83b8335891afd95bc8f4994712fb",
+    "reports/droid/v11/specialist-readiness.json": "91638cc76954c2c338c41ccf10bcd0be9f786f8ad0c09b81e31071a2d53fba30"
+  }
+}

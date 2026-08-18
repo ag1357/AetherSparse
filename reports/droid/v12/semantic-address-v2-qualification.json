@@ -1,0 +1,491 @@
+{
+  "schema_version": "aethersparse.semantic-address-v2-qualification.v1",
+  "status": "NOT_FULL_CORPUS_QUALIFIED",
+  "decision": {
+    "primary": "ADDRESS_SUBSTRATE_INADEQUATE",
+    "basis": "No occurrence-level Factory address export or integrated mention-aligned pre-cap multi-channel qualification exists; scoped title and compression proxies cannot establish full-corpus recall.",
+    "component_dispositions": [
+      "SEMANTIC_ANN_NOT_JUSTIFIED",
+      "SIMHASH_LSH_NOT_RETAINED",
+      "DIRECT_CLAIM_ADDRESS_RETAINED_INACTIVE"
+    ],
+    "next_justified_action": "FACTORY_ADDRESS_V2_CAPTURE"
+  },
+  "identity": {
+    "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+    "qualification_source_commit": "d69f9aa1e73c9c290576c38ef16b6b94d17b0973",
+    "qualification_source_commit_semantics": "final implementation commit before deterministic aggregate/report archival",
+    "hash_algorithm": "sha256",
+    "self_manifest": "reports/droid/v12/semantic-address-v2-qualification.manifest.json",
+    "source_artifacts": {
+      "authenticated_replay_bundle_identity": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+      "authenticated_replay_cases_gzip": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+      "authenticated_replay_manifest": "a3ed0e2bede5db16d93f8a91a4051bddbae51c2e7fee5b7e9e90ff8ac54e0552",
+      "benchmark": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+      "candidate_diagnostic_gzip": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158",
+      "candidate_diagnostic_manifest": "33dfe4b6105ee3c5385d9877a680f27f06ac3d4bf436713af83ce4f1ad9fbd7b",
+      "address_data_aggregate": "94cd13b819992bdaedcef161f84e7d7d6fb8f03d9b0aa20f58b7a546cf171a4d",
+      "exact_fst_aggregate": "4d66abb7f4140848a834503ffc3e80e2b3fe92dde5b27d0d10430ed71395b0a0",
+      "fuzzy_aggregate": "60eef0643a296ad03454e15d5048e6e927dae2dc9884cc581f3898c0d30b1bf3",
+      "semantic_ann_aggregate": "92b8e30cadd7f2583ded8eaf50307c3bcc479c0ba4814ae4fa68360c359ab2a9",
+      "fusion_aggregate": "e17ba9ddf8d7e1f6933ec82455fbd261bdda551bfdee3dd1f5be1927a5b6030d",
+      "claim_p4_aggregate": "d37c16da9b28326b50965d58458de47149607bce3f66a47d4863bd8af79e282d",
+      "address_schema": "14a11efce2d6306866a32c83e958528ab5a19f33305b013475d0a74c43a4bed3",
+      "address_manifest_schema": "c1bff773e8eed98373b92b446838dcc98e55f4b714e6bbbc322055b72fb54be7",
+      "factory_handoff": "151dd462fbd1721d55450414aece216880f05931e246adc9d80ed64af5cd35fa",
+      "architecture_registry_content": "bca5744ca0e98e84d106ecdf5bce8af19638f2c2ae449ed53ed0c5d7614af554"
+    }
+  },
+  "truth_boundary": {
+    "fit_benchmark_partition": "development",
+    "selection_calibration_benchmark_partition": "tuning",
+    "compiler_source_splits": [
+      "fit",
+      "calibration",
+      "holdout"
+    ],
+    "sealed_benchmark_partitions": [
+      "evaluation",
+      "final_held"
+    ],
+    "sealed_labels_consumed": false,
+    "benchmark_answers_used_for_construction": false,
+    "fresh_search_rerun": false,
+    "strict_baseline_evidence_reaggregated": true
+  },
+  "data_scope": {
+    "actual": "v11 10k aggregate plus authenticated 397k post-cap query-conditioned candidate-title diagnostic; no occurrence-level 10k/25k/397k Factory pack",
+    "v11_10k": {
+      "aggregate_rows": 345,
+      "occurrences": 6112,
+      "covered_surfaces": 126,
+      "row_payload_present": false
+    },
+    "candidate_diagnostic": {
+      "cases": {
+        "development": 271,
+        "tuning": 414,
+        "evaluation_excluded": 1019,
+        "final_held_excluded": 346
+      },
+      "pre_cap": false,
+      "aliases": false,
+      "redirects": false,
+      "semantic_channel": false,
+      "sealed_candidate_bodies_parsed": false
+    },
+    "full_corpus_address_export_present": false,
+    "explicit_mention_alignment_present": false,
+    "pre_cap_channel_provenance_present": false,
+    "global_address_recall_claimed": false
+  },
+  "primary_metrics": {
+    "scope": "integrated full-corpus mention-aligned pre-cap canonical-ID union",
+    "mention_hypothesis_recall": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "No full-corpus occurrence rows or exact mention-level alignment are present."
+    },
+    "entity_recall": {
+      "values": {
+        "at_1": null,
+        "at_4": null,
+        "at_8": null,
+        "at_16": null,
+        "at_32": null
+      },
+      "status": "unavailable",
+      "reason": "Exact, fuzzy, and semantic proposals were not compiled from a populated shared Factory bundle and evaluated as one matched pre-cap union."
+    },
+    "multi_entity_completeness": {
+      "values": {
+        "at_1": null,
+        "at_4": null,
+        "at_8": null,
+        "at_16": null,
+        "at_32": null
+      },
+      "status": "unavailable",
+      "reason": "Mention-aligned required entity sets and integrated channel outputs are absent."
+    },
+    "top1_resolution": {
+      "value": null,
+      "status": "not_run_gate_closed",
+      "reason": "Candidate-generation readiness did not reach 90 percent."
+    },
+    "unique_channel_recoveries": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "No matched exact-FST/fuzzy/semantic channel union exists."
+    },
+    "union_gain": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "No matched exact-FST/fuzzy/semantic channel union exists."
+    },
+    "head_torso_tail": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "Split-safe compiler views are implemented, but no real Factory pack was compiled."
+    },
+    "unseen_surface": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "Holdout-safe compiler views are implemented, but no real Factory pack was compiled."
+    }
+  },
+  "gates": {
+    "full_corpus_union_recall": {
+      "value": null,
+      "status": "unavailable",
+      "thresholds": {
+        "inadequate_below": 0.8,
+        "ready_at_or_above": 0.9
+      }
+    },
+    "tuning_candidate_generation_ready": false,
+    "specialist_authorized": false,
+    "address_state_repaired": false,
+    "strict_695_rerun": {
+      "required_when_address_state_repaired": true,
+      "authorized_now": false
+    },
+    "strict_695_policy_gate_open": false,
+    "policy_gate_threshold": {
+      "reachable": 418,
+      "eligible": 695,
+      "rate": 0.6
+    }
+  },
+  "component_status": {
+    "data_contract_and_compiler": {
+      "implementation": "qualified",
+      "real_factory_bundle_compiled": false,
+      "active": false
+    },
+    "exact_fst": {
+      "implementation": "qualified",
+      "data": "targeted_post_cap_titles_only",
+      "active": false
+    },
+    "fuzzy_exact_char": {
+      "implementation": "qualified",
+      "data": "targeted_post_cap_titles_only",
+      "active": false
+    },
+    "fuzzy_edit_distance": {
+      "implementation": "qualified",
+      "decision": "not_selected_for_resident_path",
+      "active": false
+    },
+    "simhash_lsh": {
+      "implementation": "qualified",
+      "decision": "not_retained_on_targeted_substrate",
+      "active": false
+    },
+    "semantic_ann": {
+      "implementation": "mechanics_and_contract_only",
+      "decision": "SEMANTIC_ANN_NOT_JUSTIFIED",
+      "active": false
+    },
+    "learned_rotation_bq": {
+      "implementation": "not_run",
+      "active": false
+    },
+    "address_fusion": {
+      "implementation": "qualified",
+      "data": "no_lawful_integrated_examples",
+      "active": false
+    },
+    "contextual_specialist": {
+      "implementation": "hook_only",
+      "decision": "blocked_by_generation_gate",
+      "active": false
+    },
+    "direct_claim_address": {
+      "implementation": "qualified",
+      "decision": "retain_inactive_until_address_repair",
+      "active": false
+    }
+  },
+  "scoped_proxies": {
+    "may_fill_primary_metrics": false,
+    "exact_fst_title_substrate": {
+      "scope": "development-built post-cap title table using diagnostic document IDs; serialization/title-table proxy only",
+      "self_recall": {
+        "at_1": 0.9906370852839406,
+        "at_4": 1.0,
+        "at_8": 1.0,
+        "at_16": 1.0,
+        "at_32": 1.0
+      },
+      "tuning_title_transfer": {
+        "at_1": 0.23620309050772628,
+        "at_4": 0.23782192788815307,
+        "at_8": 0.23782192788815307,
+        "at_16": 0.23782192788815307,
+        "at_32": 0.23782192788815307
+      }
+    },
+    "fuzzy_title_substrate_tuning": {
+      "scope": "case-level required IDs over query-conditioned post-cap titles; not mention-aligned",
+      "mention_id_recovery": 0.8524590163934426,
+      "entity_recall_union": {
+        "at_1": 0.4644808743169399,
+        "at_4": 0.8060109289617486,
+        "at_8": 0.8333333333333334,
+        "at_16": 0.8497267759562842,
+        "at_32": 0.8524590163934426
+      },
+      "required_set_completeness_union": {
+        "at_1": 0.44039735099337746,
+        "at_4": 0.7649006622516556,
+        "at_8": 0.7980132450331126,
+        "at_16": 0.8178807947019867,
+        "at_32": 0.8211920529801324
+      },
+      "unique_at_32": {
+        "char_ngram": 9,
+        "edit_distance": 2,
+        "simhash_lsh": 0
+      },
+      "union_gain_over_fuzzy_exact_at_32": {
+        "required_entities": 26,
+        "complete_cases": 26
+      }
+    },
+    "v1_availability": {
+      "scope": "tuning case-level post-cap completeness proxy",
+      "retained_at_most_8": {
+        "complete": 37,
+        "eligible": 193,
+        "rate": 0.19170984455958548
+      },
+      "retained_plus_10k_at_most_16": {
+        "complete": 39,
+        "eligible": 193,
+        "rate": 0.20207253886010362
+      }
+    },
+    "static_ann_compression": {
+      "scope": "top-16 compression fidelity to an untrained float static title reference; not semantic accuracy",
+      "development_documents": 4913,
+      "tuning_queries": 64
+    },
+    "direct_claim_lookup": {
+      "scope": "post-retrieval replay claim selection; not address generation",
+      "recall_at_16": 0.25323741007194245,
+      "repaired_v11_claim_pool_recall_at_16": 0.902158273381295,
+      "direct_plus_fallback_recall_at_16": 0.7726618705035971
+    }
+  },
+  "footprints": {
+    "integrated_address_subsystem": {
+      "value_bytes": null,
+      "status": "unavailable",
+      "reason": "Measured components duplicate surface/entity data, use different scopes, and were not serialized in one shared physical layout."
+    },
+    "exact_fst_targeted": {
+      "total_bytes": 1542711,
+      "core_excluding_provenance_bytes": 967765,
+      "dictionary_bytes": 487420,
+      "postings_and_entities_bytes": 478647,
+      "provenance_bytes": 574946,
+      "surfaces": 4867
+    },
+    "fuzzy_title_proxy": {
+      "selected_exact_char_standalone_bytes": 7151500,
+      "exact_char_edit_standalone_bytes": 14765797,
+      "all_channels_standalone_bytes": 15568004,
+      "serialized_all_channels_json_bytes": 15568259,
+      "serialized_all_channels_gzip_bytes": 5553478,
+      "surfaces": 9972
+    },
+    "semantic_static_proxy": {
+      "float32_index_bytes": 5030912,
+      "raw_bq_code_bytes": {
+        "64": 39304,
+        "128": 78608,
+        "256": 157216
+      },
+      "pq_code_bytes": {
+        "8_byte": 39304,
+        "16_byte": 78608
+      },
+      "pq_codebook_bytes": 16384,
+      "int8_index_bytes": 1277380
+    }
+  },
+  "compression_ablations": {
+    "scope": "compression fidelity to an untrained static float title reference",
+    "semantic_accuracy": {
+      "value": null,
+      "status": "unavailable",
+      "reason": "No hyperlink-supervised encoder or correctness labels were available."
+    },
+    "mean_top16_overlap": {
+      "raw_bq": {
+        "64": 0.0546875,
+        "128": 0.08984375,
+        "256": 0.1337890625
+      },
+      "global_fwht_bq_256": 0.3095703125,
+      "prefix_block_fwht_bq": {
+        "64": 0.0810546875,
+        "128": 0.171875,
+        "256": 0.322265625
+      },
+      "pq_adc": {
+        "8_byte_16_centroids": 0.1484375,
+        "16_byte_16_centroids": 0.1796875
+      },
+      "int8_full_vector": 0.982421875
+    },
+    "learned_rotation_bq": {
+      "value": null,
+      "status": "not_run",
+      "reason": "No lawful semantic supervision; unsupervised rotation was not evaluated."
+    },
+    "fst_plus_fuzzy_matched": {
+      "value": null,
+      "status": "not_run",
+      "reason": "No populated shared canonical bundle joined ExactAddressIndex with fuzzy outputs for a matched qualification."
+    },
+    "pq_limitation": "16 centroids per subquantizer, four effective bits; full 256-centroid PQ was not qualified."
+  },
+  "calibration": {
+    "v12_address_distribution": {
+      "nll": null,
+      "brier": null,
+      "ece_10": null,
+      "resolved_ece_10": null,
+      "risk_coverage": null,
+      "status": "not_fitted",
+      "reason": "No lawful mention-aligned development/tuning examples and incomplete generation."
+    },
+    "v11_warning_reference": {
+      "scope": "weak case-level candidate relevance; not P(entity|mention,context)",
+      "nll": 0.46070409703055826,
+      "brier": 0.14581078539952708,
+      "ece_10": 0.11886295313641439
+    }
+  },
+  "p4_projection": {
+    "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+    "integrated_address_subsystem": {
+      "scenarios": {
+        "200_mhz": {
+          "p50_ms": null,
+          "p95_ms": null
+        },
+        "300_mhz": {
+          "p50_ms": null,
+          "p95_ms": null
+        },
+        "400_mhz": {
+          "p50_ms": null,
+          "p95_ms": null
+        }
+      },
+      "status": "unavailable",
+      "reason": "No selected integrated exact/fuzzy/semantic physical layout and cost trace exists."
+    },
+    "fuzzy_exact_char_title_proxy": {
+      "scope": "standalone ideal resident-PSRAM fuzzy title path; no physical external I/O",
+      "evidence_class": "analytical_projection_not_hardware_measurement",
+      "200_mhz": {
+        "p50_ms": 6.958255,
+        "p95_ms": 7.967981000000001
+      },
+      "300_mhz": {
+        "p50_ms": 4.022038333333334,
+        "p95_ms": 4.677822666666667
+      },
+      "400_mhz": {
+        "p50_ms": 2.5570850000000003,
+        "p95_ms": 3.0166279999999994
+      }
+    },
+    "direct_claim_lookup_proxy": {
+      "scope": "downstream exact claim lookup only; address FST/fuzzy/ANN cost absent",
+      "evidence_class": "analytical_projection_not_hardware_measurement",
+      "200_mhz": {
+        "p50_ms": 1.12986,
+        "p95_ms": 29.46259599999998
+      },
+      "300_mhz": {
+        "p50_ms": 0.5755733333333333,
+        "p95_ms": 15.045083999999992
+      },
+      "400_mhz": {
+        "p50_ms": 0.28842999999999996,
+        "p95_ms": 7.526327999999994
+      },
+      "hardware_measurement": null
+    }
+  },
+  "strict_reachability": {
+    "baseline": {
+      "status": "authenticated_evidence_reaggregation_not_fresh_search",
+      "reachable": 324,
+      "eligible": 695,
+      "rate": 0.46618705035971225,
+      "residual": {
+        "SEMANTIC_ADDRESS_GENERATION": 355,
+        "EVIDENCE_RETRIEVAL": 8,
+        "VALUE_AVAILABILITY": 7,
+        "TOOLSET_CONTROLLER": 1
+      }
+    },
+    "v12_rerun": {
+      "value": null,
+      "status": "not_run_gate_closed",
+      "reason": "Address state was not repaired and no integrated v12 candidate state exists."
+    }
+  },
+  "observer": {
+    "contract_implemented": true,
+    "v12_counts": {
+      "mention_missed": null,
+      "candidate_never_generated": null,
+      "pre_cap_candidate_pruned": null,
+      "present_but_misranked": null,
+      "top_ranked_but_rejected": null,
+      "channel_conflict": null,
+      "specialist_error": null,
+      "calibration_gate_error": null,
+      "downstream_failure": null
+    },
+    "status": "unavailable",
+    "reason": "No integrated v12 run emitted observer states."
+  },
+  "factory_next_action": {
+    "action": "FACTORY_ADDRESS_V2_CAPTURE",
+    "handoff": "docs/reproduction/V12_SEMANTIC_ADDRESS_DATA_HANDOFF.md",
+    "required_outputs": [
+      "canonical entity/title registry",
+      "aliases",
+      "redirects",
+      "hyperlink occurrences with copied spans",
+      "split-safe surface statistics with unresolved mass",
+      "pre-cap channel provenance",
+      "development mention alignment",
+      "tuning scoring labels",
+      "manifest with hashes"
+    ],
+    "then": [
+      "compile exact and fuzzy indexes from one canonical registry",
+      "generate complete channel outputs and union before the global cap",
+      "run matched K=1/4/8/16/32 qualification",
+      "fit and calibrate only on lawful development/tuning views",
+      "measure shared-layout bytes and P4 200/300/400",
+      "rerun strict 695 only if address state is repaired"
+    ]
+  },
+  "limitations": [
+    "Scoped proxies are not interchangeable with primary full-corpus metrics.",
+    "Component footprints are not additive because title/entity/posting data are duplicated and scopes differ.",
+    "No evaluation or final-held labels were consumed.",
+    "The negative decision applies to the available substrate, not to a fully populated Semantic Address v2 architecture."
+  ]
+}

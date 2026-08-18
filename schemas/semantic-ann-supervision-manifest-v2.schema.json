@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aethersparse.local/schemas/semantic-ann-supervision-manifest-v2.schema.json",
+  "title": "AetherSparse semantic ANN supervision manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "compiler",
+    "canonical_registry",
+    "occurrences",
+    "compiler_quarantine",
+    "split_roles",
+    "benchmark_partition_controls_source_split",
+    "training_readiness"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aethersparse.semantic-ann-supervision-manifest.v2"
+    },
+    "compiler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_schema",
+        "manifest_sha256",
+        "bundle_id",
+        "source_pack_sha256",
+        "corpus_tier"
+      ],
+      "properties": {
+        "manifest_schema": {
+          "const": "aethersparse.semantic-address-manifest.v2"
+        },
+        "manifest_sha256": { "$ref": "#/$defs/sha256" },
+        "bundle_id": {
+          "type": "string",
+          "pattern": "^as:v2:compiler-bundle:[0-9a-f]{64}$"
+        },
+        "source_pack_sha256": { "$ref": "#/$defs/sha256" },
+        "corpus_tier": { "type": "string", "minLength": 1 }
+      }
+    },
+    "canonical_registry": {
+      "type": "object",
+      "required": ["sha256", "entity_count", "validation"],
+      "properties": {
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "entity_count": { "type": "integer", "minimum": 1 },
+        "validation": { "type": "string", "minLength": 1 }
+      }
+    },
+    "occurrences": {
+      "type": "object",
+      "required": [
+        "count",
+        "resolved_count",
+        "quarantined_unresolved_count",
+        "record_ids_sha256",
+        "source_split_counts",
+        "resolution_counts",
+        "provenance_required"
+      ],
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "resolved_count": { "type": "integer", "minimum": 0 },
+        "quarantined_unresolved_count": { "type": "integer", "minimum": 0 },
+        "record_ids_sha256": { "$ref": "#/$defs/sha256" },
+        "source_split_counts": { "$ref": "#/$defs/counts" },
+        "resolution_counts": { "$ref": "#/$defs/counts" },
+        "provenance_required": { "const": true }
+      }
+    },
+    "compiler_quarantine": {
+      "type": "object",
+      "required": ["record_count", "record_ids_sha256"],
+      "properties": {
+        "record_count": { "type": "integer", "minimum": 0 },
+        "record_ids_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "split_roles": { "$ref": "#/$defs/split_roles" },
+    "benchmark_partition_controls_source_split": { "const": false },
+    "training_readiness": { "type": "object" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "split_roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fit", "calibration", "holdout"],
+      "properties": {
+        "fit": { "type": "string", "minLength": 1 },
+        "calibration": { "type": "string", "minLength": 1 },
+        "holdout": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

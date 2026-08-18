@@ -1,0 +1,489 @@
+{
+  "architecture_id": "aethercore-v12-semantic-address-v2",
+  "architecture_version": "12.0.0-work.1",
+  "modules": [
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": null,
+      "dependencies": [],
+      "inputs": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span"
+      ],
+      "known_failure_clusters": [
+        "ENTITY_BINDING_WRONG",
+        "VALUE_NOT_ENUMERATED"
+      ],
+      "model_hash": "752036b7736e722276f749a8a7981b99eed53c8e70c2b0fe04f43cb2464ec2cd",
+      "module_id": "aethercore.exact-controller",
+      "module_version": "10.0.0",
+      "outputs": [
+        "verified_answer",
+        "clarification",
+        "abstention"
+      ],
+      "parameter_count": 0,
+      "purpose": "Exact micro-operations and deterministic truth invariants",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span",
+        "verification_report"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 136164,
+        "scratch_ram_bytes": 1536
+      },
+      "calibration_artifact": "reports/droid/v11/semantic-address-plane-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "query_frame",
+        "anchor_occurrence_statistics"
+      ],
+      "known_failure_clusters": [
+        "missing_mention_alignment",
+        "missing_pre_cap_candidates",
+        "missing_25k_397k_occurrence_statistics"
+      ],
+      "model_hash": "9f80c42ca35943beef01a65b6badf1407872d9372eb67222111ddbac3f196119",
+      "module_id": "aethercore.semantic-address-plane",
+      "module_version": "11.0.0",
+      "outputs": [
+        "semantic_address_distribution",
+        "bounded_entity_candidates"
+      ],
+      "parameter_count": 0,
+      "purpose": "Preserve bounded occurrence-backed canonical entity-address distributions",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution",
+        "query_frame"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 2376,
+        "macs": 0,
+        "memory_bytes": 1088,
+        "scratch_ram_bytes": 16866
+      },
+      "calibration_artifact": "reports/droid/v11/upstream-reachability.json",
+      "dependencies": [
+        "aethercore.exact-controller",
+        "aethercore.semantic-address-plane"
+      ],
+      "inputs": [
+        "query_frame",
+        "exact_source_span",
+        "structured_claim"
+      ],
+      "known_failure_clusters": [
+        "VALUE_NOT_ENUMERATED",
+        "quotation_without_development_support",
+        "missing_pre_pruning_evidence"
+      ],
+      "model_hash": "b0999b1fc625706b21137fa75c608fb294a50adea568d1e5b6ed878f81a04404",
+      "module_id": "aethercore.value-exact-scan",
+      "module_version": "11.0.0",
+      "outputs": [
+        "typed_value_lattice",
+        "source_bound_claim_hypothesis"
+      ],
+      "parameter_count": 0,
+      "purpose": "Bounded typed value hypotheses copied from retained exact spans",
+      "quantization": "none",
+      "status": "active",
+      "supported_state_types": [
+        "date",
+        "quantity",
+        "comparison",
+        "quotation"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 9,
+        "macs": 9,
+        "memory_bytes": 72,
+        "scratch_ram_bytes": 128
+      },
+      "calibration_artifact": "reports/droid/v11/entity-specialist-baselines.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "bounded_entity_candidates",
+        "retained_candidate_scores"
+      ],
+      "known_failure_clusters": [
+        "correct_entity_not_generated",
+        "missing_mention_alignment",
+        "missing_anchor_occurrence_statistics"
+      ],
+      "model_hash": "2a750a30b5def160c24831dde740deaff22ceef38a76ba96c0f195a7ee88d6b4",
+      "module_id": "aethercore.entity-linear-baseline",
+      "module_version": "11.0.0",
+      "outputs": [
+        "candidate_relevance_probability"
+      ],
+      "parameter_count": 9,
+      "purpose": "Development-fitted candidate relevance calibration baseline",
+      "quantization": "not_qualified",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_candidate"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/workspace-fusion-ablation.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "categorical_belief",
+        "expert_update",
+        "reliability_precision"
+      ],
+      "known_failure_clusters": [
+        "unfitted_reliability",
+        "confident_conflict_detection_incomplete"
+      ],
+      "model_hash": "855e337facb2a2bad9ce0f7a595b121d0da16d9794a66ef3105f358d4c06e449",
+      "module_id": "aethercore.probabilistic-fusion",
+      "module_version": "11.0.0",
+      "outputs": [
+        "posterior_belief",
+        "expert_disagreement"
+      ],
+      "parameter_count": 0,
+      "purpose": "Preserve and fuse specialist uncertainty distributions",
+      "quantization": "not_selected",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_distribution",
+        "relation_distribution",
+        "answer_shape_distribution",
+        "value_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/depth-data-audit.json",
+      "dependencies": [
+        "aethercore.probabilistic-fusion",
+        "aethercore.value-exact-scan"
+      ],
+      "inputs": [
+        "shared_workspace",
+        "pre_outcome_uncertainty",
+        "compute_budget"
+      ],
+      "known_failure_clusters": [
+        "counterfactual_cycle_labels_absent",
+        "workspace_cycle_checkpoints_absent"
+      ],
+      "model_hash": "e8937fd8d794ca5c37fd790326a09793c7b0870c92bbfa5fdc20afe4de637102",
+      "module_id": "aethercore.adaptive-depth",
+      "module_version": "11.0.0",
+      "outputs": [
+        "parallel_specialist_groups",
+        "halt_decision"
+      ],
+      "parameter_count": 0,
+      "purpose": "Bounded specialist routing by expected value of computation",
+      "quantization": "not_trained",
+      "status": "inactive",
+      "supported_state_types": [
+        "shared_workspace",
+        "route_decision"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v11/observer-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "completed_cycle_telemetry",
+        "completed_case_outcome"
+      ],
+      "known_failure_clusters": [
+        "observer_not_enabled",
+        "selected_activation_unavailable"
+      ],
+      "model_hash": "1498ba1ccb27f092bd7ae66b09c7c3f592260528b800bc4c6d18ddd3a86f1e43",
+      "module_id": "aethercore.research-observer",
+      "module_version": "11.0.0",
+      "outputs": [
+        "sampled_telemetry",
+        "route_analysis",
+        "optimization_proposal"
+      ],
+      "parameter_count": 0,
+      "purpose": "Optional training/research telemetry and causal diagnosis",
+      "quantization": "not_applicable",
+      "status": "training_only",
+      "supported_state_types": [
+        "telemetry_record",
+        "counterfactual_record",
+        "architecture_registry"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 1542711,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v12/fst-prior-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "verified_address_bundle",
+        "copied_mention_span"
+      ],
+      "known_failure_clusters": [
+        "full_corpus_bundle_absent",
+        "measured_title_proxy_uses_noncanonical_diagnostic_ids",
+        "runtime_operation_cost_unqualified"
+      ],
+      "model_hash": "2f19b2ef585f4e1fe11e3ed80465f4eb7a705ce775ab7653167f70c3df271187",
+      "module_id": "aethercore.exact-address-fst-v2",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "exact_address_proposals",
+        "unresolved_mass"
+      ],
+      "parameter_count": 0,
+      "purpose": "Immutable canonical surface-to-entity postings with explicit priors",
+      "quantization": "lossless_integer_support_ratio",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 808153,
+        "macs": 0,
+        "memory_bytes": 7151500,
+        "scratch_ram_bytes": 43905
+      },
+      "calibration_artifact": "reports/droid/v12/fuzzy-address-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "verified_address_bundle",
+        "copied_mention_span"
+      ],
+      "known_failure_clusters": [
+        "full_corpus_bundle_absent",
+        "title_proxy_not_mention_aligned",
+        "physical_external_io_unqualified"
+      ],
+      "model_hash": "856c90eb6bb38fe0967424f29d1658e9088459c34238a121e8524c1a2825cac9",
+      "module_id": "aethercore.fuzzy-address-v2",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "fuzzy_address_proposals",
+        "unresolved_mass"
+      ],
+      "parameter_count": 0,
+      "purpose": "Fuzzy-normalized exact and character n-gram address proposals",
+      "quantization": "none",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v12/semantic-encoder-ann-ablation.json",
+      "dependencies": [
+        "aethercore.exact-controller"
+      ],
+      "inputs": [
+        "verified_hyperlink_supervision",
+        "mention_context"
+      ],
+      "known_failure_clusters": [
+        "hyperlink_supervision_absent",
+        "learned_training_not_run",
+        "p4_cost_unqualified"
+      ],
+      "model_hash": "72b8188088a8481b448c96065ba6efa79db68d149a9969d38bc780ddda069e21",
+      "module_id": "aethercore.semantic-ann-v2",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "semantic_address_proposals"
+      ],
+      "parameter_count": 0,
+      "purpose": "Contextual semantic address proposals from hyperlink supervision",
+      "quantization": "not_selected",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v12/address-fusion-qualification.json",
+      "dependencies": [
+        "aethercore.exact-address-fst-v2",
+        "aethercore.fuzzy-address-v2",
+        "aethercore.semantic-ann-v2"
+      ],
+      "inputs": [
+        "exact_address_proposals",
+        "fuzzy_address_proposals",
+        "semantic_address_proposals"
+      ],
+      "known_failure_clusters": [
+        "integrated_mention_alignment_absent",
+        "verified_pre_cap_channel_capture_absent",
+        "address_calibration_not_fitted"
+      ],
+      "model_hash": "bc6bdd35d55e64851cdec35aae5abc1e386403705512dc89ca5c2e4492b11819",
+      "module_id": "aethercore.semantic-address-plane-v2",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "semantic_address_distribution",
+        "bounded_entity_candidates"
+      ],
+      "parameter_count": 0,
+      "purpose": "Canonical union-before-cap and calibrated entity/unresolved belief",
+      "quantization": "none",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_mention",
+        "entity_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 0,
+        "macs": 0,
+        "memory_bytes": 0,
+        "scratch_ram_bytes": 0
+      },
+      "calibration_artifact": "reports/droid/v12/address-fusion-qualification.json",
+      "dependencies": [
+        "aethercore.semantic-address-plane-v2"
+      ],
+      "inputs": [
+        "semantic_address_distribution",
+        "mention_context"
+      ],
+      "known_failure_clusters": [
+        "candidate_generation_gate_closed",
+        "zero_lawful_training_examples",
+        "successive_halving_not_run"
+      ],
+      "model_hash": "bc6bdd35d55e64851cdec35aae5abc1e386403705512dc89ca5c2e4492b11819",
+      "module_id": "aethercore.contextual-address-specialist-v2",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "specialist_entity_update"
+      ],
+      "parameter_count": 0,
+      "purpose": "Resolve ambiguity only after candidate-generation readiness",
+      "quantization": "not_trained",
+      "status": "inactive",
+      "supported_state_types": [
+        "entity_distribution"
+      ]
+    },
+    {
+      "activation_cost": {
+        "integer_ops": 6813,
+        "macs": 0,
+        "memory_bytes": 172032,
+        "scratch_ram_bytes": 6144
+      },
+      "calibration_artifact": "reports/droid/v12/claim-address-p4-qualification.json",
+      "dependencies": [
+        "aethercore.exact-controller",
+        "aethercore.semantic-address-plane-v2"
+      ],
+      "inputs": [
+        "canonical_entity_id",
+        "relation_address",
+        "typed_answer_shape",
+        "exact_source_region"
+      ],
+      "known_failure_clusters": [
+        "address_union_not_qualified",
+        "direct_recall_below_repaired_v11_claim_pool",
+        "nominal_p95_above_target_under_v11_reference_assumptions"
+      ],
+      "model_hash": "5767f2b93defe990d49f9af73c945009f0620600167de188ece644209b37df23",
+      "module_id": "aethercore.claim-address-direct",
+      "module_version": "12.0.0-work.1",
+      "outputs": [
+        "bounded_source_bound_claims",
+        "typed_value_lattice"
+      ],
+      "parameter_count": 0,
+      "purpose": "Exact bounded entity-relation-type claim and source-region lookup",
+      "quantization": "none",
+      "status": "inactive",
+      "supported_state_types": [
+        "query_frame",
+        "structured_claim",
+        "exact_source_span",
+        "typed_value_lattice"
+      ]
+    }
+  ],
+  "registry_sha256": "bca5744ca0e98e84d106ecdf5bce8af19638f2c2ae449ed53ed0c5d7614af554",
+  "schema_version": "aethercore.architecture-registry.v1"
+}

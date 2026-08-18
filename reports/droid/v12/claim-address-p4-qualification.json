@@ -1,0 +1,442 @@
+{
+  "ablations_not_run": {
+    "offline_sparse_expansion": "no lawful full pack or expansion index in Work",
+    "whole_passage_ann_fallback": "no lawful full passage ANN index in Work"
+  },
+  "address_resolution": {
+    "fallback_activations": 420,
+    "nonempty": 361,
+    "unresolved_entity": 120,
+    "unresolved_relation": 82
+  },
+  "base_commit": "a7dcb187a985164648549eb18f67a7a6a4a964c6",
+  "blind_verifier": {
+    "passes": 266,
+    "posthoc_canonical_correct": 23
+  },
+  "candidate_counts": {
+    "baseline_records": {
+      "max": 64.0,
+      "mean": 33.946762589928056,
+      "p50": 32.0,
+      "p95": 64.0
+    },
+    "direct_records": {
+      "max": 32.0,
+      "mean": 9.933812949640288,
+      "p50": 2.0,
+      "p95": 32.0
+    },
+    "typed_lattice_records": {
+      "max": 32.0,
+      "mean": 9.361151079136691,
+      "p50": 1.0,
+      "p95": 32.0
+    }
+  },
+  "case_count": 695,
+  "decision": "DIRECT_CLAIM_ADDRESS_INFRASTRUCTURE_QUALIFIED_RETRIEVAL_NOT_QUALIFIED",
+  "formula_derived_analytical_cost": {
+    "active_parameters": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "bq_payload_bytes_read": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "cache_model": "deduplicate selected exact spans by span_id within each query; no cross-query source cache credit",
+    "candidates_after_address_pre_cap": {
+      "max": 64.0,
+      "mean": 13.142446043165467,
+      "p50": 2.0,
+      "p95": 64.0
+    },
+    "candidates_after_cap": {
+      "max": 32.0,
+      "mean": 9.933812949640288,
+      "p50": 2.0,
+      "p95": 32.0
+    },
+    "candidates_before_address": {
+      "max": 64.0,
+      "mean": 33.946762589928056,
+      "p50": 32.0,
+      "p95": 64.0
+    },
+    "centroid_payload_bytes_read": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "deduplicated_source_region_payload_bytes_read": {
+      "max": 3123.0,
+      "mean": 406.47194244604316,
+      "p50": 32.0,
+      "p95": 1400.999999999995
+    },
+    "directory_accounting": "query-key bytes processed are reported; serialized directory bytes are not represented by this replay proxy",
+    "evidence_class": "formula_derived_analytical_proxy_not_runtime_counters",
+    "external_page_aligned_transfer_bytes": {
+      "max": 131072.0,
+      "mean": 34683.39568345324,
+      "p50": 4096.0,
+      "p95": 126976.0
+    },
+    "external_random_4kb_page_reads": {
+      "max": 32.0,
+      "mean": 8.467625899280575,
+      "p50": 1.0,
+      "p95": 31.0
+    },
+    "external_sequential_4kb_page_reads": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "formula_derived_integer_operations": {
+      "max": 6813.0,
+      "mean": 1544.728057553957,
+      "p50": 474.0,
+      "p95": 6042.0
+    },
+    "fst_payload_bytes_read": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "int8_payload_bytes_read": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "internal_sram_dma_peak_bytes": {
+      "max": 6144.0,
+      "mean": 2886.3539568345323,
+      "p50": 4224.0,
+      "p95": 6144.0
+    },
+    "model_bytes": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "neural_macs": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "operation_formula": "4*query_key_bytes + 8*eligible_pre_cap_records + 12*(n*ceil(log2(n))) + deduplicated_source_payload_bytes",
+    "page_bytes": 4096,
+    "page_formula": "each nonempty posting or selected deduplicated source region begins with one random page; only pages after its first are sequential",
+    "physical_layout": "psram_postings_external_source_regions_v1",
+    "posting_payload_bytes_read": {
+      "max": 27730.0,
+      "mean": 5637.591366906475,
+      "p50": 858.0,
+      "p95": 27007.0
+    },
+    "pq_payload_bytes_read": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "psram_page_aligned_transfer_bytes": {
+      "max": 53248.0,
+      "mean": 7920.897841726619,
+      "p50": 4096.0,
+      "p95": 32768.0
+    },
+    "psram_peak_known_allocation_bytes": {
+      "max": 27730.0,
+      "mean": 14601.364028776978,
+      "p50": 14005.0,
+      "p95": 27447.8
+    },
+    "psram_random_4kb_page_reads": {
+      "max": 10.0,
+      "mean": 1.0546762589928058,
+      "p50": 1.0,
+      "p95": 5.0
+    },
+    "psram_resident_query_local_posting_bytes": {
+      "max": 27730.0,
+      "mean": 14601.364028776978,
+      "p50": 14005.0,
+      "p95": 27447.8
+    },
+    "psram_sequential_4kb_page_reads": {
+      "max": 6.0,
+      "mean": 0.879136690647482,
+      "p50": 0.0,
+      "p95": 5.0
+    },
+    "query_key_bytes_processed": {
+      "max": 175.0,
+      "mean": 45.08057553956834,
+      "p50": 49.0,
+      "p95": 102.0
+    },
+    "random_4kb_page_reads": {
+      "max": 38.0,
+      "mean": 9.522302158273382,
+      "p50": 2.0,
+      "p95": 32.299999999999955
+    },
+    "sequential_4kb_page_reads": {
+      "max": 6.0,
+      "mean": 0.879136690647482,
+      "p50": 0.0,
+      "p95": 5.0
+    },
+    "serialized_directory_bytes_read": null,
+    "simd_operations": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    },
+    "sram_formula": "one reusable page buffer when any page is read, else 256 bytes, + 64 bytes per selected record",
+    "total_page_aligned_transfer_bytes": {
+      "max": 172032.0,
+      "mean": 42604.293525179855,
+      "p50": 8192.0,
+      "p95": 151552.0
+    },
+    "transfer_accounting": "page_aligned_physical_bytes_not_logical_payload_bytes",
+    "xor_popcount_operations": {
+      "max": 0.0,
+      "mean": 0.0,
+      "p50": 0.0,
+      "p95": 0.0
+    }
+  },
+  "host_measurement": {
+    "evidence_class": "measured_work_host_not_p4",
+    "index_build_ms": {
+      "max": 2.891959,
+      "mean": 0.7299806489208633,
+      "p50": 0.658089,
+      "p95": 1.3716321
+    },
+    "lookup_ms": {
+      "max": 2.375039,
+      "mean": 0.05334948920863309,
+      "p50": 0.033189,
+      "p95": 0.11019869999999996
+    }
+  },
+  "limitations": [
+    "Retained replay claims include evidence-oracle state.",
+    "The comparator is the repaired v11 claim pool over retained FTS/BM25-selected evidence, not raw FTS/BM25 or a fresh pack rerun.",
+    "Query-local posting bytes exclude the serialized directory and are not a full-corpus claim-index or full address-subsystem footprint.",
+    "External-storage values reuse the v11 reference model and are not eMMC figures.",
+    "No S600/full-corpus battery, evaluation, final-held, training, or ANN run occurred."
+  ],
+  "p4_projection": {
+    "actual_p4_hardware_measurement": null,
+    "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+    "scenarios": {
+      "conservative_200mhz": {
+        "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+        "clock_mhz": 200,
+        "compute_ms": {
+          "max": 0.034065,
+          "mean": 0.007723640287769785,
+          "p50": 0.00237,
+          "p95": 0.03021
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "external_storage_bandwidth_mb_s": 5.0,
+        "external_storage_random_access_us": 100.0,
+        "external_storage_scope": "v11_parameterized_reference; not an eMMC specification",
+        "external_storage_transfer_ms": {
+          "max": 26.214399999999998,
+          "mean": 6.936679136690648,
+          "p50": 0.8191999999999999,
+          "p95": 25.3952
+        },
+        "projected_latency_ms": {
+          "max": 31.508239999999997,
+          "mean": 8.189319611510792,
+          "p50": 1.12986,
+          "p95": 29.46259599999998
+        },
+        "psram_transfer_ms": {
+          "max": 2.6624,
+          "mean": 0.3960448920863309,
+          "p50": 0.20479999999999998,
+          "p95": 1.6383999999999999
+        },
+        "random_access_ms": {
+          "max": 3.212,
+          "mean": 0.8488719424460431,
+          "p50": 0.10200000000000001,
+          "p95": 3.102
+        }
+      },
+      "nominal_300mhz": {
+        "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+        "clock_mhz": 300,
+        "compute_ms": {
+          "max": 0.02271,
+          "mean": 0.005149093525179856,
+          "p50": 0.00158,
+          "p95": 0.02014
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "external_storage_bandwidth_mb_s": 10.0,
+        "external_storage_random_access_us": 60.0,
+        "external_storage_scope": "v11_parameterized_reference; not an eMMC specification",
+        "external_storage_transfer_ms": {
+          "max": 13.107199999999999,
+          "mean": 3.468339568345324,
+          "p50": 0.40959999999999996,
+          "p95": 12.6976
+        },
+        "projected_latency_ms": {
+          "max": 16.079759999999997,
+          "mean": 4.180623338129496,
+          "p50": 0.5755733333333333,
+          "p95": 15.045083999999992
+        },
+        "psram_transfer_ms": {
+          "max": 1.3312,
+          "mean": 0.19802244604316546,
+          "p50": 0.10239999999999999,
+          "p95": 0.8191999999999999
+        },
+        "random_access_ms": {
+          "max": 1.926,
+          "mean": 0.5091122302158273,
+          "p50": 0.061,
+          "p95": 1.8609999999999998
+        }
+      },
+      "optimistic_plausible_400mhz": {
+        "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+        "clock_mhz": 400,
+        "compute_ms": {
+          "max": 0.0170325,
+          "mean": 0.0038618201438848925,
+          "p50": 0.001185,
+          "p95": 0.015105
+        },
+        "evidence_class": "analytical_projection_not_hardware_measurement",
+        "external_storage_bandwidth_mb_s": 20.0,
+        "external_storage_random_access_us": 30.0,
+        "external_storage_scope": "v11_parameterized_reference; not an eMMC specification",
+        "external_storage_transfer_ms": {
+          "max": 6.553599999999999,
+          "mean": 1.734169784172662,
+          "p50": 0.20479999999999998,
+          "p95": 6.3488
+        },
+        "projected_latency_ms": {
+          "max": 8.04552,
+          "mean": 2.0915989424460433,
+          "p50": 0.28842999999999996,
+          "p95": 7.526327999999994
+        },
+        "psram_transfer_ms": {
+          "max": 0.6656,
+          "mean": 0.09901122302158273,
+          "p50": 0.051199999999999996,
+          "p95": 0.40959999999999996
+        },
+        "random_access_ms": {
+          "max": 0.963,
+          "mean": 0.25455611510791365,
+          "p50": 0.0305,
+          "p95": 0.9304999999999999
+        }
+      }
+    }
+  },
+  "pareto": [
+    {
+      "cost_status": "formula_derived_and_analytically_projected",
+      "nominal_p95_ms": 15.045083999999992,
+      "recall_at_16": 0.25323741007194245,
+      "system": "direct_entity_relation_type_address"
+    },
+    {
+      "cost_status": "not identifiable: replay omits FTS postings and unselected chunk bytes",
+      "nominal_p95_ms": null,
+      "recall_at_16": 0.902158273381295,
+      "system": "repaired_v11_claim_pool_over_retained_fts_bm25_selected_evidence"
+    },
+    {
+      "cost_status": "fallback retrieval cost not identifiable from replay",
+      "nominal_p95_ms": null,
+      "recall_at_16": 0.7726618705035971,
+      "system": "direct_then_unresolved_fts_bm25_fallback"
+    }
+  ],
+  "recall": {
+    "direct_entity_relation_type_address": {
+      "recall_at_1": 0.02877697841726619,
+      "recall_at_16": 0.25323741007194245,
+      "recall_at_32": 0.3122302158273381,
+      "recall_at_4": 0.10359712230215827,
+      "recall_at_8": 0.2
+    },
+    "direct_then_unresolved_fts_bm25_fallback": {
+      "recall_at_1": 0.15683453237410072,
+      "recall_at_16": 0.7726618705035971,
+      "recall_at_32": 0.837410071942446,
+      "recall_at_4": 0.46474820143884893,
+      "recall_at_8": 0.6474820143884892
+    },
+    "repaired_v11_claim_pool_over_retained_fts_bm25_selected_evidence": {
+      "recall_at_1": 0.2460431654676259,
+      "recall_at_16": 0.902158273381295,
+      "recall_at_32": 0.9266187050359712,
+      "recall_at_4": 0.6647482014388489,
+      "recall_at_8": 0.8043165467625899
+    }
+  },
+  "reproducibility": {
+    "deterministic_fields": "all fields except host_measurement",
+    "nondeterministic_fields": [
+      "host_measurement.index_build_ms",
+      "host_measurement.lookup_ms"
+    ],
+    "reason": "empirical Work-host timing varies between runs"
+  },
+  "schema_version": "aethersparse.v12-claim-address-p4-qualification.v2",
+  "scope": {
+    "accepted_answers_used_posthoc_metrics_only": true,
+    "claim": "selection over retained source-bound replay evidence, not pack retrieval",
+    "cohort": "unchanged Mission 5 695 development/tuning failures",
+    "constructor_gold_consumed": false,
+    "evaluation_final_held_consumed": false,
+    "partitions": {
+      "development": 294,
+      "tuning": 401
+    },
+    "replay_evidence_is_oracle_contaminated": true,
+    "tiers": {
+      "10k": 196,
+      "25k": 234,
+      "397k": 265
+    }
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "cohort_report_sha256": "b72d353d9b1888799e37d37af7ec7399736fab34f5f3cea28f0ead79fb5263e3",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  },
+  "status": "COMPLETE_POST_RETRIEVAL_SELECTION_ABLATION"
+}

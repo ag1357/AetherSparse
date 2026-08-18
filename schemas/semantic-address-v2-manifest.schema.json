@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ag1357/AetherSparse/schemas/semantic-address-v2-manifest.schema.json",
+  "title": "AetherSparse Semantic Address Plane v2 manifest",
+  "type": "object",
+  "required": ["schema_version", "source_pack_sha256", "source_pack_bytes", "corpus_tier", "sqlite_user_version", "split_policy", "counts", "views", "streams"],
+  "properties": {
+    "schema_version": {"const": "aethersparse.semantic-address-manifest.v2"},
+    "source_pack_sha256": {"$ref": "#/$defs/sha256"},
+    "source_pack_bytes": {"type": "integer", "minimum": 1},
+    "corpus_tier": {"type": "string", "minLength": 1},
+    "sqlite_user_version": {"const": 500},
+    "split_policy": {
+      "type": "object",
+      "required": ["unit", "hash", "fit_buckets", "calibration_buckets", "holdout_buckets", "benchmark_partitions_used"],
+      "properties": {
+        "unit": {"const": "source_document_id"},
+        "hash": {"const": "sha256-first-32-bits-mod-100"},
+        "fit_buckets": {"const": "0-79"},
+        "calibration_buckets": {"const": "80-89"},
+        "holdout_buckets": {"const": "90-99"},
+        "benchmark_partitions_used": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "views": {
+      "type": "object",
+      "required": ["source_split_occurrences", "support_bins", "entropy_bins", "unseen_holdout_surfaces", "surface_statistics"],
+      "properties": {
+        "source_split_occurrences": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "support_bins": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "entropy_bins": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "unseen_holdout_surfaces": {"type": "integer", "minimum": 0},
+        "surface_statistics": {
+          "type": "object",
+          "required": ["fit", "fit+calibration", "all"],
+          "properties": {
+            "fit": {"$ref": "#/$defs/fitView"},
+            "fit+calibration": {"$ref": "#/$defs/calibrationView"},
+            "all": {"$ref": "#/$defs/allView"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "streams": {
+      "type": "object",
+      "required": ["entities", "aliases", "redirects", "occurrences", "surface_statistics", "quarantine"],
+      "properties": {
+        "entities": {"$ref": "#/$defs/stream"},
+        "aliases": {"$ref": "#/$defs/stream"},
+        "redirects": {"$ref": "#/$defs/stream"},
+        "occurrences": {"$ref": "#/$defs/stream"},
+        "surface_statistics": {"$ref": "#/$defs/stream"},
+        "quarantine": {"$ref": "#/$defs/stream"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "stream": {
+      "type": "object",
+      "required": ["file", "compressed_bytes", "gzip_sha256", "jsonl_bytes", "jsonl_sha256", "rows"],
+      "properties": {
+        "file": {"type": "string", "minLength": 1},
+        "compressed_bytes": {"type": "integer", "minimum": 20},
+        "gzip_sha256": {"$ref": "#/$defs/sha256"},
+        "jsonl_bytes": {"type": "integer", "minimum": 0},
+        "jsonl_sha256": {"$ref": "#/$defs/sha256"},
+        "rows": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "fitView": {"type": "object", "required": ["included_source_splits", "usage", "rows"], "properties": {"included_source_splits": {"const": ["fit"]}, "usage": {"const": "fit_and_selection"}, "rows": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "calibrationView": {"type": "object", "required": ["included_source_splits", "usage", "rows"], "properties": {"included_source_splits": {"const": ["fit", "calibration"]}, "usage": {"const": "holdout_qualification_only"}, "rows": {"type": "integer", "minimum": 0}}, "additionalProperties": false},
+    "allView": {"type": "object", "required": ["included_source_splits", "usage", "rows"], "properties": {"included_source_splits": {"const": ["fit", "calibration", "holdout"]}, "usage": {"const": "descriptive_only"}, "rows": {"type": "integer", "minimum": 0}}, "additionalProperties": false}
+  }
+}

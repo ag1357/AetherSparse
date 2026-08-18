@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aethersparse.local/schemas/semantic-ann-index-manifest-v2.schema.json",
+  "title": "AetherSparse semantic ANN index manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "supervision_manifest_sha256",
+    "compiler_bundle_id",
+    "canonical_registry_sha256",
+    "entity_count",
+    "encoder_artifact_sha256",
+    "index_artifact_sha256",
+    "representation_dimensions",
+    "source_split_roles",
+    "benchmark_partition_controls_training",
+    "canonical_registry_authoritative",
+    "ann_codes_authoritative",
+    "training_readiness"
+  ],
+  "properties": {
+    "schema_version": { "const": "aethersparse.semantic-ann-index-manifest.v2" },
+    "status": {
+      "enum": [
+        "NOT_BUILT_TRAINING_READINESS_GATE",
+        "NOT_BUILT_NO_ARTIFACT",
+        "BUILT"
+      ]
+    },
+    "supervision_manifest_sha256": { "$ref": "#/$defs/sha256" },
+    "compiler_bundle_id": {
+      "type": "string",
+      "pattern": "^as:v2:compiler-bundle:[0-9a-f]{64}$"
+    },
+    "canonical_registry_sha256": { "$ref": "#/$defs/sha256" },
+    "entity_count": { "type": "integer", "minimum": 1 },
+    "encoder_artifact_sha256": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "index_artifact_sha256": {
+      "oneOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }]
+    },
+    "representation_dimensions": {
+      "const": [64, 128, 256]
+    },
+    "source_split_roles": { "$ref": "#/$defs/split_roles" },
+    "benchmark_partition_controls_training": { "const": false },
+    "canonical_registry_authoritative": { "const": true },
+    "ann_codes_authoritative": { "const": false },
+    "training_readiness": { "type": "object" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "split_roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fit", "calibration", "holdout"],
+      "properties": {
+        "fit": { "type": "string", "minLength": 1 },
+        "calibration": { "type": "string", "minLength": 1 },
+        "holdout": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

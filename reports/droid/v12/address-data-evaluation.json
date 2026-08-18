@@ -1,0 +1,159 @@
+{
+  "available_address_data": {
+    "explicit_mention_alignment_present": false,
+    "occurrence_level_10k_payload_present": false,
+    "occurrence_level_25k_payload_present": false,
+    "occurrence_level_397k_payload_present": false,
+    "pre_cap_candidate_provenance_present": false,
+    "v11_10k_aggregate_rows": 345,
+    "v11_10k_covered_surfaces": 126,
+    "v11_10k_occurrences": 6112
+  },
+  "candidate_diagnostic": {
+    "candidate_payloads_from_sealed_partitions_parsed": false,
+    "partition_counts_metadata_only": {
+      "development": 271,
+      "evaluation": 1019,
+      "final_held": 346,
+      "tuning": 414
+    },
+    "pre_cap_provenance_available": false,
+    "rows": 2050,
+    "sha256": "8dfb6c9a723a66d9dfd7d24a102a719a87b590a457fc1bab505cced771d57158",
+    "unavailable_fields": {
+      "alias_candidates": "unavailable: alias-channel candidates are not identified in the v09 cache schema",
+      "channel_provenance": "unavailable: v09 cache pool entries carry no retrieval-channel field (lexical/alias/semantic origin not recorded)",
+      "pre_cap_candidates": "unavailable: the v09 cache retains the post-cap candidate pool only (pool=70, candidate_limit=96); pre-cap retrieval sets were never persisted",
+      "redirect_alias_resolution": "unavailable: redirect/alias resolution records are not persisted in the v09 cache",
+      "semantic_candidates": "unavailable: no semantic sidecar exists for the 397k pack and no semantic candidate list was cached"
+    }
+  },
+  "decision": "FACTORY_ADDRESS_V2_CAPTURE_REQUIRED",
+  "partition_policy": {
+    "evaluation_final_labels_used_for_design_fitting_calibration": false,
+    "sealed_partitions": [
+      "evaluation",
+      "final_held"
+    ],
+    "sealed_rows_in_qualification": 0,
+    "training_partitions": [
+      "development",
+      "tuning"
+    ]
+  },
+  "replay": {
+    "cases": 6150,
+    "decisions": 54477,
+    "partition_counts": {
+      "development": 813,
+      "evaluation": 3057,
+      "final_held": 1038,
+      "tuning": 1242
+    },
+    "tier_counts": {
+      "10k": 2050,
+      "25k": 2050,
+      "397k": 2050
+    }
+  },
+  "reproduction_scope": {
+    "authenticated_replay_verified": true,
+    "fresh_search_rerun": false,
+    "independent_per_case_reaggregation": true,
+    "reason": "private v11 occurrence/value inputs are not present in Work"
+  },
+  "schema_version": "aethersparse.semantic-address-v2-data-audit.v1",
+  "semantic_address_v2_compiler": {
+        "ambiguous_alignment_quarantined": true,
+        "canonical_registry_strict": true,
+        "closed_manifest_schema": "schemas/semantic-address-v2-manifest.schema.json",
+        "closed_record_schema": true,
+        "deterministic_content_addressed_streams": true,
+    "development_labels_separate": true,
+    "factory_handoff": "docs/reproduction/V12_SEMANTIC_ADDRESS_DATA_HANDOFF.md",
+        "occurrence_export_streaming": true,
+        "exact_fst_adapter": {
+            "bundle_manifest_bound": true,
+            "canonical_pair_verified": true,
+            "preserves_source_documents_support_diversity_and_provenance": true,
+            "unresolved_anchors_preserved": true
+        },
+        "pre_cap_channels": [
+      "alias",
+      "anchor",
+      "redirect",
+      "title"
+        ],
+        "pre_cap_score_contract": {
+            "bounded_channel_score": true,
+            "raw_score_separate": true,
+            "source_provenance_ids": true
+        },
+        "runtime_features_exclude_labels": true,
+    "sealed_partitions_rejected": true,
+        "source_document_holdout": true,
+    "source_mode": "sqlite mode=ro&immutable=1",
+    "source_schema": "schemas/semantic-address-v2.schema.json",
+        "surface_aggregation_disk_backed": true,
+        "surface_statistics_views": {
+            "all": {
+                "included_source_splits": [
+                    "fit",
+                    "calibration",
+                    "holdout"
+                ],
+                "usage": "descriptive_only"
+            },
+            "fit": {
+                "included_source_splits": [
+                    "fit"
+                ],
+                "usage": "fit_and_selection"
+            },
+            "fit+calibration": {
+                "included_source_splits": [
+                    "fit",
+                    "calibration"
+                ],
+                "usage": "holdout_qualification_only"
+            }
+        },
+        "surface_statistics_recomputed_per_view": [
+            "support",
+            "source_document_count",
+            "source_diversity",
+            "probability",
+            "entropy",
+            "unresolved_probability_mass"
+        ],
+        "tuning_scoring_labels_separate": true
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_report_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246",
+    "replay_cases_sha256": "1254196c179a8d87b9ce6c8301d4873fe1ddf836364a8e03e5b75b9b10c113aa",
+    "upstream_report_sha256": "b72d353d9b1888799e37d37af7ec7399736fab34f5f3cea28f0ead79fb5263e3"
+  },
+  "status": "STRICT_BASELINE_EVIDENCE_REPRODUCED",
+  "strict_baseline": {
+    "eligible": 695,
+    "old_failure_classes": {
+      "ENTITY_BINDING_WRONG": 346,
+      "TOOLSET_REACHABLE": 260,
+      "VALUE_NOT_ENUMERATED": 89
+    },
+    "partition_counts": {
+      "development": 294,
+      "tuning": 401
+    },
+    "reachability": 0.46618705035971225,
+    "reachable": 324,
+    "residual": {
+      "EVIDENCE_RETRIEVAL": 8,
+      "SEMANTIC_ADDRESS_GENERATION": 355,
+      "TOOLSET_CONTROLLER": 1,
+      "VALUE_AVAILABILITY": 7
+    }
+  }
+}
