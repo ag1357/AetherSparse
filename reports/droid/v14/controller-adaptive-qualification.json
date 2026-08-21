@@ -1,0 +1,267 @@
+{
+  "capacity_decision": {
+    "ladder_above_same_scale_run": false,
+    "reason": "same-scale explicit obligation/claim contrast reached the strong V14 target; a parameter increase would not be the shortest justified experiment"
+  },
+  "dagger_roll_in": {
+    "autonomous_rollout": {
+      "average_legal_candidate_scores": 156.34230769230768,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9,
+          "reachable_evaluated": 110,
+          "successful": 99
+        },
+        "tuning": {
+          "rate": 0.88,
+          "reachable_evaluated": 150,
+          "successful": 132
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 29
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 206,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.8884615384615384,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 231,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 29
+    },
+    "candidate_tuning_success": {
+      "16": 124,
+      "24": 122,
+      "32": 128,
+      "8": 132
+    },
+    "certified_distinct_roll_in_states": 243,
+    "development_policy_divergences": 81,
+    "perturbation_operations": [
+      33,
+      34,
+      35
+    ],
+    "poisoned_post_selection_states_labeled": 0,
+    "rejected_uncertified_perturbations": 0,
+    "selected_epochs": 8,
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9679144385026738,
+        "correct": 543,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9609375,
+        "correct": 738,
+        "decisions": 768
+      }
+    },
+    "tuning_or_sealed_labels_used": 0
+  },
+  "leakage_controls": {
+    "accepted_answer_or_target_identity_features": false,
+    "fit_partitions": [
+      "development"
+    ],
+    "selection_partition": "tuning",
+    "synthetic_span_identifier_features": false,
+    "world_facts_in_weights": false
+  },
+  "policy": {
+    "activation_representation": "signed fixed-point integer / 256",
+    "architecture": "COG-derived typed-legal-mask structured perceptron",
+    "feature_count": 38,
+    "macs_per_candidate_action": 38,
+    "macs_per_full_operation_table": 1292,
+    "operation_count": 34,
+    "parameter_bytes": 1292,
+    "parameter_count": 1292,
+    "roll_in_examples": 0,
+    "selected_epochs": 24,
+    "selected_training_algorithm": "cog_structured_perceptron",
+    "serialized_model_bytes": 3885,
+    "serialized_model_sha256": "987d28fc667044bedaabea5f63771f90d718bbe650303f058924f0bd8afaa2f1",
+    "weight_representation": "int8"
+  },
+  "same_scale_structural_repair": {
+    "autonomous_rollout": {
+      "average_legal_candidate_scores": 156.26153846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9181818181818182,
+          "reachable_evaluated": 110,
+          "successful": 101
+        },
+        "tuning": {
+          "rate": 0.92,
+          "reachable_evaluated": 150,
+          "successful": 138
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 21
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9192307692307692,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 239,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 21
+    },
+    "candidate_tuning_success": {
+      "16": 133,
+      "24": 138,
+      "32": 132,
+      "8": 137
+    },
+    "selected_epochs": 24,
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9732620320855615,
+        "correct": 546,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9674479166666666,
+        "correct": 743,
+        "decisions": 768
+      }
+    }
+  },
+  "schema_version": "aethercore.v14-controller-qualification.v1",
+  "scope": {
+    "coverage_limitation": "The 260 authenticated Mission-5 per-case witnesses are reproduced exactly; V12 retained only an aggregate 572 certificate, so no missing identities are inferred.",
+    "development_reachable": 110,
+    "published_v12_reachable_ceiling": 572,
+    "reproduced_reachable": 260,
+    "sealed_partitions_loaded_or_used": 0,
+    "strict_all_states": 695,
+    "unseen_tuning_reachable": 150,
+    "v13_exact_parent": "7ddce4152f85eff78ba8d14a73d59e1d53ecc4ee"
+  },
+  "selected_int8": {
+    "autonomous_rollout": {
+      "average_legal_candidate_scores": 156.26153846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9454545454545454,
+          "reachable_evaluated": 110,
+          "successful": 104
+        },
+        "tuning": {
+          "rate": 0.92,
+          "reachable_evaluated": 150,
+          "successful": 138
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 18
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9307692307692308,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 242,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 18
+    },
+    "float_autonomous_selection_key": [
+      138,
+      239
+    ],
+    "int8_autonomous_selection_key": [
+      138,
+      242
+    ],
+    "quantization_retained_or_improved_autonomous_score": true,
+    "residual_decomposition": {
+      "by_answer_shape": {
+        "date": 11,
+        "definition": 1,
+        "quotation": 6
+      },
+      "by_category": {
+        "date": 11,
+        "misspelling": 1,
+        "quotation": 6
+      },
+      "by_corpus_tier": {
+        "10k": 6,
+        "25k": 5,
+        "397k": 7
+      },
+      "count": 18,
+      "measured_bottleneck": "Remaining errors are concentrated in multiple date/quotation surfaces inside the same grounded passage; they require finer local context-to-relation contrast, not a larger controller or a new semantic address."
+    },
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9786096256684492,
+        "correct": 549,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9674479166666666,
+        "correct": 743,
+        "decisions": 768
+      }
+    }
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  },
+  "status": "QUALIFIED_INT8_ADAPTIVE_CONTROLLER",
+  "v13_reproduced_baseline": {
+    "average_legal_candidate_scores": 156.26153846153846,
+    "average_operations": 5.111538461538461,
+    "by_partition": {
+      "development": {
+        "rate": 0.2636363636363636,
+        "reachable_evaluated": 110,
+        "successful": 29
+      },
+      "tuning": {
+        "rate": 0.4266666666666667,
+        "reachable_evaluated": 150,
+        "successful": 64
+      }
+    },
+    "failure_taxonomy": {
+      "WRONG_GROUNDED_ANSWER": 167
+    },
+    "invalid_action_attempts": 0,
+    "maximum_legal_candidate_scores": 204,
+    "p95_legal_candidate_scores": 201.0,
+    "p95_operations": 5.0,
+    "premature_halt": 0,
+    "rate": 0.3576923076923077,
+    "reachable_evaluated": 260,
+    "runaway_max_depth": 0,
+    "successful": 93,
+    "verifier_rejections": 0,
+    "wrong_grounded_claim_residual": 167
+  },
+  "verifier_contract": {
+    "bypass": false,
+    "legal_action_mask_enforced_before_every_transition": true,
+    "success_requires_exact_verifier_and_canonical_answer": true
+  }
+}

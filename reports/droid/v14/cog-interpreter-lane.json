@@ -1,0 +1,82 @@
+{
+  "schema": "aethercore.v14.cog-interpreter-lane.v1",
+  "status": "PASS",
+  "cog": {
+    "schema": "aethercore.cog.v1",
+    "authoritative_state": [
+      "goals",
+      "obligations",
+      "invariants",
+      "hypotheses",
+      "evidence",
+      "unresolved",
+      "frontier",
+      "observed_state"
+    ],
+    "bounds": {
+      "goals": 8,
+      "obligations": 48,
+      "invariants": 16,
+      "hypotheses": 16,
+      "evidence": 64,
+      "unresolved": 32,
+      "frontier": 32,
+      "observed_state": 16
+    },
+    "compact_controller_view": {
+      "integer_fields": 19,
+      "packed_u16_bytes": 38
+    },
+    "representative_canonical_json_bytes": {
+      "direct_qa": 4120,
+      "ambiguous_qa": 5213,
+      "resolved_followup": 3871,
+      "actuator_anomaly": 4045
+    }
+  },
+  "interpreter": {
+    "input_types": [
+      "NATURAL_LANGUAGE",
+      "STRUCTURED_EXTERNAL_EVENT"
+    ],
+    "natural_language_regressions": {
+      "direct_qa": "PASS",
+      "mercury_competing_hypotheses": "PASS",
+      "resolved_pronoun_followup": "PASS",
+      "negation_and_premise": "PASS"
+    },
+    "external_state_regressions": {
+      "actuator_anomaly": "PASS",
+      "missing_position_fail_closed": "PASS",
+      "generic_external_event": "PASS",
+      "observation_inference_provenance_separation": "PASS"
+    }
+  },
+  "progress": {
+    "stagnation_threshold_steps": 3,
+    "bounded_recent_actions": 8,
+    "bounded_recent_errors": 8,
+    "halt_success_obligation_gate": "PASS",
+    "halt_success_verifier_gate": "PASS",
+    "recovery_actions": [
+      "REASSESS_HYPOTHESIS",
+      "EXPAND_FRONTIER",
+      "TRY_ALTERNATIVE",
+      "ROLLBACK",
+      "ASK_CLARIFICATION",
+      "ABSTAIN_BLOCKED"
+    ]
+  },
+  "validation": {
+    "cognitive_tests_passed": 14,
+    "relevant_tests_passed": 63,
+    "ruff": "PASS",
+    "strict_mypy": "PASS"
+  },
+  "scope": {
+    "semantic_address_changed": false,
+    "v13_controller_changed": false,
+    "native_runtime_changed": false,
+    "license_or_notice_changed": false
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "factory_handoff": {
+    "gate": "READY_FOR_FACTORY_P4",
+    "handoff": "reports/droid/v14/factory-p4-handoff.json",
+    "long_term_class": "256 GB removable storage",
+    "schema": "config/deployment/aethercore-v14-factory-p4-handoff.schema.json",
+    "target": "second/accessory ESP32-P4; never the Tactility display appliance",
+    "temporary_medium": "128 GB microSD"
+  },
+  "five_c": {
+    "constraint_descriptor_bytes": 32,
+    "constraint_state_bytes": 64,
+    "contextual_policy_can_override_root": false,
+    "controller_root_rewrite_or_prune_denied": true,
+    "default_constraint_bytes": 288,
+    "evidence_rewrite_denied": true,
+    "root_constraint_classes": 9,
+    "root_is_const_only_in_c_abi": true,
+    "self_generated_activation_requires": [
+      "external authorization",
+      "signed update",
+      "sandbox",
+      "tests",
+      "rollback"
+    ],
+    "verifier_bypass_denied": true
+  },
+  "limitations": [
+    "ESP-IDF toolchain and physical accessory P4 were not available",
+    "stack values are host compiler static estimates, not target high-water measurements",
+    "address page readings are the retained V13 proxy, not physical storage I/O"
+  ],
+  "native": {
+    "abi": "aethercore.runtime.c-abi.v1 additive V14 contracts",
+    "build": {
+      "cog_serialize_static_stack_bytes": 80,
+      "elf_bss_bytes": 8,
+      "elf_load_data_bytes": 624,
+      "elf_load_text_bytes": 15856,
+      "elf_load_total_bytes": 16488,
+      "evidence_class": "measured host GCC build; not ESP32-P4 binary or stack watermark",
+      "host_compiler_max_static_stack_bytes": 976,
+      "host_compiler_max_static_stack_function": "native/aethercore_runtime/src/aethercore_runtime.cpp:719:14:ac_status_v1 ac_session_deserialize_v1(const uint8_t*, size_t, ac_session_v1*)",
+      "host_shared_object_file_bytes": 25912,
+      "policy_select_static_stack_bytes": 128
+    },
+    "cognitive_snapshot_wire_bytes": 180,
+    "compact_cog_bytes": 48,
+    "compact_cog_python_mapping": "exact 19-u16 aethersparse.cognitive.CompactCOGView order; three reserved u16 slots",
+    "int8_policy": {
+      "action_count": 34,
+      "argument_aware_candidate_scoring": true,
+      "bias_bytes": 0,
+      "binding_status": "EXACT_SELECTED_INT8_ARTIFACT_BOUND_ARGUMENT_AWARE",
+      "feature_count": 38,
+      "frozen_parity_fixture": "34x19 generic fixture plus exact selected 34x38 artifact",
+      "legal_mask_bits": 64,
+      "macs_per_decision": 1292,
+      "model_bytes": 1292,
+      "numeric_tolerance": 0,
+      "primitive_integer_ops_per_decision": 2651,
+      "selected_policy_artifact": "reports/droid/v14/controller-selected-policy-int8.json",
+      "selected_policy_sha256": "987d28fc667044bedaabea5f63771f90d718bbe650303f058924f0bd8afaa2f1",
+      "weight_bytes": 1292
+    },
+    "progress_bytes": 48
+  },
+  "p4_analytical": {
+    "evidence_class": "analytical cycle lower bound; no hardware performance claim",
+    "policy": {
+      "200mhz": {
+        "one_op_per_cycle_lower_bound_us": 13.255,
+        "primitive_integer_ops": 2651
+      },
+      "300mhz": {
+        "one_op_per_cycle_lower_bound_us": 8.836666666666666,
+        "primitive_integer_ops": 2651
+      },
+      "400mhz": {
+        "one_op_per_cycle_lower_bound_us": 6.6275,
+        "primitive_integer_ops": 2651
+      }
+    },
+    "v13_address_latency_ms_p50_p95": {
+      "200mhz": [
+        116.0533825,
+        236.6056065
+      ],
+      "300mhz": [
+        63.65246333333334,
+        129.94380825
+      ],
+      "400mhz": [
+        37.45200375,
+        76.670070125
+      ]
+    }
+  },
+  "paged_address": {
+    "cold_index_bytes": 32284672,
+    "page_bytes": 4096,
+    "proxy_candidate_completeness": 1.0,
+    "proxy_page_reads_per_query": {
+      "1mib": 0.19,
+      "256kib": 11.85,
+      "2mib": 0.19
+    },
+    "resident_directory_bytes": 1735620,
+    "two_mib_derivation": "same 0.19 compulsory misses/query as 1 MiB because the 778,240-byte proxy cold index already fits; not a physical 397k trace"
+  },
+  "resident_projection": {
+    "cache_rows": [
+      {
+        "cache_bytes": 262144,
+        "combined_resident_bytes": 2010888,
+        "headroom_in_4mib_psram_bytes": 2183416,
+        "headroom_in_8mib_psram_bytes": 6377720
+      },
+      {
+        "cache_bytes": 1048576,
+        "combined_resident_bytes": 2797320,
+        "headroom_in_4mib_psram_bytes": 1396984,
+        "headroom_in_8mib_psram_bytes": 5591288
+      },
+      {
+        "cache_bytes": 2097152,
+        "combined_resident_bytes": 3845896,
+        "headroom_in_4mib_psram_bytes": 348408,
+        "headroom_in_8mib_psram_bytes": 4542712
+      }
+    ],
+    "components_excluding_cache": {
+      "active_evidence_page_buffers": 8192,
+      "compact_cog": 48,
+      "five_c_state_and_constraints": 352,
+      "int8_policy_weights_and_optional_int32_bias": 1292,
+      "progress": 48,
+      "resident_address_directories": 1735620,
+      "session_including_candidate_workspace": 872,
+      "specialist_metadata": 2320
+    },
+    "warning": "headroom is a layout projection, not an ESP-IDF linker map or physical PSRAM reading"
+  },
+  "schema_version": "aethersparse.v14-native-5c-specialist-runtime.v1",
+  "scope": "worker-C native/5C/specialist qualification; not integrated V14 gate",
+  "specialists": {
+    "activation_states": [
+      "COLD",
+      "WARM",
+      "HOT"
+    ],
+    "descriptor_bytes": 72,
+    "descriptor_capacity_projection": 32,
+    "hard_limit_enforcement": "deterministic after learned residual",
+    "shared_parameter_family_and_instance_calibration": true
+  }
+}

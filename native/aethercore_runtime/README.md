@@ -25,6 +25,12 @@ directory and use the supplied component `CMakeLists.txt`. The core requires no
 filesystem, threads, exceptions, RTTI, heap allocation, or OS services. The
 platform layer supplies page reads, policy weights, and transport.
 
+V14 adds fixed-width compact COG, 5C root constraints, sparse-specialist
+descriptors, progress/stagnation counters, and a 64-action int8 controller
+binding. These are additive: the V13 session and paged-address ABI remains
+unchanged. The native COG field order exactly matches the 19-u16
+`CompactCOGView.packed_u16()` contract, without importing Python at build time.
+
 The ABI is fixed-width and versioned. Session persistence is a canonical
 little-endian byte stream with CRC-32; it is not a dump of compiler-dependent
-struct padding.
+struct padding. The V14 cognitive snapshot follows the same rule.

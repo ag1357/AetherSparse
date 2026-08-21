@@ -1,0 +1,42 @@
+{
+  "cog": {
+    "open_goals": 2,
+    "mandatory_open": 4,
+    "mandatory_satisfied": 7,
+    "blocked_or_failed": 3,
+    "invariant_violations": 1,
+    "active_hypotheses": 3,
+    "competing_hypotheses": 2,
+    "contradictions": 1,
+    "evidence_count": 8,
+    "unresolved_count": 2,
+    "open_frontier": 5,
+    "observed_state_count": 2,
+    "completion_permille": 636,
+    "stagnant_steps": 3,
+    "repeated_error_count": 4,
+    "repeated_action_count": 5,
+    "verifier_state_code": 2,
+    "halt_success_legal": 0
+  },
+  "five_c": {
+    "constraint_count": 3,
+    "immutable_digest_low": 81985529216486895,
+    "immutable_digest_high": 18364758544493064720,
+    "flags": 7
+  },
+  "policy": {
+    "weights": [[2, -1, 3], [4, 0, -2], [-3, 5, 1], [1, 1, 1], [7, -4, 2], [-2, -2, 9], [0, 3, -1], [5, 2, 0], [-8, 1, 1], [2, 2, 2], [1, -7, 4], [3, 0, 3], [-1, 6, -2], [4, 4, -3], [1, 2, 3], [-5, 1, 8], [2, -3, 6], [7, 0, -1], [1, 5, -4], [3, 3, 0], [-2, 8, 1], [6, -1, -1], [0, 2, 7], [5, -5, 5], [2, 4, -6], [9, 0, 0], [-3, 7, 2], [4, -2, 4], [1, 8, -3], [6, 1, -2], [2, -9, 3], [5, 5, -5], [-1, 4, 7], [8, -3, 1]],
+    "bias": [0, 1, -2, 0, 3, -1, 2, 0, 4, -3, 1, 0, 2, -4, 0, 1, -1, 3, 0, -2, 5, 0, -3, 2, 1, -1, 0, 3, -2, 4, 0, -4, 2, 1],
+    "features": [11, -4, 7],
+    "legal_action_mask": 8589934624,
+    "selected_action": 33,
+    "selected_logit": 108
+  },
+  "specialists": {
+    "cold_count": 9,
+    "warm_count": 2,
+    "hot_count": 1,
+    "resident_ram_bytes": 1536
+  }
+}

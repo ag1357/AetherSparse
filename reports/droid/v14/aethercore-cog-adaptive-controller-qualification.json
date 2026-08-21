@@ -1,0 +1,607 @@
+{
+  "coding_obligation_qualification": {
+    "invariant_violations": 0,
+    "mean_affected_object_recall": 1.0,
+    "passed": 3,
+    "redundant_cycles": 0,
+    "schema": "aethercore.v14.coding-obligation-qualification.v1",
+    "stagnation_detections": 0,
+    "tasks": [
+      {
+        "affected_object_recall": 1.0,
+        "build_passed": true,
+        "discovered_objects": [
+          "client.py",
+          "model.py",
+          "service.py"
+        ],
+        "expected_objects": [
+          "client.py",
+          "model.py",
+          "service.py"
+        ],
+        "invariant_violations": 0,
+        "mandatory_obligations": 6,
+        "mandatory_open": 0,
+        "redundant_cycles": 0,
+        "stagnation_detections": 0,
+        "success": true,
+        "task_id": "api-schema-field",
+        "tests_passed": true
+      },
+      {
+        "affected_object_recall": 1.0,
+        "build_passed": true,
+        "discovered_objects": [
+          "consumer.py",
+          "parser.py"
+        ],
+        "expected_objects": [
+          "consumer.py",
+          "parser.py"
+        ],
+        "invariant_violations": 0,
+        "mandatory_obligations": 5,
+        "mandatory_open": 0,
+        "redundant_cycles": 0,
+        "stagnation_detections": 0,
+        "success": true,
+        "task_id": "parser-delimiter",
+        "tests_passed": true
+      },
+      {
+        "affected_object_recall": 1.0,
+        "build_passed": true,
+        "discovered_objects": [
+          "limits.py",
+          "motor.py"
+        ],
+        "expected_objects": [
+          "limits.py",
+          "motor.py"
+        ],
+        "invariant_violations": 0,
+        "mandatory_obligations": 5,
+        "mandatory_open": 0,
+        "redundant_cycles": 0,
+        "stagnation_detections": 0,
+        "success": true,
+        "task_id": "compatibility-clamp",
+        "tests_passed": true
+      }
+    ],
+    "total": 3
+  },
+  "cog": {
+    "authoritative_state": [
+      "goals",
+      "obligations",
+      "invariants",
+      "hypotheses",
+      "evidence",
+      "unresolved",
+      "frontier",
+      "observed_state"
+    ],
+    "bounds": {
+      "evidence": 64,
+      "frontier": 32,
+      "goals": 8,
+      "hypotheses": 16,
+      "invariants": 16,
+      "obligations": 48,
+      "observed_state": 16,
+      "unresolved": 32
+    },
+    "compact_controller_view": {
+      "integer_fields": 19,
+      "packed_u16_bytes": 38
+    },
+    "representative_canonical_json_bytes": {
+      "actuator_anomaly": 4045,
+      "ambiguous_qa": 5213,
+      "direct_qa": 4120,
+      "resolved_followup": 3871
+    },
+    "schema": "aethercore.cog.v1"
+  },
+  "dagger_roll_in": {
+    "autonomous_rollout": {
+      "average_legal_candidate_scores": 156.34230769230768,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9,
+          "reachable_evaluated": 110,
+          "successful": 99
+        },
+        "tuning": {
+          "rate": 0.88,
+          "reachable_evaluated": 150,
+          "successful": 132
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 29
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 206,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.8884615384615384,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 231,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 29
+    },
+    "candidate_tuning_success": {
+      "16": 124,
+      "24": 122,
+      "32": 128,
+      "8": 132
+    },
+    "certified_distinct_roll_in_states": 243,
+    "development_policy_divergences": 81,
+    "perturbation_operations": [
+      33,
+      34,
+      35
+    ],
+    "poisoned_post_selection_states_labeled": 0,
+    "rejected_uncertified_perturbations": 0,
+    "selected_epochs": 8,
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9679144385026738,
+        "correct": 543,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9609375,
+        "correct": 738,
+        "decisions": 768
+      }
+    },
+    "tuning_or_sealed_labels_used": 0
+  },
+  "exact_next_justified_action": "Run Factory Droid on the SECOND accessory ESP32-P4 with the temporary 128 GB microSD, compile/flash this frozen ABI and selected int8 policy, then fill the predicted-versus-actual resident bytes, page reads/query, policy operations, and address-latency fields from physical traces",
+  "five_c": {
+    "constraint_descriptor_bytes": 32,
+    "constraint_state_bytes": 64,
+    "contextual_policy_can_override_root": false,
+    "controller_root_rewrite_or_prune_denied": true,
+    "default_constraint_bytes": 288,
+    "evidence_rewrite_denied": true,
+    "root_constraint_classes": 9,
+    "root_is_const_only_in_c_abi": true,
+    "self_generated_activation_requires": [
+      "external authorization",
+      "signed update",
+      "sandbox",
+      "tests",
+      "rollback"
+    ],
+    "verifier_bypass_denied": true
+  },
+  "hardware_readiness": {
+    "checks": {
+      "cog_materially_improves_rollout": true,
+      "five_c_boundary_implemented": true,
+      "immediate_v15_abi_invalidation_planned": false,
+      "interpreter_contract_stable": true,
+      "knowledge_is_page_addressable": true,
+      "python_native_parity_exact": true,
+      "remaining_errors_have_narrow_taxonomy": true,
+      "resident_fit_with_headroom": true,
+      "selected_policy_bound_native": true,
+      "specialist_abi_stable": true
+    },
+    "decision": "READY_FOR_FACTORY_P4",
+    "factory_handoff": "reports/droid/v14/factory-p4-handoff.json"
+  },
+  "input_sha256": {
+    "agent": "4508cb17f0710108db8d7892029899c0bd7a08dccf0f77cde13c727e8a9dfa41",
+    "cog": "9b19796181c835eadc4eca2e55f745536681b143919e0ab09f29733bd4c61da7",
+    "controller": "f368808e7b01c795ea940ad33dbb4f69424aee14b83d3ced9f9612415afdd2c8",
+    "factory_handoff": "7b60c72b6945bbf9cea47a8d8d1fde09d5eed074ca9e3524486504f7add40430",
+    "knowledge": "c79ffe43cbc6a430033e6b4c56a33e99d1460b6483282ac29df849329dcf4537",
+    "native": "a1ac49cd1dac26f987c1b6c327f020ab19e117b3f8b350dfd705f0de669986fd",
+    "selected_policy": "abd8e69010d9078ae5c3f3522da51913af641055e3b5328f1ac7315f040b4b80"
+  },
+  "input_state_interpreter": {
+    "external_state_regressions": {
+      "actuator_anomaly": "PASS",
+      "generic_external_event": "PASS",
+      "missing_position_fail_closed": "PASS",
+      "observation_inference_provenance_separation": "PASS"
+    },
+    "input_types": [
+      "NATURAL_LANGUAGE",
+      "STRUCTURED_EXTERNAL_EVENT"
+    ],
+    "natural_language_regressions": {
+      "direct_qa": "PASS",
+      "mercury_competing_hypotheses": "PASS",
+      "negation_and_premise": "PASS",
+      "resolved_pronoun_followup": "PASS"
+    }
+  },
+  "integrated_service": {
+    "abstention_rate": 0.14285714285714285,
+    "average_controller_steps": 5,
+    "clarification_rate": 0.14285714285714285,
+    "cog_halt_gate_used": true,
+    "endpoint": "/v14/query",
+    "executable": "aethercore-server",
+    "final_user_visible_success": {
+      "cases": 7,
+      "rate": 1.0,
+      "successful": 7
+    },
+    "multi_turn_cases": 2,
+    "multi_turn_correct": 2,
+    "p95_controller_steps": 5,
+    "selected_int8_policy_used": true,
+    "semantic_address_candidate_completeness": {
+      "rate": 1.0,
+      "required": 3,
+      "successful": 3
+    },
+    "unsupported_answer_rate": 0.0,
+    "verified_grounded_answer_success": {
+      "answerable": 3,
+      "rate": 1.0,
+      "successful": 3
+    }
+  },
+  "native_runtime": {
+    "abi": "aethercore.runtime.c-abi.v1 additive V14 contracts",
+    "build": {
+      "cog_serialize_static_stack_bytes": 80,
+      "elf_bss_bytes": 8,
+      "elf_load_data_bytes": 624,
+      "elf_load_text_bytes": 15856,
+      "elf_load_total_bytes": 16488,
+      "evidence_class": "measured host GCC build; not ESP32-P4 binary or stack watermark",
+      "host_compiler_max_static_stack_bytes": 976,
+      "host_compiler_max_static_stack_function": "native/aethercore_runtime/src/aethercore_runtime.cpp:719:14:ac_status_v1 ac_session_deserialize_v1(const uint8_t*, size_t, ac_session_v1*)",
+      "host_shared_object_file_bytes": 25912,
+      "policy_select_static_stack_bytes": 128
+    },
+    "cognitive_snapshot_wire_bytes": 180,
+    "compact_cog_bytes": 48,
+    "compact_cog_python_mapping": "exact 19-u16 aethersparse.cognitive.CompactCOGView order; three reserved u16 slots",
+    "int8_policy": {
+      "action_count": 34,
+      "argument_aware_candidate_scoring": true,
+      "bias_bytes": 0,
+      "binding_status": "EXACT_SELECTED_INT8_ARTIFACT_BOUND_ARGUMENT_AWARE",
+      "feature_count": 38,
+      "frozen_parity_fixture": "34x19 generic fixture plus exact selected 34x38 artifact",
+      "legal_mask_bits": 64,
+      "macs_per_decision": 1292,
+      "model_bytes": 1292,
+      "numeric_tolerance": 0,
+      "primitive_integer_ops_per_decision": 2651,
+      "selected_policy_artifact": "reports/droid/v14/controller-selected-policy-int8.json",
+      "selected_policy_sha256": "987d28fc667044bedaabea5f63771f90d718bbe650303f058924f0bd8afaa2f1",
+      "weight_bytes": 1292
+    },
+    "progress_bytes": 48
+  },
+  "p4_analytical": {
+    "evidence_class": "analytical cycle lower bound; no hardware performance claim",
+    "policy": {
+      "200mhz": {
+        "one_op_per_cycle_lower_bound_us": 13.255,
+        "primitive_integer_ops": 2651
+      },
+      "300mhz": {
+        "one_op_per_cycle_lower_bound_us": 8.836666666666666,
+        "primitive_integer_ops": 2651
+      },
+      "400mhz": {
+        "one_op_per_cycle_lower_bound_us": 6.6275,
+        "primitive_integer_ops": 2651
+      }
+    },
+    "v13_address_latency_ms_p50_p95": {
+      "200mhz": [
+        116.0533825,
+        236.6056065
+      ],
+      "300mhz": [
+        63.65246333333334,
+        129.94380825
+      ],
+      "400mhz": [
+        37.45200375,
+        76.670070125
+      ]
+    }
+  },
+  "paged_address": {
+    "cold_index_bytes": 32284672,
+    "page_bytes": 4096,
+    "proxy_candidate_completeness": 1.0,
+    "proxy_page_reads_per_query": {
+      "1mib": 0.19,
+      "256kib": 11.85,
+      "2mib": 0.19
+    },
+    "resident_directory_bytes": 1735620,
+    "two_mib_derivation": "same 0.19 compulsory misses/query as 1 MiB because the 778,240-byte proxy cold index already fits; not a physical 397k trace"
+  },
+  "progress_and_stagnation": {
+    "bounded_recent_actions": 8,
+    "bounded_recent_errors": 8,
+    "halt_success_obligation_gate": "PASS",
+    "halt_success_verifier_gate": "PASS",
+    "recovery_actions": [
+      "REASSESS_HYPOTHESIS",
+      "EXPAND_FRONTIER",
+      "TRY_ALTERNATIVE",
+      "ROLLBACK",
+      "ASK_CLARIFICATION",
+      "ABSTAIN_BLOCKED"
+    ],
+    "stagnation_threshold_steps": 3
+  },
+  "publication_commit_sha": "reported by branch HEAD after committing this self-referential report",
+  "qualified_source_commit_sha": "125232d7d50a264ccf225b8870092c0018ef535f",
+  "reasoning_stress": {
+    "cases": [
+      {
+        "case": "multi_obligation",
+        "passed": true
+      },
+      {
+        "case": "competing_grounded_claims",
+        "passed": true
+      },
+      {
+        "case": "two_hop_discourse_composition",
+        "passed": true
+      },
+      {
+        "case": "comparison",
+        "passed": true
+      },
+      {
+        "case": "temporal_constraint",
+        "passed": true
+      },
+      {
+        "case": "ambiguity_clarification",
+        "passed": true
+      },
+      {
+        "case": "premise_and_negation",
+        "passed": true
+      },
+      {
+        "case": "missing_premise",
+        "passed": true
+      },
+      {
+        "case": "impossible_or_unsafe_state",
+        "passed": true
+      }
+    ],
+    "passed": 9,
+    "schema": "aethercore.v14.reasoning-stress.v1",
+    "scope": "small structural development/tuning-style stress set; not Humanity's Last Exam",
+    "total": 9
+  },
+  "remaining_bottleneck": "18/260 residual wrong-grounded selections: 11 date, 6 quotation, and one definition/misspelling case; the next discriminator is finer bounded local passage-context-to-relation contrast, not controller size or address redesign",
+  "resident_projection": {
+    "cache_rows": [
+      {
+        "cache_bytes": 262144,
+        "combined_resident_bytes": 2010888,
+        "headroom_in_4mib_psram_bytes": 2183416,
+        "headroom_in_8mib_psram_bytes": 6377720
+      },
+      {
+        "cache_bytes": 1048576,
+        "combined_resident_bytes": 2797320,
+        "headroom_in_4mib_psram_bytes": 1396984,
+        "headroom_in_8mib_psram_bytes": 5591288
+      },
+      {
+        "cache_bytes": 2097152,
+        "combined_resident_bytes": 3845896,
+        "headroom_in_4mib_psram_bytes": 348408,
+        "headroom_in_8mib_psram_bytes": 4542712
+      }
+    ],
+    "components_excluding_cache": {
+      "active_evidence_page_buffers": 8192,
+      "compact_cog": 48,
+      "five_c_state_and_constraints": 352,
+      "int8_policy_weights_and_optional_int32_bias": 1292,
+      "progress": 48,
+      "resident_address_directories": 1735620,
+      "session_including_candidate_workspace": 872,
+      "specialist_metadata": 2320
+    },
+    "warning": "headroom is a layout projection, not an ESP-IDF linker map or physical PSRAM reading"
+  },
+  "retained_v13_agent_tool_plane": {
+    "categories": [
+      "fix_failing_unit_test",
+      "add_deterministic_feature",
+      "modify_parser",
+      "add_api_field",
+      "repair_compilation_defect"
+    ],
+    "explicit_one_time_integration_authorization_required": true,
+    "external_llm_used": false,
+    "generic_tasks": 5,
+    "integration_performed": false,
+    "invalid_action_attempts": 0,
+    "real_exact_operations": 55,
+    "success_rate": 1.0,
+    "successful_tasks": 5
+  },
+  "same_scale_structural_repair": {
+    "autonomous_rollout": {
+      "average_legal_candidate_scores": 156.26153846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9181818181818182,
+          "reachable_evaluated": 110,
+          "successful": 101
+        },
+        "tuning": {
+          "rate": 0.92,
+          "reachable_evaluated": 150,
+          "successful": 138
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 21
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9192307692307692,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 239,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 21
+    },
+    "candidate_tuning_success": {
+      "16": 133,
+      "24": 138,
+      "32": 132,
+      "8": 137
+    },
+    "selected_epochs": 24,
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9732620320855615,
+        "correct": 546,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9674479166666666,
+        "correct": 743,
+        "decisions": 768
+      }
+    }
+  },
+  "schema_version": "aethercore.v14-cog-adaptive-controller-qualification.v1",
+  "selected_policy": {
+    "activation_representation": "signed fixed-point integer / 256",
+    "architecture": "COG-derived typed-legal-mask structured perceptron",
+    "argument_aware_macs_per_trajectory": {
+      "average": 5937.9384615384615,
+      "maximum": 7752,
+      "p95": 7638.0
+    },
+    "autonomous_reproduced_reachable": {
+      "evaluated": 260,
+      "rate": 0.9307692307692308,
+      "successful": 242
+    },
+    "autonomous_unseen_tuning": {
+      "rate": 0.92,
+      "reachable_evaluated": 150,
+      "successful": 138
+    },
+    "average_operations": 5.111538461538461,
+    "failure_taxonomy": {
+      "WRONG_GROUNDED_ANSWER": 18
+    },
+    "feature_count": 38,
+    "invalid_action_attempts": 0,
+    "macs_per_candidate_action": 38,
+    "macs_per_full_operation_table": 1292,
+    "operation_count": 34,
+    "p95_operations": 5.0,
+    "parameter_bytes": 1292,
+    "parameter_count": 1292,
+    "premature_halt": 0,
+    "roll_in_examples": 0,
+    "runaway_max_depth": 0,
+    "selected_epochs": 24,
+    "selected_training_algorithm": "cog_structured_perceptron",
+    "serialized_model_bytes": 3885,
+    "serialized_model_sha256": "987d28fc667044bedaabea5f63771f90d718bbe650303f058924f0bd8afaa2f1",
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9786096256684492,
+        "correct": 549,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9674479166666666,
+        "correct": 743,
+        "decisions": 768
+      }
+    },
+    "weight_representation": "int8",
+    "wrong_grounded_claim_residual": 18
+  },
+  "specialist_abi": {
+    "activation_states": [
+      "COLD",
+      "WARM",
+      "HOT"
+    ],
+    "descriptor_bytes": 72,
+    "descriptor_capacity_projection": 32,
+    "hard_limit_enforcement": "deterministic after learned residual",
+    "shared_parameter_family_and_instance_calibration": true
+  },
+  "status": "READY_FOR_FACTORY_P4",
+  "v13_baseline": {
+    "average_legal_candidate_scores": 156.26153846153846,
+    "average_operations": 5.111538461538461,
+    "by_partition": {
+      "development": {
+        "rate": 0.2636363636363636,
+        "reachable_evaluated": 110,
+        "successful": 29
+      },
+      "tuning": {
+        "rate": 0.4266666666666667,
+        "reachable_evaluated": 150,
+        "successful": 64
+      }
+    },
+    "failure_taxonomy": {
+      "WRONG_GROUNDED_ANSWER": 167
+    },
+    "invalid_action_attempts": 0,
+    "maximum_legal_candidate_scores": 204,
+    "p95_legal_candidate_scores": 201.0,
+    "p95_operations": 5.0,
+    "premature_halt": 0,
+    "rate": 0.3576923076923077,
+    "reachable_evaluated": 260,
+    "runaway_max_depth": 0,
+    "successful": 93,
+    "verifier_rejections": 0,
+    "wrong_grounded_claim_residual": 167
+  },
+  "v13_parent_sha": "7ddce4152f85eff78ba8d14a73d59e1d53ecc4ee",
+  "validation": {
+    "json_manifests": "PASS",
+    "license_notice_unchanged": true,
+    "modified_path_ruff": "PASS",
+    "modified_path_strict_mypy": "PASS",
+    "native_host_build": "PASS",
+    "native_python_parity": "PASS_ZERO_TOLERANCE",
+    "pytest_collected": 450,
+    "pytest_passed": 449,
+    "pytest_skipped": 1
+  }
+}

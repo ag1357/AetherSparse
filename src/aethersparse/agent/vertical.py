@@ -12,7 +12,7 @@ import hashlib
 import json
 import re
 from collections.abc import Sequence
-from typing import Literal
+from typing import Any, Literal, Protocol
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -27,6 +27,23 @@ from aethersparse.agent.contracts import (
 from aethersparse.agent.conversation import ConversationEngine
 from aethersparse.agent.realization import GroundedAnswerRealizer, GroundingError
 from aethersparse.agent.session import SessionStore
+from aethersparse.cognitive.graph import (
+    add_evidence,
+    can_halt_success,
+    compact_view,
+    record_progress,
+    transition_obligation,
+)
+from aethersparse.cognitive.interpreter import InputStateInterpreter
+from aethersparse.cognitive.models import (
+    CognitiveObligationGraph,
+    Evidence,
+    InputType,
+    ObligationStatus,
+    Provenance,
+    ProvenanceKind,
+)
+from aethersparse.controller.adaptive_policy import QuantizedAdaptivePolicy
 from aethersparse.controller.fuzzy_address import (
     AddressSurfaceRecord,
     FuzzyAddressIndex,
@@ -71,6 +88,16 @@ class AetherCoreResponse(VerticalModel):
     controller_operations: tuple[int, ...] = ()
     verifier_accepted: bool = False
     failure_reason: str | None = None
+    cog_schema_version: str | None = None
+    cog_compact_state: tuple[int, ...] = ()
+    open_mandatory_obligations: tuple[str, ...] = ()
+
+
+class ControllerPolicy(Protocol):
+    @property
+    def parameter_count(self) -> int: ...
+
+    def select(self, state: MicroState, *, argument_cap: int = 64) -> object: ...
 
 
 def load_qualified_policy(report: dict[str, object]) -> MaskedLinearPolicy:
@@ -92,13 +119,24 @@ def load_qualified_policy_json(payload: str | bytes) -> MaskedLinearPolicy:
     return load_qualified_policy(value)
 
 
+def load_selected_policy_json(payload: str | bytes) -> MaskedLinearPolicy | QuantizedAdaptivePolicy:
+    """Load either the retained V13 report or the selected V14 int8 artifact."""
+
+    value = json.loads(payload)
+    if not isinstance(value, dict):
+        raise ValueError("policy payload must be a JSON object")
+    if value.get("schema_version") == "aethercore.cog-masked-linear-policy.int8.v1":
+        return QuantizedAdaptivePolicy.model_validate(value)
+    return load_qualified_policy(value)
+
+
 class AetherCoreVerticalSlice:
     """Runnable bounded AetherCore service with persistent session state."""
 
     def __init__(
         self,
         records: Sequence[GroundedKnowledgeRecord],
-        policy: MaskedLinearPolicy,
+        policy: MaskedLinearPolicy | QuantizedAdaptivePolicy,
         session_store: SessionStore,
         *,
         max_controller_steps: int = 12,
@@ -111,6 +149,7 @@ class AetherCoreVerticalSlice:
         self.policy = policy
         self.conversation = ConversationEngine(session_store)
         self.realizer = GroundedAnswerRealizer()
+        self.interpreter = InputStateInterpreter()
         self.max_controller_steps = max_controller_steps
         surfaces = []
         for record_index, record in enumerate(self.records):
@@ -267,8 +306,44 @@ class AetherCoreVerticalSlice:
         )
         return state, by_claim
 
+    @staticmethod
+    def _satisfy_cog(
+        cog: CognitiveObligationGraph,
+        kinds: frozenset[str],
+        *,
+        satisfied_by: tuple[str, ...] = (),
+    ) -> CognitiveObligationGraph:
+        for obligation in cog.obligations:
+            if obligation.kind in kinds and obligation.status is not ObligationStatus.SATISFIED:
+                cog = transition_obligation(
+                    cog,
+                    obligation.obligation_id,
+                    ObligationStatus.SATISFIED,
+                    satisfied_by=satisfied_by,
+                )
+        return cog
+
+    @staticmethod
+    def _cog_fields(cog: CognitiveObligationGraph) -> dict[str, Any]:
+        return {
+            "cog_schema_version": cog.schema_version,
+            "cog_compact_state": compact_view(cog).packed_u16(),
+            "open_mandatory_obligations": tuple(
+                item.kind
+                for item in cog.obligations
+                if item.mandatory and item.status is not ObligationStatus.SATISFIED
+            ),
+        }
+
     def query(self, request: AetherCoreRequest) -> AetherCoreResponse:
         before = self.conversation.store.load(request.session_id)
+        prior_entities = tuple(item.entity_id for item in before.previously_resolved_entities[-8:])
+        cog = self.interpreter.interpret(
+            InputType.NATURAL_LANGUAGE,
+            request.text,
+            input_id=f"{request.session_id}:{len(before.recent_utterances) + 1}",
+            prior_entity_ids=prior_entities,
+        ).graph
         relation = self._relation(request.text)
         if relation is None and before.pending_clarification is not None:
             relation = self._relation(before.pending_clarification.original_query)
@@ -280,12 +355,26 @@ class AetherCoreVerticalSlice:
             relation=relation,
         )
         candidate_ids = tuple(item.entity_id for item in candidates)
+        if action.entity_ids:
+            cog = self._satisfy_cog(cog, frozenset({"IDENTIFY_SUBJECT"}))
+            cog = cog.model_copy(
+                update={
+                    "unresolved": tuple(
+                        item
+                        for item in cog.unresolved
+                        if item.kind not in {"SUBJECT_ENTITY", "DISCOURSE_REFERENCE"}
+                    )
+                }
+            )
+        if action.relation is not None:
+            cog = self._satisfy_cog(cog, frozenset({"ESTABLISH_RELATION"}))
         if action.kind is ConversationActionKind.RESET:
             return AetherCoreResponse(
                 disposition="RESET",
                 session_id=request.session_id,
                 text="Conversation state reset.",
                 grounded=False,
+                **self._cog_fields(cog),
             )
         if action.kind is ConversationActionKind.CANCEL:
             return AetherCoreResponse(
@@ -293,6 +382,7 @@ class AetherCoreVerticalSlice:
                 session_id=request.session_id,
                 text="Cancelled.",
                 grounded=False,
+                **self._cog_fields(cog),
             )
         if action.kind is ConversationActionKind.ASK_CLARIFICATION:
             assert action.clarification is not None
@@ -310,6 +400,7 @@ class AetherCoreVerticalSlice:
                 grounded=True,
                 semantic_address_candidate_ids=candidate_ids,
                 verifier_accepted=True,
+                **self._cog_fields(cog),
             )
         if not action.entity_ids or action.relation is None:
             return AetherCoreResponse(
@@ -319,6 +410,7 @@ class AetherCoreVerticalSlice:
                 grounded=False,
                 semantic_address_candidate_ids=candidate_ids,
                 failure_reason="UNRESOLVED_ADDRESS_OR_RELATION",
+                **self._cog_fields(cog),
             )
         state, by_claim = self._workspace(request, action.entity_ids, action.relation)
         if not state.claims:
@@ -329,7 +421,12 @@ class AetherCoreVerticalSlice:
                 grounded=False,
                 semantic_address_candidate_ids=candidate_ids,
                 failure_reason="VALUE_UNAVAILABLE",
+                **self._cog_fields(cog),
             )
+        cog = self._satisfy_cog(
+            cog,
+            frozenset({"LOCATE_GROUNDED_CLAIM", "MATCH_ANSWER_TYPE"}),
+        )
         operations: list[int] = []
         for _step in range(self.max_controller_steps):
             selected_action = self.policy.select(state, argument_cap=64)
@@ -348,6 +445,7 @@ class AetherCoreVerticalSlice:
                 semantic_address_candidate_ids=candidate_ids,
                 controller_operations=tuple(operations),
                 failure_reason=state.terminal or "CONTROLLER_INCOMPLETE",
+                **self._cog_fields(cog),
             )
         claim_records = [by_claim[item] for item in state.plan_claim_ids if item in by_claim]
         if not claim_records:
@@ -378,6 +476,46 @@ class AetherCoreVerticalSlice:
                 semantic_address_candidate_ids=candidate_ids,
                 controller_operations=tuple(operations),
                 failure_reason=str(error),
+                **self._cog_fields(cog),
+            )
+        cog_before_completion = cog
+        cog_evidence_id = f"{cog.cog_id}:answer-evidence"
+        cog = add_evidence(
+            cog,
+            Evidence(
+                evidence_id=cog_evidence_id,
+                subject=record.entity_id,
+                predicate=record.relation,
+                value=" | ".join(state.plan_values),
+                provenance=Provenance(
+                    kind=ProvenanceKind.CORPUS_EVIDENCE,
+                    source_id=record.evidence.handle_id,
+                    detail=record.evidence.source_locator,
+                ),
+            ),
+        )
+        cog = self._satisfy_cog(
+            cog,
+            frozenset({"BIND_CLAIM_TO_SUBJECT", "VERIFY_EVIDENCE"}),
+            satisfied_by=(cog_evidence_id,),
+        )
+        cog = record_progress(
+            cog_before_completion,
+            cog,
+            action="VERIFY_PLAN",
+            verifier_state="ACCEPTED",
+        )
+        if not can_halt_success(cog):
+            return AetherCoreResponse(
+                disposition="ABSTAIN",
+                session_id=request.session_id,
+                text="The exact answer is grounded, but mandatory cognitive obligations remain.",
+                grounded=False,
+                semantic_address_candidate_ids=candidate_ids,
+                controller_operations=tuple(operations),
+                verifier_accepted=True,
+                failure_reason="COG_OBLIGATIONS_OPEN",
+                **self._cog_fields(cog),
             )
         self.conversation.record_answer(
             request.session_id,
@@ -394,4 +532,5 @@ class AetherCoreVerticalSlice:
             semantic_address_candidate_ids=candidate_ids,
             controller_operations=tuple(operations),
             verifier_accepted=True,
+            **self._cog_fields(cog),
         )

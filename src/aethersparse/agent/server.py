@@ -1,4 +1,4 @@
-"""Host service and Tactility protocol adapter for the V13 vertical slice."""
+"""Host service and Tactility protocol adapter for the V14 COG vertical slice."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ from aethersparse.agent.vertical import (
     AetherCoreResponse,
     AetherCoreVerticalSlice,
     GroundedKnowledgeRecord,
-    load_qualified_policy_json,
+    load_selected_policy_json,
 )
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -34,12 +34,13 @@ ROOT = Path(__file__).resolve().parents[3]
 
 def create_vertical_app(runtime: AetherCoreVerticalSlice) -> FastAPI:
     application = FastAPI(
-        title="AetherCore V13 accessory service",
-        version="13.0",
+        title="AetherCore V14 accessory service",
+        version="14.0",
         description="Grounded conversational runtime for the physically separate accessory.",
     )
 
-    @application.get("/v13/health")
+    @application.get("/v14/health")
+    @application.get("/v13/health", include_in_schema=False)
     def health() -> dict[str, object]:
         return {
             "status": "ok",
@@ -48,7 +49,8 @@ def create_vertical_app(runtime: AetherCoreVerticalSlice) -> FastAPI:
             "semantic_address_surfaces": runtime.address_index.surface_count,
         }
 
-    @application.post("/v13/query", response_model=AetherCoreResponse)
+    @application.post("/v14/query", response_model=AetherCoreResponse)
+    @application.post("/v13/query", response_model=AetherCoreResponse, include_in_schema=False)
     def query(request: AetherCoreRequest) -> AetherCoreResponse:
         try:
             return runtime.query(request)
@@ -69,7 +71,7 @@ def tactility_handler(
             response(
                 request,
                 MessageType.HEALTH,
-                HealthPayload(status="ok", runtime_version="aethercore-v13"),
+                HealthPayload(status="ok", runtime_version="aethercore-v14"),
             ),
         )
     if request.type is MessageType.USER_TEXT:
@@ -128,21 +130,23 @@ def load_runtime(
     if not isinstance(knowledge_value, list):
         raise ValueError("deployed knowledge file must be a JSON list")
     records = tuple(GroundedKnowledgeRecord.model_validate(item) for item in knowledge_value)
-    policy = load_qualified_policy_json(policy_report_path.read_bytes())
+    policy = load_selected_policy_json(policy_report_path.read_bytes())
     return AetherCoreVerticalSlice(records, policy, JsonSessionStore(session_path))
 
 
 def main() -> None:
-    knowledge = os.environ.get("AETHERCORE_V13_KNOWLEDGE")
+    knowledge = os.environ.get("AETHERCORE_V14_KNOWLEDGE") or os.environ.get(
+        "AETHERCORE_V13_KNOWLEDGE"
+    )
     if not knowledge:
-        raise SystemExit("AETHERCORE_V13_KNOWLEDGE must name a deployed grounded record file")
+        raise SystemExit("AETHERCORE_V14_KNOWLEDGE must name a deployed grounded record file")
     policy = Path(
         os.environ.get(
-            "AETHERCORE_V13_POLICY_REPORT",
-            ROOT / "reports" / "droid" / "v13" / "policy-qualification.json",
+            "AETHERCORE_V14_POLICY",
+            ROOT / "reports" / "droid" / "v14" / "controller-selected-policy-int8.json",
         )
     )
-    sessions = Path(os.environ.get("AETHERCORE_V13_SESSIONS", "runtime/v13-sessions"))
+    sessions = Path(os.environ.get("AETHERCORE_V14_SESSIONS", "runtime/v14-sessions"))
     runtime = load_runtime(Path(knowledge), policy, sessions)
     uvicorn.run(create_vertical_app(runtime), host="0.0.0.0", port=8082)
 

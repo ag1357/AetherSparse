@@ -1,0 +1,46 @@
+{
+  "schema_version": "aethercore.factory-p4-handoff.v14.v1",
+  "gate": "READY_FOR_FACTORY_P4",
+  "target_device": {
+    "role": "AETHERCORE_ACCESSORY_COMPUTE",
+    "board": "SECOND_ESP32_P4_DEVELOPMENT_BOARD",
+    "is_tactility_display_appliance": false
+  },
+  "temporary_storage": {
+    "medium": "microSD",
+    "capacity_gb": 128,
+    "purpose": "PHYSICAL_QUALIFICATION_TEST_MEDIUM"
+  },
+  "long_term_storage": {
+    "deployment_class_gb": 256,
+    "redefined_by_test_medium": false
+  },
+  "build": {
+    "install_esp_idf": true,
+    "compile_native_runtime": true,
+    "package_int8_policy": true
+  },
+  "deployment": {
+    "copy_paged_knowledge_pack": true,
+    "flash_accessory_p4": true,
+    "run_trace_equivalent_queries": true
+  },
+  "measurements": [
+    "cache_page_latency_p50_p95",
+    "query_latency_p50_p95",
+    "psram_bytes",
+    "internal_sram_bytes",
+    "stack_high_water_bytes",
+    "cpu_utilization",
+    "sequential_storage_bytes_per_second",
+    "random_read_iops",
+    "pages_per_query",
+    "cache_hit_rate"
+  ],
+  "prediction_actual_comparison": {
+    "resident_bytes": {"predicted": 2797320, "actual": null, "unit": "bytes with 1 MiB cache"},
+    "page_reads_per_query": {"predicted": 0.19, "actual": null, "unit": "proxy page misses/query with 1 MiB cache"},
+    "policy_ops": {"predicted": 1292, "actual": null, "unit": "MACs/decision"},
+    "address_latency_ms": {"predicted": 63.65246333333334, "actual": null, "unit": "analytical milliseconds p50 at 300 MHz"}
+  }
+}

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -17,7 +16,7 @@ from aethersparse.agent.vertical import (
     AetherCoreRequest,
     AetherCoreVerticalSlice,
     GroundedKnowledgeRecord,
-    load_qualified_policy,
+    load_selected_policy_json,
 )
 from aethersparse.controller.semantic_address import canonical_entity_id
 
@@ -100,8 +99,9 @@ def _runtime() -> AetherCoreVerticalSlice:
             ),
         ),
     )
-    report = json.loads((ROOT / "reports/droid/v13/policy-qualification.json").read_text())
-    policy = load_qualified_policy(report)
+    policy = load_selected_policy_json(
+        (ROOT / "reports/droid/v14/controller-selected-policy-int8.json").read_bytes()
+    )
     return AetherCoreVerticalSlice(records, policy, InMemorySessionStore())
 
 
@@ -111,6 +111,9 @@ def test_real_learned_policy_answers_and_carries_referent() -> None:
     assert direct.disposition == "ANSWER"
     assert direct.text == "Alan Turing was an English mathematician and computer scientist."
     assert direct.grounded and direct.verifier_accepted
+    assert direct.cog_schema_version == "aethercore.cog.v1"
+    assert len(direct.cog_compact_state) == 19
+    assert direct.open_mandatory_obligations == ()
     assert direct.controller_operations == (32, 43, 55, 59, 60)
     assert len(direct.semantic_address_candidate_ids) == 1
 
@@ -131,6 +134,7 @@ def test_real_ambiguity_clarifies_then_answers_choice() -> None:
     assert ambiguous.disposition == "CLARIFY"
     assert len(ambiguous.semantic_address_candidate_ids) == 2
     assert "Which entity did you mean?" in ambiguous.text
+    assert "IDENTIFY_SUBJECT" in ambiguous.open_mandatory_obligations
 
     selected = runtime.query(AetherCoreRequest(session_id="session-2", text="choice-1"))
     assert selected.disposition == "ANSWER"
@@ -151,11 +155,11 @@ def test_missing_address_abstains_without_answer() -> None:
 def test_http_and_mock_tactility_use_same_live_runtime() -> None:
     runtime = _runtime()
     with TestClient(create_vertical_app(runtime)) as client:
-        health = client.get("/v13/health")
+        health = client.get("/v14/health")
         assert health.status_code == 200
-        assert health.json()["policy_parameters"] == 918
+        assert health.json()["policy_parameters"] == 1292
         answer = client.post(
-            "/v13/query",
+            "/v14/query",
             json={"session_id": "http-session", "text": "Who was Alan Turing?"},
         )
         assert answer.status_code == 200

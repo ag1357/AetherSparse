@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aethersparse.local/schema/aethercore-v14-factory-p4-handoff.v1.json",
+  "title": "AetherCore V14 Factory accessory-P4 handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gate",
+    "target_device",
+    "temporary_storage",
+    "long_term_storage",
+    "build",
+    "deployment",
+    "measurements",
+    "prediction_actual_comparison"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aethercore.factory-p4-handoff.v14.v1"
+    },
+    "gate": {
+      "enum": ["READY_FOR_FACTORY_P4", "PENDING_INTEGRATED_READY_GATE"]
+    },
+    "target_device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "board", "is_tactility_display_appliance"],
+      "properties": {
+        "role": {"const": "AETHERCORE_ACCESSORY_COMPUTE"},
+        "board": {"const": "SECOND_ESP32_P4_DEVELOPMENT_BOARD"},
+        "is_tactility_display_appliance": {"const": false}
+      }
+    },
+    "temporary_storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["medium", "capacity_gb", "purpose"],
+      "properties": {
+        "medium": {"const": "microSD"},
+        "capacity_gb": {"const": 128},
+        "purpose": {"const": "PHYSICAL_QUALIFICATION_TEST_MEDIUM"}
+      }
+    },
+    "long_term_storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deployment_class_gb", "redefined_by_test_medium"],
+      "properties": {
+        "deployment_class_gb": {"const": 256},
+        "redefined_by_test_medium": {"const": false}
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["install_esp_idf", "compile_native_runtime", "package_int8_policy"],
+      "properties": {
+        "install_esp_idf": {"const": true},
+        "compile_native_runtime": {"const": true},
+        "package_int8_policy": {"const": true}
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["copy_paged_knowledge_pack", "flash_accessory_p4", "run_trace_equivalent_queries"],
+      "properties": {
+        "copy_paged_knowledge_pack": {"const": true},
+        "flash_accessory_p4": {"const": true},
+        "run_trace_equivalent_queries": {"const": true}
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "cache_page_latency_p50_p95",
+          "query_latency_p50_p95",
+          "psram_bytes",
+          "internal_sram_bytes",
+          "stack_high_water_bytes",
+          "cpu_utilization",
+          "sequential_storage_bytes_per_second",
+          "random_read_iops",
+          "pages_per_query",
+          "cache_hit_rate"
+        ]
+      },
+      "minItems": 10
+    },
+    "prediction_actual_comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resident_bytes", "page_reads_per_query", "policy_ops", "address_latency_ms"],
+      "properties": {
+        "resident_bytes": {"$ref": "#/$defs/predictedActual"},
+        "page_reads_per_query": {"$ref": "#/$defs/predictedActual"},
+        "policy_ops": {"$ref": "#/$defs/predictedActual"},
+        "address_latency_ms": {"$ref": "#/$defs/predictedActual"}
+      }
+    }
+  },
+  "$defs": {
+    "predictedActual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predicted", "actual", "unit"],
+      "properties": {
+        "predicted": {"type": ["number", "null"]},
+        "actual": {"type": ["number", "null"]},
+        "unit": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
