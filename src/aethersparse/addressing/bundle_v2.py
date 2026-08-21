@@ -6,7 +6,7 @@ import hashlib
 import json
 import re
 from collections.abc import Iterator, Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
@@ -17,8 +17,10 @@ from aethersparse.addressing.compiler_v2 import (
 )
 from aethersparse.addressing.contracts_v2 import (
     ADDRESS_MANIFEST_SCHEMA_VERSION,
+    V050_PACK_NORMALIZATION_ID,
     canonical_entity_id,
     normalize_surface,
+    pack_lookup_normalizer,
     validate_record_contract,
 )
 from aethersparse.addressing.exact import (
@@ -104,16 +106,17 @@ class CanonicalAddressRegistry:
 
     bundle: AddressBundleIdentity
     entries: tuple[CanonicalRegistryEntry, ...]
+    _mapping: Mapping[str, str] = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
         entity_ids: set[str] = set()
         normalized_titles: set[str] = set()
         source_documents: set[str] = set()
         for entry in self.entries:
-            if entry.entity_id != canonical_entity_id(entry.canonical_title):
+            if not entry.normalized_title:
+                raise ValueError("canonical registry normalized title is empty")
+            if entry.entity_id != canonical_entity_id(entry.normalized_title):
                 raise ValueError("canonical registry ID/title authority is inconsistent")
-            if entry.normalized_title != normalize_surface(entry.canonical_title):
-                raise ValueError("canonical registry normalized title is inconsistent")
             if (
                 entry.entity_id in entity_ids
                 or entry.normalized_title in normalized_titles
@@ -123,12 +126,21 @@ class CanonicalAddressRegistry:
             entity_ids.add(entry.entity_id)
             normalized_titles.add(entry.normalized_title)
             source_documents.add(entry.source_document_id)
+        # Cache the lookup mapping once: require_pair is called per evidence
+        # row, and rebuilding an O(entries) mapping per call made full-corpus
+        # exact compiles quadratic (397k tier: ~276k entities x millions of
+        # rows).  The registry is immutable, so the cache cannot drift.
+        object.__setattr__(
+            self,
+            "_mapping",
+            {entry.entity_id: entry.canonical_title for entry in self.entries},
+        )
 
     def as_mapping(self) -> dict[str, str]:
-        return {entry.entity_id: entry.canonical_title for entry in self.entries}
+        return dict(self._mapping)
 
     def require_pair(self, entity_id: str, canonical_title: str) -> None:
-        expected = self.as_mapping().get(entity_id)
+        expected = self._mapping.get(entity_id)
         if expected is None:
             raise AddressArtifactError(f"canonical entity is absent from registry: {entity_id}")
         if expected != canonical_title:
@@ -193,9 +205,20 @@ def _verified_rows(directory: Path, stream: str) -> Iterator[dict[str, object]]:
 def load_canonical_registry(
     directory: Path, *, expected_bundle: AddressBundleIdentity | None = None
 ) -> CanonicalAddressRegistry:
-    """Load and strictly verify the sole canonical ID/title authority."""
+    """Load and strictly verify the sole canonical ID/title authority.
+
+    The bundle's declared ``normalization_id`` is verified by
+    :func:`verify_address_bundle` before any row is read.  Under that declared
+    normalization the pack's stored ``normalized_title`` is the authoritative
+    normalized value, so canonical IDs are recomputed from the stored
+    ``normalized_title`` — not by re-normalizing the raw title under the
+    generic surface contract, which does not fold the v0.5 punctuation class
+    (for example U+2013 EN DASH to hyphen).  All integrity checks remain
+    fail-closed.
+    """
 
     bundle = verify_address_bundle(directory, expected=expected_bundle)
+    normalize_lookup = pack_lookup_normalizer(V050_PACK_NORMALIZATION_ID)
     entries: list[CanonicalRegistryEntry] = []
     entity_ids: set[str] = set()
     normalized_titles: set[str] = set()
@@ -205,10 +228,14 @@ def load_canonical_registry(
         title = str(row["title"])
         normalized_title = str(row["normalized_title"])
         source_document_id = str(row["document_id"])
-        if entity_id != canonical_entity_id(title):
+        if not normalized_title:
+            raise AddressArtifactError(f"canonical normalized title is empty: {entity_id}")
+        if entity_id != canonical_entity_id(normalized_title):
             raise AddressArtifactError(f"canonical entity ID/title mismatch: {entity_id}")
-        if normalized_title != normalize_surface(title):
-            raise AddressArtifactError(f"canonical normalized title mismatch: {entity_id}")
+        if normalized_title != normalize_lookup(title):
+            raise AddressArtifactError(
+                f"canonical title/normalization mismatch: {entity_id}"
+            )
         if entity_id in entity_ids or normalized_title in normalized_titles:
             raise AddressArtifactError("canonical registry contains a duplicate ID or title")
         if source_document_id in source_documents:
@@ -305,7 +332,7 @@ def iter_exact_address_evidence(
     registry = load_canonical_registry(directory, expected_bundle=expected_bundle)
 
     for entry in registry.entries:
-        yield AddressEvidence(
+        title_evidence = AddressEvidence(
             surface=entry.canonical_title,
             entity_id=entry.entity_id,
             canonical_title=entry.canonical_title,
@@ -314,6 +341,25 @@ def iter_exact_address_evidence(
             channel=AddressChannel.TITLE,
             provenance_ids=(_channel_provenance(AddressChannel.TITLE, entry.record_id),),
         )
+        yield title_evidence
+        if normalize_surface(entry.canonical_title) != entry.normalized_title:
+            # The exact index intentionally preserves Unicode punctuation, while
+            # a declared source-pack contract may additionally fold a character
+            # class (v0.5 folds U+2013 EN DASH to ASCII hyphen). Keep the raw
+            # title spelling reachable and add the pack-authoritative lookup
+            # spelling instead of silently changing the global exact contract.
+            yield AddressEvidence(
+                surface=entry.normalized_title,
+                entity_id=entry.entity_id,
+                canonical_title=entry.canonical_title,
+                support_count=1,
+                source_document_ids=(entry.source_document_id,),
+                channel=AddressChannel.TITLE,
+                provenance_ids=(
+                    _channel_provenance(AddressChannel.TITLE, entry.record_id)
+                    + ":pack-normalized",
+                ),
+            )
     for row in _verified_rows(directory, "aliases"):
         entity_id, title = _require_registry_pair(registry, row)
         if str(row["kind"]) == "title":
@@ -344,8 +390,18 @@ def iter_exact_address_evidence(
         if str(row["source_split"]) not in splits:
             continue
         entity_id, title = _require_registry_pair(registry, row)
+        surface = str(row["mention"])
+        if not normalize_surface(surface):
+            # A mention that normalizes to empty (a whitespace-only piped-link
+            # display) can never be an exact lookup key for any resolution
+            # state: no query can normalize to empty, so the index cannot hold
+            # it.  The row stays fully preserved in the occurrences stream and
+            # its support or unresolved mass stays visible in
+            # surface_statistics; a resolved entity remains reachable through
+            # its title, alias, redirect, and other anchor surfaces.
+            continue
         yield AddressEvidence(
-            surface=str(row["mention"]),
+            surface=surface,
             entity_id=entity_id,
             canonical_title=title,
             support_count=1,

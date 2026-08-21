@@ -17,8 +17,8 @@ from aethersparse.addressing.compiler_v2 import (
     _open_source,
     _resolution_index,
     _resolve_target,
+    pack_lookup_normalize,
 )
-from aethersparse.addressing.contracts_v2 import normalize_surface
 
 _TRAINING = frozenset({"development", "tuning"})
 _CHANNEL_ORDER = {"title": 0, "redirect": 1, "alias": 2, "anchor": 3}
@@ -81,8 +81,12 @@ def _proposals(
     connection: sqlite3.Connection,
     surface: str,
     by_title: dict[str, tuple[Any, ...]],
+    normalize_lookup: Any,
 ) -> list[dict[str, object]]:
-    normalized = normalize_surface(surface)
+    # The pack's alias/anchor_text columns are stored under the pack's declared
+    # normalization_id, so the query side must use that same declared
+    # normalization rather than the generic surface contract.
+    normalized = normalize_lookup(surface)
     proposals: dict[tuple[str, str], dict[str, object]] = {}
     aliases = connection.execute(
         """SELECT a.kind,d.document_id,d.normalized_title,d.redirect_target
@@ -91,7 +95,7 @@ def _proposals(
         (normalized,),
     )
     for row in aliases:
-        resolved = _resolve_target(str(row["normalized_title"]), by_title)
+        resolved = _resolve_target(str(row["normalized_title"]), by_title, normalize_lookup)
         if resolved.entity_id is None:
             continue
         if row["redirect_target"]:
@@ -123,7 +127,7 @@ def _proposals(
     ).fetchall()
     anchor_total = len(anchors)
     for row in anchors:
-        resolved = _resolve_target(str(row["target_title"]), by_title)
+        resolved = _resolve_target(str(row["target_title"]), by_title, normalize_lookup)
         if resolved.entity_id is None:
             continue
         key = (resolved.entity_id, "anchor")
@@ -193,6 +197,7 @@ def export_v11_benchmark_capture(
     corpus = _load(hard_negatives)
     connection = _open_source(pack)
     try:
+        normalize_lookup = pack_lookup_normalize(connection)
         by_title_raw, _by_id = _resolution_index(_documents(connection))
         by_title = dict(by_title_raw)
         rows: list[dict[str, object]] = []
@@ -205,15 +210,22 @@ def export_v11_benchmark_capture(
                 raise AddressArtifactError(f"sealed partition in hard negatives: {partition}")
             query = str(case.get("query", ""))
             correct = [str(item) for item in case.get("correct_entity_ids", ())]
+            # Select the unique replica for the requested tier inside the
+            # exporter.  A cross-tier freeze is lawful input: cases with no
+            # replica at this tier, or with duplicates, are excluded and
+            # counted rather than aborting the export or guessing an
+            # alignment from another tier's replica.
             replicas = [
                 item
                 for item in case.get("replicas", ())
                 if isinstance(item, dict) and item.get("corpus_tier") == corpus_tier
             ]
-            if len(replicas) != 1:
-                raise AddressArtifactError(
-                    f"case does not have exactly one {corpus_tier} replica: {case.get('case_id')}"
-                )
+            if not replicas:
+                counts["cases_excluded_absent_requested_tier_replica"] += 1
+                continue
+            if len(replicas) > 1:
+                counts["cases_excluded_duplicate_requested_tier_replica"] += 1
+                continue
             mentions = replicas[0].get("mentions", ())
             if not isinstance(mentions, list):
                 raise AddressArtifactError("replica mention list is malformed")
@@ -230,7 +242,7 @@ def export_v11_benchmark_capture(
                 end = int(mention.get("char_end", -1))
                 if start < 0 or end < start or query[start:end] != surface:
                     raise AddressArtifactError("mention offsets do not copy query text")
-                proposals = _proposals(connection, surface, by_title)
+                proposals = _proposals(connection, surface, by_title, normalize_lookup)
                 retained_candidates = mention.get("candidates", ())
                 if not isinstance(retained_candidates, list):
                     raise AddressArtifactError("retained candidate list is malformed")

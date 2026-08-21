@@ -1,0 +1,162 @@
+{
+  "schema_version": "aethersparse.semantic-address-v2-real-corpus-qualification.v1",
+  "status": "QUALIFIED_POLICY_GATE_OPEN",
+  "decision": {
+    "stage_2_branch": "A",
+    "reason": "tuning candidate completeness is 30/31 (96.7742%) at K=8/16/32",
+    "learned_semantic_generator_run": false,
+    "learned_generator_reason": "the deterministic system exceeds 90%; the sole residual gold ID is absent from the authoritative canonical registry",
+    "policy_gate_open": true
+  },
+  "factory": {
+    "dataset": "Flare09/AetherSparse-v12-semantic-address",
+    "revision": "fc720346ec8bef82c0127efc43b377f0ded4d526",
+    "outer_manifest_sha256": "3aa99cf5b7d0088e770491ae3990b8bc6287a8013101b6a71c5964dc3e8cd682",
+    "authoritative_files_verified": 51,
+    "verification_failures": 0,
+    "documents_397k": 397196,
+    "canonical_entities_397k": 275989,
+    "exact_surfaces_397k": 1334801,
+    "occurrences_397k": 7627708
+  },
+  "validation": {
+    "addressing_tests_passed": 51,
+    "ruff": "pass",
+    "mypy_strict_addressing": "pass",
+    "diff_check": "pass",
+    "license_notice_changed": false,
+    "ten_k_streams_and_benchmark_byte_verified": true,
+    "ten_k_raw_title_reachability": "7455/7455",
+    "ten_k_pack_normalized_reachability_before_repair": "7450/7455",
+    "ten_k_pack_normalized_reachability_after_repair": "7455/7455"
+  },
+  "factory_capture_baseline_397k": {
+    "exact_aligned_development": 19,
+    "exact_aligned_tuning": 31,
+    "combined_entity_recall": {
+      "r_at_1": 0.20,
+      "r_at_4": 0.20,
+      "r_at_8": 0.20,
+      "r_at_16": 0.24,
+      "r_at_32": 0.24
+    },
+    "full_case_completeness_144_cases": {
+      "at_1": 0.3194444444444444,
+      "at_4": 0.3541666666666667,
+      "at_8": 0.3541666666666667,
+      "at_16": 0.3680555555555556,
+      "at_32": 0.3680555555555556,
+      "cases_without_detected_mentions": 5
+    },
+    "unique_recoveries_pre_cap": {
+      "title": 0,
+      "redirect": 0,
+      "alias": 0,
+      "anchor": 2
+    },
+    "failure_taxonomy_50_aligned": {
+      "correct_candidate_absent": 38,
+      "outside_global_cap_8": 2,
+      "correct_at_rank_1": 10
+    },
+    "strata_combined": {
+      "head_rows": 16,
+      "head_r_at_16": 0.625,
+      "torso_rows": 30,
+      "torso_r_at_16": 0.06666666666666667,
+      "tail_rows": 1,
+      "tail_r_at_16": 0.0,
+      "no_fit_statistics_rows": 3,
+      "aligned_unseen_holdout_surfaces": 0,
+      "mean_fit_entropy_nats": 2.0176470881520756,
+      "mean_fit_unresolved_probability_mass": 0.2602228572230365
+    },
+    "capture_caveat": "captured anchor proposals are not source-split filtered; the published FST is fit-only"
+  },
+  "selected_architecture": {
+    "name": "factory-precap-plus-generic-query-span-char-trigram-dice-osa",
+    "learned_parameters": 0,
+    "canonical_union_before_one_global_cap": true,
+    "global_candidate_cap": 32,
+    "char_dice_or_osa_threshold": 0.8,
+    "fuzzy_rank_weight": 0.7,
+    "max_span_tokens": 2,
+    "postings_cap_per_span": 16384,
+    "logical_index_bytes": 32282740,
+    "normalized_surfaces": 368369,
+    "posting_entries": 5909296
+  },
+  "real_397k_selected_metrics": {
+    "development": {
+      "mention_hypothesis_recall": 1.0,
+      "r_at_1": 0.21052631578947367,
+      "r_at_4": 0.8947368421052632,
+      "r_at_8": 1.0,
+      "r_at_16": 1.0,
+      "r_at_32": 1.0,
+      "completeness_at_32": 1.0
+    },
+    "tuning": {
+      "mention_hypothesis_recall": 0.967741935483871,
+      "r_at_1": 0.1935483870967742,
+      "r_at_4": 0.9032258064516129,
+      "r_at_8": 0.967741935483871,
+      "r_at_16": 0.967741935483871,
+      "r_at_32": 0.967741935483871,
+      "completeness_at_32": 0.967741935483871,
+      "fuzzy_unique_recoveries_at_32": 24,
+      "union_gain_at_32_rate_points": 0.7741935483870968,
+      "pre_cap_mean": 31.741935483870968,
+      "pre_cap_p95": 55.0,
+      "global_cap_saturation": 0.6129032258064516
+    },
+    "residual": {
+      "count": 1,
+      "class": "GOLD_ENTITY_ABSENT_FROM_CANONICAL_REGISTRY",
+      "surface": "eKrnel (computer science)"
+    },
+    "scope": "50 authenticated exact single-mention/single-gold alignments; 187 other runtime mentions remain alignment-quarantined"
+  },
+  "compression": {
+    "run": false,
+    "reason": "no learned representation was selected; deterministic address completeness and strict reachability gates opened"
+  },
+  "p4_projection": {
+    "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+    "evidence_class": "analytical_projection_not_hardware_measurement",
+    "learned_parameters": 0,
+    "model_bytes": 32282740,
+    "virtual_latency_ms_p50_p95": {
+      "200mhz": [116.0533825, 236.6056065],
+      "300mhz": [63.65246333333334, 129.94380825],
+      "400mhz": [37.45200375, 76.670070125]
+    }
+  },
+  "strict_reachability": {
+    "certified_reachable": 572,
+    "eligible": 695,
+    "rate": 0.823021582733813,
+    "v11_baseline_reachable": 324,
+    "newly_reachable_net": 248,
+    "policy_gate": ">418/695 and >60%",
+    "policy_gate_open": true,
+    "entity_binding_valid": 640,
+    "canonical_goal_present": 638,
+    "candidate_ids_added": 12028,
+    "address_capacity_exhausted": 0,
+    "residual_taxonomy": {
+      "SEMANTIC_ADDRESS_GENERATION": 55,
+      "VALUE_AVAILABILITY": 29,
+      "STATE_REPRESENTATION_OR_TOOLSET": 39
+    },
+    "scope": "fresh replay from original retained state plus selected 397k fuzzy union and exact typed-value repair; no baseline reaggregation"
+  },
+  "source_artifacts": {
+    "exact_baseline_sha256": "c3932f69e159f82687d0c7709af5309afe657231d9d11c05edf0f9ce3fcac193",
+    "selected_qualification_sha256": "142e8b0a41cd3fbb261ddef0531d26ba80a0cecb777ddb53239aed4ab6864939",
+    "strict_reachability_sha256": "4497ac636a1a5fd60f3bf8bff13f0b628029d598c4bb0464dd67fbfd063e2212",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  },
+  "remaining_bottleneck": "55 entity-address misses, then 39 state/toolset and 29 value-availability residuals",
+  "next_action": "fit the smallest controller policy to the 572 valid states; do not reopen broad address or neural-compression sweeps"
+}

@@ -17,7 +17,11 @@ def main() -> None:
     parser.add_argument("--source-manifest", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--manifest-output", required=True, type=Path)
-    parser.add_argument("--articles", required=True, type=int, choices=(10_000, 50_000))
+    # The frozen v0.5 series pinned 10k/50k; the Semantic Address v2 Factory
+    # handoff additionally requires the canonical 25k and full-dump (397,196)
+    # tiers.  The limit remains exact: the builder fails if the dump cannot
+    # supply precisely this many namespace-0 articles.
+    parser.add_argument("--articles", required=True, type=int, choices=(10_000, 25_000, 50_000, 397_196))
     parser.add_argument("--chunk-chars", type=int, default=480)
     args = parser.parse_args()
     with args.source_manifest.open(encoding="utf-8") as stream:

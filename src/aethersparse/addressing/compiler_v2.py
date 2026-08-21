@@ -16,7 +16,7 @@ import re
 import sqlite3
 import tempfile
 from collections import Counter
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import suppress
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -29,12 +29,16 @@ from aethersparse.addressing.contracts_v2 import (
     ADDRESS_MANIFEST_SCHEMA_VERSION as ADDRESS_MANIFEST_SCHEMA_VERSION,
 )
 from aethersparse.addressing.contracts_v2 import (
+    V050_PACK_NORMALIZATION_ID as V050_PACK_NORMALIZATION_ID,
+)
+from aethersparse.addressing.contracts_v2 import (
     canonical_entity_id as canonical_entity_id,
 )
 from aethersparse.addressing.contracts_v2 import (
     normalize_surface as normalize_surface,
 )
 from aethersparse.addressing.contracts_v2 import (
+    pack_lookup_normalizer,
     validate_record_contract,
     with_stable_record_id,
 )
@@ -81,6 +85,7 @@ class AddressExportManifest:
     source_pack_bytes: int
     corpus_tier: str
     sqlite_user_version: int
+    normalization_id: str
     split_policy: Mapping[str, object]
     counts: Mapping[str, int]
     views: Mapping[str, object]
@@ -180,6 +185,42 @@ def _open_source(path: Path) -> sqlite3.Connection:
     return connection
 
 
+def pack_normalization_id(connection: sqlite3.Connection) -> str:
+    """Return the source pack's declared corpus_meta normalization_id.
+
+    The declared normalization is required: without it the compiler cannot
+    prove that lookup-side normalization matches the pack's stored
+    normalized columns, so any pack that cannot declare it fails closed.
+    """
+
+    try:
+        row = connection.execute(
+            "SELECT value FROM corpus_meta WHERE key='normalization_id'"
+        ).fetchone()
+    except sqlite3.Error as error:
+        raise AddressArtifactError(
+            "source pack lacks corpus_meta normalization_id"
+        ) from error
+    if row is None:
+        raise AddressArtifactError("source pack lacks corpus_meta normalization_id")
+    try:
+        value = json.loads(str(row[0]))
+    except json.JSONDecodeError as error:
+        raise AddressArtifactError("corpus_meta normalization_id is not JSON") from error
+    if not isinstance(value, str) or not value:
+        raise AddressArtifactError("corpus_meta normalization_id is not a string")
+    return value
+
+
+def pack_lookup_normalize(connection: sqlite3.Connection) -> Callable[[str], str]:
+    """Return the pack-declared lookup normalizer, failing closed if undeclared."""
+
+    try:
+        return pack_lookup_normalizer(pack_normalization_id(connection))
+    except ValueError as error:
+        raise AddressArtifactError(str(error)) from error
+
+
 def _documents(connection: sqlite3.Connection) -> Iterator[_Document]:
     rows = connection.execute(
         """SELECT document_id,title,normalized_title,redirect_target,
@@ -190,7 +231,7 @@ def _documents(connection: sqlite3.Connection) -> Iterator[_Document]:
         yield _Document(
             document_id=str(row["document_id"]),
             title=str(row["title"]),
-            normalized_title=normalize_surface(str(row["normalized_title"])),
+            normalized_title=str(row["normalized_title"]),
             redirect_target=(str(row["redirect_target"]) if row["redirect_target"] else None),
             source_text_sha256=str(row["source_text_sha256"]),
         )
@@ -207,8 +248,12 @@ def _resolution_index(
     return ({key: tuple(value) for key, value in by_title.items()}, by_id)
 
 
-def _resolve_target(title: str, by_title: Mapping[str, tuple[_Document, ...]]) -> _ResolvedTarget:
-    current = normalize_surface(title.split("#", 1)[0])
+def _resolve_target(
+    title: str,
+    by_title: Mapping[str, tuple[_Document, ...]],
+    normalize_lookup: Callable[[str], str],
+) -> _ResolvedTarget:
+    current = normalize_lookup(title.split("#", 1)[0])
     path: list[str] = []
     seen: set[str] = set()
     while True:
@@ -223,7 +268,7 @@ def _resolve_target(title: str, by_title: Mapping[str, tuple[_Document, ...]]) -
             return _ResolvedTarget(None, None, "ambiguous", tuple(path))
         document = rows[0]
         if document.redirect_target:
-            current = normalize_surface(document.redirect_target.split("#", 1)[0])
+            current = normalize_lookup(document.redirect_target.split("#", 1)[0])
             continue
         return _ResolvedTarget(
             canonical_entity_id(document.normalized_title),
@@ -309,6 +354,8 @@ def compile_address_pack(
     connection = _open_source(source_pack)
     writers: dict[str, _DeterministicGzipWriter] = {}
     try:
+        normalization_id = pack_normalization_id(connection)
+        normalize_lookup = pack_lookup_normalize(connection)
         by_title, by_id = _resolution_index(_documents(connection))
         writers = {
             name: _DeterministicGzipWriter(output_directory / f"{name}.jsonl.gz")
@@ -357,7 +404,7 @@ def compile_address_pack(
                     counts["duplicate_title_groups"] += 1
                     continue
                 document = rows[0]
-                resolved = _resolve_target(document.normalized_title, by_title)
+                resolved = _resolve_target(document.normalized_title, by_title, normalize_lookup)
                 if resolved.entity_id is None:
                     if document.redirect_target:
                         writers["quarantine"].write(
@@ -390,7 +437,7 @@ def compile_address_pack(
             )
             for row in alias_rows:
                 document = by_id[str(row["document_id"])]
-                resolved = _resolve_target(document.normalized_title, by_title)
+                resolved = _resolve_target(document.normalized_title, by_title, normalize_lookup)
                 writers["aliases"].write(
                     {
                         "schema_version": ADDRESS_EXPORT_SCHEMA_VERSION,
@@ -410,7 +457,7 @@ def compile_address_pack(
                      FROM redirects ORDER BY source_document_id"""
             )
             for row in redirect_rows:
-                resolved = _resolve_target(str(row["target_title"]), by_title)
+                resolved = _resolve_target(str(row["target_title"]), by_title, normalize_lookup)
                 writers["redirects"].write(
                     {
                         "schema_version": ADDRESS_EXPORT_SCHEMA_VERSION,
@@ -464,7 +511,7 @@ def compile_address_pack(
                         f"mention offsets do not copy source text: {row['anchor_id']}"
                     )
                 normalized_mention = normalize_surface(str(row["anchor_text"] or exact_mention))
-                resolved = _resolve_target(str(row["target_title"]), by_title)
+                resolved = _resolve_target(str(row["target_title"]), by_title, normalize_lookup)
                 split = _source_split(source.document_id)
                 context_start = max(0, mention_start - context_characters)
                 context_end = min(len(raw_wikitext), mention_end + context_characters)
@@ -638,6 +685,7 @@ def compile_address_pack(
             source_pack_bytes=source_bytes,
             corpus_tier=corpus_tier,
             sqlite_user_version=500,
+            normalization_id=normalization_id,
             split_policy={
                 "unit": "source_document_id",
                 "hash": "sha256-first-32-bits-mod-100",
@@ -751,12 +799,19 @@ def verify_address_export(directory: Path) -> AddressExportManifest:
         or sqlite_version != 500
     ):
         raise AddressArtifactError("manifest source dimensions are malformed")
+    normalization_id = raw.get("normalization_id")
+    if normalization_id != V050_PACK_NORMALIZATION_ID:
+        raise AddressArtifactError(
+            f"manifest normalization_id must be {V050_PACK_NORMALIZATION_ID!r}: "
+            f"{normalization_id!r}"
+        )
     return AddressExportManifest(
         schema_version=ADDRESS_MANIFEST_SCHEMA_VERSION,
         source_pack_sha256=source_hash,
         source_pack_bytes=source_bytes,
         corpus_tier=str(raw["corpus_tier"]),
         sqlite_user_version=500,
+        normalization_id=V050_PACK_NORMALIZATION_ID,
         split_policy=split_policy,
         counts={str(key): int(value) for key, value in counts.items()},
         views=views,

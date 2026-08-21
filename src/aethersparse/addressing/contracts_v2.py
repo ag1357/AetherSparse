@@ -7,7 +7,7 @@ import json
 import math
 import re
 import unicodedata
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from enum import StrEnum
 from typing import Any
 
@@ -51,6 +51,32 @@ def normalize_surface(value: str) -> str:
     """Return the one canonical v0.5 lookup form."""
 
     return " ".join(unicodedata.normalize("NFKC", value.replace("_", " ")).casefold().split())
+
+
+V050_PACK_NORMALIZATION_ID = "nfkc-html-punctuation-whitespace-v050-v1"
+
+
+def pack_lookup_normalizer(normalization_id: str) -> Callable[[str], str]:
+    """Return the lookup normalizer declared by a canonical source pack.
+
+    A canonical pack's stored ``normalized_title``, ``alias``, and
+    ``anchor_text`` columns are the authoritative normalized values under the
+    pack's declared ``normalization_id``.  Every lookup into those columns
+    (title resolution, alias/anchor candidate channels) must normalize the
+    query side with the same declared normalization; the generic
+    :func:`normalize_surface` contract does not fold the v0.5 punctuation
+    class (for example U+2013 EN DASH to hyphen) and must not be substituted
+    for it.  Any undeclared ``normalization_id`` fails closed.
+    """
+
+    if normalization_id != V050_PACK_NORMALIZATION_ID:
+        raise ValueError(f"undeclared source pack normalization: {normalization_id!r}")
+    from aethersparse.real_corpus.builder import normalize_text
+
+    def normalize(value: str) -> str:
+        return normalize_text(value).casefold()
+
+    return normalize
 
 
 def canonical_entity_id(title: str) -> str:

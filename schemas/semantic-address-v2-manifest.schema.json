@@ -3,13 +3,14 @@
   "$id": "https://github.com/ag1357/AetherSparse/schemas/semantic-address-v2-manifest.schema.json",
   "title": "AetherSparse Semantic Address Plane v2 manifest",
   "type": "object",
-  "required": ["schema_version", "source_pack_sha256", "source_pack_bytes", "corpus_tier", "sqlite_user_version", "split_policy", "counts", "views", "streams"],
+  "required": ["schema_version", "source_pack_sha256", "source_pack_bytes", "corpus_tier", "sqlite_user_version", "normalization_id", "split_policy", "counts", "views", "streams"],
   "properties": {
     "schema_version": {"const": "aethersparse.semantic-address-manifest.v2"},
     "source_pack_sha256": {"$ref": "#/$defs/sha256"},
     "source_pack_bytes": {"type": "integer", "minimum": 1},
     "corpus_tier": {"type": "string", "minLength": 1},
     "sqlite_user_version": {"const": 500},
+    "normalization_id": {"const": "nfkc-html-punctuation-whitespace-v050-v1"},
     "split_policy": {
       "type": "object",
       "required": ["unit", "hash", "fit_buckets", "calibration_buckets", "holdout_buckets", "benchmark_partitions_used"],

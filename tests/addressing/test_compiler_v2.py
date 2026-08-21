@@ -102,7 +102,12 @@ def _pack(path: Path) -> None:
           anchor_id TEXT,source_document_id TEXT,target_title TEXT,anchor_text TEXT,
           raw_start INTEGER,raw_end INTEGER,raw_text TEXT,source_span_sha256 TEXT
         );
+        CREATE TABLE corpus_meta(key TEXT PRIMARY KEY,value TEXT);
         """
+    )
+    db.execute(
+        "INSERT INTO corpus_meta VALUES('normalization_id',?)",
+        (json.dumps("nfkc-html-punctuation-whitespace-v050-v1"),),
     )
     alpha = "Alpha links to [[Beta|B.]] and [[Missing]]."
     beta = "Beta."
@@ -548,7 +553,12 @@ def _split_pack(path: Path) -> None:
           anchor_id TEXT,source_document_id TEXT,target_title TEXT,anchor_text TEXT,
           raw_start INTEGER,raw_end INTEGER,raw_text TEXT,source_span_sha256 TEXT
         );
+        CREATE TABLE corpus_meta(key TEXT PRIMARY KEY,value TEXT);
         """
+    )
+    db.execute(
+        "INSERT INTO corpus_meta VALUES('normalization_id',?)",
+        (json.dumps("nfkc-html-punctuation-whitespace-v050-v1"),),
     )
     source_text = {
         "fit": "[[Alpha|Shared]] and [[Alpha|Shared]]",
