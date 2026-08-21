@@ -1,0 +1,161 @@
+{
+  "accessory_hardware_contract": {
+    "comfortable": {
+      "cpu": "400 MHz+ integer core(s); Linux optional, neither required nor rejected",
+      "knowledge_storage": "256 GB+ removable/replaceable solid-state media",
+      "model_storage": ">=8 MiB",
+      "ram": ">=16 MiB",
+      "storage": ">=20 MB/s sequential with >=10k random IOPS",
+      "terminal_link": "USB and local IP"
+    },
+    "minimum": {
+      "cpu": "32-bit integer MCU-class core, >=200 MHz, int8/int16 multiply",
+      "knowledge_storage": ">=32 GB removable/page-addressable media",
+      "model_storage": ">=512 KiB for <=0.25M int8 policy and metadata",
+      "ram": "4 MiB addressable external RAM plus >=384 KiB fast internal SRAM",
+      "storage": ">=5 MB/s sequential, <=100 us target cached/random page service",
+      "terminal_link": "transport-independent framed USB serial or local IP"
+    },
+    "physical": "compact accessory module; no permanent RJ45-height requirement",
+    "power": "not asserted until the selected module is measured under trace-equivalent load",
+    "recommended": {
+      "cpu": "integer MCU or small CPU, >=300 MHz with efficient int8 MAC",
+      "knowledge_storage": "256 GB removable solid-state media",
+      "model_storage": ">=2 MiB",
+      "ram": "8 MiB external RAM plus >=512 KiB fast internal SRAM",
+      "storage": ">=10 MB/s sequential with >=4k random IOPS or effective read cache",
+      "terminal_link": "USB plus local IP option"
+    }
+  },
+  "deployment_filesystem": {
+    "atomic_update": "validate all region hashes then fsync+rename active registry",
+    "factory_intermediates_on_device": false,
+    "immutable_pack_identity": "SHA-256 canonical manifest",
+    "source_types": [
+      "encyclopedia",
+      "software_documentation",
+      "source_code",
+      "manual/specification"
+    ]
+  },
+  "next_action": "bind Worker A's selected int8 policy to the ABI, then capture physical 4 KiB page latency/cache traces on the accessory P4",
+  "p4_projection": {
+    "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+    "evidence_class": "analytical_projection_not_hardware_measurement",
+    "selected_v12_virtual_latency_ms_p50_p95": {
+      "200mhz": [
+        116.0533825,
+        236.6056065
+      ],
+      "300mhz": [
+        63.65246333333334,
+        129.94380825
+      ],
+      "400mhz": [
+        37.45200375,
+        76.670070125
+      ]
+    },
+    "warning": "V12 values predate the physical cache trace and are not board measurements"
+  },
+  "parity": {
+    "candidate_union_over_cap_covered": true,
+    "frozen_vector_schema": "aethercore.runtime-parity-vectors.v1",
+    "numeric_tolerance": 0,
+    "policy_legal_mask_covered": true,
+    "session_bytes_and_crc_exact": true,
+    "typed_verified_trajectory_covered": true
+  },
+  "remaining_bottleneck": "real ESP32-P4 storage trace/build and final learned-policy parameter footprint",
+  "runtime": {
+    "abi": "aethercore.runtime.c-abi.v1",
+    "candidate_cap": 32,
+    "esp_idf": {
+      "actual_build_run": false,
+      "component_target_present": true,
+      "reason": "ESP-IDF toolchain is not installed in the Work environment"
+    },
+    "implementation": "allocation-free portable C++17 with C-compatible ABI",
+    "native_build": {
+      "elf_bss_bytes": 8,
+      "elf_load_data_bytes": 600,
+      "elf_load_text_bytes": 9590,
+      "elf_load_total_bytes": 10198,
+      "evidence_class": "measured_host_gcc_build_not_esp32_binary",
+      "host_shared_object_file_bytes": 20904
+    },
+    "policy_interface": "external int8 linear weights, int16 features, int64 accumulation",
+    "policy_parameter_capacity": "64 features x 32 actions; interface replaceable behind ABI",
+    "session_struct_bytes": 872,
+    "session_wire_bytes": 836,
+    "verifier_bypass": false,
+    "workspace_bytes": 648
+  },
+  "schema_version": "aethersparse.v13-portable-runtime-qualification.v1",
+  "status": "HOST_PARITY_AND_EDGE_CONTRACT_QUALIFIED",
+  "v12_397k_paged_layout": {
+    "cache_trace_proxy": [
+      {
+        "bytes_per_query_mean": 96681.984,
+        "cache_bytes": 0,
+        "cache_hit_rate": 0.0,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 23.604,
+        "queries": 1000,
+        "random_reads_per_query_mean": 19.581,
+        "sequential_reads_per_query_mean": 4.023
+      },
+      {
+        "bytes_per_query_mean": 85516.288,
+        "cache_bytes": 65536,
+        "cache_hit_rate": 0.11548890018640909,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 20.878,
+        "queries": 1000,
+        "random_reads_per_query_mean": 17.246,
+        "sequential_reads_per_query_mean": 3.632
+      },
+      {
+        "bytes_per_query_mean": 48537.6,
+        "cache_bytes": 262144,
+        "cache_hit_rate": 0.49796644636502285,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 11.85,
+        "queries": 1000,
+        "random_reads_per_query_mean": 9.976,
+        "sequential_reads_per_query_mean": 1.874
+      },
+      {
+        "bytes_per_query_mean": 778.24,
+        "cache_bytes": 1048576,
+        "cache_hit_rate": 0.9919505168615489,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 0.19,
+        "queries": 1000,
+        "random_reads_per_query_mean": 0.152,
+        "sequential_reads_per_query_mean": 0.038
+      }
+    ],
+    "cold_page_aligned_index_bytes": 32284672,
+    "completeness_contract": "full posting lists and canonical-ID union are unchanged; only placement/cache differs",
+    "logical_index_bytes": 32282740,
+    "page_bytes": 4096,
+    "posting_count": 5909296,
+    "resident_directory_total_bytes": 1735620,
+    "resident_surface_directory_bytes": 1473476,
+    "resident_top_postings_directory_bytes": 262144,
+    "source": "authoritative V12 report plus measured 10k V12 post-cap trace proxy",
+    "surface_count": 368369,
+    "trace_artifact_sha256": "a6e30c394ef2fc7b36796b8140476eab0982a5210fdb131d433fbb160eb0f591",
+    "trace_queries": 1000,
+    "trace_scope": "deterministic evenly-spaced title surfaces; not the 50-case real-397k query trace"
+  }
+}

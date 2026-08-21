@@ -27,6 +27,7 @@ dev = [
 
 [project.scripts]
 aethersparse = "aethersparse.cli:app"
+aethercore-server = "aethersparse.agent.server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aethersparse"]

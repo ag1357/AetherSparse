@@ -1,0 +1,75 @@
+{
+  "schema": "aethercore.v13.agent-plane-qualification.v1",
+  "status": "QUALIFIED",
+  "conversation": {
+    "bounded_recent_utterances": 12,
+    "bounded_evidence_handles": 32,
+    "cases": [
+      "direct",
+      "follow_up",
+      "pronoun_referent",
+      "what_about",
+      "user_correction",
+      "ambiguity_clarification",
+      "cancel",
+      "reset"
+    ],
+    "cases_passed": 8,
+    "persistent_json_round_trip": true,
+    "missing_candidate_uses_fake_clarification": false
+  },
+  "grounded_realizer": {
+    "answer_shapes": [
+      "factual_value",
+      "entity",
+      "date",
+      "quantity",
+      "list",
+      "comparison",
+      "quotation",
+      "clarification"
+    ],
+    "answer_shapes_passed": 8,
+    "verifier_bypass": false,
+    "unsupported_value_fail_closed": true,
+    "learned_smoother_trained": false
+  },
+  "software_tool_plane": {
+    "generic_tasks": 5,
+    "successful_tasks": 5,
+    "success_rate": 1.0,
+    "real_exact_operations": 55,
+    "invalid_action_attempts": 0,
+    "external_llm_used": false,
+    "integration_performed": false,
+    "explicit_one_time_integration_authorization_required": true,
+    "categories": [
+      "fix_failing_unit_test",
+      "add_deterministic_feature",
+      "modify_parser",
+      "add_api_field",
+      "repair_compilation_defect"
+    ]
+  },
+  "knowledge_contract": {
+    "required_source_types": 4,
+    "source_types_passed": 4,
+    "immutable_manifest_identity": true,
+    "region_digest_validation": true,
+    "atomic_add_update_remove": true,
+    "corpus_rebuilt": false
+  },
+  "tactility_protocol": {
+    "transport_independent": true,
+    "framing": "bounded length-prefixed JSON",
+    "mock_round_trip": true,
+    "business_logic_on_terminal": false,
+    "required_message_types": 11,
+    "required_message_types_defined": 11
+  },
+  "validation": {
+    "pytest": "19 passed",
+    "ruff": "passed",
+    "mypy_strict": "passed"
+  }
+}

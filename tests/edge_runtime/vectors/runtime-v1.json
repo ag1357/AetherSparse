@@ -1,0 +1,75 @@
+{
+  "schema_version": "aethercore.runtime-parity-vectors.v1",
+  "candidate_union": {
+    "existing": [
+      {"entity_id": 900, "score_q15": 12000, "evidence_mask": 1},
+      {"entity_id": 901, "score_q15": 11000, "evidence_mask": 1}
+    ],
+    "incoming": [
+      {"entity_id": 900, "score_q15": 13000, "evidence_mask": 4},
+      {"entity_id": 1, "score_q15": 1001, "evidence_mask": 2},
+      {"entity_id": 50, "score_q15": 500, "evidence_mask": 8},
+      {"entity_id": 2, "score_q15": 1002, "evidence_mask": 2},
+      {"entity_id": 3, "score_q15": 1003, "evidence_mask": 2},
+      {"entity_id": 4, "score_q15": 1004, "evidence_mask": 2},
+      {"entity_id": 5, "score_q15": 1005, "evidence_mask": 2},
+      {"entity_id": 6, "score_q15": 1006, "evidence_mask": 2},
+      {"entity_id": 7, "score_q15": 1007, "evidence_mask": 2},
+      {"entity_id": 8, "score_q15": 1008, "evidence_mask": 2},
+      {"entity_id": 9, "score_q15": 1009, "evidence_mask": 2},
+      {"entity_id": 10, "score_q15": 1010, "evidence_mask": 2},
+      {"entity_id": 11, "score_q15": 1011, "evidence_mask": 2},
+      {"entity_id": 12, "score_q15": 1012, "evidence_mask": 2},
+      {"entity_id": 13, "score_q15": 1013, "evidence_mask": 2},
+      {"entity_id": 14, "score_q15": 1014, "evidence_mask": 2},
+      {"entity_id": 15, "score_q15": 1015, "evidence_mask": 2},
+      {"entity_id": 16, "score_q15": 1016, "evidence_mask": 2},
+      {"entity_id": 17, "score_q15": 1017, "evidence_mask": 2},
+      {"entity_id": 18, "score_q15": 1018, "evidence_mask": 2},
+      {"entity_id": 19, "score_q15": 1019, "evidence_mask": 2},
+      {"entity_id": 20, "score_q15": 1020, "evidence_mask": 2},
+      {"entity_id": 21, "score_q15": 1021, "evidence_mask": 2},
+      {"entity_id": 22, "score_q15": 1022, "evidence_mask": 2},
+      {"entity_id": 23, "score_q15": 1023, "evidence_mask": 2},
+      {"entity_id": 24, "score_q15": 1024, "evidence_mask": 2},
+      {"entity_id": 25, "score_q15": 1025, "evidence_mask": 2},
+      {"entity_id": 26, "score_q15": 1026, "evidence_mask": 2},
+      {"entity_id": 27, "score_q15": 1027, "evidence_mask": 2},
+      {"entity_id": 28, "score_q15": 1028, "evidence_mask": 2},
+      {"entity_id": 29, "score_q15": 1029, "evidence_mask": 2},
+      {"entity_id": 30, "score_q15": 1030, "evidence_mask": 2},
+      {"entity_id": 31, "score_q15": 1031, "evidence_mask": 2},
+      {"entity_id": 32, "score_q15": 1032, "evidence_mask": 2},
+      {"entity_id": 33, "score_q15": 1033, "evidence_mask": 2},
+      {"entity_id": 34, "score_q15": 1034, "evidence_mask": 2},
+      {"entity_id": 35, "score_q15": 1035, "evidence_mask": 2},
+      {"entity_id": 36, "score_q15": 1036, "evidence_mask": 2},
+      {"entity_id": 37, "score_q15": 1037, "evidence_mask": 2},
+      {"entity_id": 38, "score_q15": 1038, "evidence_mask": 2},
+      {"entity_id": 39, "score_q15": 1039, "evidence_mask": 2},
+      {"entity_id": 40, "score_q15": 1040, "evidence_mask": 2},
+      {"entity_id": 50, "score_q15": 2000, "evidence_mask": 16}
+    ]
+  },
+  "policy": {
+    "weights": [[1, 0, 0, 0], [0, 3, 0, 0], [0, 0, 2, 0], [0, 0, 0, 4], [-1, -1, -1, -1], [2, 2, 2, 2], [0, 0, 0, 0]],
+    "bias": [1, 2, 3, 4, 100, 0, 9],
+    "features": [2, 4, 6, 8],
+    "legal_action_mask": 107,
+    "selected_action": 5,
+    "selected_logit": 40
+  },
+  "session": {
+    "session_id": "v13-parity-session",
+    "turn_id": 7,
+    "active_entity_ids": [900],
+    "recent_utterance_hashes": [123456789, 987654321],
+    "trajectory": [
+      {"action": 1, "argument_id": 900},
+      {"action": 2, "argument_id": 0},
+      {"action": 3, "argument_id": 0},
+      {"action": 4, "argument_id": 0}
+    ],
+    "serialized_sha256": "02369eb97570d94363233cc999c62daea2a489f4a6db46c453669d3db803fb42"
+  }
+}

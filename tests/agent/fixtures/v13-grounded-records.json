@@ -1,0 +1,82 @@
+[
+  {
+    "address_surfaces": ["Alan Turing"],
+    "answer_kind": "FACTUAL_VALUE",
+    "canonical_title": "Alan Turing",
+    "confidence": 1.0,
+    "entity_id": "as:v050:entity:47bb74dcb1622693dbb9859b",
+    "evidence": {
+      "canonical_object_id": "wiki:Alan_Turing_bio",
+      "exact_text": "Alan Turing was an English mathematician and computer scientist.",
+      "handle_id": "evidence:Alan_Turing_bio",
+      "source_locator": "pack://encyclopedia/Alan_Turing_bio",
+      "source_namespace": "encyclopedia",
+      "source_version": "2026-07-01",
+      "supported_values": ["an English mathematician and computer scientist"]
+    },
+    "relation": "description",
+    "relation_terms": ["who"],
+    "relation_text": "was",
+    "values": ["an English mathematician and computer scientist"]
+  },
+  {
+    "address_surfaces": ["Alan Turing"],
+    "answer_kind": "FACTUAL_VALUE",
+    "canonical_title": "Alan Turing",
+    "confidence": 1.0,
+    "entity_id": "as:v050:entity:47bb74dcb1622693dbb9859b",
+    "evidence": {
+      "canonical_object_id": "wiki:Alan_Turing_birth",
+      "exact_text": "Alan Turing was born in Maida Vale, London.",
+      "handle_id": "evidence:Alan_Turing_birth",
+      "source_locator": "pack://encyclopedia/Alan_Turing_birth",
+      "source_namespace": "encyclopedia",
+      "source_version": "2026-07-01",
+      "supported_values": ["Maida Vale, London"]
+    },
+    "relation": "birth_place",
+    "relation_terms": ["born"],
+    "relation_text": "was born in",
+    "values": ["Maida Vale, London"]
+  },
+  {
+    "address_surfaces": ["Mercury"],
+    "answer_kind": "FACTUAL_VALUE",
+    "canonical_title": "Mercury (planet)",
+    "confidence": 1.0,
+    "entity_id": "as:v050:entity:f5f6dd828d3b391d9c403545",
+    "evidence": {
+      "canonical_object_id": "wiki:Mercury_planet",
+      "exact_text": "Mercury is the first planet from the Sun.",
+      "handle_id": "evidence:Mercury_planet",
+      "source_locator": "pack://encyclopedia/Mercury_planet",
+      "source_namespace": "encyclopedia",
+      "source_version": "2026-07-01",
+      "supported_values": ["the first planet from the Sun"]
+    },
+    "relation": "description",
+    "relation_terms": ["what"],
+    "relation_text": "is",
+    "values": ["the first planet from the Sun"]
+  },
+  {
+    "address_surfaces": ["Mercury"],
+    "answer_kind": "FACTUAL_VALUE",
+    "canonical_title": "Mercury (element)",
+    "confidence": 1.0,
+    "entity_id": "as:v050:entity:df517ed65dced289e9f2c4d1",
+    "evidence": {
+      "canonical_object_id": "wiki:Mercury_element",
+      "exact_text": "Mercury is a chemical element with symbol Hg.",
+      "handle_id": "evidence:Mercury_element",
+      "source_locator": "pack://encyclopedia/Mercury_element",
+      "source_namespace": "encyclopedia",
+      "source_version": "2026-07-01",
+      "supported_values": ["a chemical element with symbol Hg"]
+    },
+    "relation": "description",
+    "relation_terms": ["what"],
+    "relation_text": "is",
+    "values": ["a chemical element with symbol Hg"]
+  }
+]

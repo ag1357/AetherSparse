@@ -1,0 +1,262 @@
+{
+  "accessory_hardware_contract": {
+    "comfortable": {
+      "cpu": "400 MHz+ integer core(s); Linux optional, neither required nor rejected",
+      "knowledge_storage": "256 GB+ removable/replaceable solid-state media",
+      "model_storage": ">=8 MiB",
+      "ram": ">=16 MiB",
+      "storage": ">=20 MB/s sequential with >=10k random IOPS",
+      "terminal_link": "USB and local IP"
+    },
+    "minimum": {
+      "cpu": "32-bit integer MCU-class core, >=200 MHz, int8/int16 multiply",
+      "knowledge_storage": ">=32 GB removable/page-addressable media",
+      "model_storage": ">=512 KiB for <=0.25M int8 policy and metadata",
+      "ram": "4 MiB addressable external RAM plus >=384 KiB fast internal SRAM",
+      "storage": ">=5 MB/s sequential, <=100 us target cached/random page service",
+      "terminal_link": "transport-independent framed USB serial or local IP"
+    },
+    "physical": "compact accessory module; no permanent RJ45-height requirement",
+    "power": "not asserted until the selected module is measured under trace-equivalent load",
+    "recommended": {
+      "cpu": "integer MCU or small CPU, >=300 MHz with efficient int8 MAC",
+      "knowledge_storage": "256 GB removable solid-state media",
+      "model_storage": ">=2 MiB",
+      "ram": "8 MiB external RAM plus >=512 KiB fast internal SRAM",
+      "storage": ">=10 MB/s sequential with >=4k random IOPS or effective read cache",
+      "terminal_link": "USB plus local IP option"
+    }
+  },
+  "agent_tool_plane": {
+    "categories": [
+      "fix_failing_unit_test",
+      "add_deterministic_feature",
+      "modify_parser",
+      "add_api_field",
+      "repair_compilation_defect"
+    ],
+    "explicit_one_time_integration_authorization_required": true,
+    "external_llm_used": false,
+    "generic_tasks": 5,
+    "integration_performed": false,
+    "invalid_action_attempts": 0,
+    "real_exact_operations": 55,
+    "success_rate": 1.0,
+    "successful_tasks": 5
+  },
+  "compiled_runtime": {
+    "abi": "aethercore.runtime.c-abi.v1",
+    "esp_idf": {
+      "actual_build_run": false,
+      "component_target_present": true,
+      "reason": "ESP-IDF toolchain is not installed in the Work environment"
+    },
+    "host_load_bytes": 10198,
+    "implementation": "allocation-free portable C++17 with C-compatible ABI",
+    "python_cpp_numeric_tolerance": 0,
+    "session_struct_bytes": 872,
+    "session_wire_bytes": 836,
+    "workspace_bytes": 648
+  },
+  "conversation": {
+    "bounded_evidence_handles": 32,
+    "bounded_recent_utterances": 12,
+    "cases": [
+      "direct",
+      "follow_up",
+      "pronoun_referent",
+      "what_about",
+      "user_correction",
+      "ambiguity_clarification",
+      "cancel",
+      "reset"
+    ],
+    "cases_passed": 8,
+    "missing_candidate_uses_fake_clarification": false,
+    "persistent_json_round_trip": true
+  },
+  "input_sha256": {
+    "agent_report": "4508cb17f0710108db8d7892029899c0bd7a08dccf0f77cde13c727e8a9dfa41",
+    "knowledge": "c79ffe43cbc6a430033e6b4c56a33e99d1460b6483282ac29df849329dcf4537",
+    "policy_report": "67dd758c79e52d3b0ef860fac55e8a0fa3deefcbdeb5eed0bd6d22ec0f28e43e",
+    "runtime_report": "b43b765cc3f234f1ed7c3092be22ec8f1757aad89d07e49a0ed4b6ff67f0fa54"
+  },
+  "integrated_service": {
+    "abstention_rate": 0.14285714285714285,
+    "average_controller_steps": 5,
+    "clarification_rate": 0.14285714285714285,
+    "exact_verifier_bypass": false,
+    "executable": "aethercore-server",
+    "final_user_visible_success": {
+      "cases": 7,
+      "rate": 1.0,
+      "successful": 7
+    },
+    "multi_turn_cases": 2,
+    "multi_turn_correct": 2,
+    "p95_controller_steps": 5,
+    "persistent_answer_evidence_handles": 2,
+    "real_policy_used": true,
+    "semantic_address_candidate_completeness": {
+      "rate": 1.0,
+      "required": 3,
+      "successful": 3
+    },
+    "unsupported_answer_rate": 0.0,
+    "verified_grounded_answer_plan_success": {
+      "answerable": 3,
+      "rate": 1.0,
+      "successful": 3
+    }
+  },
+  "next_justified_action": "collect policy roll-ins on the 167 wrong-grounded selections and add bounded relation/entity/claim contrast features; then bind the selected int8 weights to the C ABI and capture a physical accessory-P4 4 KiB storage trace",
+  "p4_projection": {
+    "calibration_id": "aethercore.v11-p4-scalar-reference.v1",
+    "evidence_class": "analytical_projection_not_hardware_measurement",
+    "selected_v12_virtual_latency_ms_p50_p95": {
+      "200mhz": [
+        116.0533825,
+        236.6056065
+      ],
+      "300mhz": [
+        63.65246333333334,
+        129.94380825
+      ],
+      "400mhz": [
+        37.45200375,
+        76.670070125
+      ]
+    },
+    "warning": "V12 values predate the physical cache trace and are not board measurements"
+  },
+  "paged_storage": {
+    "cache_trace_proxy": [
+      {
+        "bytes_per_query_mean": 96681.984,
+        "cache_bytes": 0,
+        "cache_hit_rate": 0.0,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 23.604,
+        "queries": 1000,
+        "random_reads_per_query_mean": 19.581,
+        "sequential_reads_per_query_mean": 4.023
+      },
+      {
+        "bytes_per_query_mean": 85516.288,
+        "cache_bytes": 65536,
+        "cache_hit_rate": 0.11548890018640909,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 20.878,
+        "queries": 1000,
+        "random_reads_per_query_mean": 17.246,
+        "sequential_reads_per_query_mean": 3.632
+      },
+      {
+        "bytes_per_query_mean": 48537.6,
+        "cache_bytes": 262144,
+        "cache_hit_rate": 0.49796644636502285,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 11.85,
+        "queries": 1000,
+        "random_reads_per_query_mean": 9.976,
+        "sequential_reads_per_query_mean": 1.874
+      },
+      {
+        "bytes_per_query_mean": 778.24,
+        "cache_bytes": 1048576,
+        "cache_hit_rate": 0.9919505168615489,
+        "candidate_completeness": 1.0,
+        "cold_index_bytes": 778240,
+        "directory_bytes": 129343,
+        "pages_per_query_mean": 0.19,
+        "queries": 1000,
+        "random_reads_per_query_mean": 0.152,
+        "sequential_reads_per_query_mean": 0.038
+      }
+    ],
+    "cold_page_aligned_index_bytes": 32284672,
+    "completeness_contract": "full posting lists and canonical-ID union are unchanged; only placement/cache differs",
+    "logical_index_bytes": 32282740,
+    "page_bytes": 4096,
+    "posting_count": 5909296,
+    "resident_directory_total_bytes": 1735620,
+    "resident_surface_directory_bytes": 1473476,
+    "resident_top_postings_directory_bytes": 262144,
+    "source": "authoritative V12 report plus measured 10k V12 post-cap trace proxy",
+    "surface_count": 368369,
+    "trace_artifact_sha256": "a6e30c394ef2fc7b36796b8140476eab0982a5210fdb131d433fbb160eb0f591",
+    "trace_queries": 1000,
+    "trace_scope": "deterministic evenly-spaced title surfaces; not the 50-case real-397k query trace"
+  },
+  "policy": {
+    "architecture": "typed-legal-mask structured multiclass perceptron",
+    "autonomous_reproduced_reachable": {
+      "evaluated": 260,
+      "rate": 0.3576923076923077,
+      "successful": 93
+    },
+    "autonomous_unseen_tuning": {
+      "rate": 0.4266666666666667,
+      "reachable_evaluated": 150,
+      "successful": 64
+    },
+    "cheap_repair": {
+      "baseline": {
+        "algorithm": "structured_perceptron",
+        "development_success": 29,
+        "tuning_success": 64
+      },
+      "measured_failure": "teacher accuracy remained high while autonomous claim selection compounded",
+      "parameter_growth": 0,
+      "repair": "averaged structured perceptron over the same features and parameter count",
+      "repair_candidate": {
+        "algorithm": "averaged_structured_perceptron",
+        "development_success": 23,
+        "tuning_success": 58
+      },
+      "selected": "structured_perceptron",
+      "selection_partition": "tuning"
+    },
+    "invalid_actions": 0,
+    "parameter_count": 918,
+    "published_v12_reachable_ceiling": 572,
+    "remaining_failure_taxonomy": {
+      "WRONG_GROUNDED_ANSWER": 167
+    },
+    "successful_per_all_695": 0.13381294964028778,
+    "teacher_development": {
+      "accuracy": 0.8484848484848485,
+      "correct": 476,
+      "decisions": 561
+    },
+    "teacher_tuning": {
+      "accuracy": 0.8802083333333334,
+      "correct": 676,
+      "decisions": 768
+    }
+  },
+  "published_base": "af40454272ff6bc2657274108b6df7c9fe3c3901",
+  "remaining_measured_bottleneck": "claim ranking among verifier-grounded alternatives: 167/260 reproduced reachable rollouts selected the wrong grounded answer",
+  "schema_version": "aethercore.v13-integrated-qualification.v1",
+  "status": "LEVEL_4_EDGE_CANDIDATE_VERTICAL_SLICE",
+  "success_levels": {
+    "level_1_minimum_working_model": true,
+    "level_2_working_conversation": true,
+    "level_3_agent_vertical_slice": true,
+    "level_4_edge_candidate_runtime": true
+  },
+  "tactility_protocol": {
+    "business_logic_on_terminal": false,
+    "framing": "bounded length-prefixed JSON",
+    "mock_round_trip": true,
+    "required_message_types": 11,
+    "required_message_types_defined": 11,
+    "transport_independent": true
+  }
+}

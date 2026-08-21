@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.16)
+project(aethercore_runtime LANGUAGES CXX)
+
+add_library(aethercore_runtime STATIC src/aethercore_runtime.cpp)
+target_include_directories(aethercore_runtime PUBLIC include)
+target_compile_features(aethercore_runtime PUBLIC cxx_std_17)
+target_compile_options(aethercore_runtime PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror)
+
+option(AETHERCORE_BUILD_SHARED "Build host shared library" OFF)
+if(AETHERCORE_BUILD_SHARED)
+  add_library(aethercore_runtime_shared SHARED src/aethercore_runtime.cpp)
+  target_include_directories(aethercore_runtime_shared PUBLIC include)
+  target_compile_features(aethercore_runtime_shared PUBLIC cxx_std_17)
+  target_compile_definitions(aethercore_runtime_shared PRIVATE AETHERCORE_RUNTIME_BUILD)
+  target_compile_options(aethercore_runtime_shared PRIVATE -fno-exceptions -fno-rtti -Wall -Wextra -Werror)
+  set_target_properties(aethercore_runtime_shared PROPERTIES OUTPUT_NAME aethercore_runtime)
+endif()
