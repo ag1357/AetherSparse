@@ -1,0 +1,47 @@
+{
+ "schema_version": "aethersparse.v14-p4-phase3-pack.v1",
+ "pack_id": "acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802",
+ "pack_directory_host_staging": "work/v14/p4-pack/aethercore-knowledge (not committed)",
+ "pack_total_bytes": 1226703872,
+ "regions": {
+  "addressing_index": {
+   "bytes": 42029056,
+   "sha256_prefix": "5acce1570b9f3712",
+   "postings_pages_4096": 6959,
+   "gram_directory_resident_bytes": 859873,
+   "surface_directory_paged_bytes": 12657500
+  },
+  "canonical_object_table": {
+   "bytes": 10067968,
+   "sha256_prefix": "140b9a96c42aaef8",
+   "entities": 275989
+  },
+  "evidence_store": {
+   "bytes": 1072893952,
+   "sha256_prefix": "ba7bc243a3221303",
+   "occurrences": 4747498,
+   "entities_with_evidence": 239630,
+   "docs": 377405
+  },
+  "policy_model": {
+   "bytes": 3886,
+   "sha256_prefix": "abd8e69010d9078a"
+  }
+ },
+ "card": {
+  "device_node": "/dev/sdb",
+  "reader": "Realtek 0bda:0316 USB SD/MMC reader on powered hub",
+  "capacity_bytes": 126437294080,
+  "filesystem": "FAT32 (MBR partition 1, type 0x0c, 32 KiB clusters, label AETHERCORE)",
+  "prior_content": "stock Raspberry Pi OS image (bootfs+rootfs), erased per mission",
+  "on_card_inventory": "CARD_SHA256.txt (7 files), active-packs.json generation 1",
+  "verification": "all 4 regions re-hashed on-card against pack manifest: 0 mismatches"
+ },
+ "v14_reference_comparison": {
+  "cold_index_reference_bytes": 32284672,
+  "cold_index_actual_postings_bytes": 28502096,
+  "resident_directory_reference_bytes": 1735620,
+  "resident_gram_directory_actual_bytes": 859873,
+  "note": "surface/entity/evidence directories are paged, not resident; actual resident set = gram directory + page cache + runtime state"
+ }
+}

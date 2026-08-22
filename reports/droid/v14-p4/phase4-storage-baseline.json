@@ -1,0 +1,20 @@
+{
+ "schema_version": "aethersparse.v14-p4-storage-baseline.v1",
+ "path_note": "HOST USB2 card-reader path (Realtek 0bda:0316), O_DIRECT; NOT the ESP32-P4 SDIO path. Reader ceiling ~35-40 MB/s. On-device Phase 4 replaces these.",
+ "sequential_read_1mib": {
+  "mb_per_s": 35.52
+ },
+ "random_4kib_read": {
+  "iops": 674.2,
+  "lat_us_p50": 432.1,
+  "lat_us_p95": 553.0,
+  "lat_us_p99": 30539.8
+ },
+ "random_64kib_read": {
+  "iops": 332.2,
+  "mb_per_s": 21.77,
+  "lat_us_p50": 2244.6,
+  "lat_us_p95": 2441.2
+ },
+ "sequential_write": "UNMEASURED (no non-destructive write area; card holds the verified pack)"
+}
