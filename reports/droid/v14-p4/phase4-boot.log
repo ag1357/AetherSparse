@@ -1,0 +1,116 @@
+der
+I (27) boot: chip revision: v1.3
+I (29) boot: efuse block revision: v0.3
+I (32) boot.esp32p4: SPI Speed      : 80MHz
+I (36) boot.esp32p4: SPI Mode       : DIO
+I (40) boot.esp32p4: SPI Flash Size : 16MB
+I (44) boot: Enabling RNG early entropy source...
+I (48) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (70) boot:  2 factory          factory app      00 00 00010000 00100000
+I (78) boot: End of partition table
+I (80) esp_image: segment 0: paddr=00010020 vaddr=40040020 size=12bf4h ( 76788) map
+I (101) esp_image: segment 1: paddr=00022c1c vaddr=30100000 size=00068h (   104) load
+I (103) esp_image: segment 2: paddr=00022c8c vaddr=4ff00000 size=0d38ch ( 54156) load
+I (117) esp_image: segment 3: paddr=00030020 vaddr=40000020 size=3c4c4h (246980) map
+I (160) esp_image: segment 4: paddr=0006c4ec vaddr=4ff0d38c size=038d8h ( 14552) load
+I (164) esp_image: segment 5: paddr=0006fdcc vaddr=4ff10c80 size=02cd4h ( 11476) load
+I (172) boot: Loaded app from partition at offset 0x10000
+I (172) boot: Disabling RNG early entropy source...
+I (187) hex_psram: vendor id    : 0x0d (AP)
+I (187) hex_psram: Latency      : 0x01 (Fixed)
+I (188) hex_psram: DriveStr.    : 0x00 (25 Ohm)
+I (188) hex_psram: dev id       : 0x03 (generation 4)
+I (193) hex_psram: density      : 0x07 (256 Mbit)
+I (197) hex_psram: good-die     : 0x06 (Pass)
+I (202) hex_psram: SRF          : 0x02 (Slow Refresh)
+I (206) hex_psram: BurstType    : 0x00 ( Wrap)
+I (211) hex_psram: BurstLen     : 0x03 (2048 Byte)
+I (215) hex_psram: BitMode      : 0x01 (X16 Mode)
+I (219) hex_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (224) hex_psram: DriveStrength: 0x00 (1/1)
+I (229) MSPI DQS: tuning success, best phase id is 0
+I (404) MSPI DQS: tuning success, best delayline id is 15
+I (404) esp_psram: Found 32MB PSRAM device
+I (405) esp_psram: Speed: 80MHz
+I (405) hex_psram: psram CS IO is dedicated
+I (408) cpu_start: Multicore app
+I (1658) esp_psram: SPI SRAM memory test OK
+I (1668) cpu_start: Pro cpu start user code
+I (1668) cpu_start: cpu freq: 360000000 Hz
+I (1668) app_init: Application information:
+I (1668) app_init: Project name:     aethercore_p4_qualification
+I (1674) app_init: App version:      256a3cf-dirty
+I (1678) app_init: Compile time:     Aug 22 2026 06:45:12
+I (1683) app_init: ELF file SHA256:  c95bde882...
+I (1688) app_init: ESP-IDF:          v5.5.1
+I (1692) efuse_init: Min chip rev:     v0.1
+I (1696) efuse_init: Max chip rev:     v1.99 
+I (1700) efuse_init: Chip rev:         v1.3
+I (1704) heap_init: Initializing. RAM available for dynamic allocation:
+I (1710) heap_init: At 4FF16AF0 len 000244D0 (145 KiB): RAM
+I (1715) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM
+I (1720) heap_init: At 4FF40000 len 00060000 (384 KiB): RAM
+I (1726) heap_init: At 50108080 len 00007F80 (31 KiB): RTCRAM
+I (1731) heap_init: At 30100068 len 00001F98 (7 KiB): TCM
+I (1737) esp_psram: Adding pool of 32768K of PSRAM memory to heap allocator
+I (1744) spi_flash: detected chip: gd
+I (1746) spi_flash: flash io: dio
+W (1749) spi_flash: Detected size(32768k) larger than the size in the binary image header(16384k). Using the size in the binary image header.
+I (1762) main_task: Started on CPU0
+I (1787) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1788) main_task: Calling app_main()
+I (1788) ac_p4_qual: aethercore-v14 p4 physical qualification (phase 1 build)
+I (1794) ac_p4_qual: idf=v5.5.1 chip_model=18 cores=2 rev=103
+I (1800) ac_p4_qual: cpu_hz=360000000 flash_bytes=16777216 psram_bytes=33554432
+I (1807) ac_p4_qual: abi_version=1 workspace=648 session=872 session_wire=836 cog_wire=180
+I (1815) ac_p4_qual: abi entry points retained=27 sentinel=40016138
+I (1821) ac_p4_qual: [boot] internal free=574995 largest=385024
+I (1826) ac_p4_qual: [boot] psram free=33551716 largest=33030144 total=33554432
+I (1833) ac_p4_qual: [boot] main task stack high-water=9952 bytes
+I (1839) ac_p4_qual: policy validate=0 params=1292 macs/decision=1292
+I (1845) ac_p4_qual: smoke select status=0 action=11 logit=5888
+I (1851) ac_p4_qual: [post-policy] internal free=574995 largest=385024
+I (1857) ac_p4_qual: [post-policy] psram free=33551716 largest=33030144 total=33554432
+I (1865) ac_p4_qual: [post-policy] main task stack high-water=9900 bytes
+I (1871) ac_p4_qual: phase 2: replaying frozen parity vectors
+I (1879) ac_p4_qual: PARITY RESULT: pass=51 fail=0
+PARITY: PASS (51/51)
+I (1883) ac_trace: sd phases starting
+W (1887) ldo: The voltage value 0 is out of the recommended range [500, 2700]
+I (1935) ac_pack_io: card mounted at 20000 kHz (attempt 0)
+MEAS {"phase":"storage.card","name":"USD00","capacity_bytes":126437294080,"sector_size":512,"max_freq_khz":20000,"real_freq_khz":20000,"speed_class":3511,"is_mmc":false,"is_sdio":false}
+I (1951) ac_pack_io: regions entry: addressing-index.bin
+I (1951) ac_pack_io: regions entry: canonical-objects.bin
+I (1956) ac_pack_io: regions entry: evidence.bin
+I (1960) ac_pack_io: regions entry: policy.json
+I (1967) ac_pack_io: pack open: acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802
+MEAS {"phase":"memory","label":"post-mount","internal_free":573883,"internal_largest":385024,"psram_free":33408156,"psram_largest":33030144,"stack_high_water":8332}
+I (22650) ac_pack_io: verify regions/addressing-index.bin: OK (42029056 bytes)
+MEAS {"phase":"pack.verify","region":"regions/addressing-index.bin","bytes":42029056,"sha256_ok":true}
+I (29243) ac_pack_io: verify regions/canonical-objects.bin: OK (10067968 bytes)
+MEAS {"phase":"pack.verify","region":"regions/canonical-objects.bin","bytes":10067968,"sha256_ok":true}
+I (606725) ac_pack_io: verify regions/evidence.bin: OK (1072893952 bytes)
+MEAS {"phase":"pack.verify","region":"regions/evidence.bin","bytes":1072893952,"sha256_ok":true}
+I (606748) ac_pack_io: verify regions/policy.json: OK (3886 bytes)
+MEAS {"phase":"pack.verify","region":"regions/policy.json","bytes":3886,"sha256_ok":true}
+MEAS {"phase":"pack.verify","result":"PASS","seconds":604.76}
+MEAS {"phase":"pack","pack_id":"acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802","verified":true}
+I (607980) ac_pack_io: index: surfaces=387887 grams=43774 gram_dir=859873 B resident
+I (607983) ac_pack_io: entities: 275989
+MEAS {"phase":"pack","surfaces":387887,"grams":43774,"entities":275989}
+MEAS {"phase":"memory","label":"post-gram-dir","internal_free":573279,"internal_largest":385024,"psram_free":32539800,"psram_largest":32505856,"stack_high_water":5616}
+MEAS {"phase":"storage.device","metric":"sequential_read","bytes":268435456,"seconds":138.789,"mb_per_s":1.93,"ok":true}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_cold","samples":3000,"mean_us":44085.9,"p50_us":36859,"p95_us":141480,"p99_us":186845,"min_us":2010,"max_us":289618}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_cold","iops":22.7}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_warm","samples":3000,"mean_us":40518.8,"p50_us":36266,"p95_us":96352,"p99_us":173481,"min_us":2018,"max_us":214219}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_warm","iops":24.7}
+MEAS {"phase":"storage.device","metric":"random_64kib_read","samples":800,"mean_us":69967.1,"p50_us":62412,"p95_us":176876,"p99_us":259792,"min_us":25906,"max_us":280903}
+MEAS {"phase":"storage.device","metric":"random_64kib_read","mb_per_s":0.93,"iops":14.3}
+MEAS {"phase":"storage.device","metric":"sequential_write","bytes":67108864,"seconds":71.815,"mb_per_s":0.93}
+MEAS {"phase":"memory","label":"post-phase4","internal_free":573103,"internal_largest":385024,"psram_free":32539800,"psram_largest":32505856,"stack_high_water":5616}
+E (1128992) ac_trace: trace file missing: /sdcard/aethercore-traces/phase6-trace.bin
+MEAS {"phase":"trace","status":"MISSING"}
+I (1129002) ac_p4_qual: sd phases incomplete (see MEAS lines)

@@ -594,17 +594,19 @@ bool run_sd_phases(void) {
          (unsigned)ent_count());
   memory_snapshot("post-gram-dir");
 
+  /* Phase 4 needs only the pack; the trace bundle gates phases 5+. */
+  if (!phase4_storage()) return false;
+  memory_snapshot("post-phase4");
+
   if (!trace_open()) {
     printf("MEAS {\"phase\":\"trace\",\"status\":\"MISSING\"}\n");
     return false;
   }
   memory_snapshot("post-trace-load");
 
-  if (!phase4_storage()) return false;
-  memory_snapshot("post-phase4");
-
   if (!phase5_cache_ladder()) return false;
   memory_snapshot("post-phase5");
+  /* phases 6-8: witnessed-cohort replay + residency accounting */
 
   if (!phase6_trace()) return false;
   memory_snapshot("final");

@@ -1,0 +1,153 @@
+{
+  "phase": "phase4-storage-device",
+  "board": "Waveshare ESP32-P4-WIFI6 (SKU 32020), ESP32-P4 rev v1.3, 360 MHz, 32 MiB HEX PSRAM",
+  "interface": "SDMMC slot, 4-bit, 20 MHz (vendor-qualified ceiling on this silicon rev)",
+  "card": {
+    "phase": "storage.card",
+    "name": "USD00",
+    "capacity_bytes": 126437294080,
+    "sector_size": 512,
+    "max_freq_khz": 20000,
+    "real_freq_khz": 20000,
+    "speed_class": 3511,
+    "is_mmc": false,
+    "is_sdio": false
+  },
+  "pack_verify_on_device": [
+    {
+      "phase": "pack.verify",
+      "region": "regions/addressing-index.bin",
+      "bytes": 42029056,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/canonical-objects.bin",
+      "bytes": 10067968,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/evidence.bin",
+      "bytes": 1072893952,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/policy.json",
+      "bytes": 3886,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "result": "PASS",
+      "seconds": 604.76
+    }
+  ],
+  "storage": [
+    {
+      "phase": "storage.device",
+      "metric": "sequential_read",
+      "bytes": 268435456,
+      "seconds": 138.789,
+      "mb_per_s": 1.93,
+      "ok": true
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_4kib_read_cold",
+      "samples": 3000,
+      "mean_us": 44085.9,
+      "p50_us": 36859,
+      "p95_us": 141480,
+      "p99_us": 186845,
+      "min_us": 2010,
+      "max_us": 289618
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_4kib_read_cold",
+      "iops": 22.7
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_4kib_read_warm",
+      "samples": 3000,
+      "mean_us": 40518.8,
+      "p50_us": 36266,
+      "p95_us": 96352,
+      "p99_us": 173481,
+      "min_us": 2018,
+      "max_us": 214219
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_4kib_read_warm",
+      "iops": 24.7
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_64kib_read",
+      "samples": 800,
+      "mean_us": 69967.1,
+      "p50_us": 62412,
+      "p95_us": 176876,
+      "p99_us": 259792,
+      "min_us": 25906,
+      "max_us": 280903
+    },
+    {
+      "phase": "storage.device",
+      "metric": "random_64kib_read",
+      "mb_per_s": 0.93,
+      "iops": 14.3
+    },
+    {
+      "phase": "storage.device",
+      "metric": "sequential_write",
+      "bytes": 67108864,
+      "seconds": 71.815,
+      "mb_per_s": 0.93
+    }
+  ],
+  "memory": [
+    {
+      "phase": "memory",
+      "label": "post-mount",
+      "internal_free": 573883,
+      "internal_largest": 385024,
+      "psram_free": 33408156,
+      "psram_largest": 33030144,
+      "stack_high_water": 8332
+    },
+    {
+      "phase": "memory",
+      "label": "post-gram-dir",
+      "internal_free": 573279,
+      "internal_largest": 385024,
+      "psram_free": 32539800,
+      "psram_largest": 32505856,
+      "stack_high_water": 5616
+    },
+    {
+      "phase": "memory",
+      "label": "post-phase4",
+      "internal_free": 573103,
+      "internal_largest": 385024,
+      "psram_free": 32539800,
+      "psram_largest": 32505856,
+      "stack_high_water": 5616
+    }
+  ],
+  "parity_still_passing": true,
+  "trace_bundle": "MISSING on card (expected; staged on host, pending card pass)",
+  "host_usb_reader_baseline_nonauthoritative": {
+    "sequential_read_mb_s": 35.5,
+    "random_4kib_iops": 674
+  },
+  "notes": [
+    "All four pack regions sha256-verified on the deployment path (604.76 s total).",
+    "Physical 4 KiB random read p50 ~37 ms at 20 MHz SDMMC vs 674 IOPS via host USB reader.",
+    "Sequential read 1.93 MB/s physical vs 35.5 MB/s host reader."
+  ]
+}

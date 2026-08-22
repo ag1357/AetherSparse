@@ -1,12 +1,15 @@
 #include "pack_io.h"
 
 #include <cJSON.h>
+#include <dirent.h>
 #include <driver/sdmmc_host.h>
+#include <errno.h>
 #include <esp_log.h>
 #include <esp_timer.h>
 #include <esp_vfs_fat.h>
 #include <fcntl.h>
 #include <mbedtls/sha256.h>
+#include <sd_pwr_ctrl_by_on_chip_ldo.h>
 #include <sdmmc_cmd.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -180,13 +183,32 @@ bool sd_mount(void) {
   if (s_mounted) return true;
   esp_vfs_fat_sdmmc_mount_config_t mount_config = {};
   mount_config.format_if_mount_failed = false;
-  mount_config.max_files = 8;
-  mount_config.allocation_unit_size = 0;
+  /* Region fds + manifest + trace + dir listing + write-test file; the FATFS
+   * VFS consumes additional slots internally (LFN, locking). */
+  mount_config.max_files = 32;
+  mount_config.allocation_unit_size = 16 * 1024;
 
-  const int freqs[] = {SDMMC_FREQ_HIGHSPEED, SDMMC_FREQ_DEFAULT};
+  /* The vendor-qualified path on ESP32-P4 rev v1.3 tops out at 20 MHz
+   * (SDMMC_FREQ_DEFAULT); the vendor example reports "Speed: 20.00 MHz
+   * (limit: 20.00 MHz)" on this exact board. A failed mount attempt wedges
+   * the slot driver (send_op_cond timeout on retry), so we start with the
+   * known-good frequency and fully deinit between attempts. */
+  /* The Waveshare ESP32-P4-WIFI6 powers the TF slot through the chip's
+   * on-chip LDO channel 4; without this power-control handle the card never
+   * comes up (send_op_cond timeout), matching the vendor 09_sdmmc example. */
+  sd_pwr_ctrl_ldo_config_t ldo_config = {};
+  ldo_config.ldo_chan_id = 4;
+  sd_pwr_ctrl_handle_t pwr_ctrl = nullptr;
+  if (sd_pwr_ctrl_new_on_chip_ldo(&ldo_config, &pwr_ctrl) != ESP_OK) {
+    ESP_LOGE(TAG, "on-chip LDO power control init failed");
+    return false;
+  }
+
+  const int freqs[] = {SDMMC_FREQ_DEFAULT, SDMMC_FREQ_HIGHSPEED};
   for (size_t attempt = 0; attempt < 2; attempt++) {
     sdmmc_host_t host = SDMMC_HOST_DEFAULT();
     host.max_freq_khz = freqs[attempt];
+    host.pwr_ctrl_handle = pwr_ctrl;
     sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
     slot_config.width = 4;
     slot_config.clk = SD_CLK;
@@ -207,6 +229,9 @@ bool sd_mount(void) {
     }
     ESP_LOGW(TAG, "mount attempt %d at %d kHz failed: %s", (int)attempt,
              freqs[attempt], esp_err_to_name(err));
+    /* A failed esp_vfs_fat_sdmmc_mount leaves the slot/host half-initialized;
+     * without a full deinit the next attempt times out in send_op_cond. */
+    sdmmc_host_deinit();
   }
   return false;
 }
@@ -248,7 +273,8 @@ static bool build_path(char *out, size_t out_size, const char *root,
 static bool open_region(const char *path, uint8_t region_id, RegionFile *out) {
   int fd = open(path, O_RDONLY);
   if (fd < 0) {
-    ESP_LOGE(TAG, "open failed: %s", path);
+    ESP_LOGE(TAG, "open failed: %s (errno=%d %s)", path, errno,
+             strerror(errno));
     return false;
   }
   struct stat st;
@@ -326,6 +352,21 @@ bool pack_open(const char *mount_root) {
   cJSON_Delete(manifest);
   free(manifest_text);
 
+  /* Diagnostic: list the regions directory so a missing-file failure is
+   * distinguishable from a driver-level open failure. */
+  char dir_path[192];
+  if (build_path(dir_path, sizeof(dir_path), s_pack_root, "regions")) {
+    DIR *dir = opendir(dir_path);
+    if (dir) {
+      struct dirent *entry;
+      while ((entry = readdir(dir)) != nullptr) {
+        ESP_LOGI(TAG, "regions entry: %s", entry->d_name);
+      }
+      closedir(dir);
+    } else {
+      ESP_LOGE(TAG, "regions dir missing (errno=%d)", errno);
+    }
+  }
   if (!build_path(path, sizeof(path), s_pack_root, "regions/addressing-index.bin"))
     return false;
   if (!open_region(path, 0, &s_region_index)) return false;
