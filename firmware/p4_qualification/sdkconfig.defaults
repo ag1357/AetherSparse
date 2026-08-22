@@ -1,0 +1,20 @@
+# ESP32-P4 physical qualification defaults (ESP-IDF v5.5.1).
+CONFIG_IDF_TARGET="esp32p4"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+
+# HEX PSRAM (32 MB class on the accessory board). ESP32-P4 supports HEX mode
+# only; 80 MHz is the fastest non-experimental speed in IDF v5.5.1 (200 MHz is
+# gated behind IDF_EXPERIMENTAL_FEATURES and stays out of scope).
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_USE_MALLOC=y
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=16384
+
+# ESP32-P4 supports exactly one production CPU clock in IDF v5.5.1: 360 MHz
+# (40 MHz is FPGA bring-up only). The 200/300/400 MHz figures in the V14
+# references are analytical; Phase 9 measures at the physical 360 MHz and
+# interpolates for comparison, documented as such.
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_360=y
+
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_FREERTOS_HZ=1000
