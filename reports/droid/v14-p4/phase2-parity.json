@@ -1,0 +1,56 @@
+{
+ "schema_version": "aethersparse.v14-p4-phase2-parity.v1",
+ "board_identity": {
+  "port": "/dev/ttyACM0 (QinHeng 1a86:55d3 USB Single Serial, sn 5B14075468)",
+  "user_confirmed": "accessory ESP32-P4 dev board; Waveshare Tactility appliance unplugged",
+  "chip": "ESP32-P4 revision v1.3 (eco2 ROM), 2 cores",
+  "mac": "80:f1:b2:d1:eb:6e",
+  "cpu_hz_measured": 360000000,
+  "psram": "32 MiB HEX (AP Memory 256 Mbit, good-die pass), 80 MHz, DQS tuning success",
+  "flash_detected_bytes": 33554432,
+  "flash_image_header_bytes": 16777216,
+  "flash_note": "board carries 32 MB GD flash; image built with 16 MB header (IDF uses the header size)"
+ },
+ "firmware": {
+  "app_version": "b09d0d2",
+  "image_bytes": 255424,
+  "elf_sha256_prefix": "5f3833ec1",
+  "idf": "v5.5.1"
+ },
+ "boot_memory": {
+  "internal_free_bytes": 593635,
+  "internal_largest_block_bytes": 385024,
+  "psram_free_bytes": 33551716,
+  "rtcram_bytes": 31744,
+  "tcm_bytes": 8064,
+  "main_task_stack_high_water_bytes": 1248
+ },
+ "policy_on_device": {
+  "validate_status": 0,
+  "parameter_count": 1292,
+  "macs_per_decision": 1292,
+  "smoke_select": {
+   "status": 0,
+   "action": 11,
+   "logit": 5888
+  }
+ },
+ "parity": {
+  "result": "PASS",
+  "pass": 51,
+  "fail": 0,
+  "cases": [
+   "abi/struct sizes (workspace 648, session 872/836, cog 48, 5c 32/64, specialist 72, progress 48, wire 180)",
+   "candidate union vs frozen reference order",
+   "v1 policy select (action/logit)",
+   "session trajectory + 836-byte bit-exact serialization + deserialize round-trip",
+   "v14 vector policy with bias and zero-bias variant",
+   "selected 1,292-byte policy argument-aware scoring, both reference states (16 and 17 actions)",
+   "5C digest, deny without root mutation, tamper detection (checksum mismatch)",
+   "specialist summary 1/1/1/768",
+   "progress stagnation after 4 identical records, packed bytes exact",
+   "180-byte cognitive wire image bit-exact"
+  ],
+  "log_artifact": "phase2-boot.log"
+ }
+}
