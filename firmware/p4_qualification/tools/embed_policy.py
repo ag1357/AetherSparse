@@ -40,8 +40,9 @@ def main() -> None:
         f"#define AC_V14_POLICY_FEATURE_COUNT {feature_count}u",
         f"#define AC_V14_POLICY_ACTION_COUNT {action_count}u",
         f"#define AC_V14_POLICY_PARAMETER_COUNT {len(flat)}u",
-        "#define AC_V14_POLICY_STATE_SCHEMA_ID 1u",
-        "#define AC_V14_POLICY_MODEL_ID 14u",
+        # ABI-canonical binding identity (tests/edge_runtime/test_native_v14_parity.py):
+        "#define AC_V14_POLICY_STATE_SCHEMA_ID 14u",
+        "#define AC_V14_POLICY_MODEL_ID 0x987D28FC667044BEull",
         "static const int8_t kAcV14PolicyWeights[AC_V14_POLICY_PARAMETER_COUNT] = {",
     ]
     for index in range(0, len(flat), 16):

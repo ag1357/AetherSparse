@@ -27,6 +27,7 @@
 #include "aethercore_runtime.h"
 #include "parity_vectors_v14.h"
 #include "policy_v14_selected.h"
+#include "trace_runner.h"
 
 static const char *TAG = "ac_p4_qual";
 
@@ -441,6 +442,10 @@ extern "C" void app_main(void) {
   report_memory("post-policy");
 
   run_parity();
+
+  /* SD phases: mount + pack verify + storage bench + cache ladder + trace. */
+  bool sd_ok = run_sd_phases();
+  ESP_LOGI(TAG, "sd phases %s", sd_ok ? "complete" : "incomplete (see MEAS lines)");
 
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(60000));

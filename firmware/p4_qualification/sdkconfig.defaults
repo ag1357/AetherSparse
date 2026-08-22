@@ -18,3 +18,15 @@ CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_360=y
 
 CONFIG_COMPILER_OPTIMIZATION_PERF=y
 CONFIG_FREERTOS_HZ=1000
+
+# Main task carries the parity runner plus the SD phases (deep local frames
+# for gram/padded buffers and scoring chunks).
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=12288
+
+# FAT + SDMMC for the knowledge pack and trace bundle.
+CONFIG_FATFS_VOLUME_COUNT=2
+CONFIG_FATFS_LFN_HEAP=y
+CONFIG_FATFS_FS_LOCK=2
+
+# Long storage phases yield explicitly; keep the watchdog horizon generous.
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=30
