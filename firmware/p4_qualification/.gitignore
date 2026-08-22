@@ -1,3 +1,3 @@
-firmware/p4_qualification/build/
-firmware/p4_qualification/sdkconfig
-firmware/p4_qualification/managed_components/
+build/
+sdkconfig
+managed_components/
