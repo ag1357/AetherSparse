@@ -326,6 +326,11 @@ static bool phase5_cache_ladder(void) {
         int64_t start = esp_timer_get_time();
         ok = idx_query_address(pager, s_trace.strings[query.surface_str], &result);
         lat[q] = (uint32_t)(esp_timer_get_time() - start);
+        if (!ok) {
+          ESP_LOGE(TAG, "ladder %s/%s failed at query %u ('%s')",
+                   cache_names[s], pass == 0 ? "cold" : "warm", (unsigned)q,
+                   s_trace.strings[query.surface_str]);
+        }
         if ((q & 0x1F) == 0x1F) vTaskDelay(1);
       }
       if (!ok) {

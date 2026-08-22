@@ -1,0 +1,176 @@
+{
+  "generated": "phase5-8-boot.log (single continuous device run, ESP32-P4 rev v1.3 @ 360 MHz)",
+  "logical_correctness": {
+    "parity_vectors": "51/51 pass (unchanged under SD firmware)",
+    "replay_decisions_matched": "1329/1329",
+    "replay_queries_matched": "107/107",
+    "cases_ok": "260/260",
+    "policy_macs": 1543864,
+    "verdict": "LOGICAL_PASS"
+  },
+  "address_latency_ms": {
+    "analytical_reference": {
+      "200MHz": {
+        "p50": 116.05,
+        "p95": 236.61
+      },
+      "300MHz": {
+        "p50": 63.65,
+        "p95": 129.94
+      },
+      "400MHz": {
+        "p50": 37.45,
+        "p95": 76.67
+      }
+    },
+    "physical_360MHz_1MiB_cold": {
+      "p50": 1086.5,
+      "p95": 2265.7,
+      "p99": 2526.7
+    },
+    "ratio_physical_vs_analytical_300MHz_p50": 17.1,
+    "note": "address wall is IO-bound; it does not scale with CPU clock"
+  },
+  "policy_decision_cpu_us": {
+    "physical_360MHz": {
+      "samples": 1329,
+      "mean_us": 1976.3,
+      "p50_us": 638,
+      "p95_us": 6132,
+      "p99_us": 21475
+    },
+    "interpolated_linear": {
+      "200MHz_p50": 766,
+      "300MHz_p50": 919.2,
+      "400MHz_p50": 574
+    },
+    "interpolation_note": "only 40/360 MHz are supported clocks on this target; other points are linear CPU approximations, documented as such"
+  },
+  "resident_bytes_1MiB_cache": {
+    "predicted": 2797320,
+    "actual": {
+      "gram_directory_psram": 859873,
+      "pager_store_1mib": 1048576,
+      "pager_slot_metadata_internal": 5376,
+      "runtime_state_internal": 3836,
+      "fatfs_vfs_mount_psram": 143560,
+      "total": 2061221
+    },
+    "actual_total": 2061221,
+    "actual_vs_predicted_pct": 73.7
+  },
+  "storage_path": {
+    "host_usb_reader_nonauthoritative": {
+      "seq_mb_s": 35.5,
+      "rand4k_iops": 674
+    },
+    "physical_device": [
+      {
+        "phase": "storage.device",
+        "metric": "sequential_read",
+        "bytes": 268435456,
+        "seconds": 142.6,
+        "mb_per_s": 1.88,
+        "ok": true
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_4kib_read_cold",
+        "samples": 3000,
+        "mean_us": 40204.7,
+        "p50_us": 35511,
+        "p95_us": 104864,
+        "p99_us": 170134,
+        "min_us": 2008,
+        "max_us": 226820
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_4kib_read_cold",
+        "iops": 24.9
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_4kib_read_warm",
+        "samples": 3000,
+        "mean_us": 40148.2,
+        "p50_us": 35724,
+        "p95_us": 96113,
+        "p99_us": 171501,
+        "min_us": 2009,
+        "max_us": 211567
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_4kib_read_warm",
+        "iops": 24.9
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_64kib_read",
+        "samples": 800,
+        "mean_us": 65595.7,
+        "p50_us": 61510,
+        "p95_us": 93850,
+        "p99_us": 256159,
+        "min_us": 25648,
+        "max_us": 277247
+      },
+      {
+        "phase": "storage.device",
+        "metric": "random_64kib_read",
+        "mb_per_s": 1.0,
+        "iops": 15.2
+      },
+      {
+        "phase": "storage.device",
+        "metric": "sequential_write",
+        "bytes": 67108864,
+        "seconds": 72.538,
+        "mb_per_s": 0.93
+      }
+    ]
+  },
+  "pack_integrity_on_device": [
+    {
+      "phase": "pack.verify",
+      "region": "regions/addressing-index.bin",
+      "bytes": 42029056,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/canonical-objects.bin",
+      "bytes": 10067968,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/evidence.bin",
+      "bytes": 1072893952,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "region": "regions/policy.json",
+      "bytes": 3886,
+      "sha256_ok": true
+    },
+    {
+      "phase": "pack.verify",
+      "result": "PASS",
+      "seconds": 612.77
+    }
+  ],
+  "bottleneck_attribution_1MiB_cold": {
+    "storage_wait_fraction_est": 0.9802,
+    "policy_cpu_seconds_total": 2.63,
+    "query_wall_seconds_total": 132.6,
+    "miss_share_evidence_directory": 0.6194,
+    "evidence_misses_zero_cache_share": 0.8403,
+    "layout_note": "flat sorted evidence directory + binary search costs ~18 paged probes/entity; a 2-level B-tree or a resident 4.4 MB directory removes the majority of misses (62% at 1 MiB cache)"
+  },
+  "classification": "P4_RETAIN_STORAGE_UPGRADE",
+  "classification_rationale": "Compute is adequate (policy decision p50 638 us, bit-exact vs reference; CPU < 2% of replay wall). Memory is ample (2.06 MB resident of 32 MB PSRAM; 74% of the 2.80 MB prediction). Storage dominates: every address query pays page reads at ~37 ms p50 random-4K / ~1.9 MB/s sequential on the vendor-qualified 20 MHz SDMMC path (rev v1.3 silicon). Larger cache helps (2 MiB p50 831 ms vs 1 MiB 1086 ms) but the media floor keeps p50 far above analytical references. Not COMPUTE_LIMITED (CPU fraction tiny), not MEMORY_LIMITED (resident far under envelope), not CACHE_OPTIMIZE alone (misses are media-latency-bound even when cached fraction rises), not BLOCKED (all phases completed, logical behavior exact).",
+  "power": "UNMEASURED (no measurement hardware available)"
+}

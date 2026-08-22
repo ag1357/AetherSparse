@@ -1,0 +1,90 @@
+{
+  "mission": "AetherSparse V14 \u2014 ESP32-P4 accessory physical qualification",
+  "branch": "work/aethercore-v14-p4-physical-qualification",
+  "board": {
+    "model": "Waveshare ESP32-P4-WIFI6 (SKU 32020)",
+    "chip": "ESP32-P4 rev v1.3, 2 cores @ 360 MHz, 32 MiB HEX PSRAM @ 80 MHz",
+    "flash_detected_bytes": 33554432,
+    "flash_image_header_bytes": 16777216,
+    "mac": "80:f1:b2:d1:eb:6e",
+    "card": "USD00 128 GB microSD, FAT32/AETHERCORE, SDMMC 4-bit @ 20 MHz (vendor ceiling)"
+  },
+  "phases": {
+    "0_preflight": {
+      "status": "pass",
+      "detail": "branch 2511e23, 450 host tests, ESP-IDF v5.5.1 isolated on external drive"
+    },
+    "1_build": {
+      "status": "pass",
+      "report": "phase1-build-report.json"
+    },
+    "2_parity": {
+      "status": "pass",
+      "detail": "51/51 frozen vectors on hardware",
+      "report": "phase2-parity.json"
+    },
+    "3_pack": {
+      "status": "pass",
+      "pack_id": "acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802",
+      "detail": "4 regions, 1.15 GB, sha256-verified host-side and on-device"
+    },
+    "4_storage": {
+      "status": "pass",
+      "report": "phase4-storage-device.json",
+      "headline": "seq 1.93 MB/s, rand4K p50 36.6 ms / 24.0 IOPS, write 0.93 MB/s"
+    },
+    "5_cache_ladder": {
+      "status": "pass",
+      "report": "phase5-cache-ladder-device.json",
+      "headline": "address p50: zero 2481 ms, 256KiB 1037 ms, 1MiB 1086 ms, 2MiB 831 ms (cold)"
+    },
+    "6_trace_replay": {
+      "status": "pass",
+      "verdict": "LOGICAL_PASS",
+      "decisions": "1329/1329",
+      "queries": "107/107",
+      "cases": "260/260",
+      "report": "phase6-replay-device.json"
+    },
+    "7_regressions": {
+      "status": "pass",
+      "report": "phase7-regressions-device.json",
+      "detail": "260/260 across all tier x partition cells; 18/18 expected failures reproduced; zero unsupported answers"
+    },
+    "8_memory": {
+      "status": "pass",
+      "report": "phase8-memory-device.json",
+      "resident_actual_bytes": 2061221,
+      "predicted_bytes": 2797320
+    },
+    "9_cpu_latency": {
+      "status": "pass",
+      "detail": "360 MHz measured; 200/300/400 linear interpolations documented (unsupported clocks)"
+    },
+    "10_attribution": {
+      "status": "pass",
+      "storage_wait_fraction": 0.9802,
+      "dominant_miss_class": "evidence directory (62% at 1 MiB cache)"
+    },
+    "11_classification": {
+      "classification": "P4_RETAIN_STORAGE_UPGRADE"
+    }
+  },
+  "firmware_fixes_required": [
+    "TF slot power via on-chip LDO channel 4 (vendor example parity)",
+    "SDMMC 20 MHz first attempt (40 MHz not qualified on rev v1.3)",
+    "FATFS_FS_LOCK=0 (lock pool capped concurrent opens at 2)",
+    "main task stack 16 KB (12 KB build saw 140 B high-water margin)",
+    "policy embed header: ABI-canonical binding ids (14 / 0x987D28FC667044BE)"
+  ],
+  "artifacts": {
+    "trace_bundle": "ACP1TRC1 4,247,552 B sha256 55c034cb26766e63... (on card)",
+    "exporter": "scripts/droid/v14_p4_trace_export.py (fail-closed: 242/18/1329 reproduction)",
+    "logs": [
+      "phase2-boot.log",
+      "phase4-boot.log",
+      "phase5-8-boot.log"
+    ]
+  },
+  "power": "UNMEASURED"
+}

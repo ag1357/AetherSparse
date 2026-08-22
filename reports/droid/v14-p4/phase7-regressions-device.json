@@ -1,0 +1,74 @@
+{
+  "phase": "phase7-end-to-end-regressions",
+  "aggregation": "by corpus_tier x partition over the witnessed 260-case cohort",
+  "by_tier_partition": {
+    "10k/development": {
+      "cases": 32,
+      "ok": 32,
+      "ops": 160,
+      "policy_matched": 160,
+      "policy_total": 160,
+      "address_matched": 26,
+      "address_total": 26,
+      "policy_cpu_us": 328628,
+      "query_wall_us": 32704440
+    },
+    "10k/tuning": {
+      "cases": 46,
+      "ok": 46,
+      "ops": 230,
+      "policy_matched": 230,
+      "policy_total": 230,
+      "address_matched": 35,
+      "address_total": 35,
+      "policy_cpu_us": 417357,
+      "query_wall_us": 44420378
+    },
+    "25k/development": {
+      "cases": 34,
+      "ok": 34,
+      "ops": 173,
+      "policy_matched": 173,
+      "policy_total": 173,
+      "address_matched": 4,
+      "address_total": 4,
+      "policy_cpu_us": 330053,
+      "query_wall_us": 7709459
+    },
+    "25k/tuning": {
+      "cases": 49,
+      "ok": 49,
+      "ops": 250,
+      "policy_matched": 250,
+      "policy_total": 250,
+      "address_matched": 7,
+      "address_total": 7,
+      "policy_cpu_us": 496302,
+      "query_wall_us": 6925719
+    },
+    "397k/development": {
+      "cases": 44,
+      "ok": 44,
+      "ops": 228,
+      "policy_matched": 228,
+      "policy_total": 228,
+      "address_matched": 16,
+      "address_total": 16,
+      "policy_cpu_us": 449007,
+      "query_wall_us": 17606322
+    },
+    "397k/tuning": {
+      "cases": 55,
+      "ok": 55,
+      "ops": 288,
+      "policy_matched": 288,
+      "policy_total": 288,
+      "address_matched": 19,
+      "address_total": 19,
+      "policy_cpu_us": 605144,
+      "query_wall_us": 23240067
+    }
+  },
+  "category_note": "interaction-category labels (direct/pronoun/ambiguity/unsupported/cancel) are not carried in the replay bundle; the cohort is the dev/tuning partition of the frozen benchmark which contains them.",
+  "fail_closed": "all 260 physical cases match the reference rollout exactly, including the 18 WRONG_GROUNDED_ANSWER cases; zero unsupported answers"
+}

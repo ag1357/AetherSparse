@@ -20,8 +20,9 @@ CONFIG_COMPILER_OPTIMIZATION_PERF=y
 CONFIG_FREERTOS_HZ=1000
 
 # Main task carries the parity runner plus the SD phases (deep local frames
-# for gram/padded buffers and scoring chunks).
-CONFIG_ESP_MAIN_TASK_STACK_SIZE=12288
+# for gram/padded buffers and scoring chunks). Measured high-water margin was
+# 140 B at 12288 during the phase-6 replay; 16384 restores sane headroom.
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=16384
 
 # FAT + SDMMC for the knowledge pack and trace bundle. FS_LOCK must be 0:
 # all pack IO happens on the main task, and the FatFs file-lock pool otherwise

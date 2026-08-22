@@ -682,6 +682,8 @@ static bool idx_query_union(Pager *pager, const char *normalized_surface,
         else query_sequential++;
       }
       if (!data) {
+        ESP_LOGE(TAG, "pager_page failed: idx page %llu",
+                 (unsigned long long)page);
         ok = false;
         break;
       }
@@ -753,8 +755,10 @@ bool idx_query_address(Pager *pager, const char *surface, AddressResult *out) {
   uint32_t *ids = nullptr;
   uint32_t id_count = 0;
   if (!idx_query_union(pager, surface, &out->cand_digest, &out->cand_count, &ids,
-                       &id_count))
+                       &id_count)) {
+    ESP_LOGE(TAG, "union failed for surface '%s'", surface);
     return false;
+  }
 
   /* run-length pass over the sorted ids: per-id overlap count, keep the best
    * 64 by (-count, surface id) exactly like the exported contract */
@@ -797,7 +801,11 @@ bool idx_query_address(Pager *pager, const char *surface, AddressResult *out) {
   for (size_t t = 0; t < top_n; t++) {
     uint32_t entity_idx = 0;
     uint16_t state = 0;
-    if (!idx_surface_entity(pager, top_ids[t], &entity_idx, &state)) return false;
+    if (!idx_surface_entity(pager, top_ids[t], &entity_idx, &state)) {
+      ESP_LOGE(TAG, "surface directory read failed: id %u",
+               (unsigned)top_ids[t]);
+      return false;
+    }
     if (entity_idx != 0xFFFFFFFFu) {
       bool seen = false;
       for (size_t e = 0; e < entity_n; e++)
@@ -828,11 +836,11 @@ bool idx_query_address(Pager *pager, const char *surface, AddressResult *out) {
   out->entity_count = (uint32_t)entity_n;
   out->has_entity = entity_n > 0;
   out->first_entity_idx = entity_n ? entities[0] : 0xFFFFFFFFu;
+  /* Host contract: a missing evidence directory entry contributes 0. */
   uint32_t occurrences = 0;
   for (size_t e = 0; e < entity_n; e++) {
     bool found = false;
     occurrences += evd_occurrences(pager, entities[e], &found);
-    if (!found) return false;
   }
   out->occurrence_total = occurrences;
   return true;

@@ -1,0 +1,97 @@
+{
+  "phase": "phase8-memory",
+  "snapshots": [
+    {
+      "phase": "memory",
+      "label": "post-mount",
+      "internal_free": 573883,
+      "internal_largest": 385024,
+      "psram_free": 33408156,
+      "psram_largest": 33030144,
+      "stack_high_water": 8332
+    },
+    {
+      "phase": "memory",
+      "label": "post-gram-dir",
+      "internal_free": 573279,
+      "internal_largest": 385024,
+      "psram_free": 32539800,
+      "psram_largest": 32505856,
+      "stack_high_water": 5616
+    },
+    {
+      "phase": "memory",
+      "label": "post-phase4",
+      "internal_free": 573103,
+      "internal_largest": 385024,
+      "psram_free": 32539800,
+      "psram_largest": 32505856,
+      "stack_high_water": 5616
+    },
+    {
+      "phase": "memory",
+      "label": "post-trace-load",
+      "internal_free": 543403,
+      "internal_largest": 385024,
+      "psram_free": 32154772,
+      "psram_largest": 31457280,
+      "stack_high_water": 5600
+    },
+    {
+      "phase": "memory",
+      "label": "ladder-zero-cold",
+      "internal_free": 542779,
+      "internal_largest": 385024,
+      "psram_free": 32154772,
+      "psram_largest": 31457280,
+      "stack_high_water": 428
+    },
+    {
+      "phase": "memory",
+      "label": "ladder-256KiB-cold",
+      "internal_free": 541419,
+      "internal_largest": 385024,
+      "psram_free": 31892624,
+      "psram_largest": 31457280,
+      "stack_high_water": 412
+    },
+    {
+      "phase": "memory",
+      "label": "ladder-1MiB-cold",
+      "internal_free": 537387,
+      "internal_largest": 385024,
+      "psram_free": 31106192,
+      "psram_largest": 30408704,
+      "stack_high_water": 412
+    },
+    {
+      "phase": "memory",
+      "label": "ladder-2MiB-cold",
+      "internal_free": 532011,
+      "internal_largest": 385024,
+      "psram_free": 30057616,
+      "psram_largest": 29360128,
+      "stack_high_water": 412
+    },
+    {
+      "phase": "memory",
+      "label": "post-phase5",
+      "internal_free": 543403,
+      "internal_largest": 385024,
+      "psram_free": 32154772,
+      "psram_largest": 31457280,
+      "stack_high_water": 412
+    },
+    {
+      "phase": "memory",
+      "label": "final",
+      "internal_free": 543403,
+      "internal_largest": 385024,
+      "psram_free": 32154772,
+      "psram_largest": 31457280,
+      "stack_high_water": 140
+    }
+  ],
+  "gram_directory_resident_bytes": 859873,
+  "prediction_reference_bytes": 2797320
+}

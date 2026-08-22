@@ -1,0 +1,402 @@
+der
+I (27) boot: chip revision: v1.3
+I (29) boot: efuse block revision: v0.3
+I (32) boot.esp32p4: SPI Speed      : 80MHz
+I (36) boot.esp32p4: SPI Mode       : DIO
+I (40) boot.esp32p4: SPI Flash Size : 16MB
+I (44) boot: Enabling RNG early entropy source...
+I (48) boot: Partition Table:
+I (51) boot: ## Label            Usage          Type ST Offset   Length
+I (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (70) boot:  2 factory          factory app      00 00 00010000 00100000
+I (78) boot: End of partition table
+I (80) esp_image: segment 0: paddr=00010020 vaddr=40040020 size=12cb4h ( 76980) map
+I (101) esp_image: segment 1: paddr=00022cdc vaddr=30100000 size=00068h (   104) load
+I (103) esp_image: segment 2: paddr=00022d4c vaddr=4ff00000 size=0d2cch ( 53964) load
+I (117) esp_image: segment 3: paddr=00030020 vaddr=40000020 size=3c5ach (247212) map
+I (160) esp_image: segment 4: paddr=0006c5d4 vaddr=4ff0d2cc size=03998h ( 14744) load
+I (164) esp_image: segment 5: paddr=0006ff74 vaddr=4ff10c80 size=02cd4h ( 11476) load
+I (172) boot: Loaded app from partition at offset 0x10000
+I (172) boot: Disabling RNG early entropy source...
+I (187) hex_psram: vendor id    : 0x0d (AP)
+I (187) hex_psram: Latency      : 0x01 (Fixed)
+I (188) hex_psram: DriveStr.    : 0x00 (25 Ohm)
+I (188) hex_psram: dev id       : 0x03 (generation 4)
+I (193) hex_psram: density      : 0x07 (256 Mbit)
+I (198) hex_psram: good-die     : 0x06 (Pass)
+I (202) hex_psram: SRF          : 0x02 (Slow Refresh)
+I (206) hex_psram: BurstType    : 0x00 ( Wrap)
+I (211) hex_psram: BurstLen     : 0x03 (2048 Byte)
+I (215) hex_psram: BitMode      : 0x01 (X16 Mode)
+I (219) hex_psram: Readlatency  : 0x02 (10 cycles@Fixed)
+I (225) hex_psram: DriveStrength: 0x00 (1/1)
+I (229) MSPI DQS: tuning success, best phase id is 0
+I (405) MSPI DQS: tuning success, best delayline id is 15
+I (405) esp_psram: Found 32MB PSRAM device
+I (406) esp_psram: Speed: 80MHz
+I (406) hex_psram: psram CS IO is dedicated
+I (409) cpu_start: Multicore app
+I (1659) esp_psram: SPI SRAM memory test OK
+I (1669) cpu_start: Pro cpu start user code
+I (1669) cpu_start: cpu freq: 360000000 Hz
+I (1669) app_init: Application information:
+I (1669) app_init: Project name:     aethercore_p4_qualification
+I (1675) app_init: App version:      f73b01a-dirty
+I (1679) app_init: Compile time:     Aug 22 2026 08:12:13
+I (1684) app_init: ELF file SHA256:  fa64e2e24...
+I (1689) app_init: ESP-IDF:          v5.5.1
+I (1693) efuse_init: Min chip rev:     v0.1
+I (1697) efuse_init: Max chip rev:     v1.99 
+I (1701) efuse_init: Chip rev:         v1.3
+I (1705) heap_init: Initializing. RAM available for dynamic allocation:
+I (1711) heap_init: At 4FF16AF0 len 000244D0 (145 KiB): RAM
+I (1716) heap_init: At 4FF3AFC0 len 00004BF0 (18 KiB): RAM
+I (1721) heap_init: At 4FF40000 len 00060000 (384 KiB): RAM
+I (1727) heap_init: At 50108080 len 00007F80 (31 KiB): RTCRAM
+I (1732) heap_init: At 30100068 len 00001F98 (7 KiB): TCM
+I (1737) esp_psram: Adding pool of 32768K of PSRAM memory to heap allocator
+I (1745) spi_flash: detected chip: gd
+I (1747) spi_flash: flash io: dio
+W (1750) spi_flash: Detected size(32768k) larger than the size in the binary image header(16384k). Using the size in the binary image header.
+I (1763) main_task: Started on CPU0
+I (1788) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (1789) main_task: Calling app_main()
+I (1789) ac_p4_qual: aethercore-v14 p4 physical qualification (phase 1 build)
+I (1795) ac_p4_qual: idf=v5.5.1 chip_model=18 cores=2 rev=103
+I (1801) ac_p4_qual: cpu_hz=360000000 flash_bytes=16777216 psram_bytes=33554432
+I (1808) ac_p4_qual: abi_version=1 workspace=648 session=872 session_wire=836 cog_wire=180
+I (1816) ac_p4_qual: abi entry points retained=27 sentinel=400187ae
+I (1822) ac_p4_qual: [boot] internal free=574995 largest=385024
+I (1827) ac_p4_qual: [boot] psram free=33551716 largest=33030144 total=33554432
+I (1834) ac_p4_qual: [boot] main task stack high-water=9952 bytes
+I (1840) ac_p4_qual: policy validate=0 params=1292 macs/decision=1292
+I (1846) ac_p4_qual: smoke select status=0 action=11 logit=5888
+I (1852) ac_p4_qual: [post-policy] internal free=574995 largest=385024
+I (1858) ac_p4_qual: [post-policy] psram free=33551716 largest=33030144 total=33554432
+I (1866) ac_p4_qual: [post-policy] main task stack high-water=9952 bytes
+I (1872) ac_p4_qual: phase 2: replaying frozen parity vectors
+I (1880) ac_p4_qual: PARITY RESULT: pass=51 fail=0
+PARITY: PASS (51/51)
+I (1884) ac_trace: sd phases starting
+W (1888) ldo: The voltage value 0 is out of the recommended range [500, 2700]
+I (1936) ac_pack_io: card mounted at 20000 kHz (attempt 0)
+MEAS {"phase":"storage.card","name":"USD00","capacity_bytes":126437294080,"sector_size":512,"max_freq_khz":20000,"real_freq_khz":20000,"speed_class":3511,"is_mmc":false,"is_sdio":false}
+I (1952) ac_pack_io: regions entry: addressing-index.bin
+I (1952) ac_pack_io: regions entry: canonical-objects.bin
+I (1957) ac_pack_io: regions entry: evidence.bin
+I (1961) ac_pack_io: regions entry: policy.json
+I (1968) ac_pack_io: pack open: acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802
+MEAS {"phase":"memory","label":"post-mount","internal_free":573883,"internal_largest":385024,"psram_free":33408156,"psram_largest":33030144,"stack_high_water":8332}
+I (25136) ac_pack_io: verify regions/addressing-index.bin: OK (42029056 bytes)
+MEAS {"phase":"pack.verify","region":"regions/addressing-index.bin","bytes":42029056,"sha256_ok":true}
+I (29599) ac_pack_io: verify regions/canonical-objects.bin: OK (10067968 bytes)
+MEAS {"phase":"pack.verify","region":"regions/canonical-objects.bin","bytes":10067968,"sha256_ok":true}
+I (614739) ac_pack_io: verify regions/evidence.bin: OK (1072893952 bytes)
+MEAS {"phase":"pack.verify","region":"regions/evidence.bin","bytes":1072893952,"sha256_ok":true}
+I (614747) ac_pack_io: verify regions/policy.json: OK (3886 bytes)
+MEAS {"phase":"pack.verify","region":"regions/policy.json","bytes":3886,"sha256_ok":true}
+MEAS {"phase":"pack.verify","result":"PASS","seconds":612.77}
+MEAS {"phase":"pack","pack_id":"acpack:0d0a7702dfb87e34f4dbfaf190106611c54e0edbd53d07cac933dc0fa15d0802","verified":true}
+I (615134) ac_pack_io: index: surfaces=387887 grams=43774 gram_dir=859873 B resident
+I (615136) ac_pack_io: entities: 275989
+MEAS {"phase":"pack","surfaces":387887,"grams":43774,"entities":275989}
+MEAS {"phase":"memory","label":"post-gram-dir","internal_free":573279,"internal_largest":385024,"psram_free":32539800,"psram_largest":32505856,"stack_high_water":5616}
+MEAS {"phase":"storage.device","metric":"sequential_read","bytes":268435456,"seconds":142.600,"mb_per_s":1.88,"ok":true}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_cold","samples":3000,"mean_us":40204.7,"p50_us":35511,"p95_us":104864,"p99_us":170134,"min_us":2008,"max_us":226820}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_cold","iops":24.9}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_warm","samples":3000,"mean_us":40148.2,"p50_us":35724,"p95_us":96113,"p99_us":171501,"min_us":2009,"max_us":211567}
+MEAS {"phase":"storage.device","metric":"random_4kib_read_warm","iops":24.9}
+MEAS {"phase":"storage.device","metric":"random_64kib_read","samples":800,"mean_us":65595.7,"p50_us":61510,"p95_us":93850,"p99_us":256159,"min_us":25648,"max_us":277247}
+MEAS {"phase":"storage.device","metric":"random_64kib_read","mb_per_s":1.00,"iops":15.2}
+MEAS {"phase":"storage.device","metric":"sequential_write","bytes":67108864,"seconds":72.538,"mb_per_s":0.93}
+MEAS {"phase":"memory","label":"post-phase4","internal_free":573103,"internal_largest":385024,"psram_free":32539800,"psram_largest":32505856,"stack_high_water":5616}
+I (1124581) ac_trace: trace: 260 cases, 1329 decisions, 107 queries, 7299 strings
+MEAS {"phase":"memory","label":"post-trace-load","internal_free":543403,"internal_largest":385024,"psram_free":32154772,"psram_largest":31457280,"stack_high_water":5600}
+MEAS {"phase":"addressing.device","metric":"address_query_zero_cold","samples":107,"mean_us":2967135.0,"p50_us":2526881,"p95_us":4960649,"p99_us":5444695,"min_us":1730381,"max_us":6627269}
+MEAS {"phase":"addressing.device","cache":"zero","pass":"cold","queries":107,"cache_hits":0,"cache_misses":111685,"hit_rate":0.0000,"bytes_read":457461760,"pages_read":111685,"class_postings_misses":11031,"class_surface_misses":6848,"class_evidence_misses":93806,"random_reads":1126,"sequential_reads":9905,"reads_avoided":0}
+MEAS {"phase":"memory","label":"ladder-zero-cold","internal_free":542779,"internal_largest":385024,"psram_free":32154772,"psram_largest":31457280,"stack_high_water":428}
+MEAS {"phase":"addressing.device","metric":"address_query_zero_warm","samples":107,"mean_us":2932723.7,"p50_us":2481391,"p95_us":4996899,"p99_us":5524149,"min_us":1651180,"max_us":5659473}
+MEAS {"phase":"addressing.device","cache":"zero","pass":"warm","queries":107,"cache_hits":0,"cache_misses":223370,"hit_rate":0.0000,"bytes_read":914923520,"pages_read":223370,"class_postings_misses":22062,"class_surface_misses":13696,"class_evidence_misses":187612,"random_reads":2252,"sequential_reads":19810,"reads_avoided":0}
+MEAS {"phase":"addressing.device","metric":"address_query_256KiB_cold","samples":107,"mean_us":1227789.0,"p50_us":1037355,"p95_us":2406876,"p99_us":2813922,"min_us":680882,"max_us":3095793}
+MEAS {"phase":"addressing.device","cache":"256KiB","pass":"cold","queries":107,"cache_hits":73716,"cache_misses":37969,"hit_rate":0.6600,"bytes_read":155521024,"pages_read":37969,"class_postings_misses":11030,"class_surface_misses":3297,"class_evidence_misses":23642,"random_reads":1126,"sequential_reads":9904,"reads_avoided":73716}
+MEAS {"phase":"memory","label":"ladder-256KiB-cold","internal_free":541419,"internal_largest":385024,"psram_free":31892624,"psram_largest":31457280,"stack_high_water":412}
+MEAS {"phase":"addressing.device","metric":"address_query_256KiB_warm","samples":107,"mean_us":1236953.7,"p50_us":1018853,"p95_us":2756024,"p99_us":3121989,"min_us":654194,"max_us":3133818}
+MEAS {"phase":"addressing.device","cache":"256KiB","pass":"warm","queries":107,"cache_hits":147432,"cache_misses":75938,"hit_rate":0.6600,"bytes_read":311042048,"pages_read":75938,"class_postings_misses":22060,"class_surface_misses":6594,"class_evidence_misses":47284,"random_reads":2252,"sequential_reads":19808,"reads_avoided":147432}
+MEAS {"phase":"addressing.device","metric":"address_query_1MiB_cold","samples":107,"mean_us":1217250.2,"p50_us":1086462,"p95_us":2265671,"p99_us":2526678,"min_us":618180,"max_us":2704135}
+MEAS {"phase":"addressing.device","cache":"1MiB","pass":"cold","queries":107,"cache_hits":74049,"cache_misses":37636,"hit_rate":0.6630,"bytes_read":154157056,"pages_read":37636,"class_postings_misses":11028,"class_surface_misses":3297,"class_evidence_misses":23311,"random_reads":1125,"sequential_reads":9903,"reads_avoided":74049}
+MEAS {"phase":"memory","label":"ladder-1MiB-cold","internal_free":537387,"internal_largest":385024,"psram_free":31106192,"psram_largest":30408704,"stack_high_water":412}
+MEAS {"phase":"addressing.device","metric":"address_query_1MiB_warm","samples":107,"mean_us":1235623.9,"p50_us":1029864,"p95_us":2613742,"p99_us":3034180,"min_us":622145,"max_us":3212217}
+MEAS {"phase":"addressing.device","cache":"1MiB","pass":"warm","queries":107,"cache_hits":148099,"cache_misses":75271,"hit_rate":0.6630,"bytes_read":308310016,"pages_read":75271,"class_postings_misses":22056,"class_surface_misses":6594,"class_evidence_misses":46621,"random_reads":2250,"sequential_reads":19806,"reads_avoided":148099}
+MEAS {"phase":"addressing.device","metric":"address_query_2MiB_cold","samples":107,"mean_us":965184.1,"p50_us":831012,"p95_us":2095154,"p99_us":2500346,"min_us":394548,"max_us":2522632}
+MEAS {"phase":"addressing.device","cache":"2MiB","pass":"cold","queries":107,"cache_hits":84689,"cache_misses":26996,"hit_rate":0.7583,"bytes_read":110575616,"pages_read":26996,"class_postings_misses":10632,"class_surface_misses":3188,"class_evidence_misses":13176,"random_reads":1109,"sequential_reads":9523,"reads_avoided":84689}
+MEAS {"phase":"memory","label":"ladder-2MiB-cold","internal_free":532011,"internal_largest":385024,"psram_free":30057616,"psram_largest":29360128,"stack_high_water":412}
+MEAS {"phase":"addressing.device","metric":"address_query_2MiB_warm","samples":107,"mean_us":986983.7,"p50_us":827977,"p95_us":2151107,"p99_us":2562604,"min_us":399827,"max_us":2601003}
+MEAS {"phase":"addressing.device","cache":"2MiB","pass":"warm","queries":107,"cache_hits":169470,"cache_misses":53900,"hit_rate":0.7587,"bytes_read":220774400,"pages_read":53900,"class_postings_misses":21264,"class_surface_misses":6373,"class_evidence_misses":26263,"random_reads":2218,"sequential_reads":19046,"reads_avoided":169470}
+MEAS {"phase":"memory","label":"post-phase5","internal_free":543403,"internal_largest":385024,"psram_free":32154772,"psram_largest":31457280,"stack_high_water":412}
+MEAS {"phase":"case","idx":0,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8016,"query_wall_us":1142855,"ok":true}
+MEAS {"phase":"case","idx":1,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8091,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":2,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8067,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":3,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4848,"query_wall_us":733304,"ok":true}
+MEAS {"phase":"case","idx":4,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":36674,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":5,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":31957,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":6,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":21638,"query_wall_us":3328706,"ok":true}
+MEAS {"phase":"case","idx":7,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":15274,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":8,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":15339,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":9,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":17272,"query_wall_us":1524060,"ok":true}
+MEAS {"phase":"case","idx":10,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8249,"query_wall_us":1025581,"ok":true}
+MEAS {"phase":"case","idx":11,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8231,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":12,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8310,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":13,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":3684,"query_wall_us":1058451,"ok":true}
+MEAS {"phase":"case","idx":14,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4023,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":15,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7374,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":16,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6249,"query_wall_us":1326438,"ok":true}
+MEAS {"phase":"case","idx":17,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":22327,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":18,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":22591,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":19,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":39001,"query_wall_us":2184757,"ok":true}
+MEAS {"phase":"case","idx":20,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":16689,"query_wall_us":1568509,"ok":true}
+MEAS {"phase":"case","idx":21,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7286,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":22,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5460,"query_wall_us":1005420,"ok":true}
+MEAS {"phase":"case","idx":23,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7177,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":24,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4493,"query_wall_us":1200024,"ok":true}
+MEAS {"phase":"case","idx":25,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4810,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":26,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7318,"query_wall_us":969592,"ok":true}
+MEAS {"phase":"case","idx":27,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7513,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":28,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6961,"query_wall_us":953558,"ok":true}
+MEAS {"phase":"case","idx":29,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7122,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":30,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7080,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":31,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7098,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":32,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6910,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":33,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8074,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":34,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7700,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":35,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8114,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":36,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7156,"query_wall_us":1238431,"ok":true}
+MEAS {"phase":"case","idx":37,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7296,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":38,"tier":1,"partition":1,"policy_matched":10,"policy_total":10,"address_matched":4,"address_total":4,"ops":10,"policy_cpu_us":4504,"query_wall_us":3986815,"ok":true}
+MEAS {"phase":"case","idx":39,"tier":2,"partition":1,"policy_matched":10,"policy_total":10,"address_matched":0,"address_total":0,"ops":10,"policy_cpu_us":9152,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":40,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6320,"query_wall_us":1231706,"ok":true}
+MEAS {"phase":"case","idx":41,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6151,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":42,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6304,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":43,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7181,"query_wall_us":830982,"ok":true}
+MEAS {"phase":"case","idx":44,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7361,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":45,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7166,"query_wall_us":1206996,"ok":true}
+MEAS {"phase":"case","idx":46,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7408,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":47,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6817,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":48,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6471,"query_wall_us":800248,"ok":true}
+MEAS {"phase":"case","idx":49,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6550,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":50,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":2,"address_total":2,"ops":5,"policy_cpu_us":2651,"query_wall_us":2644481,"ok":true}
+MEAS {"phase":"case","idx":51,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":18645,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":52,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":2836,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":53,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":22836,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":54,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":24134,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":55,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":21121,"query_wall_us":2859904,"ok":true}
+MEAS {"phase":"case","idx":56,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":14878,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":57,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":14890,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":58,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":16488,"query_wall_us":1290976,"ok":true}
+MEAS {"phase":"case","idx":59,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7220,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":60,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7001,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":61,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7891,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":62,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7684,"query_wall_us":1089199,"ok":true}
+MEAS {"phase":"case","idx":63,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8014,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":64,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7945,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":65,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7134,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":66,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7898,"query_wall_us":802627,"ok":true}
+MEAS {"phase":"case","idx":67,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7501,"query_wall_us":1303005,"ok":true}
+MEAS {"phase":"case","idx":68,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7867,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":69,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7364,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":70,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7194,"query_wall_us":973269,"ok":true}
+MEAS {"phase":"case","idx":71,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7276,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":72,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7397,"query_wall_us":640344,"ok":true}
+MEAS {"phase":"case","idx":73,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7622,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":74,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7407,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":75,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":2075,"query_wall_us":924964,"ok":true}
+MEAS {"phase":"case","idx":76,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7153,"query_wall_us":702414,"ok":true}
+MEAS {"phase":"case","idx":77,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7121,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":78,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6977,"query_wall_us":951774,"ok":true}
+MEAS {"phase":"case","idx":79,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7324,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":80,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":2678,"query_wall_us":1030244,"ok":true}
+MEAS {"phase":"case","idx":81,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":2778,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":82,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":2692,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":83,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7952,"query_wall_us":869765,"ok":true}
+MEAS {"phase":"case","idx":84,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7472,"query_wall_us":1148741,"ok":true}
+MEAS {"phase":"case","idx":85,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7666,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":86,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7133,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":87,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7153,"query_wall_us":973771,"ok":true}
+MEAS {"phase":"case","idx":88,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7158,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":89,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6993,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":90,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7312,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":91,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5919,"query_wall_us":1122272,"ok":true}
+MEAS {"phase":"case","idx":92,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7576,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":93,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4918,"query_wall_us":1164176,"ok":true}
+MEAS {"phase":"case","idx":94,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7443,"query_wall_us":1236097,"ok":true}
+MEAS {"phase":"case","idx":95,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":38792,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":96,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":24057,"query_wall_us":2633618,"ok":true}
+MEAS {"phase":"case","idx":97,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":17840,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":98,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":26939,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":99,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":15107,"query_wall_us":1473705,"ok":true}
+MEAS {"phase":"case","idx":100,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":3696,"query_wall_us":1255111,"ok":true}
+MEAS {"phase":"case","idx":101,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7165,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":102,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7740,"query_wall_us":779746,"ok":true}
+MEAS {"phase":"case","idx":103,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7173,"query_wall_us":1037266,"ok":true}
+MEAS {"phase":"case","idx":104,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7158,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":105,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5756,"query_wall_us":1392251,"ok":true}
+MEAS {"phase":"case","idx":106,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":5807,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":107,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7024,"query_wall_us":1002446,"ok":true}
+MEAS {"phase":"case","idx":108,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7149,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":109,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4333,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":110,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":5847,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":111,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7524,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":112,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4446,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":113,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":3248,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":114,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7183,"query_wall_us":907151,"ok":true}
+MEAS {"phase":"case","idx":115,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":2,"address_total":2,"ops":5,"policy_cpu_us":8301,"query_wall_us":5020198,"ok":true}
+MEAS {"phase":"case","idx":116,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8083,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":117,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7033,"query_wall_us":1237166,"ok":true}
+MEAS {"phase":"case","idx":118,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7266,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":119,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7059,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":120,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6996,"query_wall_us":1054673,"ok":true}
+MEAS {"phase":"case","idx":121,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":11403,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":122,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8315,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":123,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7371,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":124,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4670,"query_wall_us":1150315,"ok":true}
+MEAS {"phase":"case","idx":125,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5494,"query_wall_us":910043,"ok":true}
+MEAS {"phase":"case","idx":126,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7391,"query_wall_us":1039948,"ok":true}
+MEAS {"phase":"case","idx":127,"tier":1,"partition":0,"policy_matched":8,"policy_total":8,"address_matched":1,"address_total":1,"ops":8,"policy_cpu_us":3680,"query_wall_us":1737487,"ok":true}
+MEAS {"phase":"case","idx":128,"tier":2,"partition":0,"policy_matched":8,"policy_total":8,"address_matched":0,"address_total":0,"ops":8,"policy_cpu_us":3292,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":129,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":23864,"query_wall_us":2162158,"ok":true}
+MEAS {"phase":"case","idx":130,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":39355,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":131,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":23711,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":132,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":23139,"query_wall_us":1418736,"ok":true}
+MEAS {"phase":"case","idx":133,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5597,"query_wall_us":1097403,"ok":true}
+MEAS {"phase":"case","idx":134,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":5414,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":135,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4803,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":136,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4993,"query_wall_us":1010061,"ok":true}
+MEAS {"phase":"case","idx":137,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":5067,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":138,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7405,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":139,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4713,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":140,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":3880,"query_wall_us":1128608,"ok":true}
+MEAS {"phase":"case","idx":141,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":3992,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":142,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7275,"query_wall_us":1365813,"ok":true}
+MEAS {"phase":"case","idx":143,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7467,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":144,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7463,"query_wall_us":1333374,"ok":true}
+MEAS {"phase":"case","idx":145,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7683,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":146,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7449,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":147,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7795,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":148,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7212,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":149,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":5379,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":150,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6968,"query_wall_us":1150225,"ok":true}
+MEAS {"phase":"case","idx":151,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6755,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":152,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6965,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":153,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5877,"query_wall_us":1003017,"ok":true}
+MEAS {"phase":"case","idx":154,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6210,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":155,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6557,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":156,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":2,"address_total":2,"ops":5,"policy_cpu_us":2301,"query_wall_us":1728264,"ok":true}
+MEAS {"phase":"case","idx":157,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8162,"query_wall_us":1169541,"ok":true}
+MEAS {"phase":"case","idx":158,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8010,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":159,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8388,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":160,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7208,"query_wall_us":1205806,"ok":true}
+MEAS {"phase":"case","idx":161,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7382,"query_wall_us":1015171,"ok":true}
+MEAS {"phase":"case","idx":162,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6672,"query_wall_us":1080927,"ok":true}
+MEAS {"phase":"case","idx":163,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":10657,"query_wall_us":1230605,"ok":true}
+MEAS {"phase":"case","idx":164,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10928,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":165,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10532,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":166,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":10155,"query_wall_us":2155671,"ok":true}
+MEAS {"phase":"case","idx":167,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":26039,"query_wall_us":1931281,"ok":true}
+MEAS {"phase":"case","idx":168,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":19188,"query_wall_us":1131136,"ok":true}
+MEAS {"phase":"case","idx":169,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10081,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":170,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9980,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":171,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9283,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":172,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9652,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":173,"tier":2,"partition":1,"policy_matched":8,"policy_total":8,"address_matched":1,"address_total":1,"ops":8,"policy_cpu_us":6215,"query_wall_us":1653131,"ok":true}
+MEAS {"phase":"case","idx":174,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9791,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":175,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9965,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":176,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8772,"query_wall_us":745140,"ok":true}
+MEAS {"phase":"case","idx":177,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":10497,"query_wall_us":737152,"ok":true}
+MEAS {"phase":"case","idx":178,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10004,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":179,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9329,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":180,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9984,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":181,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9861,"query_wall_us":759845,"ok":true}
+MEAS {"phase":"case","idx":182,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9894,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":183,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":7623,"query_wall_us":926841,"ok":true}
+MEAS {"phase":"case","idx":184,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10134,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":185,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9192,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":186,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9812,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":187,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9767,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":188,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9749,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":189,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9677,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":190,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9616,"query_wall_us":1051153,"ok":true}
+MEAS {"phase":"case","idx":191,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9800,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":192,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":10186,"query_wall_us":907703,"ok":true}
+MEAS {"phase":"case","idx":193,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10007,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":194,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8550,"query_wall_us":1249930,"ok":true}
+MEAS {"phase":"case","idx":195,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8652,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":196,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":12074,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":197,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9661,"query_wall_us":947109,"ok":true}
+MEAS {"phase":"case","idx":198,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9790,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":199,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7557,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":200,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10809,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":201,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4121,"query_wall_us":1564198,"ok":true}
+MEAS {"phase":"case","idx":202,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4437,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":203,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":3938,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":204,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6615,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":205,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9963,"query_wall_us":1000992,"ok":true}
+MEAS {"phase":"case","idx":206,"tier":2,"partition":0,"policy_matched":10,"policy_total":10,"address_matched":2,"address_total":2,"ops":10,"policy_cpu_us":13427,"query_wall_us":1836358,"ok":true}
+MEAS {"phase":"case","idx":207,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9360,"query_wall_us":963892,"ok":true}
+MEAS {"phase":"case","idx":208,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":9814,"query_wall_us":2361933,"ok":true}
+MEAS {"phase":"case","idx":209,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":25541,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":210,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":25785,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":211,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":28992,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":212,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":2,"address_total":2,"ops":5,"policy_cpu_us":26355,"query_wall_us":3288858,"ok":true}
+MEAS {"phase":"case","idx":213,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10980,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":214,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9855,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":215,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10225,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":216,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9871,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":217,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":4348,"query_wall_us":1032998,"ok":true}
+MEAS {"phase":"case","idx":218,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4492,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":219,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":4350,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":220,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":10192,"query_wall_us":896432,"ok":true}
+MEAS {"phase":"case","idx":221,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10004,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":222,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10005,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":223,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5113,"query_wall_us":2196127,"ok":true}
+MEAS {"phase":"case","idx":224,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":21190,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":225,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":41376,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":226,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":42411,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":227,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7834,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":228,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":26790,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":229,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":26343,"query_wall_us":1650093,"ok":true}
+MEAS {"phase":"case","idx":230,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":19542,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":231,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":29483,"query_wall_us":1129192,"ok":true}
+MEAS {"phase":"case","idx":232,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10338,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":233,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10189,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":234,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9828,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":235,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9628,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":236,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9805,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":237,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":2,"address_total":2,"ops":5,"policy_cpu_us":7068,"query_wall_us":2041445,"ok":true}
+MEAS {"phase":"case","idx":238,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":8538,"query_wall_us":964413,"ok":true}
+MEAS {"phase":"case","idx":239,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":8985,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":240,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10224,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":241,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9718,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":242,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9907,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":243,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9682,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":244,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9683,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":245,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9579,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":246,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6719,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":247,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":12526,"query_wall_us":1060120,"ok":true}
+MEAS {"phase":"case","idx":248,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9882,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":249,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":9727,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":250,"tier":0,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":5739,"query_wall_us":1271132,"ok":true}
+MEAS {"phase":"case","idx":251,"tier":1,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6342,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":252,"tier":2,"partition":1,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6313,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":253,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7267,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":254,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10081,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":255,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":7547,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":256,"tier":0,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":1,"address_total":1,"ops":5,"policy_cpu_us":6701,"query_wall_us":1240133,"ok":true}
+MEAS {"phase":"case","idx":257,"tier":1,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":6821,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":258,"tier":2,"partition":0,"policy_matched":5,"policy_total":5,"address_matched":0,"address_total":0,"ops":5,"policy_cpu_us":10437,"query_wall_us":0,"ok":true}
+MEAS {"phase":"case","idx":259,"tier":2,"partition":1,"policy_matched":10,"policy_total":10,"address_matched":3,"address_total":3,"ops":10,"policy_cpu_us":14309,"query_wall_us":3136688,"ok":true}
+MEAS {"phase":"policy.device","metric":"decision_cpu","samples":1329,"mean_us":1976.3,"p50_us":638,"p95_us":6132,"p99_us":21475,"min_us":209,"max_us":34795}
+MEAS {"phase":"addressing.device","metric":"query_wall_1MiB","samples":107,"mean_us":1239312.0,"p50_us":1089341,"p95_us":2196127,"p99_us":3026921,"min_us":640344,"max_us":3328706}
+MEAS {"phase":"replay.device","seconds":138.312,"cases_ok":260,"cases_total":260,"decisions_matched":1329,"decisions_total":1329,"queries_matched":107,"queries_total":107,"policy_macs":1543864,"cache_hits":76382,"cache_misses":37209,"bytes_read":152408064,"pages_read":37209,"random_reads":1125,"sequential_reads":9903,"class_postings_misses":11028,"class_surface_misses":3297,"class_evidence_misses":22884}
+MEAS {"phase":"replay.device","verdict":"LOGICAL_PASS"}
+MEAS {"phase":"memory","label":"final","internal_free":543403,"internal_largest":385024,"psram_free":32154772,"psram_largest":31457280,"stack_high_water":140}
+I (2630366) ac_p4_qual: sd phases complete
