@@ -19,9 +19,8 @@ import time
 from pathlib import Path
 from typing import Any
 
-from aethersparse.selection.models import FrozenModel
-
 from aethersparse.controller.operators import OPERATORS, OperatorSpec
+from aethersparse.selection.models import FrozenModel
 
 BLOCK_BYTES = 4096
 TRAINING_PARTITIONS = frozenset({"development", "tuning"})

@@ -126,10 +126,10 @@ def build_sidecar(
             if freq >= min_freq and len(token) >= min_len
         )
     )[:vocab_cap]
-    vocabulary = [(token, -neg_freq) for neg_freq, token in vocabulary]
+    vocab_rows = [(token, -neg_freq) for neg_freq, token in vocabulary]
 
     variants: dict[str, list[tuple[str, int]]] = {}
-    for token, freq in vocabulary:
+    for token, freq in vocab_rows:
         for variant in _deletions(token):
             variants.setdefault(variant, []).append((token, freq))
 
@@ -141,7 +141,7 @@ def build_sidecar(
     db.execute("CREATE TABLE vocab (token TEXT PRIMARY KEY, freq INTEGER NOT NULL)")
     db.execute("CREATE TABLE variants (variant TEXT PRIMARY KEY, tokens TEXT NOT NULL)")
     db.execute("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
-    db.executemany("INSERT INTO vocab VALUES (?, ?)", vocabulary)
+    db.executemany("INSERT INTO vocab VALUES (?, ?)", vocab_rows)
     db.executemany(
         "INSERT INTO variants VALUES (?, ?)",
         (
@@ -186,7 +186,7 @@ class EditDistanceIndex:
         self.pack_sha256 = str(meta.get("pack_sha256"))
 
     @classmethod
-    def maybe_open(cls, pack_path: Path) -> "EditDistanceIndex | None":
+    def maybe_open(cls, pack_path: Path) -> EditDistanceIndex | None:
         sidecar = pack_path.with_name(f"{pack_path.stem}.ed2.sqlite")
         if not sidecar.exists():
             return None

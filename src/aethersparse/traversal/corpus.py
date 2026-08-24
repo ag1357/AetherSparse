@@ -331,7 +331,7 @@ class CorpusStore:
             # own stub documents; anchor aliases and links resolve only to
             # exact titles (preferring non-redirect documents on casefold
             # collisions, mirroring _fold_redirects).
-            resolved_titles: dict[str, str] = {}
+            resolved_titles = {}
             for row in self.db.execute(
                 "SELECT normalized_title, document_id, redirect_target FROM documents"
             ):
@@ -341,10 +341,10 @@ class CorpusStore:
         for anchor_text, target_title in sorted(anchor_aliases):
             target_doc = resolved_titles.get(target_title)
             if target_doc:
-                cursor = self.db.execute(
+                alias_cursor = self.db.execute(
                     "INSERT OR IGNORE INTO aliases VALUES(?,?)", (anchor_text, target_doc)
                 )
-                anchor_alias_rows += cursor.rowcount
+                anchor_alias_rows += alias_cursor.rowcount
         self.db.execute(
             """UPDATE links SET target_document_id=(
                  SELECT document_id FROM aliases WHERE alias=lower(links.target_title) LIMIT 1)

@@ -9,7 +9,10 @@ The first real canonical-pack execution exposed two generic defects:
    entities (for example "Castilla–La Mancha") failed verification.
 2. The v11 benchmark capture exporter aborted on the cross-tier hard-negative
    freeze instead of selecting the unique requested-tier replica per case.
-"""
+
+The EN DASH characters below are intentional fixtures (U+2013 inputs the v0.5
+normalization must fold to hyphen), not ambiguous-unicode mistakes.
+"""  # noqa: RUF002
 
 from __future__ import annotations
 
@@ -40,7 +43,7 @@ from aethersparse.addressing.contracts_v2 import (
 from aethersparse.addressing.exact import ExactAddressIndex
 from aethersparse.addressing.factory_export_v2 import export_v11_benchmark_capture
 
-EN_DASH_TITLE = "Castilla–La Mancha"
+EN_DASH_TITLE = "Castilla–La Mancha"  # noqa: RUF001  # intentional U+2013 fixture
 EN_DASH_NORMALIZED = "castilla-la mancha"  # v0.5 folds U+2013 to hyphen
 
 
@@ -81,8 +84,8 @@ def _dash_pack(path: Path) -> None:
     )
     dash_id = _fit_document_id("doc:dash")
     source_id = _fit_document_id("doc:source")
-    dash_text = "Castilla–La Mancha is a region."
-    source_text = "See [[Castilla–La Mancha|the region]] and [[Nowhere Real| ]] here."
+    dash_text = "Castilla–La Mancha is a region."  # noqa: RUF001  # intentional U+2013 fixture
+    source_text = "See [[Castilla–La Mancha|the region]] and [[Nowhere Real| ]] here."  # noqa: RUF001  # intentional U+2013 fixture
     db.executemany(
         "INSERT INTO documents VALUES(?,?,?,?,?,?)",
         [
@@ -111,7 +114,7 @@ def _dash_pack(path: Path) -> None:
             ("region article", source_id, "title"),
         ],
     )
-    raw_link = "[[Castilla–La Mancha|the region]]"
+    raw_link = "[[Castilla–La Mancha|the region]]"  # noqa: RUF001  # intentional U+2013 fixture
     start = source_text.index(raw_link)
     db.execute(
         "INSERT INTO anchors VALUES(?,?,?,?,?,?,?,?)",
@@ -278,7 +281,7 @@ def test_export_selects_unique_requested_tier_replica(tmp_path: Path) -> None:
     pack = tmp_path / "pack.sqlite"
     _dash_pack(pack)
     entity_id = canonical_entity_id(EN_DASH_NORMALIZED)
-    query = "Where is Castilla–La Mancha?"
+    query = "Where is Castilla–La Mancha?"  # noqa: RUF001  # intentional U+2013 fixture
     start = query.index(EN_DASH_TITLE)
     mention = {
         "surface": EN_DASH_TITLE,

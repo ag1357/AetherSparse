@@ -35,6 +35,9 @@ packages = ["src/aethersparse"]
 [tool.pytest.ini_options]
 addopts = "-q --strict-markers"
 testpaths = ["tests"]
+# Regression tests import the mission harnesses under scripts/; put the
+# repository root on sys.path so `uv run pytest` matches `python -m pytest`.
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100

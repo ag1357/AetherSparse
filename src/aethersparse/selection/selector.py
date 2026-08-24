@@ -32,7 +32,7 @@ ATTRIBUTION_TERMS = {"said", "says", "stated", "wrote", "quoted", "according", "
 CONJUNCTION_MARKERS = frozenset({"and", "both", "each", "compare", "versus", "vs"})
 
 
-def _edit1_variants(term: str):
+def _edit1_variants(term: str) -> Iterable[str]:
     """Damerau edit-distance-1 variants, cheapest typo class first."""
     # Adjacent transpositions: the most common single-keystroke error.
     for i in range(len(term) - 1):
@@ -119,7 +119,9 @@ class EvidenceSelector:
         # no sidecar exists next to the pack the selector behaves exactly as
         # before (edit-1 FTS probes only).
         self._spelling_index = EditDistanceIndex.maybe_open(corpus_path)
-        self._repair_cache: dict[str, tuple[set[str], set[str], str] | None] = {}
+        self._repair_cache: dict[
+            str, tuple[set[str], set[str], str, tuple[str, ...]] | None
+        ] = {}
 
     @classmethod
     def from_model_file(cls, corpus_path: Path, model_path: Path) -> EvidenceSelector:
@@ -204,7 +206,10 @@ class EvidenceSelector:
         ):
             if surface not in by_surface:
                 continue
-            if any(not (end <= taken_start or start >= taken_end) for taken_start, taken_end in claimed):
+            if any(
+                not (end <= taken_start or start >= taken_end)
+                for taken_start, taken_end in claimed
+            ):
                 continue
             claimed.append((start, end))
             probed.extend(by_surface[surface])
@@ -641,7 +646,7 @@ class EvidenceSelector:
             # share filled directly from the entity's document.
             entity_docs = anchors[:6]
             reserved = max(3, 12 // max(1, len(entity_docs)))
-            for document_id, title in zip(entity_docs, entity_titles):
+            for document_id, title in zip(entity_docs, entity_titles, strict=False):
                 title_terms = sorted(
                     set(TOKEN_RE.findall(title.casefold())),
                     key=lambda term: (-len(term), term),
@@ -732,11 +737,11 @@ class EvidenceSelector:
                 )
             )
             for linked_doc in linked[: max(24, int(24 * self.probe_scale))]:
-                title_terms = _tokens(linked_doc["title"])
-                if not title_terms:
+                linked_title_terms = _tokens(linked_doc["title"])
+                if not linked_title_terms:
                     continue
                 match = " AND ".join(
-                    f'"{term}"' for term in sorted(title_terms)[:5]
+                    f'"{term}"' for term in sorted(linked_title_terms)[:5]
                 )
                 row = self.store.db.execute(
                     """SELECT c.*, d.title, d.revision, d.source_url, 0.0 AS rank

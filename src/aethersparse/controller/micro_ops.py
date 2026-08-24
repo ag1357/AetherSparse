@@ -884,9 +884,11 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
             plan_shape="list",
         )
     elif name is MicroOpName.BUILD_COMPARISON_PLAN:
-        values = tuple(_claim_value(claims[item], "comparison") for item in state.bound_claim_ids)
+        comparison_values = tuple(
+            _claim_value(claims[item], "comparison") for item in state.bound_claim_ids
+        )
         updates.update(
-            plan_values=values,
+            plan_values=comparison_values,
             plan_claim_ids=state.bound_claim_ids,
             plan_shape="comparison",
         )
@@ -945,12 +947,12 @@ def execute_action(state: MicroState, action: MicroAction) -> MicroState:
         except (KeyError, IndexError, TypeError, ValueError):
             updates["verification_passed"] = False
     elif name is MicroOpName.ANSWER:
-        values = (
+        terminal_values = (
             (state.plan_answer_text,)
             if state.plan_shape == "comparison" and state.plan_answer_text
             else state.plan_values
         )
-        updates.update(terminal="ANSWER", answer_values=values)
+        updates.update(terminal="ANSWER", answer_values=terminal_values)
     elif name in {
         MicroOpName.CLARIFY,
         MicroOpName.ABSTAIN,
