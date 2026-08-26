@@ -27,6 +27,15 @@ class ProductionOperationError(RuntimeError):
     pass
 
 
+def _aethersparse_version() -> str:
+    try:
+        from importlib.metadata import PackageNotFoundError, version
+
+        return version("aethersparse")
+    except PackageNotFoundError:
+        return "0+unknown"
+
+
 def compile_native_runtime(output: Path, *, compiler: str | None = None) -> dict[str, object]:
     """Build the portable allocation-free C++17 runtime and return its identity."""
 
@@ -98,6 +107,27 @@ def compile_pack_v2_evidence(
     image = directory.encode()
     output.parent.mkdir(parents=True, exist_ok=True)
     descriptor_path = output.with_suffix(output.suffix + ".json")
+    # Physical-identity binding: the derived image must never become factual
+    # authority separate from the pack it was compiled from.  Hash the whole
+    # evidence region (chunked; it can exceed 1 GiB) and bind the source pack
+    # when the conventional <pack>/regions/evidence.bin layout is present.
+    region_hasher = hashlib.sha256()
+    with source.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1 << 20), b""):
+            region_hasher.update(chunk)
+    manifest_path = source.parent.parent / "manifest.json"
+    source_pack_id: str | None = None
+    if manifest_path.is_file():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise ProductionOperationError(
+                f"pack manifest unreadable: {manifest_path}: {error}"
+            ) from error
+        pack_id = manifest.get("pack_id")
+        if not isinstance(pack_id, str):
+            raise ProductionOperationError("pack manifest has no pack_id")
+        source_pack_id = pack_id
     descriptor: dict[str, Any] = {
         "schema_version": PACK_V2_SCHEMA,
         "layout": str(layout),
@@ -112,6 +142,9 @@ def compile_pack_v2_evidence(
         "image_bytes": len(image),
         "image_sha256": hashlib.sha256(image).hexdigest(),
         "source_directory_sha256": hashlib.sha256(flat).hexdigest(),
+        "source_evidence_region_sha256": region_hasher.hexdigest(),
+        "source_pack_id": source_pack_id,
+        "compiler_identity": f"aethersparse {_aethersparse_version()} aethercore pack",
         "resident_bytes": directory.resident_bytes,
         "cold_bytes": directory.cold_bytes,
         "device_time_repack_required": False,
