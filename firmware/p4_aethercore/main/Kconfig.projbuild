@@ -1,0 +1,23 @@
+menu "AetherCore P4 runtime"
+
+    config AC_LINK_UART_BAUD
+        int "C6 link UART baud rate"
+        default 921600
+        help
+            Must match espnow-bridge-c6 BRIDGE_UART_BAUD on Device B's C6.
+
+    config AC_LINK_UART_TX_PIN
+        int "C6 link UART TX GPIO (P4 -> C6 GPIO4/RX)"
+        default 36
+        help
+            Physical jumper-wire selection made at bring-up; must match the
+            wired header pin and the bridge's RX pin.
+
+    config AC_LINK_UART_RX_PIN
+        int "C6 link UART RX GPIO (P4 <- C6 GPIO5/TX)"
+        default 37
+        help
+            Physical jumper-wire selection made at bring-up; must match the
+            wired header pin and the bridge's TX pin.
+
+endmenu

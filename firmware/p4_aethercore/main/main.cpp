@@ -27,11 +27,78 @@
 #include <string.h>
 
 #include "aethercore_runtime.h"
+#include "link/slip_link.h"
+#include "link/slip_uart.h"
+#include "pack_io.h"
 #include "parity_vectors_v14.h"
 #include "policy_v14_selected.h"
+#include "service_runtime.h"
 #include "trace_runner.h"
 
 static const char *TAG = "ac_p4";
+
+/* Boot mode: /sdcard/aethercore-state/bootmode.txt holds "qual" or
+ * "service" (default). One firmware image serves both the qualification
+ * record and the interactive deployment; the card selects the mode, so the
+ * flashed binary hash is identical for Phase 15 evidence and Phase 17. */
+static void read_boot_mode(char *out, size_t cap) {
+  snprintf(out, cap, "service");
+  FILE *f = fopen("/sdcard/aethercore-state/bootmode.txt", "rb");
+  if (!f) return;
+  size_t n = fread(out, 1, cap - 1, f);
+  fclose(f);
+  out[n] = 0;
+  while (n > 0 && (out[n - 1] == '\n' || out[n - 1] == '\r' || out[n - 1] == ' '))
+    out[--n] = 0;
+  if (strcmp(out, "qual") != 0 && strcmp(out, "service") != 0)
+    snprintf(out, cap, "service");
+}
+
+/* Interactive service mode: verified pack + Pack-v2 + knowledge + memory
+ * store + protocol v2 over the C6 ESP-NOW/UART bridge. */
+static void run_service_mode(void) {
+  ac::runtime::RuntimeInfo info = {};
+  info.pack_verified = true;
+  info.packv2_active = evd_mode() == EVD_MODE_V2_DIRECT;
+  info.pack_id = pack_id();
+  info.storage_identity = "kingston-canvas-go-plus-128gb-a2:SD128";
+  info.psram_free = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+  info.internal_free = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+
+  char err[160];
+  if (!ac::runtime::service_init(
+          "/sdcard/aethercore-service/knowledge/v13-grounded-records.json",
+          "/sdcard/aethercore-state/state.json", kAcV14PolicyWeights,
+          AC_V14_POLICY_PARAMETER_COUNT, info, err, sizeof(err))) {
+    printf("MEAS {\"phase\":\"service\",\"status\":\"INIT_FAILED\","
+           "\"detail\":\"%s\"}\n", err);
+    ESP_LOGE(TAG, "service init failed: %s", err);
+    return;
+  }
+
+  static ac::link::Link g_link;
+  g_link.on_message(
+      [](ac::link::Ac20Type type, uint32_t req, uint32_t sess,
+         const uint8_t *body, size_t len, void *) {
+        ac::runtime::service_handle_message(type, req, sess, body, len);
+      },
+      nullptr);
+  ac::runtime::service_set_response_sink(
+      [](void *, ac::link::Ac20Type type, uint32_t req, uint32_t sess,
+         const uint8_t *body, size_t n) {
+        ac::link::link_uart_send(&g_link, type, req, sess, body, n);
+      },
+      nullptr);
+  bool link_ok = ac::link::link_uart_start(&g_link, 1, CONFIG_AC_LINK_UART_TX_PIN,
+                                           CONFIG_AC_LINK_UART_RX_PIN,
+                                           CONFIG_AC_LINK_UART_BAUD);
+  printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"uart1 @%d "
+         "tx=%d rx=%d\",\"packv2\":%s}\n",
+         link_ok ? "READY" : "READY_NO_LINK", CONFIG_AC_LINK_UART_BAUD,
+         CONFIG_AC_LINK_UART_TX_PIN, CONFIG_AC_LINK_UART_RX_PIN,
+         info.packv2_active ? "active" : "degraded");
+  ESP_LOGI(TAG, "service mode ready (link %s)", link_ok ? "up" : "FAILED");
+}
 
 /* The linker collects unused function sections, which would understate the
  * runtime's true footprint in the Phase 1 build report. This `used` table
@@ -445,9 +512,22 @@ extern "C" void app_main(void) {
 
   run_parity();
 
-  /* SD phases: mount + pack verify + storage bench + cache ladder + trace. */
-  bool sd_ok = run_sd_phases();
-  ESP_LOGI(TAG, "sd phases %s", sd_ok ? "complete" : "incomplete (see MEAS lines)");
+  /* Shared verified boot (mount + pack verify + Pack-v2), then the
+   * card-selected mode: "qual" (cache ladder + A/B replay evidence) or
+   * "service" (interactive protocol v2 runtime). */
+  bool boot_ok = run_pack_boot();
+  ESP_LOGI(TAG, "pack boot %s", boot_ok ? "complete" : "FAILED (see MEAS lines)");
+  if (boot_ok) {
+    char mode[16];
+    read_boot_mode(mode, sizeof(mode));
+    printf("MEAS {\"phase\":\"boot\",\"mode\":\"%s\"}\n", mode);
+    if (strcmp(mode, "qual") == 0) {
+      bool qual_ok = run_qual_phases();
+      ESP_LOGI(TAG, "qual phases %s", qual_ok ? "complete" : "incomplete");
+    } else {
+      run_service_mode();
+    }
+  }
 
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(60000));

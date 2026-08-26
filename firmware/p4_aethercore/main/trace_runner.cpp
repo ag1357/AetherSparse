@@ -507,8 +507,10 @@ static bool phase6_trace(int evd_mode, size_t cache_bytes, const char *label) {
 
 /* ------------------------------------------------------------------ */
 
-bool run_sd_phases(void) {
-  ESP_LOGI(TAG, "sd phases starting");
+/* Shared boot: mount, open, verify, Pack-v2 load. Both the qualification
+ * harness and the interactive service boot through exactly this path. */
+bool run_pack_boot(void) {
+  ESP_LOGI(TAG, "pack boot starting");
   if (!sd_mount()) {
     printf("MEAS {\"phase\":\"storage\",\"status\":\"NO_CARD\"}\n");
     return false;
@@ -546,7 +548,11 @@ bool run_sd_phases(void) {
          "\"resident_bytes\":%u}\n",
          packv2_layout(), active_mode, (unsigned)packv2_resident_bytes());
   memory_snapshot("post-packv2");
+  return true;
+}
 
+/* Qualification phases (cache ladder + A/B replay). Requires run_pack_boot(). */
+bool run_qual_phases(void) {
   /* The A2 medium was characterized separately (Phase 3, p4_media_bench);
    * the destructive-style storage bench is not part of this target. */
 
@@ -565,8 +571,15 @@ bool run_sd_phases(void) {
   if (!phase6_trace(EVD_MODE_V14_PAGED, 1u << 20, "v14_paged_1MiB"))
     return false;
   memory_snapshot("post-replay-v14");
-  if (!phase6_trace(active_mode, 2u << 20, "v15_direct_2MiB"))
+  /* The selected profile is whatever run_pack_boot() activated (V2_DIRECT
+   * when Pack-v2 verified, else the loud degraded V14 mode). */
+  if (!phase6_trace(evd_mode(), 2u << 20, "v15_direct_2MiB"))
     return false;
   memory_snapshot("final");
   return true;
+}
+
+/* Legacy composite (parity with earlier harness invocations). */
+bool run_sd_phases(void) {
+  return run_pack_boot() && run_qual_phases();
 }
