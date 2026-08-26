@@ -12,6 +12,7 @@ COG_SCHEMA_VERSION = 1
 FIVE_C_SCHEMA_VERSION = 1
 COG_RUNTIME_SERIALIZED_BYTES = 180
 PROGRESS_STAGNATED = 1 << 0
+FIVE_C_KNOWN_FLAGS = (1 << 0) | (1 << 1) | (1 << 2)
 
 
 class NativeV14ContractError(ValueError):
@@ -242,7 +243,7 @@ class Progress:
         self.rollback_count = min(0xFFFF, self.rollback_count + rollback_count)
         self.last_action = action
         self.repeated_error_signature = error_signature
-        self.reserved[0] += 1
+        self.reserved[0] = min(0xFFFFFFFF, self.reserved[0] + 1)
 
     def pack_without_struct_size(self) -> bytes:
         return struct.pack(
@@ -348,3 +349,86 @@ def serialize_cognitive_runtime(
     if len(payload) != COG_RUNTIME_SERIALIZED_BYTES:
         raise AssertionError(f"cognitive runtime wire-size drift: {len(payload)}")
     return bytes(payload)
+
+
+def deserialize_cognitive_runtime(
+    payload: bytes,
+) -> tuple[CogSummary, FiveCState, Progress, SpecialistSummary]:
+    """Decode the exact frozen 180-byte V14 projection and validate its semantics."""
+
+    if len(payload) != COG_RUNTIME_SERIALIZED_BYTES or payload[:8] != COG_MAGIC:
+        raise NativeV14ContractError("invalid cognitive runtime framing")
+    expected_crc = struct.unpack_from("<I", payload, len(payload) - 4)[0]
+    if zlib.crc32(payload[:-4]) != expected_crc:
+        raise NativeV14ContractError("cognitive runtime checksum mismatch")
+    abi_version = struct.unpack_from("<I", payload, 8)[0]
+    if abi_version != ABI_VERSION:
+        raise NativeV14ContractError("cognitive runtime ABI mismatch")
+    cursor = 12
+    cog_values = struct.unpack_from("<22H", payload, cursor)
+    cursor += struct.calcsize("<22H")
+    if cog_values[0] != COG_SCHEMA_VERSION:
+        raise NativeV14ContractError("COG schema mismatch")
+    cog = CogSummary(
+        open_goals=cog_values[1],
+        mandatory_open=cog_values[2],
+        mandatory_satisfied=cog_values[3],
+        blocked_or_failed=cog_values[4],
+        invariant_violations=cog_values[5],
+        active_hypotheses=cog_values[6],
+        competing_hypotheses=cog_values[7],
+        contradictions=cog_values[8],
+        evidence_count=cog_values[9],
+        unresolved_count=cog_values[10],
+        open_frontier=cog_values[11],
+        observed_state_count=cog_values[12],
+        completion_permille=cog_values[13],
+        stagnant_steps=cog_values[14],
+        repeated_error_count=cog_values[15],
+        repeated_action_count=cog_values[16],
+        verifier_state_code=cog_values[17],
+        halt_success_legal=cog_values[18],
+        reserved=tuple(cog_values[19:22]),
+    )
+    five_values = struct.unpack_from("<2H2Q10I", payload, cursor)
+    cursor += struct.calcsize("<2H2Q10I")
+    if five_values[0] != FIVE_C_SCHEMA_VERSION:
+        raise NativeV14ContractError("5C schema mismatch")
+    five_c = FiveCState(
+        constraint_count=five_values[1],
+        immutable_digest_low=five_values[2],
+        immutable_digest_high=five_values[3],
+        flags=five_values[4],
+        violation_count=five_values[5],
+        last_violation_id=five_values[6],
+        reserved=tuple(five_values[7:14]),
+    )
+    progress_values = struct.unpack_from("<8HI2HI4I", payload, cursor)
+    cursor += struct.calcsize("<8HI2HI4I")
+    progress = Progress(
+        open_obligations=progress_values[0],
+        completed_obligations=progress_values[1],
+        new_evidence_count=progress_values[2],
+        new_hypothesis_count=progress_values[3],
+        frontier_expansion_count=progress_values[4],
+        repeated_action_count=progress_values[5],
+        verifier_state=progress_values[6],
+        rollback_count=progress_values[7],
+        repeated_error_signature=progress_values[8],
+        stagnation_cycles=progress_values[9],
+        flags=progress_values[10],
+        last_action=progress_values[11],
+        reserved=list(progress_values[12:16]),
+    )
+    specialist_values = struct.unpack_from("<4I", payload, cursor)
+    cursor += struct.calcsize("<4I")
+    specialists = SpecialistSummary(*specialist_values)
+    if cursor != len(payload) - 4:
+        raise NativeV14ContractError("cognitive runtime trailing payload")
+    if cog.completion_permille > 1000 or cog.halt_success_legal not in (0, 1):
+        raise NativeV14ContractError("invalid COG projection semantics")
+    if progress.flags & ~PROGRESS_STAGNATED:
+        raise NativeV14ContractError("unknown progress flags")
+    if five_c.flags & ~FIVE_C_KNOWN_FLAGS:
+        raise NativeV14ContractError("unknown 5C state flags")
+    return cog, five_c, progress, specialists

@@ -14,7 +14,7 @@ COPY web ./web
 RUN uv sync --frozen --no-dev
 
 ENV PATH="/app/.venv/bin:${PATH}" \
-    PORT=8000
+    PORT=8082
 
-EXPOSE 8000
-CMD ["sh", "-c", "uvicorn aethersparse.service:app --host 0.0.0.0 --port ${PORT}"]
+EXPOSE 8082
+CMD ["aethercore-server"]

@@ -1,0 +1,77 @@
+{
+  "schema_version": "aethercore.v15-input-observer-qualification.v1",
+  "status": "QUALIFIED_BOUNDED_INPUT_SIGNALS_AND_EXACT_OBSERVER",
+  "natural_input": {
+    "qualified_cases": 21,
+    "passed": 21,
+    "request_classes": [
+      "QUESTION",
+      "FOLLOW_UP",
+      "CORRECTION",
+      "CANCEL",
+      "RESET",
+      "TOOL_TASK",
+      "MEMORY_TASK",
+      "SOURCE_TASK",
+      "UNSUPPORTED"
+    ],
+    "phenomena": [
+      "paraphrase",
+      "typo",
+      "misspelling",
+      "indirect_question",
+      "multi_clause_request",
+      "pronoun",
+      "what_about",
+      "correction",
+      "contradiction",
+      "negation",
+      "incorrect_premise_signal",
+      "clarification",
+      "cancel",
+      "reset",
+      "follow_up",
+      "tool_request",
+      "memory_request",
+      "source_code_request",
+      "unsupported_request",
+      "unavailable_capability_request",
+      "long_running_task_instruction"
+    ],
+    "boundary": "Input classification does not retrieve entities, choose tools, or activate specialists; COG, live capabilities, 5C, permissions, and the legal action mask remain authoritative."
+  },
+  "observer": {
+    "event_kinds": 11,
+    "event_wire_bytes": 40,
+    "wire_encoding": "canonical little-endian fixed-width",
+    "bounded_default_capacity": 4096,
+    "overflow": "deterministic oldest-event eviction with exact dropped counter",
+    "payload": "numeric IDs, opaque state hash, signed counter/value, latency only",
+    "user_text_logged": false,
+    "factual_authority": false,
+    "control_authority": false,
+    "covered_events": [
+      "controller operation",
+      "specialist activation",
+      "specialist residency",
+      "cache/page activity",
+      "memory tier change",
+      "tool call",
+      "verifier disposition",
+      "obligation progress",
+      "stagnation",
+      "latency",
+      "failure"
+    ],
+    "focused_tests": {
+      "bounded_drop_accounting": "PASS",
+      "stable_opaque_hash": "PASS",
+      "exact_40_byte_round_trip": "PASS"
+    }
+  },
+  "limitations": [
+    "Natural input signals are a bounded front-end view, not proof that every requested capability is available.",
+    "Observer records support offline diagnostics only and may not become grounded evidence or policy authority.",
+    "The Python exact wire is ready for native mirroring; this lane does not claim a physical V15 observer measurement."
+  ]
+}

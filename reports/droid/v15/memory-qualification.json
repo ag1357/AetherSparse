@@ -1,0 +1,86 @@
+{
+  "authoritative_state": {
+    "atomic_commit": true,
+    "deterministic_delta_replay": "PASS",
+    "ephemeral_persisted": false,
+    "integrity": "canonical-json-sha256-envelope",
+    "multiple_sessions": "PASS",
+    "restart_resume": "PASS",
+    "runtime_projection_is_authoritative": false,
+    "schema": "aethercore.operational-state.v1",
+    "semantic_anchor_checkpoint_restore": "PASS",
+    "session_reset_preserves_user_long_term_memory": "PASS"
+  },
+  "conversation_cases": {
+    "bounded_summary": "PASS",
+    "cancel": "PASS",
+    "clarification": "PASS",
+    "context_truncation": "PASS",
+    "correction": "PASS",
+    "direct": "PASS",
+    "follow_up": "PASS",
+    "multiple_sessions": "PASS",
+    "persistent_session": "PASS",
+    "pronoun": "PASS",
+    "reset": "PASS",
+    "restart_resume": "PASS",
+    "self_capability_query_endpoint": "PASS",
+    "user_memory_isolation_by_scope": "PASS",
+    "what_about": "PASS"
+  },
+  "memory": {
+    "ephemeral_expiry": "PASS",
+    "five_c_outside_promotion": true,
+    "orthogonal_lifetime_and_residency": "PASS",
+    "physical_residency": [
+      "COLD",
+      "WARM",
+      "HOT"
+    ],
+    "promotion_preserves_inference_authority": "PASS",
+    "qualifiers_preserved": [
+      "negation",
+      "quantity",
+      "unit",
+      "uncertainty",
+      "perspective",
+      "provenance"
+    ],
+    "selected_evidence_pinning": "PASS",
+    "semantic_tiers": [
+      "EPHEMERAL",
+      "SHORT_TERM",
+      "WORKING",
+      "LONG_TERM"
+    ],
+    "short_term_deterministic_eviction": "PASS",
+    "verification_bound_demotion_rejected": "PASS",
+    "working_cog_bindings": "PASS"
+  },
+  "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+  "schema_version": "aethercore.v15.memory-qualification.v1",
+  "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "status": "PASS",
+  "user_memory": {
+    "compaction": "PASS",
+    "default_persistent_write_policy": "EXPLICIT_USER_AUTHORIZATION_ONLY",
+    "external_pack_mutation_via_user_api": "REJECTED",
+    "operations": [
+      "LIST_USER_MEMORY",
+      "READ_USER_MEMORY",
+      "WRITE_USER_MEMORY",
+      "EDIT_USER_MEMORY",
+      "DELETE_USER_MEMORY",
+      "SEARCH_USER_MEMORY"
+    ],
+    "ordinary_conversation_auto_memorized": false,
+    "tombstone": "PASS",
+    "user_vs_external_provenance": "PASS",
+    "write_recall_edit_recall_delete": "PASS"
+  },
+  "validation": {
+    "memory_and_agent_tests": "36/36 PASS",
+    "ruff": "PASS",
+    "strict_mypy": "PASS"
+  }
+}

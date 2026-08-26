@@ -1,0 +1,57 @@
+{
+  "schema_version": "aethercore.v15.tactility-client-qualification.v1",
+  "status": "DEVICE_BSP_BUILD_PENDING_EXACT_USER_PORT_SOURCE",
+  "official_tactility_reference": {
+    "version": "0.8.0-dev",
+    "commit": "0ee2415f3b5a063fadc2015d50d0d1c1c8b0b6e1",
+    "chat_path": "Tactility/Source/app/chat",
+    "chat_cpp_files": 5,
+    "chat_cpp_loc": 992,
+    "chat_total_loc_including_readme": 1184,
+    "espnow_api": "Tactility/Include/Tactility/service/espnow/EspNow.h",
+    "p4_c6_hosted_backend": "Tactility/Source/service/espnow/EspNowBackendHosted.cpp",
+    "dynamic_keyboard_listener": "Tactility/Include/Tactility/lvgl/KeyboardDeviceListener.h",
+    "ble_hid_host": "Tactility/Source/bluetooth/BluetoothHidHost.cpp"
+  },
+  "waveshare_reference": {
+    "official_source_commit": "737cb6a83992565dce4791b38f300882f0cf5e69",
+    "schematic_present": true,
+    "user_custom_tactility_port_present": false,
+    "policy": "DO_NOT_INVENT_CUSTOM_BSP_PINS_OR_BUILD_RESULT"
+  },
+  "aetherchat": {
+    "overlay_path": "integrations/tactility/aetherchat",
+    "application_cpp_files": 3,
+    "application_cpp_loc": 344,
+    "cpp_file_ratio_vs_chat": 0.6,
+    "cpp_loc_ratio_vs_chat": 0.3468,
+    "complexity_ceiling": "PASS",
+    "aetherlink_cxx17_compile_and_roundtrip": "PASS",
+    "malformed_aetherlink_rejection": "PASS",
+    "full_custom_device_build": "PENDING_EXACT_USER_PORT_SOURCE_AND_ESP_IDF_TOOLCHAIN",
+    "device_a_cognition": false,
+    "keyboard_modes": ["AUTO", "SHOW", "HIDE"],
+    "touch_keyboard_retained": true,
+    "message_functions": ["send", "streamed/bounded receive", "cancel", "reset", "clarification", "status", "evidence", "memory", "health", "capabilities"]
+  },
+  "cardkb2": {
+    "selected_factory_mode": "BLE_HID",
+    "mode_chord": "Fn+Sym+4",
+    "flash_required": false,
+    "tactility_integration": "EXISTING_BLE_HID_HOST_PLUS_DYNAMIC_KEYBOARD_LISTENER",
+    "aetherchat_specific_driver": false,
+    "device_a_gpio": [],
+    "physical_connection": "USB_C_POWER_TO_CARDKB2_PLUS_BLE_PAIRING"
+  },
+  "transport": {
+    "selected": "EXISTING_C6_HOSTED_ESP_NOW_SERVICE",
+    "protocol_independent": true,
+    "aetherlink_packet_bytes_v1": 250,
+    "aetherlink_header_bytes": 20,
+    "aetherlink_payload_bytes_v1": 230,
+    "device_a_to_device_b_gpio": [],
+    "physical_requirement": "POWER_BOTH_DEVICES_AND_PAIR_CONFIGURE_ESP_NOW",
+    "raw_c6_sdio_reimplemented_in_app": false
+  },
+  "blocker": "The recovered official Tactility tree is exact 0.8.0-dev but does not contain the user's working custom Waveshare P4/C6 3.5-inch device port. Factory must obtain that exact source, overlay AetherChat, and perform the device build before claiming launch/reconnect/physical-keyboard PASS on Device A."
+}

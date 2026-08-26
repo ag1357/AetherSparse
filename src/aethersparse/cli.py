@@ -20,6 +20,12 @@ from aethersparse.cells.qualification import compare_topologies
 from aethersparse.cells.smoke import canonical_smoke_bytes
 from aethersparse.cells.topology import CognitiveCellBuilder
 from aethersparse.compiler import COMPILED_FILE, compile_pack
+from aethersparse.edge_runtime.deployment_v15 import EvidenceLayout
+from aethersparse.edge_runtime.production import (
+    compile_native_runtime,
+    compile_pack_v2_evidence,
+    qualify_production_candidate,
+)
 from aethersparse.evaluation import run_evaluation
 from aethersparse.gate0.pipeline import (
     DEFAULT_DATA_ROOT,
@@ -80,6 +86,68 @@ controller_app = typer.Typer(
     help="Certified AetherCore replay and micro-operation qualification workflows.",
 )
 app.add_typer(controller_app, name="controller")
+aethercore_app = typer.Typer(
+    no_args_is_help=True,
+    pretty_exceptions_enable=False,
+    help="Production-facing AetherCore compile, pack, qualify, and service operations.",
+)
+app.add_typer(aethercore_app, name="aethercore")
+
+
+@aethercore_app.command("compile")
+def aethercore_compile(
+    output: Annotated[Path, typer.Option(help="Native shared-library output.")] = Path(
+        "runtime/v15/libaethercore_runtime.so"
+    ),
+) -> None:
+    """Compile the portable allocation-free C++17 runtime."""
+
+    typer.echo(json.dumps(compile_native_runtime(output), indent=2, sort_keys=True))
+
+
+@aethercore_app.command("pack")
+def aethercore_pack(
+    evidence_region: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option(dir_okay=False)],
+    entity_capacity: Annotated[int, typer.Option(min=1)],
+    layout: Annotated[EvidenceLayout, typer.Option()] = EvidenceLayout.DIRECT_COMPACT_RESIDENT,
+) -> None:
+    """Prepack a V14 evidence directory into the selected V15 lookup image."""
+
+    typer.echo(
+        json.dumps(
+            compile_pack_v2_evidence(
+                evidence_region,
+                output,
+                entity_capacity=entity_capacity,
+                layout=layout,
+            ),
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+
+@aethercore_app.command("qualify")
+def aethercore_qualify(
+    report_root: Annotated[Path, typer.Option(exists=True, file_okay=False)] = Path(
+        "reports/droid/v15"
+    ),
+) -> None:
+    """Validate the selected V15 production gates without re-running historical sweeps."""
+
+    typer.echo(
+        json.dumps(qualify_production_candidate(report_root), indent=2, sort_keys=True)
+    )
+
+
+@aethercore_app.command("service")
+def aethercore_service() -> None:
+    """Run the operational AetherCore accessory service."""
+
+    from aethersparse.agent.server import main
+
+    main()
 
 
 @controller_app.command("export-replay")

@@ -1,0 +1,973 @@
+{
+  "agent": {
+    "capability_boundary": {
+      "automatic_integration": false,
+      "host_backend": [
+        "worktree",
+        "patch",
+        "build",
+        "tests",
+        "rollback",
+        "integration_request"
+      ],
+      "one_time_authorization_required": true,
+      "p4_backend": [
+        "SEARCH_KNOWLEDGE",
+        "REPORT_RESULT"
+      ],
+      "p4_host_tool_attempt": "EXPLICIT_UNAVAILABLE_FAILURE",
+      "root_verifier_rewrite": false
+    },
+    "remaining_scope": {
+      "code_synthesis_specialist": "DEFERRED_UNTIL_SOURCE_IMPACT_REASONING_IS_PHYSICALLY_INTEGRATED",
+      "full_repository_language_coverage": false,
+      "unrestricted_generation_claimed": false
+    },
+    "retained_real_tool_plane": {
+      "integration_performed": false,
+      "invalid_action_attempts": 0,
+      "operations": 55,
+      "tasks": [
+        "fix_failing_unit_test",
+        "add_deterministic_feature",
+        "modify_parser",
+        "add_api_field",
+        "repair_compilation_defect"
+      ],
+      "tasks_passed": 5,
+      "tasks_total": 5
+    },
+    "schema_version": "aethercore.v15.sandbox-agent-qualification.v1",
+    "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+    "status": "PASS_WITH_CODE_SYNTHESIS_DEFERRED",
+    "v15_source_understanding": {
+      "affected_file_frontier": "PASS",
+      "html_documentation_adapter": "PASS",
+      "import_dependency_frontier": "PASS",
+      "manual_specification_adapter_contract": "PASS",
+      "markdown_adapter": "PASS",
+      "provenance_digest": "PASS",
+      "python_symbol_graph": "PASS",
+      "reference_discovery": "PASS",
+      "source_to_test_mapping": "PASS",
+      "source_tree_adapter": "PASS"
+    }
+  },
+  "branch": "work/aethercore-v15-operational-system",
+  "classification": "V15_READY_WITH_STORAGE_EXPERIMENT_PENDING",
+  "cognition": {
+    "natural_input_observer": {
+      "limitations": [
+        "Natural input signals are a bounded front-end view, not proof that every requested capability is available.",
+        "Observer records support offline diagnostics only and may not become grounded evidence or policy authority.",
+        "The Python exact wire is ready for native mirroring; this lane does not claim a physical V15 observer measurement."
+      ],
+      "natural_input": {
+        "boundary": "Input classification does not retrieve entities, choose tools, or activate specialists; COG, live capabilities, 5C, permissions, and the legal action mask remain authoritative.",
+        "passed": 21,
+        "phenomena": [
+          "paraphrase",
+          "typo",
+          "misspelling",
+          "indirect_question",
+          "multi_clause_request",
+          "pronoun",
+          "what_about",
+          "correction",
+          "contradiction",
+          "negation",
+          "incorrect_premise_signal",
+          "clarification",
+          "cancel",
+          "reset",
+          "follow_up",
+          "tool_request",
+          "memory_request",
+          "source_code_request",
+          "unsupported_request",
+          "unavailable_capability_request",
+          "long_running_task_instruction"
+        ],
+        "qualified_cases": 21,
+        "request_classes": [
+          "QUESTION",
+          "FOLLOW_UP",
+          "CORRECTION",
+          "CANCEL",
+          "RESET",
+          "TOOL_TASK",
+          "MEMORY_TASK",
+          "SOURCE_TASK",
+          "UNSUPPORTED"
+        ]
+      },
+      "observer": {
+        "bounded_default_capacity": 4096,
+        "control_authority": false,
+        "covered_events": [
+          "controller operation",
+          "specialist activation",
+          "specialist residency",
+          "cache/page activity",
+          "memory tier change",
+          "tool call",
+          "verifier disposition",
+          "obligation progress",
+          "stagnation",
+          "latency",
+          "failure"
+        ],
+        "event_kinds": 11,
+        "event_wire_bytes": 40,
+        "factual_authority": false,
+        "focused_tests": {
+          "bounded_drop_accounting": "PASS",
+          "exact_40_byte_round_trip": "PASS",
+          "stable_opaque_hash": "PASS"
+        },
+        "overflow": "deterministic oldest-event eviction with exact dropped counter",
+        "payload": "numeric IDs, opaque state hash, signed counter/value, latency only",
+        "user_text_logged": false,
+        "wire_encoding": "canonical little-endian fixed-width"
+      },
+      "schema_version": "aethercore.v15-input-observer-qualification.v1",
+      "status": "QUALIFIED_BOUNDED_INPUT_SIGNALS_AND_EXACT_OBSERVER"
+    },
+    "selected": {
+      "active_parameters": 1292,
+      "architecture": "typed legal-mask COG structured perceptron",
+      "autonomous_total": "242/260",
+      "autonomous_tuning": "138/150",
+      "stored_parameters": 1292,
+      "weights": "int8"
+    },
+    "specialist_experiment": {
+      "candidate": {
+        "activation_representation": "signed fixed-point integer / 256",
+        "architecture": "three-head shared passage-context legal-argument specialist",
+        "authority": "may rank legal SELECT_CLAIM arguments only after frozen V14 selects SELECT_CLAIM",
+        "autonomous": {
+          "average_legal_candidate_scores": 156.3653846153846,
+          "average_operations": 5.111538461538461,
+          "by_partition": {
+            "development": {
+              "rate": 1.0,
+              "reachable_evaluated": 110,
+              "successful": 110
+            },
+            "tuning": {
+              "rate": 0.86,
+              "reachable_evaluated": 150,
+              "successful": 129
+            }
+          },
+          "failure_taxonomy": {
+            "WRONG_GROUNDED_ANSWER": 21
+          },
+          "invalid_action_attempts": 0,
+          "maximum_legal_candidate_scores": 204,
+          "p95_legal_candidate_scores": 201.0,
+          "p95_operations": 5.0,
+          "premature_halt": 0,
+          "rate": 0.9192307692307692,
+          "reachable_evaluated": 260,
+          "runaway_max_depth": 0,
+          "successful": 239,
+          "verifier_rejections": 0,
+          "wrong_grounded_claim_residual": 21
+        },
+        "best_candidate_epochs": 8,
+        "candidate_epoch_metrics": {
+          "1": {
+            "residual": 44,
+            "total_success": 216,
+            "tuning_success": 120
+          },
+          "16": {
+            "residual": 21,
+            "total_success": 239,
+            "tuning_success": 129
+          },
+          "2": {
+            "residual": 37,
+            "total_success": 223,
+            "tuning_success": 124
+          },
+          "32": {
+            "residual": 21,
+            "total_success": 239,
+            "tuning_success": 129
+          },
+          "4": {
+            "residual": 26,
+            "total_success": 234,
+            "tuning_success": 129
+          },
+          "8": {
+            "residual": 21,
+            "total_success": 239,
+            "tuning_success": 129
+          }
+        },
+        "combined_active_parameters_per_claim_decision": 1310,
+        "combined_stored_parameters": 1346,
+        "feature_count": 18,
+        "head_count": 3,
+        "residual": {
+          "by_answer_shape": {
+            "date": 6,
+            "definition": 1,
+            "quotation": 14
+          },
+          "by_category": {
+            "date": 6,
+            "misspelling": 1,
+            "quotation": 14
+          },
+          "case_ids_sha256_only": [
+            "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+            "7f051a41a0c4e052bed036467ba966d0d2fa2945b9be3cd27d46e5abd658008c",
+            "8fe6bc1f8c3588d1fa3ad77b915abac33ad1c31511018ecb06c64c1e803ecf6c",
+            "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+            "9eb6529197f5a2a7c198ee2bd61e0a98b3f1a2f7c5be22578ff9644a77f8eac6",
+            "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f",
+            "dcb39ff9a7e02fe7cca10e3492f7d0bbd97f56a097ea73c646da42dcd8fbf5da",
+            "e42c8c6863cb3276c2de3b052a4b79987577be405ed5e148e1c96c2e71dc6cb3"
+          ],
+          "count": 21,
+          "unique_case_count": 8
+        },
+        "specialist_active_parameters_per_claim_decision": 18,
+        "specialist_resident_parameters": 54,
+        "specialist_stored_parameters": 54,
+        "specialist_weight_representation": "int8",
+        "teacher_next_action": {
+          "development": {
+            "accuracy": 0.9964349376114082,
+            "correct": 559,
+            "decisions": 561
+          },
+          "tuning": {
+            "accuracy": 0.9557291666666666,
+            "correct": 734,
+            "decisions": 768
+          }
+        }
+      },
+      "capacity_ladder_disposition": {
+        "16k_run": false,
+        "256k_run": false,
+        "4k_run": false,
+        "64k_run": false,
+        "reason": "The measured hypothesis is one 18-feature local-context family. Escalation is prohibited unless this 54-byte branch demonstrates a positive capability/byte result; unused dense capacity is not an experiment."
+      },
+      "cross_source_policy": {
+        "conditional_only": [
+          "conflict",
+          "uncertainty",
+          "high-risk ambiguity",
+          "explicit verification request"
+        ],
+        "mandatory_reads_added": false
+      },
+      "deferred_architecture_disposition": {
+        "adaptive_depth": "DEFERRED_EXPLICIT_COG_HAS_NO_TEMPORAL_LOSS_SIGNAL",
+        "cognitive_lookup_memory": "UNTESTED_DEFER_UNTIL_LEAKAGE_SAFE_MEMORY_CONTRACT",
+        "dagger": "TESTED_REJECTED_DO_NOT_REPEAT_243_STATES_231_OF_260",
+        "early_halt": "KEEP_DETERMINISTIC_COG_VERIFIER_GATE",
+        "factorized_bilinear": "UNTESTED_NOT_JUSTIFIED_BEFORE_NARROW_CONTEXT_HEAD",
+        "shared_recurrent_core_1_2_4_8": "UNTESTED_NOT_AUTHORIZED_NO_PRIOR_STATE_LOSS"
+      },
+      "schema_version": "aethercore.v15-specialist-capacity-qualification.v1",
+      "scope": {
+        "authenticated_states": 260,
+        "development_states": 110,
+        "fit_partitions": [
+          "development"
+        ],
+        "frozen_v14_controller": true,
+        "operation_grammar_changed": false,
+        "sealed_partitions_loaded_or_used": 0,
+        "selection_partition": "tuning",
+        "semantic_address_changed": false,
+        "tuning_states": 150,
+        "verifier_changed": false
+      },
+      "selected": {
+        "architecture": "frozen V14 1292-int8-parameter COG legal-mask structured perceptron",
+        "autonomous": {
+          "average_legal_candidate_scores": 156.26153846153846,
+          "average_operations": 5.111538461538461,
+          "by_partition": {
+            "development": {
+              "rate": 0.9454545454545454,
+              "reachable_evaluated": 110,
+              "successful": 104
+            },
+            "tuning": {
+              "rate": 0.92,
+              "reachable_evaluated": 150,
+              "successful": 138
+            }
+          },
+          "failure_taxonomy": {
+            "WRONG_GROUNDED_ANSWER": 18
+          },
+          "invalid_action_attempts": 0,
+          "maximum_legal_candidate_scores": 204,
+          "p95_legal_candidate_scores": 201.0,
+          "p95_operations": 5.0,
+          "premature_halt": 0,
+          "rate": 0.9307692307692308,
+          "reachable_evaluated": 260,
+          "runaway_max_depth": 0,
+          "successful": 242,
+          "verifier_rejections": 0,
+          "wrong_grounded_claim_residual": 18
+        },
+        "residual": {
+          "by_answer_shape": {
+            "date": 11,
+            "definition": 1,
+            "quotation": 6
+          },
+          "by_category": {
+            "date": 11,
+            "misspelling": 1,
+            "quotation": 6
+          },
+          "case_ids_sha256_only": [
+            "10884f43c746fbff7a01e69bd8972f1ad6041cea36b66506dc462693a23e422f",
+            "1c2fb0b0ed6213549c5d925c6422936eaaf6c14277ae8dd5d6687cd1173daefb",
+            "3e31cc6c74883838cf174b37106644450c6d3fd8c294fcd6bb42b709b82eb1ee",
+            "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+            "6ca83184a386ea4fa881d4b3dd5c44d877e925624e39a579865b52085272d515",
+            "6dba38af64c2d2f2f8bf9658395b58e601089f50146762a7660601f6d13e6db7",
+            "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+            "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f"
+          ],
+          "count": 18,
+          "unique_case_count": 8
+        }
+      },
+      "source_identity": {
+        "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+        "mission5_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+        "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+      },
+      "status": "REJECTED_NO_CAPABILITY_BYTE_GAIN",
+      "v14_baseline": {
+        "architecture": "1292-int8-parameter COG legal-mask structured perceptron",
+        "autonomous": {
+          "average_legal_candidate_scores": 156.26153846153846,
+          "average_operations": 5.111538461538461,
+          "by_partition": {
+            "development": {
+              "rate": 0.9454545454545454,
+              "reachable_evaluated": 110,
+              "successful": 104
+            },
+            "tuning": {
+              "rate": 0.92,
+              "reachable_evaluated": 150,
+              "successful": 138
+            }
+          },
+          "failure_taxonomy": {
+            "WRONG_GROUNDED_ANSWER": 18
+          },
+          "invalid_action_attempts": 0,
+          "maximum_legal_candidate_scores": 204,
+          "p95_legal_candidate_scores": 201.0,
+          "p95_operations": 5.0,
+          "premature_halt": 0,
+          "rate": 0.9307692307692308,
+          "reachable_evaluated": 260,
+          "runaway_max_depth": 0,
+          "successful": 242,
+          "verifier_rejections": 0,
+          "wrong_grounded_claim_residual": 18
+        },
+        "residual": {
+          "by_answer_shape": {
+            "date": 11,
+            "definition": 1,
+            "quotation": 6
+          },
+          "by_category": {
+            "date": 11,
+            "misspelling": 1,
+            "quotation": 6
+          },
+          "case_ids_sha256_only": [
+            "10884f43c746fbff7a01e69bd8972f1ad6041cea36b66506dc462693a23e422f",
+            "1c2fb0b0ed6213549c5d925c6422936eaaf6c14277ae8dd5d6687cd1173daefb",
+            "3e31cc6c74883838cf174b37106644450c6d3fd8c294fcd6bb42b709b82eb1ee",
+            "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+            "6ca83184a386ea4fa881d4b3dd5c44d877e925624e39a579865b52085272d515",
+            "6dba38af64c2d2f2f8bf9658395b58e601089f50146762a7660601f6d13e6db7",
+            "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+            "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f"
+          ],
+          "count": 18,
+          "unique_case_count": 8
+        }
+      }
+    }
+  },
+  "conversation": {
+    "authoritative_state": {
+      "atomic_commit": true,
+      "deterministic_delta_replay": "PASS",
+      "ephemeral_persisted": false,
+      "integrity": "canonical-json-sha256-envelope",
+      "multiple_sessions": "PASS",
+      "restart_resume": "PASS",
+      "runtime_projection_is_authoritative": false,
+      "schema": "aethercore.operational-state.v1",
+      "semantic_anchor_checkpoint_restore": "PASS",
+      "session_reset_preserves_user_long_term_memory": "PASS"
+    },
+    "conversation_cases": {
+      "bounded_summary": "PASS",
+      "cancel": "PASS",
+      "clarification": "PASS",
+      "context_truncation": "PASS",
+      "correction": "PASS",
+      "direct": "PASS",
+      "follow_up": "PASS",
+      "multiple_sessions": "PASS",
+      "persistent_session": "PASS",
+      "pronoun": "PASS",
+      "reset": "PASS",
+      "restart_resume": "PASS",
+      "self_capability_query_endpoint": "PASS",
+      "user_memory_isolation_by_scope": "PASS",
+      "what_about": "PASS"
+    },
+    "focused_validation": {
+      "memory_and_agent_tests": "36/36 PASS",
+      "ruff": "PASS",
+      "strict_mypy": "PASS"
+    },
+    "memory": {
+      "ephemeral_expiry": "PASS",
+      "five_c_outside_promotion": true,
+      "orthogonal_lifetime_and_residency": "PASS",
+      "physical_residency": [
+        "COLD",
+        "WARM",
+        "HOT"
+      ],
+      "promotion_preserves_inference_authority": "PASS",
+      "qualifiers_preserved": [
+        "negation",
+        "quantity",
+        "unit",
+        "uncertainty",
+        "perspective",
+        "provenance"
+      ],
+      "selected_evidence_pinning": "PASS",
+      "semantic_tiers": [
+        "EPHEMERAL",
+        "SHORT_TERM",
+        "WORKING",
+        "LONG_TERM"
+      ],
+      "short_term_deterministic_eviction": "PASS",
+      "verification_bound_demotion_rejected": "PASS",
+      "working_cog_bindings": "PASS"
+    },
+    "protocol": {
+      "capability_negotiation": true,
+      "malformed_message_rejection": "PASS",
+      "max_frame_bytes": 16384,
+      "memory_status": true,
+      "request_id": true,
+      "session_resume": true,
+      "transport_independent": true,
+      "version": "aethercore-tactility.v2"
+    },
+    "schema_version": "aethercore.v15.conversation-memory-qualification.v1",
+    "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+    "status": "PASS",
+    "user_memory": {
+      "compaction": "PASS",
+      "default_persistent_write_policy": "EXPLICIT_USER_AUTHORIZATION_ONLY",
+      "external_pack_mutation_via_user_api": "REJECTED",
+      "operations": [
+        "LIST_USER_MEMORY",
+        "READ_USER_MEMORY",
+        "WRITE_USER_MEMORY",
+        "EDIT_USER_MEMORY",
+        "DELETE_USER_MEMORY",
+        "SEARCH_USER_MEMORY"
+      ],
+      "ordinary_conversation_auto_memorized": false,
+      "tombstone": "PASS",
+      "user_vs_external_provenance": "PASS",
+      "write_recall_edit_recall_delete": "PASS"
+    }
+  },
+  "deployment": {
+    "cache": {
+      "host_region_cache_ladder": {
+        "cache_bytes_tested": [
+          262144,
+          1048576,
+          2097152,
+          4194304,
+          8388608
+        ],
+        "deterministic_replay": "PASS",
+        "four_and_eight_mib_status": "SYNTHETIC_ONLY_NOT_SELECTED_WITHOUT_PHYSICAL_GAIN",
+        "lookup": "O(1)_REGION_PAGE_TO_ENTRY",
+        "query_session_locality": "REGION_KEYED",
+        "selected_evidence_pinning": "FAIL_CLOSED_UNDER_PRESSURE",
+        "verification_bound_pinning": "SUPPORTED"
+      },
+      "physical_claim": false,
+      "physical_v14_controls": [
+        {
+          "address_p50_ms": 1037.355,
+          "cache_bytes": 262144,
+          "hit_rate": 0.66,
+          "non_evidence_misses": 14327,
+          "total_misses": 37969
+        },
+        {
+          "address_p50_ms": 1086.462,
+          "cache_bytes": 1048576,
+          "hit_rate": 0.663,
+          "non_evidence_misses": 14325,
+          "total_misses": 37636
+        },
+        {
+          "address_p50_ms": 831.012,
+          "cache_bytes": 2097152,
+          "hit_rate": 0.7583,
+          "non_evidence_misses": 13820,
+          "total_misses": 26996
+        }
+      ],
+      "resource_controller": {
+        "elastic_budgeting": "PASS",
+        "hardware_profile_key": [
+          "board",
+          "chip_revision",
+          "psram_bytes",
+          "storage_identity",
+          "storage_bus",
+          "pack_generation"
+        ],
+        "known_physical_calibration": {
+          "storage_random_4k_mean_us": 44085.9,
+          "storage_random_4k_p50_us": 36859,
+          "storage_random_4k_p95_us": 141480,
+          "storage_sequential_mb_s": 1.93
+        },
+        "protected_runtime_boundary": "PASS",
+        "semantic_policy_separation": "PASS",
+        "semantically_weaker_substitution": "DENIED",
+        "unmeasured_factory_fields": [
+          "internal_memory_bandwidth",
+          "psram_bandwidth",
+          "psram_copy_latency",
+          "xai_int8_throughput",
+          "dma_staging_throughput",
+          "selected_transport_throughput_latency",
+          "double_buffered_sdmmc_overlap"
+        ]
+      },
+      "schema_version": "aethersparse.v15.cache-qualification.v1",
+      "selection": {
+        "cache_bytes": 2097152,
+        "evidence_directory": "direct_compact_resident",
+        "modeled_evidence_directory_misses_per_query": 0.0,
+        "modeled_non_evidence_misses_per_query": 129.158879,
+        "notes": "Resident projection starts from the measured 2061221-byte V14 1 MiB-cache runtime, adds one extra MiB of cache and the 3311868-byte direct evidence directory.",
+        "profile": "PERFORMANCE",
+        "projected_psram_headroom_bytes": 27132767,
+        "projected_resident_bytes": 6421665
+      },
+      "status": "HOST_SELECTED_FACTORY_PHYSICAL_PENDING"
+    },
+    "pack": {
+      "controls": [
+        {
+          "directory_probes": 93806,
+          "evidence_media_misses_per_query": 217.859813,
+          "layout": "flat_paged",
+          "logical_parity": "PASS",
+          "modeled_mean_address_ms": 1217.2502,
+          "pack_directory_bytes": 3834080,
+          "resident_directory_bytes": 0,
+          "total_media_misses_per_query": 351.738318
+        },
+        {
+          "directory_probes": 93806,
+          "evidence_media_misses_per_query": 0.0,
+          "layout": "flat_resident",
+          "logical_parity": "PASS",
+          "modeled_mean_address_ms": 463.309308,
+          "pack_directory_bytes": 3834080,
+          "resident_directory_bytes": 3834080,
+          "total_media_misses_per_query": 133.878505
+        },
+        {
+          "directory_probes": 5212,
+          "evidence_media_misses_per_query": 0.0,
+          "layout": "direct_compact_resident",
+          "logical_parity": "PASS",
+          "modeled_mean_address_ms": 463.309308,
+          "pack_directory_bytes": 3311868,
+          "resident_directory_bytes": 3311868,
+          "total_media_misses_per_query": 133.878505
+        },
+        {
+          "directory_probes": 5212,
+          "evidence_media_misses_per_query_upper_bound": 48.71028,
+          "layout": "two_level_paged",
+          "logical_parity": "PASS",
+          "modeled_mean_address_ms_upper_bound": 631.879508,
+          "pack_directory_bytes": 4419584,
+          "resident_directory_bytes": 8632,
+          "total_media_misses_per_query_upper_bound": 182.588785
+        }
+      ],
+      "qualification_scope": {
+        "address_logical_parity": 1.0,
+        "candidate_completeness": 1.0,
+        "fixture_entity_lookups": 1200,
+        "fixture_layouts": 4,
+        "next_gate": "Factory builds Pack-v2 and measures unchanged 107-query logical outputs plus P4 media counters.",
+        "physical_claim": false
+      },
+      "schema_version": "aethersparse.v15.pack-v2-qualification.v1",
+      "selection": {
+        "compact": "two_level_paged",
+        "device_time_sort_remap_repack": false,
+        "performance": "direct_compact_resident",
+        "prepacked_device_image": true,
+        "reason": "The performance layout removes all evidence-directory media probes, uses 522212 fewer resident bytes than the mandatory flat-resident control, and performs one direct probe per lookup. The compact layout bounds a lookup to one leaf page with an 8632-byte resident top directory.",
+        "semantic_change": false
+      },
+      "source": {
+        "current_1mib_evidence_misses": 23311,
+        "current_1mib_total_misses": 37636,
+        "current_evidence_directory_bytes": 3834080,
+        "entities_with_evidence": 239630,
+        "entity_capacity": 275989,
+        "physical_profile": "reports/droid/v14-p4/phase5-cache-ladder-device.json",
+        "queries": 107
+      },
+      "status": "HOST_QUALIFIED_FACTORY_PHYSICAL_PENDING"
+    }
+  },
+  "factory_handoff_complete": true,
+  "memory": {
+    "authoritative_state": {
+      "atomic_commit": true,
+      "deterministic_delta_replay": "PASS",
+      "ephemeral_persisted": false,
+      "integrity": "canonical-json-sha256-envelope",
+      "multiple_sessions": "PASS",
+      "restart_resume": "PASS",
+      "runtime_projection_is_authoritative": false,
+      "schema": "aethercore.operational-state.v1",
+      "semantic_anchor_checkpoint_restore": "PASS",
+      "session_reset_preserves_user_long_term_memory": "PASS"
+    },
+    "conversation_cases": {
+      "bounded_summary": "PASS",
+      "cancel": "PASS",
+      "clarification": "PASS",
+      "context_truncation": "PASS",
+      "correction": "PASS",
+      "direct": "PASS",
+      "follow_up": "PASS",
+      "multiple_sessions": "PASS",
+      "persistent_session": "PASS",
+      "pronoun": "PASS",
+      "reset": "PASS",
+      "restart_resume": "PASS",
+      "self_capability_query_endpoint": "PASS",
+      "user_memory_isolation_by_scope": "PASS",
+      "what_about": "PASS"
+    },
+    "memory": {
+      "ephemeral_expiry": "PASS",
+      "five_c_outside_promotion": true,
+      "orthogonal_lifetime_and_residency": "PASS",
+      "physical_residency": [
+        "COLD",
+        "WARM",
+        "HOT"
+      ],
+      "promotion_preserves_inference_authority": "PASS",
+      "qualifiers_preserved": [
+        "negation",
+        "quantity",
+        "unit",
+        "uncertainty",
+        "perspective",
+        "provenance"
+      ],
+      "selected_evidence_pinning": "PASS",
+      "semantic_tiers": [
+        "EPHEMERAL",
+        "SHORT_TERM",
+        "WORKING",
+        "LONG_TERM"
+      ],
+      "short_term_deterministic_eviction": "PASS",
+      "verification_bound_demotion_rejected": "PASS",
+      "working_cog_bindings": "PASS"
+    },
+    "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+    "schema_version": "aethercore.v15.memory-qualification.v1",
+    "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+    "status": "PASS",
+    "user_memory": {
+      "compaction": "PASS",
+      "default_persistent_write_policy": "EXPLICIT_USER_AUTHORIZATION_ONLY",
+      "external_pack_mutation_via_user_api": "REJECTED",
+      "operations": [
+        "LIST_USER_MEMORY",
+        "READ_USER_MEMORY",
+        "WRITE_USER_MEMORY",
+        "EDIT_USER_MEMORY",
+        "DELETE_USER_MEMORY",
+        "SEARCH_USER_MEMORY"
+      ],
+      "ordinary_conversation_auto_memorized": false,
+      "tombstone": "PASS",
+      "user_vs_external_provenance": "PASS",
+      "write_recall_edit_recall_delete": "PASS"
+    },
+    "validation": {
+      "memory_and_agent_tests": "36/36 PASS",
+      "ruff": "PASS",
+      "strict_mypy": "PASS"
+    }
+  },
+  "native_hardening": {
+    "cog_runtime_deserialize": {
+      "canonical_endianness": "little",
+      "crc_valid_semantic_forgery_vectors": 4,
+      "decoded_struct_size_initialized": true,
+      "python_native_roundtrip": "BYTE_EXACT",
+      "raw_struct_casts": false,
+      "status": "PASS",
+      "wire_bytes": 180
+    },
+    "intentional_semantic_change": "Previously unqualified mutation of VERIFIED or TERMINAL evidence state now fails closed.",
+    "progress_audit": {
+      "frontier_expansion_count": "SATURATING_UINT16",
+      "new_evidence_count": "SATURATING_UINT16",
+      "new_hypothesis_count": "SATURATING_UINT16",
+      "next_schema_requirement": "MOVE_INVOCATION_STATE_TO_NAMED_FIELD_WITHOUT_MUTATING_V14_WIRE",
+      "repeated_action_count": "SATURATING_UINT16",
+      "reserved_0_hidden_invocation_count": "AUDITED_AND_SATURATING_UINT32_FROZEN_V14",
+      "rollback_count": "SATURATING_UINT16"
+    },
+    "schema_version": "aethersparse.v15.native-hardening-qualification.v1",
+    "selected_evidence_lifecycle": {
+      "eviction_order": "score_desc_entity_id_asc_with_selected_exclusion",
+      "selected_monotone_update_before_verify": "PRESERVED",
+      "selected_pinning": "PASS",
+      "terminal_union_freeze": "PASS_FAIL_CLOSED",
+      "verified_union_freeze": "PASS_FAIL_CLOSED"
+    },
+    "session_deserialize_trust_boundary": {
+      "active_and_pending_counted_zero_id_semantics": "PRESERVED_CURRENTLY_LEGAL",
+      "crc_valid_semantic_forgery_vectors": 18,
+      "native_utf8_requirement_added": false,
+      "status": "PASS",
+      "step_zero_candidate_count_may_be_nonzero": true,
+      "step_zero_invalid_action_count_may_be_nonzero": true
+    },
+    "source_parent_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+    "status": "PASS",
+    "validation": {
+      "cpp": "C++17 -Wall -Wextra -Werror PASS",
+      "focused_tests": "31/31 PASS",
+      "mypy_strict": "PASS",
+      "physical_frozen_abi_vector_fixture": "51/51 preserved by test_v14_p4_parity_vectors",
+      "ruff": "PASS"
+    }
+  },
+  "production_cleanup": {
+    "changes": [
+      "package version aligned to 0.15.0",
+      "Docker entrypoint moved to aethercore-server",
+      "Railway/Render health checks moved to /v15/health",
+      "runtime port is environment-configurable and range-validated",
+      "production commands consolidated under aethersparse aethercore"
+    ],
+    "classifications": {
+      "CURRENT_PRODUCTION": [
+        "src/aethersparse/agent/server.py",
+        "src/aethersparse/agent/operational.py",
+        "src/aethersparse/memory/",
+        "src/aethersparse/edge_runtime/production.py",
+        "native/aethercore_runtime/",
+        "integrations/tactility/aetherchat/"
+      ],
+      "CURRENT_TEST": [
+        "tests/memory/",
+        "tests/agent/test_v15_operational.py",
+        "tests/edge_runtime/test_deployment_v15.py"
+      ],
+      "DEAD": [],
+      "HISTORICAL_REPRODUCIBILITY": [
+        "scripts/droid/v10_* through v14_*",
+        "reports/droid/v10 through v14-p4"
+      ],
+      "SUPERSEDED": [
+        "deploy/Dockerfile legacy aethersparse.service command",
+        "v1 cloud health paths"
+      ]
+    },
+    "final_self_manual_pack_created": false,
+    "historical_artifacts_removed": 0,
+    "historical_reproducibility_retained": true,
+    "license_notice_modified": false,
+    "package": {
+      "name": "aethersparse",
+      "version": "0.15.0"
+    },
+    "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+    "release_tag_created": false,
+    "schema_version": "aethercore.v15.production-cleanup-inventory.v1",
+    "status": "PASS_CONSERVATIVE_CLEANUP"
+  },
+  "production_tooling": {
+    "commands": [
+      "aethersparse aethercore compile",
+      "aethersparse aethercore pack",
+      "aethersparse aethercore qualify",
+      "aethersparse aethercore service"
+    ],
+    "historical_scripts_deleted": 0,
+    "native_compile": {
+      "artifact_committed": false,
+      "cxx_standard": "C++17",
+      "exceptions": false,
+      "host_shared_object_bytes": 30256,
+      "host_shared_object_sha256": "9d98d5624506cd0743427d3781e3ec6fc69d6504a2158ab26fd1244e78cd4524",
+      "rtti": false,
+      "status": "PASS",
+      "wall_warnings_as_errors": true
+    },
+    "pack": {
+      "atomic_image_and_descriptor_replace": true,
+      "device_time_repack_required": false,
+      "output_schema": "aethersparse.deployment-pack-v2.v1",
+      "prepacked_little_endian_image": true,
+      "source_format": "ACP1EVD1",
+      "status": "PASS"
+    },
+    "qualify": {
+      "fail_closed_reports": [
+        "native-hardening-qualification.json",
+        "pack-v2-qualification.json",
+        "cache-qualification.json"
+      ],
+      "status": "PASS"
+    },
+    "reason_historical_scripts_retained": "Published qualification reproducibility has not yet been fully replaced by the consolidated commands.",
+    "schema_version": "aethersparse.v15.production-tooling-qualification.v1",
+    "service": {
+      "entrypoint": "aethersparse.agent.server:main",
+      "legacy_service_selected": false
+    },
+    "status": "PASS"
+  },
+  "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+  "remaining_bottleneck": "Physical storage latency plus exact custom Device-A BSP build; no cognitive representation redesign is indicated.",
+  "schema_version": "aethercore.v15.operational-system-qualification.v1",
+  "self_manual_pack_finalized": false,
+  "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "source_main_tree_sha": "09888952949745677b6a1b4939b90f14ccfe83d8",
+  "tactility": {
+    "aetherchat": {
+      "aetherlink_cxx17_compile_and_roundtrip": "PASS",
+      "application_cpp_files": 3,
+      "application_cpp_loc": 344,
+      "complexity_ceiling": "PASS",
+      "cpp_file_ratio_vs_chat": 0.6,
+      "cpp_loc_ratio_vs_chat": 0.3468,
+      "device_a_cognition": false,
+      "full_custom_device_build": "PENDING_EXACT_USER_PORT_SOURCE_AND_ESP_IDF_TOOLCHAIN",
+      "keyboard_modes": [
+        "AUTO",
+        "SHOW",
+        "HIDE"
+      ],
+      "malformed_aetherlink_rejection": "PASS",
+      "message_functions": [
+        "send",
+        "streamed/bounded receive",
+        "cancel",
+        "reset",
+        "clarification",
+        "status",
+        "evidence",
+        "memory",
+        "health",
+        "capabilities"
+      ],
+      "overlay_path": "integrations/tactility/aetherchat",
+      "touch_keyboard_retained": true
+    },
+    "blocker": "The recovered official Tactility tree is exact 0.8.0-dev but does not contain the user's working custom Waveshare P4/C6 3.5-inch device port. Factory must obtain that exact source, overlay AetherChat, and perform the device build before claiming launch/reconnect/physical-keyboard PASS on Device A.",
+    "cardkb2": {
+      "aetherchat_specific_driver": false,
+      "device_a_gpio": [],
+      "flash_required": false,
+      "mode_chord": "Fn+Sym+4",
+      "physical_connection": "USB_C_POWER_TO_CARDKB2_PLUS_BLE_PAIRING",
+      "selected_factory_mode": "BLE_HID",
+      "tactility_integration": "EXISTING_BLE_HID_HOST_PLUS_DYNAMIC_KEYBOARD_LISTENER"
+    },
+    "official_tactility_reference": {
+      "ble_hid_host": "Tactility/Source/bluetooth/BluetoothHidHost.cpp",
+      "chat_cpp_files": 5,
+      "chat_cpp_loc": 992,
+      "chat_path": "Tactility/Source/app/chat",
+      "chat_total_loc_including_readme": 1184,
+      "commit": "0ee2415f3b5a063fadc2015d50d0d1c1c8b0b6e1",
+      "dynamic_keyboard_listener": "Tactility/Include/Tactility/lvgl/KeyboardDeviceListener.h",
+      "espnow_api": "Tactility/Include/Tactility/service/espnow/EspNow.h",
+      "p4_c6_hosted_backend": "Tactility/Source/service/espnow/EspNowBackendHosted.cpp",
+      "version": "0.8.0-dev"
+    },
+    "schema_version": "aethercore.v15.tactility-client-qualification.v1",
+    "status": "DEVICE_BSP_BUILD_PENDING_EXACT_USER_PORT_SOURCE",
+    "transport": {
+      "aetherlink_header_bytes": 20,
+      "aetherlink_packet_bytes_v1": 250,
+      "aetherlink_payload_bytes_v1": 230,
+      "device_a_to_device_b_gpio": [],
+      "physical_requirement": "POWER_BOTH_DEVICES_AND_PAIR_CONFIGURE_ESP_NOW",
+      "protocol_independent": true,
+      "raw_c6_sdio_reimplemented_in_app": false,
+      "selected": "EXISTING_C6_HOSTED_ESP_NOW_SERVICE"
+    },
+    "waveshare_reference": {
+      "official_source_commit": "737cb6a83992565dce4791b38f300882f0cf5e69",
+      "policy": "DO_NOT_INVENT_CUSTOM_BSP_PINS_OR_BUILD_RESULT",
+      "schematic_present": true,
+      "user_custom_tactility_port_present": false
+    }
+  },
+  "v14_physical_control": {
+    "abi_vectors": "51/51",
+    "address_queries": "107/107",
+    "policy_decisions": "1329/1329",
+    "policy_macs": 1543864,
+    "trace_cases": "260/260"
+  }
+}

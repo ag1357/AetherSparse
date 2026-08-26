@@ -1,0 +1,46 @@
+{
+  "schema_version": "aethersparse.v15.native-hardening-qualification.v1",
+  "source_parent_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "status": "PASS",
+  "selected_evidence_lifecycle": {
+    "selected_pinning": "PASS",
+    "selected_monotone_update_before_verify": "PRESERVED",
+    "verified_union_freeze": "PASS_FAIL_CLOSED",
+    "terminal_union_freeze": "PASS_FAIL_CLOSED",
+    "eviction_order": "score_desc_entity_id_asc_with_selected_exclusion"
+  },
+  "session_deserialize_trust_boundary": {
+    "status": "PASS",
+    "crc_valid_semantic_forgery_vectors": 18,
+    "active_and_pending_counted_zero_id_semantics": "PRESERVED_CURRENTLY_LEGAL",
+    "native_utf8_requirement_added": false,
+    "step_zero_candidate_count_may_be_nonzero": true,
+    "step_zero_invalid_action_count_may_be_nonzero": true
+  },
+  "cog_runtime_deserialize": {
+    "status": "PASS",
+    "wire_bytes": 180,
+    "canonical_endianness": "little",
+    "raw_struct_casts": false,
+    "python_native_roundtrip": "BYTE_EXACT",
+    "crc_valid_semantic_forgery_vectors": 4,
+    "decoded_struct_size_initialized": true
+  },
+  "progress_audit": {
+    "repeated_action_count": "SATURATING_UINT16",
+    "new_evidence_count": "SATURATING_UINT16",
+    "new_hypothesis_count": "SATURATING_UINT16",
+    "frontier_expansion_count": "SATURATING_UINT16",
+    "rollback_count": "SATURATING_UINT16",
+    "reserved_0_hidden_invocation_count": "AUDITED_AND_SATURATING_UINT32_FROZEN_V14",
+    "next_schema_requirement": "MOVE_INVOCATION_STATE_TO_NAMED_FIELD_WITHOUT_MUTATING_V14_WIRE"
+  },
+  "validation": {
+    "focused_tests": "31/31 PASS",
+    "physical_frozen_abi_vector_fixture": "51/51 preserved by test_v14_p4_parity_vectors",
+    "cpp": "C++17 -Wall -Wextra -Werror PASS",
+    "ruff": "PASS",
+    "mypy_strict": "PASS"
+  },
+  "intentional_semantic_change": "Previously unqualified mutation of VERIFIED or TERMINAL evidence state now fails closed."
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "aethersparse.v15.production-tooling-qualification.v1",
+  "status": "PASS",
+  "commands": [
+    "aethersparse aethercore compile",
+    "aethersparse aethercore pack",
+    "aethersparse aethercore qualify",
+    "aethersparse aethercore service"
+  ],
+  "native_compile": {
+    "status": "PASS",
+    "cxx_standard": "C++17",
+    "wall_warnings_as_errors": true,
+    "exceptions": false,
+    "rtti": false,
+    "host_shared_object_bytes": 30256,
+    "host_shared_object_sha256": "9d98d5624506cd0743427d3781e3ec6fc69d6504a2158ab26fd1244e78cd4524",
+    "artifact_committed": false
+  },
+  "pack": {
+    "status": "PASS",
+    "source_format": "ACP1EVD1",
+    "output_schema": "aethersparse.deployment-pack-v2.v1",
+    "atomic_image_and_descriptor_replace": true,
+    "prepacked_little_endian_image": true,
+    "device_time_repack_required": false
+  },
+  "qualify": {
+    "status": "PASS",
+    "fail_closed_reports": [
+      "native-hardening-qualification.json",
+      "pack-v2-qualification.json",
+      "cache-qualification.json"
+    ]
+  },
+  "service": {
+    "entrypoint": "aethersparse.agent.server:main",
+    "legacy_service_selected": false
+  },
+  "historical_scripts_deleted": 0,
+  "reason_historical_scripts_retained": "Published qualification reproducibility has not yet been fully replaced by the consolidated commands."
+}

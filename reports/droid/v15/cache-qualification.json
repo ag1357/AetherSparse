@@ -1,0 +1,76 @@
+{
+  "schema_version": "aethersparse.v15.cache-qualification.v1",
+  "status": "HOST_SELECTED_FACTORY_PHYSICAL_PENDING",
+  "physical_v14_controls": [
+    {
+      "cache_bytes": 262144,
+      "hit_rate": 0.66,
+      "total_misses": 37969,
+      "non_evidence_misses": 14327,
+      "address_p50_ms": 1037.355
+    },
+    {
+      "cache_bytes": 1048576,
+      "hit_rate": 0.663,
+      "total_misses": 37636,
+      "non_evidence_misses": 14325,
+      "address_p50_ms": 1086.462
+    },
+    {
+      "cache_bytes": 2097152,
+      "hit_rate": 0.7583,
+      "total_misses": 26996,
+      "non_evidence_misses": 13820,
+      "address_p50_ms": 831.012
+    }
+  ],
+  "host_region_cache_ladder": {
+    "cache_bytes_tested": [262144, 1048576, 2097152, 4194304, 8388608],
+    "deterministic_replay": "PASS",
+    "lookup": "O(1)_REGION_PAGE_TO_ENTRY",
+    "selected_evidence_pinning": "FAIL_CLOSED_UNDER_PRESSURE",
+    "verification_bound_pinning": "SUPPORTED",
+    "query_session_locality": "REGION_KEYED",
+    "four_and_eight_mib_status": "SYNTHETIC_ONLY_NOT_SELECTED_WITHOUT_PHYSICAL_GAIN"
+  },
+  "selection": {
+    "profile": "PERFORMANCE",
+    "cache_bytes": 2097152,
+    "evidence_directory": "direct_compact_resident",
+    "modeled_non_evidence_misses_per_query": 129.158879,
+    "modeled_evidence_directory_misses_per_query": 0.0,
+    "projected_resident_bytes": 6421665,
+    "projected_psram_headroom_bytes": 27132767,
+    "notes": "Resident projection starts from the measured 2061221-byte V14 1 MiB-cache runtime, adds one extra MiB of cache and the 3311868-byte direct evidence directory."
+  },
+  "resource_controller": {
+    "semantic_policy_separation": "PASS",
+    "protected_runtime_boundary": "PASS",
+    "elastic_budgeting": "PASS",
+    "semantically_weaker_substitution": "DENIED",
+    "hardware_profile_key": [
+      "board",
+      "chip_revision",
+      "psram_bytes",
+      "storage_identity",
+      "storage_bus",
+      "pack_generation"
+    ],
+    "known_physical_calibration": {
+      "storage_sequential_mb_s": 1.93,
+      "storage_random_4k_mean_us": 44085.9,
+      "storage_random_4k_p50_us": 36859,
+      "storage_random_4k_p95_us": 141480
+    },
+    "unmeasured_factory_fields": [
+      "internal_memory_bandwidth",
+      "psram_bandwidth",
+      "psram_copy_latency",
+      "xai_int8_throughput",
+      "dma_staging_throughput",
+      "selected_transport_throughput_latency",
+      "double_buffered_sdmmc_overlap"
+    ]
+  },
+  "physical_claim": false
+}

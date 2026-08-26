@@ -1,0 +1,63 @@
+{
+  "branch": "work/aethercore-v15-operational-system",
+  "devices": {
+    "cardkb2": {
+      "connection": "USB-C power plus BLE pairing to Device A",
+      "flash_required": false,
+      "gpio_wiring": [],
+      "mode": "BLE_HID",
+      "mode_chord": "Fn+Sym+4"
+    },
+    "device_a": {
+      "aetherchat_overlay": "integrations/tactility/aetherchat",
+      "custom_bsp_source_required": true,
+      "hardware": "Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5 with integrated C6",
+      "preserve_existing_installation": true,
+      "role": "TACTILITY_UI_ONLY",
+      "tactility_reference": "0.8.0-dev@0ee2415f3b5a063fadc2015d50d0d1c1c8b0b6e1"
+    },
+    "device_b": {
+      "firmware_control": "preserve unchanged V14 binary for first Kingston A2 media run",
+      "hardware": "Waveshare ESP32-P4-WIFI6 SKU 32020; ESP32-P4 rev v1.3; 32 MiB PSRAM",
+      "not_device_a": true,
+      "role": "AETHERCORE_ACCESSORY_COMPUTE"
+    }
+  },
+  "human_acceptance": "User types a real query on CardKB2; grounded reply and follow-up return on AetherChat.",
+  "long_term_storage_target_gb": 256,
+  "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+  "required_measurements": [
+    "51/51 ABI vectors",
+    "260/260 trace cases",
+    "1329/1329 frozen decisions where V14 control is used",
+    "107/107 address logical outputs",
+    "address p50/p95 and pages/media misses per query",
+    "internal SRAM, PSRAM, stack, cache allocation and pressure",
+    "SDMMC throughput/random latency, command count, sectors/transaction and DMA copies",
+    "policy CPU p50/p95 and total utilization",
+    "Device-A message/reconnect/CardKB2 input and multi-turn response",
+    "user-memory write/read/edit/delete and cancel/reset"
+  ],
+  "resolve_remote_branch_head_before_flash": true,
+  "rollback": [
+    "retain V14 accessory flash image and V14 pack manifest",
+    "retain existing Device-A Tactility installation/configuration before overlay",
+    "if V15 fails parity, restore V14 image and pack without changing user-memory export",
+    "never integrate sandbox changes without explicit authorization"
+  ],
+  "schema_version": "aethercore.v15.factory-device-deployment-handoff.v1",
+  "status": "ACTIONABLE_FACTORY_HANDOFF",
+  "storage_sequence": [
+    "run Kingston Canvas Go! Plus 128 GB A2 with unchanged V14 binary as the clean media control",
+    "record A2 results separately from the prior USD00/Amazon-Basics-class medium",
+    "build prepacked V15 PERFORMANCE image with resident direct evidence directory and 2 MiB cache",
+    "copy immutable pack regions and verify hashes",
+    "run the unchanged 107-query and 260-case logical controls"
+  ],
+  "test_medium_gb": 128,
+  "transport": {
+    "device_a_device_b_gpio": [],
+    "physical_connection": "no compute GPIO; power both devices and pair/configure ESP-NOW",
+    "selected": "existing C6-hosted ESP-NOW"
+  }
+}

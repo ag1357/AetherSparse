@@ -3,12 +3,14 @@ from __future__ import annotations
 import ctypes
 import json
 import shutil
+import struct
 import subprocess
+import zlib
 from pathlib import Path
 
 import pytest
 
-from aethersparse.edge_runtime.reference import Action
+from aethersparse.edge_runtime.reference import Action, RuntimeContractError
 from aethersparse.edge_runtime.reference import Candidate as PyCandidate
 from aethersparse.edge_runtime.reference import Session as PySession
 from aethersparse.edge_runtime.reference import Workspace as PyWorkspace
@@ -223,3 +225,114 @@ def test_native_runtime_is_bit_exact_with_frozen_python_reference(tmp_path: Path
     decoded = Session()
     assert library.ac_session_deserialize_v1(output, len(output), ctypes.byref(decoded)) == 0
     assert decoded.workspace.terminal_disposition == 1
+
+
+def _session_wire(*, terminal: bool = True) -> bytes:
+    workspace = PyWorkspace(candidates=[PyCandidate(1, 100, 1), PyCandidate(2, 90, 1)])
+    workspace.execute(Action.SELECT_EVIDENCE, 1)
+    workspace.execute(Action.BUILD_PLAN)
+    workspace.execute(Action.VERIFY_PLAN)
+    if terminal:
+        workspace.execute(Action.ANSWER)
+    return PySession(session_id="v15-wire", workspace=workspace).serialize()
+
+
+def _patch_crc_valid(payload: bytes, offset: int, format_: str, *values: int) -> bytes:
+    forged = bytearray(payload)
+    struct.pack_into(format_, forged, offset, *values)
+    struct.pack_into("<I", forged, len(forged) - 4, zlib.crc32(forged[:-4]))
+    return bytes(forged)
+
+
+@pytest.mark.parametrize(
+    ("name", "offset", "format_", "values"),
+    [
+        ("zero_candidate", 232, "<Q", (0,)),
+        ("duplicate_candidate", 248, "<Q", (1,)),
+        ("duplicate_selected", 744, "<I2Q", (2, 1, 1)),
+        ("missing_selected_reference", 748, "<Q", (999,)),
+        ("zero_evidence_selected", 244, "<I", (0,)),
+        ("unknown_flag", 824, "<I", (1 << 12,)),
+        ("verified_without_plan", 824, "<I", (2,)),
+        ("plan_without_selection", 744, "<I8Q", (0, 0, 0, 0, 0, 0, 0, 0, 0)),
+        ("terminal_without_disposition", 824, "<2I", (7, 0)),
+        ("invalid_terminal_disposition", 828, "<I", (9,)),
+        ("answer_without_verified", 824, "<2I", (5, 1)),
+        ("step_count_65", 816, "<I", (65,)),
+        ("bad_last_action", 812, "<I", (31,)),
+        ("empty_session_id", 12, "<40s", (b"",)),
+        ("nonzero_active_tail", 60, "<IQ", (0, 77)),
+        ("nonzero_pending_tail", 128, "<IQ", (0, 77)),
+        ("nonzero_candidate_tail", 264, "<Q", (77,)),
+        ("nonzero_selected_tail", 756, "<Q", (77,)),
+    ],
+)
+def test_native_rejects_crc_valid_session_semantic_forgery(
+    tmp_path: Path,
+    name: str,
+    offset: int,
+    format_: str,
+    values: tuple[int, ...],
+) -> None:
+    del name
+    library = _compile(tmp_path)
+    payload = _patch_crc_valid(_session_wire(), offset, format_, *values)
+    wire = (ctypes.c_uint8 * len(payload)).from_buffer_copy(payload)
+    assert library.ac_session_deserialize_v1(
+        wire, len(wire), ctypes.byref(Session())
+    ) == 2
+    with pytest.raises(RuntimeContractError):
+        PySession.deserialize(payload)
+
+
+def test_zero_active_and_pending_ids_are_currently_legal_wire_semantics(
+    tmp_path: Path,
+) -> None:
+    library = _compile(tmp_path)
+    payload = _patch_crc_valid(_session_wire(), 60, "<I", 1)
+    payload = _patch_crc_valid(payload, 128, "<IQ", 1, 0)
+    wire = (ctypes.c_uint8 * len(payload)).from_buffer_copy(payload)
+    assert library.ac_session_deserialize_v1(
+        wire, len(wire), ctypes.byref(Session())
+    ) == 0
+
+
+def test_selected_candidate_is_pinned_then_workspace_freezes(tmp_path: Path) -> None:
+    library = _compile(tmp_path)
+    workspace = Workspace()
+    assert library.ac_workspace_init_v1(ctypes.byref(workspace)) == 0
+    initial = (Candidate * 32)(
+        *(Candidate(index + 1, 1000 - index, 1) for index in range(32))
+    )
+    assert library.ac_union_candidates_v1(ctypes.byref(workspace), initial, 32) == 0
+    assert library.ac_execute_action_v1(
+        ctypes.byref(workspace), int(Action.SELECT_EVIDENCE), 32
+    ) == 0
+    stronger = (Candidate * 1)(Candidate(99, 5000, 1))
+    assert library.ac_union_candidates_v1(ctypes.byref(workspace), stronger, 1) == 0
+    ids = {workspace.candidates[index].entity_id for index in range(workspace.candidate_count)}
+    assert 32 in ids and 99 in ids and 31 not in ids
+    assert library.ac_execute_action_v1(
+        ctypes.byref(workspace), int(Action.BUILD_PLAN), 0
+    ) == 0
+    assert library.ac_execute_action_v1(
+        ctypes.byref(workspace), int(Action.VERIFY_PLAN), 0
+    ) == 0
+    before_verified = bytes(workspace)
+    assert library.ac_union_candidates_v1(ctypes.byref(workspace), stronger, 1) == 2
+    assert bytes(workspace) == before_verified
+    assert library.ac_execute_action_v1(ctypes.byref(workspace), int(Action.ANSWER), 0) == 0
+    before_terminal = bytes(workspace)
+    assert library.ac_union_candidates_v1(ctypes.byref(workspace), stronger, 1) == 2
+    assert bytes(workspace) == before_terminal
+
+    python_workspace = PyWorkspace(
+        candidates=[PyCandidate(index + 1, 1000 - index, 1) for index in range(32)]
+    )
+    python_workspace.execute(Action.SELECT_EVIDENCE, 32)
+    python_workspace.union_candidates([PyCandidate(99, 5000, 1)])
+    assert {item.entity_id for item in python_workspace.candidates} == ids
+    python_workspace.execute(Action.BUILD_PLAN)
+    python_workspace.execute(Action.VERIFY_PLAN)
+    with pytest.raises(ValueError, match="immutable"):
+        python_workspace.union_candidates([PyCandidate(100, 6000, 1)])

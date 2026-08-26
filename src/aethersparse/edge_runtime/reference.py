@@ -74,6 +74,9 @@ class Workspace:
     def union_candidates(self, incoming: list[Candidate]) -> None:
         """Union by canonical ID, then apply exactly one global K=32 cap."""
 
+        if self.flags & (VERIFIED | TERMINAL):
+            raise RuntimeContractError("verified or terminal evidence is immutable")
+
         union = {candidate.entity_id: candidate for candidate in self.candidates}
         for candidate in incoming:
             previous = union.get(candidate.entity_id)
@@ -85,9 +88,16 @@ class Workspace:
                     score_q15=max(previous.score_q15, candidate.score_q15),
                     evidence_mask=previous.evidence_mask | candidate.evidence_mask,
                 )
-        self.candidates = sorted(
-            union.values(), key=lambda item: (-item.score_q15, item.entity_id)
-        )[:MAX_CANDIDATES]
+        ranked = sorted(union.values(), key=lambda item: (-item.score_q15, item.entity_id))
+        selected = set(self.selected_entity_ids)
+        if len(ranked) > MAX_CANDIDATES:
+            pinned = [item for item in ranked if item.entity_id in selected]
+            unselected = [item for item in ranked if item.entity_id not in selected]
+            ranked = sorted(
+                (*pinned, *unselected[: MAX_CANDIDATES - len(pinned)]),
+                key=lambda item: (-item.score_q15, item.entity_id),
+            )
+        self.candidates = ranked
 
     def legal_action_mask(self) -> int:
         if self.flags & TERMINAL or self.step_count >= 64:
@@ -198,6 +208,7 @@ class Session:
             raise RuntimeContractError("candidate capacity exceeded")
         if len(self.workspace.selected_entity_ids) > MAX_SELECTED:
             raise RuntimeContractError("selection capacity exceeded")
+        _validate_workspace(self.workspace)
         payload = bytearray(SESSION_MAGIC)
         payload.extend(struct.pack("<I", ABI_VERSION))
         session_id = self.session_id.encode("utf-8")
@@ -264,18 +275,31 @@ class Session:
             raise RuntimeContractError("session ID is not UTF-8") from error
         turn_id = unpack("<Q")[0]
         active_count = unpack("<I")[0]
-        active_ids = list(unpack("<8Q")[:active_count])
+        raw_active = unpack("<8Q")
+        active_ids = list(raw_active[:active_count])
         pending_count = unpack("<I")[0]
-        pending_ids = list(unpack("<4Q")[:pending_count])
+        raw_pending = unpack("<4Q")
+        pending_ids = list(raw_pending[:pending_count])
         recent = [value for value in unpack("<8Q") if value]
         candidate_count = unpack("<I")[0]
         if candidate_count > MAX_CANDIDATES or active_count > 8 or pending_count > 4:
             raise RuntimeContractError("session count exceeds ABI capacity")
+        if any(raw_active[active_count:]) or any(raw_pending[pending_count:]):
+            raise RuntimeContractError("unused session-ID array tail must be zero")
         raw_candidates = [unpack("<QiI") for _ in range(MAX_CANDIDATES)]
+        if any(values != (0, 0, 0) for values in raw_candidates[candidate_count:]):
+            raise RuntimeContractError("unused candidate tail must be zero")
         candidates = [Candidate(*values) for values in raw_candidates[:candidate_count]]
         selected_count = unpack("<I")[0]
-        selected = list(unpack("<8Q")[:selected_count])
+        raw_selected = unpack("<8Q")
+        if selected_count > MAX_SELECTED or any(raw_selected[selected_count:]):
+            raise RuntimeContractError("invalid selection count or nonzero unused tail")
+        selected = list(raw_selected[:selected_count])
         last_action, steps, invalid, flags, disposition = unpack("<IIIII")
+        try:
+            terminal_disposition = Terminal(disposition)
+        except ValueError as error:
+            raise RuntimeContractError("invalid terminal disposition") from error
         workspace = Workspace(
             candidates=candidates[:candidate_count],
             selected_entity_ids=selected,
@@ -283,8 +307,9 @@ class Session:
             step_count=steps,
             invalid_action_count=invalid,
             flags=flags,
-            terminal_disposition=Terminal(disposition),
+            terminal_disposition=terminal_disposition,
         )
+        _validate_workspace(workspace)
         return cls(
             session_id=session_id,
             turn_id=turn_id,
@@ -299,3 +324,38 @@ def _fixed_u64(values: list[int], count: int) -> bytes:
     if any(not 0 <= value <= 0xFFFFFFFFFFFFFFFF for value in values):
         raise RuntimeContractError("value does not fit uint64")
     return struct.pack(f"<{count}Q", *(values + [0] * (count - len(values))))
+
+
+def _validate_workspace(workspace: Workspace) -> None:
+    candidates = workspace.candidates
+    selected = workspace.selected_entity_ids
+    candidate_ids = [item.entity_id for item in candidates]
+    if len(candidate_ids) != len(set(candidate_ids)):
+        raise RuntimeContractError("candidate IDs must be unique")
+    if not all(candidate_ids):
+        raise RuntimeContractError("counted candidate IDs must be nonzero")
+    if len(selected) != len(set(selected)) or any(item == 0 for item in selected):
+        raise RuntimeContractError("selected IDs must be unique and nonzero")
+    by_id = {item.entity_id: item for item in candidates}
+    if any(item not in by_id or by_id[item].evidence_mask == 0 for item in selected):
+        raise RuntimeContractError("selected ID must reference exact counted evidence")
+    if workspace.flags & ~(PLAN_READY | VERIFIED | TERMINAL):
+        raise RuntimeContractError("unknown workspace flags")
+    if not 0 <= workspace.step_count <= 64:
+        raise RuntimeContractError("step count exceeds bound")
+    plan_ready = bool(workspace.flags & PLAN_READY)
+    verified = bool(workspace.flags & VERIFIED)
+    terminal = bool(workspace.flags & TERMINAL)
+    if verified and not plan_ready:
+        raise RuntimeContractError("VERIFIED requires PLAN_READY")
+    if (plan_ready or verified) and not selected:
+        raise RuntimeContractError("plan/verifier state requires selection")
+    if terminal != (workspace.terminal_disposition is not Terminal.NONE):
+        raise RuntimeContractError("terminal flag/disposition mismatch")
+    if workspace.terminal_disposition is Terminal.ANSWER and not verified:
+        raise RuntimeContractError("ANSWER requires VERIFIED")
+    if workspace.step_count == 0:
+        if selected or workspace.last_action != 0 or plan_ready or verified or terminal:
+            raise RuntimeContractError("zero-step workspace contains executed state")
+    elif workspace.last_action not in set(Action):
+        raise RuntimeContractError("last_action is not a V1 action")

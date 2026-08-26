@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 class MessageType(StrEnum):
     SESSION_OPEN = "SESSION_OPEN"
+    SESSION_RESUME = "SESSION_RESUME"
     USER_TEXT = "USER_TEXT"
     USER_CANCEL = "USER_CANCEL"
     RESET = "RESET"
@@ -19,8 +20,10 @@ class MessageType(StrEnum):
     TASK_STATUS = "TASK_STATUS"
     TOOL_ACTIVITY_SUMMARY = "TOOL_ACTIVITY_SUMMARY"
     EVIDENCE_SUMMARY = "EVIDENCE_SUMMARY"
+    MEMORY_STATUS = "MEMORY_STATUS"
     ERROR = "ERROR"
     HEALTH = "HEALTH"
+    CAPABILITIES = "CAPABILITIES"
 
 
 class Payload(BaseModel):
@@ -29,6 +32,13 @@ class Payload(BaseModel):
 
 class SessionOpenPayload(Payload):
     client_version: str
+    supported_protocols: tuple[str, ...] = Field(default=("aethercore-tactility.v2",), max_length=4)
+    requested_capabilities: tuple[str, ...] = Field(default=(), max_length=32)
+
+
+class SessionResumePayload(Payload):
+    client_version: str
+    last_received_sequence: int = Field(default=0, ge=0)
 
 
 class UserTextPayload(Payload):
@@ -69,6 +79,13 @@ class EvidenceSummaryPayload(Payload):
     summary: str
 
 
+class MemoryStatusPayload(Payload):
+    operation: str
+    success: bool
+    memory_ids: tuple[str, ...] = Field(default=(), max_length=32)
+    detail: str = Field(default="", max_length=512)
+
+
 class ErrorPayload(Payload):
     code: str
     message: str
@@ -78,10 +95,21 @@ class ErrorPayload(Payload):
 class HealthPayload(Payload):
     status: str
     runtime_version: str
+    service_generation: int = Field(default=1, ge=1)
+
+
+class CapabilitiesPayload(Payload):
+    protocol_version: str
+    hardware_class: str
+    tools: tuple[str, ...] = Field(default=(), max_length=64)
+    specialists: tuple[str, ...] = Field(default=(), max_length=64)
+    unavailable: tuple[str, ...] = Field(default=(), max_length=64)
+    transport: str
 
 
 MessagePayload = (
     SessionOpenPayload
+    | SessionResumePayload
     | UserTextPayload
     | UserCancelPayload
     | ResetPayload
@@ -90,12 +118,15 @@ MessagePayload = (
     | TaskStatusPayload
     | ToolActivitySummaryPayload
     | EvidenceSummaryPayload
+    | MemoryStatusPayload
     | ErrorPayload
     | HealthPayload
+    | CapabilitiesPayload
 )
 
 _PAYLOAD_TYPE: dict[MessageType, type[Payload]] = {
     MessageType.SESSION_OPEN: SessionOpenPayload,
+    MessageType.SESSION_RESUME: SessionResumePayload,
     MessageType.USER_TEXT: UserTextPayload,
     MessageType.USER_CANCEL: UserCancelPayload,
     MessageType.RESET: ResetPayload,
@@ -104,16 +135,19 @@ _PAYLOAD_TYPE: dict[MessageType, type[Payload]] = {
     MessageType.TASK_STATUS: TaskStatusPayload,
     MessageType.TOOL_ACTIVITY_SUMMARY: ToolActivitySummaryPayload,
     MessageType.EVIDENCE_SUMMARY: EvidenceSummaryPayload,
+    MessageType.MEMORY_STATUS: MemoryStatusPayload,
     MessageType.ERROR: ErrorPayload,
     MessageType.HEALTH: HealthPayload,
+    MessageType.CAPABILITIES: CapabilitiesPayload,
 }
 
 
 class ProtocolMessage(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
-    protocol_version: str = "aethercore-tactility.v1"
-    message_id: str
-    session_id: str
+    protocol_version: str = "aethercore-tactility.v2"
+    message_id: str = Field(min_length=1, max_length=128)
+    request_id: str | None = Field(default=None, min_length=1, max_length=128)
+    session_id: str = Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9_-]+$")
     sequence: int = Field(ge=0)
     type: MessageType
     payload: MessagePayload
@@ -173,6 +207,7 @@ class MockTactilityClient:
     def send(self, kind: MessageType, payload: MessagePayload) -> tuple[ProtocolMessage, ...]:
         request = ProtocolMessage(
             message_id=f"terminal-{self.sequence}",
+            request_id=f"request-{self.sequence}",
             session_id=self.session_id,
             sequence=self.sequence,
             type=kind,
@@ -200,6 +235,7 @@ def response(
 ) -> ProtocolMessage:
     return ProtocolMessage(
         message_id=f"{request.message_id}-{suffix}",
+        request_id=request.request_id or request.message_id,
         session_id=request.session_id,
         sequence=request.sequence,
         type=kind,

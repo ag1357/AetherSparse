@@ -1,0 +1,44 @@
+{
+  "schema_version": "aethercore.v15.sandbox-agent-qualification.v1",
+  "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "status": "PASS_WITH_CODE_SYNTHESIS_DEFERRED",
+  "retained_real_tool_plane": {
+    "tasks_passed": 5,
+    "tasks_total": 5,
+    "operations": 55,
+    "invalid_action_attempts": 0,
+    "integration_performed": false,
+    "tasks": [
+      "fix_failing_unit_test",
+      "add_deterministic_feature",
+      "modify_parser",
+      "add_api_field",
+      "repair_compilation_defect"
+    ]
+  },
+  "v15_source_understanding": {
+    "markdown_adapter": "PASS",
+    "html_documentation_adapter": "PASS",
+    "manual_specification_adapter_contract": "PASS",
+    "source_tree_adapter": "PASS",
+    "python_symbol_graph": "PASS",
+    "reference_discovery": "PASS",
+    "affected_file_frontier": "PASS",
+    "import_dependency_frontier": "PASS",
+    "source_to_test_mapping": "PASS",
+    "provenance_digest": "PASS"
+  },
+  "capability_boundary": {
+    "host_backend": ["worktree", "patch", "build", "tests", "rollback", "integration_request"],
+    "p4_backend": ["SEARCH_KNOWLEDGE", "REPORT_RESULT"],
+    "p4_host_tool_attempt": "EXPLICIT_UNAVAILABLE_FAILURE",
+    "automatic_integration": false,
+    "one_time_authorization_required": true,
+    "root_verifier_rewrite": false
+  },
+  "remaining_scope": {
+    "code_synthesis_specialist": "DEFERRED_UNTIL_SOURCE_IMPACT_REASONING_IS_PHYSICALLY_INTEGRATED",
+    "unrestricted_generation_claimed": false,
+    "full_repository_language_coverage": false
+  }
+}

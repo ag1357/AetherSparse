@@ -1,0 +1,71 @@
+{
+  "schema_version": "aethersparse.v15.pack-v2-qualification.v1",
+  "status": "HOST_QUALIFIED_FACTORY_PHYSICAL_PENDING",
+  "source": {
+    "physical_profile": "reports/droid/v14-p4/phase5-cache-ladder-device.json",
+    "queries": 107,
+    "entity_capacity": 275989,
+    "entities_with_evidence": 239630,
+    "current_evidence_directory_bytes": 3834080,
+    "current_1mib_evidence_misses": 23311,
+    "current_1mib_total_misses": 37636
+  },
+  "controls": [
+    {
+      "layout": "flat_paged",
+      "resident_directory_bytes": 0,
+      "pack_directory_bytes": 3834080,
+      "directory_probes": 93806,
+      "evidence_media_misses_per_query": 217.859813,
+      "total_media_misses_per_query": 351.738318,
+      "modeled_mean_address_ms": 1217.2502,
+      "logical_parity": "PASS"
+    },
+    {
+      "layout": "flat_resident",
+      "resident_directory_bytes": 3834080,
+      "pack_directory_bytes": 3834080,
+      "directory_probes": 93806,
+      "evidence_media_misses_per_query": 0.0,
+      "total_media_misses_per_query": 133.878505,
+      "modeled_mean_address_ms": 463.309308,
+      "logical_parity": "PASS"
+    },
+    {
+      "layout": "direct_compact_resident",
+      "resident_directory_bytes": 3311868,
+      "pack_directory_bytes": 3311868,
+      "directory_probes": 5212,
+      "evidence_media_misses_per_query": 0.0,
+      "total_media_misses_per_query": 133.878505,
+      "modeled_mean_address_ms": 463.309308,
+      "logical_parity": "PASS"
+    },
+    {
+      "layout": "two_level_paged",
+      "resident_directory_bytes": 8632,
+      "pack_directory_bytes": 4419584,
+      "directory_probes": 5212,
+      "evidence_media_misses_per_query_upper_bound": 48.71028,
+      "total_media_misses_per_query_upper_bound": 182.588785,
+      "modeled_mean_address_ms_upper_bound": 631.879508,
+      "logical_parity": "PASS"
+    }
+  ],
+  "selection": {
+    "performance": "direct_compact_resident",
+    "compact": "two_level_paged",
+    "reason": "The performance layout removes all evidence-directory media probes, uses 522212 fewer resident bytes than the mandatory flat-resident control, and performs one direct probe per lookup. The compact layout bounds a lookup to one leaf page with an 8632-byte resident top directory.",
+    "semantic_change": false,
+    "prepacked_device_image": true,
+    "device_time_sort_remap_repack": false
+  },
+  "qualification_scope": {
+    "fixture_entity_lookups": 1200,
+    "fixture_layouts": 4,
+    "candidate_completeness": 1.0,
+    "address_logical_parity": 1.0,
+    "physical_claim": false,
+    "next_gate": "Factory builds Pack-v2 and measures unchanged 107-query logical outputs plus P4 media counters."
+  }
+}

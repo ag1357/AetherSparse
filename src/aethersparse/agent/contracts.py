@@ -109,6 +109,7 @@ class SessionState(FrozenModel):
     evidence_handles: tuple[EvidenceHandle, ...] = ()
     unresolved_hypotheses: tuple[EntityHypothesis, ...] = ()
     pending_clarification: PendingClarification | None = None
+    conversation_summary: tuple[str, ...] = ()
     recent_utterances: tuple[Utterance, ...] = ()
     user_requested_task_state: TaskState = Field(default_factory=TaskState)
 
@@ -120,6 +121,7 @@ class SessionState(FrozenModel):
             "discourse bindings": len(self.discourse_referent_bindings) <= 16,
             "evidence handles": len(self.evidence_handles) <= 32,
             "unresolved hypotheses": len(self.unresolved_hypotheses) <= 8,
+            "conversation summary": len(self.conversation_summary) <= 8,
             "recent utterances": len(self.recent_utterances) <= 12,
         }
         failed = [name for name, valid in bounds.items() if not valid]

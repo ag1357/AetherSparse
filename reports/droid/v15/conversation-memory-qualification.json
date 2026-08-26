@@ -1,0 +1,79 @@
+{
+  "schema_version": "aethercore.v15.conversation-memory-qualification.v1",
+  "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "status": "PASS",
+  "authoritative_state": {
+    "schema": "aethercore.operational-state.v1",
+    "integrity": "canonical-json-sha256-envelope",
+    "atomic_commit": true,
+    "runtime_projection_is_authoritative": false,
+    "ephemeral_persisted": false,
+    "restart_resume": "PASS",
+    "multiple_sessions": "PASS",
+    "session_reset_preserves_user_long_term_memory": "PASS",
+    "semantic_anchor_checkpoint_restore": "PASS",
+    "deterministic_delta_replay": "PASS"
+  },
+  "memory": {
+    "semantic_tiers": ["EPHEMERAL", "SHORT_TERM", "WORKING", "LONG_TERM"],
+    "physical_residency": ["COLD", "WARM", "HOT"],
+    "orthogonal_lifetime_and_residency": "PASS",
+    "five_c_outside_promotion": true,
+    "ephemeral_expiry": "PASS",
+    "short_term_deterministic_eviction": "PASS",
+    "working_cog_bindings": "PASS",
+    "selected_evidence_pinning": "PASS",
+    "verification_bound_demotion_rejected": "PASS",
+    "promotion_preserves_inference_authority": "PASS",
+    "qualifiers_preserved": ["negation", "quantity", "unit", "uncertainty", "perspective", "provenance"]
+  },
+  "user_memory": {
+    "operations": [
+      "LIST_USER_MEMORY",
+      "READ_USER_MEMORY",
+      "WRITE_USER_MEMORY",
+      "EDIT_USER_MEMORY",
+      "DELETE_USER_MEMORY",
+      "SEARCH_USER_MEMORY"
+    ],
+    "default_persistent_write_policy": "EXPLICIT_USER_AUTHORIZATION_ONLY",
+    "ordinary_conversation_auto_memorized": false,
+    "write_recall_edit_recall_delete": "PASS",
+    "tombstone": "PASS",
+    "compaction": "PASS",
+    "user_vs_external_provenance": "PASS",
+    "external_pack_mutation_via_user_api": "REJECTED"
+  },
+  "conversation_cases": {
+    "direct": "PASS",
+    "follow_up": "PASS",
+    "pronoun": "PASS",
+    "what_about": "PASS",
+    "correction": "PASS",
+    "clarification": "PASS",
+    "cancel": "PASS",
+    "reset": "PASS",
+    "persistent_session": "PASS",
+    "restart_resume": "PASS",
+    "multiple_sessions": "PASS",
+    "context_truncation": "PASS",
+    "bounded_summary": "PASS",
+    "user_memory_isolation_by_scope": "PASS",
+    "self_capability_query_endpoint": "PASS"
+  },
+  "protocol": {
+    "version": "aethercore-tactility.v2",
+    "max_frame_bytes": 16384,
+    "request_id": true,
+    "capability_negotiation": true,
+    "session_resume": true,
+    "memory_status": true,
+    "malformed_message_rejection": "PASS",
+    "transport_independent": true
+  },
+  "focused_validation": {
+    "memory_and_agent_tests": "36/36 PASS",
+    "ruff": "PASS",
+    "strict_mypy": "PASS"
+  }
+}

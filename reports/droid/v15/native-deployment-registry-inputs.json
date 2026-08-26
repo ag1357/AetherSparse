@@ -1,0 +1,73 @@
+{
+  "schema_version": "aethersparse.v15.native-deployment-registry-inputs.v1",
+  "component_status": {
+    "native_runtime": "CURRENT_PRODUCTION",
+    "native_parity_tests": "CURRENT_TEST",
+    "v14_p4_firmware": "HISTORICAL_REPRODUCIBILITY_AND_FACTORY_CONTROL",
+    "mission_specific_qualification_scripts": "HISTORICAL_REPRODUCIBILITY",
+    "pack_v2_host_compiler": "CURRENT_PRODUCTION",
+    "elastic_resource_controller": "CURRENT_PRODUCTION_HOST_REFERENCE",
+    "physical_pack_v2_firmware": "FACTORY_PENDING"
+  },
+  "production_commands": {
+    "compile": "aethersparse aethercore compile",
+    "pack": "aethersparse aethercore pack",
+    "qualify": "aethersparse aethercore qualify",
+    "service": "aethersparse aethercore service"
+  },
+  "native": {
+    "language": "C++17",
+    "external_abi": "C",
+    "allocation_free_core": true,
+    "exceptions": false,
+    "rtti": false,
+    "session_wire_bytes": 836,
+    "cog_wire_bytes": 180,
+    "cog_deserialize": "BYTE_EXACT",
+    "selected_policy_parameters": 1292,
+    "selected_policy_representation": "int8"
+  },
+  "deployment": {
+    "performance_evidence_layout": "direct_compact_resident",
+    "compact_evidence_layout": "two_level_paged",
+    "performance_cache_bytes": 2097152,
+    "performance_projected_resident_bytes": 6421665,
+    "performance_projected_psram_headroom_bytes": 27132767,
+    "pack_v2_device_time_repack": false
+  },
+  "hardware_calibration": {
+    "identity": {
+      "board": "Waveshare ESP32-P4-WIFI6 SKU 32020",
+      "chip_revision": "ESP32-P4 rev v1.3",
+      "psram_bytes": 33554432,
+      "storage_identity": "USD00 temporary 128GB",
+      "storage_bus": "SDMMC 4-bit 20MHz",
+      "pack_generation": "v14 physical control"
+    },
+    "measured": {
+      "storage_sequential_mb_s": 1.93,
+      "storage_random_4k_mean_us": 44085.9,
+      "storage_random_4k_p50_us": 36859,
+      "storage_random_4k_p95_us": 141480,
+      "policy_cpu_p50_us": 638,
+      "resident_bytes": 2061221
+    },
+    "required_factory_measurements": [
+      "internal_memory_bandwidth",
+      "psram_bandwidth",
+      "psram_copy_latency",
+      "xai_int8_dot_gemm_throughput",
+      "dma_staging_throughput",
+      "transport_throughput_latency",
+      "pack_v2_address_p50_p95",
+      "double_buffered_sdmmc_overlap"
+    ],
+    "incompatible_media_reuse_denied": true
+  },
+  "cleanup_notes": [
+    "Do not delete V14 P4 firmware or physical reports; they are the unchanged Kingston-A2 media-control baseline.",
+    "Do not delete mission qualification scripts until production commands cover their published reproducibility contracts.",
+    "The legacy top-level compile/evaluate/serve commands remain historical AetherSparse pathways; V15 operational paths are nested under aethercore.",
+    "No final release tag or self-manual pack is authorized before Factory physical deployment."
+  ]
+}

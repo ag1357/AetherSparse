@@ -36,7 +36,9 @@ class ConversationEngine:
         self.store = store
 
     @staticmethod
-    def _append_utterance(state: SessionState, text: str) -> tuple[Utterance, ...]:
+    def _append_utterance(
+        state: SessionState, text: str
+    ) -> tuple[tuple[Utterance, ...], tuple[str, ...]]:
         prior_numbers = (
             int(item.turn_id.split("-", maxsplit=1)[1].split("-", maxsplit=1)[0])
             for item in state.recent_utterances
@@ -44,7 +46,13 @@ class ConversationEngine:
         )
         turn_number = 1 + max(prior_numbers, default=0)
         turn = Utterance(turn_id=f"turn-{turn_number}", role="user", text=text)
-        return (*state.recent_utterances, turn)[-12:]
+        combined = (*state.recent_utterances, turn)
+        removed = combined[:-12]
+        summary = (
+            *state.conversation_summary,
+            *(f"{item.role}:{item.text[:160]}" for item in removed),
+        )[-8:]
+        return combined[-12:], summary
 
     def record_answer(
         self,
@@ -132,7 +140,7 @@ class ConversationEngine:
                 reason="USER_RESET",
             )
 
-        utterances = self._append_utterance(state, query)
+        utterances, summary = self._append_utterance(state, query)
         turn_id = utterances[-1].turn_id
         if _CANCEL.match(query):
             cancelled = state.model_copy(
@@ -141,6 +149,7 @@ class ConversationEngine:
                     "pending_clarification": None,
                     "unresolved_hypotheses": (),
                     "recent_utterances": utterances,
+                    "conversation_summary": summary,
                     "user_requested_task_state": TaskState(status=TaskStatus.CANCELLED),
                 }
             )
@@ -188,7 +197,11 @@ class ConversationEngine:
                 )
             else:
                 repeated = state.model_copy(
-                    update={"current_query": query, "recent_utterances": utterances}
+                    update={
+                        "current_query": query,
+                        "recent_utterances": utterances,
+                        "conversation_summary": summary,
+                    }
                 )
                 self.store.save(repeated)
                 return repeated, ConversationAction(
@@ -222,6 +235,7 @@ class ConversationEngine:
                     "unresolved_hypotheses": candidate_tuple,
                     "pending_clarification": pending,
                     "recent_utterances": utterances,
+                    "conversation_summary": summary,
                 }
             )
             self.store.save(ambiguous)
@@ -259,6 +273,7 @@ class ConversationEngine:
                 "unresolved_hypotheses": () if selected is not None else candidate_tuple,
                 "pending_clarification": None,
                 "recent_utterances": utterances,
+                "conversation_summary": summary,
             }
         )
         self.store.save(updated)

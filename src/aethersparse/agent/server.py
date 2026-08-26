@@ -1,4 +1,4 @@
-"""Host service and Tactility protocol adapter for the V14 COG vertical slice."""
+"""Persistent V15 AetherCore service and transport-independent Tactility adapter."""
 
 from __future__ import annotations
 
@@ -10,6 +10,8 @@ from pathlib import Path
 import uvicorn
 from fastapi import FastAPI, HTTPException
 
+from aethersparse.agent.capabilities import host_capability_model
+from aethersparse.agent.operational import AetherCoreOperationalService
 from aethersparse.agent.protocol import (
     AssistantTextDeltaPayload,
     ClarificationRequestPayload,
@@ -28,8 +30,42 @@ from aethersparse.agent.vertical import (
     GroundedKnowledgeRecord,
     load_selected_policy_json,
 )
+from aethersparse.memory.persistence import AuthoritativeStateStore
+from aethersparse.memory.user import UserMemoryService
 
 ROOT = Path(__file__).resolve().parents[3]
+
+
+def create_operational_app(service: AetherCoreOperationalService) -> FastAPI:
+    application = FastAPI(
+        title="AetherCore V15 operational accessory service",
+        version="15.0",
+        description="Persistent grounded cognition and transport-independent terminal protocol.",
+    )
+
+    @application.get("/v15/health")
+    def health() -> dict[str, object]:
+        return {
+            "status": service.self_model.service_status,
+            "role": "aethercore_accessory",
+            "source_identity": service.self_model.source_identity,
+            "runtime_abi": service.self_model.runtime_abi,
+            "memory_schema": service.self_model.memory_schema,
+            "service_generation": service.state_store.state.service_generation,
+        }
+
+    @application.get("/v15/capabilities")
+    def capabilities() -> dict[str, object]:
+        return service.self_model.model_dump(mode="json")
+
+    @application.post("/v15/message", response_model=list[ProtocolMessage])
+    def message(request: ProtocolMessage) -> list[ProtocolMessage]:
+        try:
+            return list(service.handle(request))
+        except (KeyError, ValueError) as error:
+            raise HTTPException(status_code=422, detail=str(error)) from error
+
+    return application
 
 
 def create_vertical_app(runtime: AetherCoreVerticalSlice) -> FastAPI:
@@ -134,21 +170,52 @@ def load_runtime(
     return AetherCoreVerticalSlice(records, policy, JsonSessionStore(session_path))
 
 
+def load_operational_service(
+    knowledge_path: Path,
+    policy_report_path: Path,
+    state_path: Path,
+    *,
+    source_identity: str,
+) -> AetherCoreOperationalService:
+    knowledge_value = json.loads(knowledge_path.read_text(encoding="utf-8"))
+    if not isinstance(knowledge_value, list):
+        raise ValueError("deployed knowledge file must be a JSON list")
+    records = tuple(GroundedKnowledgeRecord.model_validate(item) for item in knowledge_value)
+    policy = load_selected_policy_json(policy_report_path.read_bytes())
+    state_store = AuthoritativeStateStore(state_path)
+    runtime = AetherCoreVerticalSlice(records, policy, state_store)
+    memory = state_store.restore_memory()
+    return AetherCoreOperationalService(
+        runtime,
+        state_store,
+        UserMemoryService(memory),
+        host_capability_model(source_identity),
+    )
+
+
 def main() -> None:
-    knowledge = os.environ.get("AETHERCORE_V14_KNOWLEDGE") or os.environ.get(
+    knowledge = os.environ.get("AETHERCORE_V15_KNOWLEDGE") or os.environ.get(
+        "AETHERCORE_V14_KNOWLEDGE"
+    ) or os.environ.get(
         "AETHERCORE_V13_KNOWLEDGE"
     )
     if not knowledge:
-        raise SystemExit("AETHERCORE_V14_KNOWLEDGE must name a deployed grounded record file")
+        raise SystemExit("AETHERCORE_V15_KNOWLEDGE must name a deployed grounded record file")
     policy = Path(
         os.environ.get(
-            "AETHERCORE_V14_POLICY",
+            "AETHERCORE_V15_POLICY",
             ROOT / "reports" / "droid" / "v14" / "controller-selected-policy-int8.json",
         )
     )
-    sessions = Path(os.environ.get("AETHERCORE_V14_SESSIONS", "runtime/v14-sessions"))
-    runtime = load_runtime(Path(knowledge), policy, sessions)
-    uvicorn.run(create_vertical_app(runtime), host="0.0.0.0", port=8082)
+    state = Path(os.environ.get("AETHERCORE_V15_STATE", "runtime/v15-operational-state.json"))
+    source_identity = os.environ.get("AETHERCORE_V15_SOURCE_IDENTITY", "UNSET_WORKTREE")
+    service = load_operational_service(
+        Path(knowledge), policy, state, source_identity=source_identity
+    )
+    port = int(os.environ.get("PORT", "8082"))
+    if not 1 <= port <= 65_535:
+        raise SystemExit("PORT must be in the range 1..65535")
+    uvicorn.run(create_operational_app(service), host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":

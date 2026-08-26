@@ -1,0 +1,45 @@
+{
+  "changes": [
+    "package version aligned to 0.15.0",
+    "Docker entrypoint moved to aethercore-server",
+    "Railway/Render health checks moved to /v15/health",
+    "runtime port is environment-configurable and range-validated",
+    "production commands consolidated under aethersparse aethercore"
+  ],
+  "classifications": {
+    "CURRENT_PRODUCTION": [
+      "src/aethersparse/agent/server.py",
+      "src/aethersparse/agent/operational.py",
+      "src/aethersparse/memory/",
+      "src/aethersparse/edge_runtime/production.py",
+      "native/aethercore_runtime/",
+      "integrations/tactility/aetherchat/"
+    ],
+    "CURRENT_TEST": [
+      "tests/memory/",
+      "tests/agent/test_v15_operational.py",
+      "tests/edge_runtime/test_deployment_v15.py"
+    ],
+    "DEAD": [],
+    "HISTORICAL_REPRODUCIBILITY": [
+      "scripts/droid/v10_* through v14_*",
+      "reports/droid/v10 through v14-p4"
+    ],
+    "SUPERSEDED": [
+      "deploy/Dockerfile legacy aethersparse.service command",
+      "v1 cloud health paths"
+    ]
+  },
+  "final_self_manual_pack_created": false,
+  "historical_artifacts_removed": 0,
+  "historical_reproducibility_retained": true,
+  "license_notice_modified": false,
+  "package": {
+    "name": "aethersparse",
+    "version": "0.15.0"
+  },
+  "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+  "release_tag_created": false,
+  "schema_version": "aethercore.v15.production-cleanup-inventory.v1",
+  "status": "PASS_CONSERVATIVE_CLEANUP"
+}

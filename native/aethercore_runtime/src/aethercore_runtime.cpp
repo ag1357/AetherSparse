@@ -15,6 +15,92 @@ bool valid_workspace(const ac_workspace_v1 *workspace) {
          workspace->selected_count <= AC_MAX_SELECTED;
 }
 
+bool selected_id(const ac_workspace_v1 *workspace, uint64_t entity_id) {
+  for (uint32_t index = 0; index < workspace->selected_count; ++index) {
+    if (workspace->selected_entity_ids[index] == entity_id) return true;
+  }
+  return false;
+}
+
+bool valid_session_state(const ac_session_v1 &session) {
+  const ac_workspace_v1 &workspace = session.workspace;
+  if (session.active_entity_count > AC_SESSION_ENTITY_CAP ||
+      session.pending_clarification_count > AC_SESSION_CLARIFICATION_CAP ||
+      !valid_workspace(&workspace) || session.session_id[0] == '\0' ||
+      session.session_id[AC_SESSION_ID_BYTES - 1] != '\0') {
+    return false;
+  }
+  bool found_nul = false;
+  for (uint32_t index = 0; index < AC_SESSION_ID_BYTES; ++index) {
+    if (session.session_id[index] == '\0') found_nul = true;
+    if (found_nul && session.session_id[index] != '\0') return false;
+  }
+  for (uint32_t index = session.active_entity_count; index < AC_SESSION_ENTITY_CAP; ++index) {
+    if (session.active_entity_ids[index] != 0u) return false;
+  }
+  for (uint32_t index = session.pending_clarification_count;
+       index < AC_SESSION_CLARIFICATION_CAP; ++index) {
+    if (session.pending_clarification_ids[index] != 0u) return false;
+  }
+  for (uint32_t index = 0; index < workspace.candidate_count; ++index) {
+    const ac_candidate_v1 &candidate = workspace.candidates[index];
+    if (candidate.entity_id == 0u) return false;
+    for (uint32_t prior = 0; prior < index; ++prior) {
+      if (workspace.candidates[prior].entity_id == candidate.entity_id) return false;
+    }
+  }
+  for (uint32_t index = workspace.candidate_count; index < AC_MAX_CANDIDATES; ++index) {
+    const ac_candidate_v1 &candidate = workspace.candidates[index];
+    if (candidate.entity_id != 0u || candidate.score_q15 != 0 ||
+        candidate.evidence_mask != 0u) {
+      return false;
+    }
+  }
+  for (uint32_t index = 0; index < workspace.selected_count; ++index) {
+    const uint64_t selected = workspace.selected_entity_ids[index];
+    if (selected == 0u) return false;
+    for (uint32_t prior = 0; prior < index; ++prior) {
+      if (workspace.selected_entity_ids[prior] == selected) return false;
+    }
+    bool supported = false;
+    for (uint32_t candidate = 0; candidate < workspace.candidate_count; ++candidate) {
+      if (workspace.candidates[candidate].entity_id == selected &&
+          workspace.candidates[candidate].evidence_mask != 0u) {
+        supported = true;
+        break;
+      }
+    }
+    if (!supported) return false;
+  }
+  for (uint32_t index = workspace.selected_count; index < AC_MAX_SELECTED; ++index) {
+    if (workspace.selected_entity_ids[index] != 0u) return false;
+  }
+  constexpr uint32_t kKnownWorkspaceFlags =
+      AC_WORKSPACE_PLAN_READY | AC_WORKSPACE_VERIFIED | AC_WORKSPACE_TERMINAL;
+  if ((workspace.flags & ~kKnownWorkspaceFlags) != 0u || workspace.step_count > 64u ||
+      workspace.terminal_disposition > AC_TERMINAL_ABSTAIN) {
+    return false;
+  }
+  const bool plan_ready = (workspace.flags & AC_WORKSPACE_PLAN_READY) != 0u;
+  const bool verified = (workspace.flags & AC_WORKSPACE_VERIFIED) != 0u;
+  const bool terminal = (workspace.flags & AC_WORKSPACE_TERMINAL) != 0u;
+  if ((verified && !plan_ready) || (plan_ready && workspace.selected_count == 0u) ||
+      (verified && workspace.selected_count == 0u) ||
+      (terminal != (workspace.terminal_disposition != AC_TERMINAL_NONE)) ||
+      (workspace.terminal_disposition == AC_TERMINAL_ANSWER && !verified)) {
+    return false;
+  }
+  if (workspace.step_count == 0u) {
+    if (workspace.selected_count != 0u || workspace.last_action != 0u || plan_ready ||
+        verified || terminal || workspace.terminal_disposition != AC_TERMINAL_NONE) {
+      return false;
+    }
+  } else if (workspace.last_action > AC_ACTION_ABSTAIN) {
+    return false;
+  }
+  return true;
+}
+
 bool candidate_before(const ac_candidate_v1 &left, const ac_candidate_v1 &right) {
   if (left.score_q15 != right.score_q15) {
     return left.score_q15 > right.score_q15;
@@ -121,6 +207,14 @@ class Reader {
     return true;
   }
 
+  bool u16(uint16_t *value) {
+    uint8_t encoded[2];
+    if (!bytes(encoded, sizeof(encoded))) return false;
+    *value = static_cast<uint16_t>(encoded[0]) |
+             static_cast<uint16_t>(static_cast<uint16_t>(encoded[1]) << 8u);
+    return true;
+  }
+
   bool u64(uint64_t *value) {
     uint8_t encoded[8];
     if (!bytes(encoded, sizeof(encoded))) return false;
@@ -130,6 +224,10 @@ class Reader {
     }
     return true;
   }
+
+
+  size_t cursor() const { return cursor_; }
+  size_t size() const { return size_; }
 
  private:
   const uint8_t *input_;
@@ -191,8 +289,13 @@ ac_status_v1 ac_union_candidates_v1(ac_workspace_v1 *workspace,
   if (!valid_workspace(workspace) || (incoming == nullptr && incoming_count != 0)) {
     return AC_INVALID_ARGUMENT;
   }
+  if ((workspace->flags & (AC_WORKSPACE_VERIFIED | AC_WORKSPACE_TERMINAL)) != 0u) {
+    return AC_INVALID_STATE;
+  }
   for (size_t source = 0; source < incoming_count; ++source) {
-    if (incoming[source].entity_id == 0) return AC_INVALID_ARGUMENT;
+    if (incoming[source].entity_id == 0u) return AC_INVALID_ARGUMENT;
+  }
+  for (size_t source = 0; source < incoming_count; ++source) {
     bool already_aggregated = false;
     for (size_t earlier = 0; earlier < source; ++earlier) {
       if (incoming[earlier].entity_id == incoming[source].entity_id) {
@@ -222,10 +325,13 @@ ac_status_v1 ac_union_candidates_v1(ac_workspace_v1 *workspace,
       if (workspace->candidate_count < AC_MAX_CANDIDATES) {
         workspace->candidates[workspace->candidate_count++] = aggregate;
       } else {
-        const auto worst = std::max_element(
-            workspace->candidates, workspace->candidates + workspace->candidate_count,
-            candidate_before);
-        if (candidate_before(aggregate, *worst)) *worst = aggregate;
+        ac_candidate_v1 *worst = nullptr;
+        for (uint32_t index = 0; index < workspace->candidate_count; ++index) {
+          ac_candidate_v1 *candidate = &workspace->candidates[index];
+          if (selected_id(workspace, candidate->entity_id)) continue;
+          if (worst == nullptr || candidate_before(*worst, *candidate)) worst = candidate;
+        }
+        if (worst != nullptr && candidate_before(aggregate, *worst)) *worst = aggregate;
       }
     }
   }
@@ -498,7 +604,9 @@ ac_status_v1 ac_progress_record_v1(ac_progress_v1 *progress,
                              open_obligations < progress->open_obligations ||
                              new_evidence != 0u || new_hypothesis != 0u ||
                              frontier_expansion != 0u || rollback_count != 0u;
-  if (repeated) ++progress->repeated_action_count;
+  if (repeated && progress->repeated_action_count != std::numeric_limits<uint16_t>::max()) {
+    ++progress->repeated_action_count;
+  }
   if (repeated && !made_progress) {
     if (progress->stagnation_cycles != std::numeric_limits<uint16_t>::max()) {
       ++progress->stagnation_cycles;
@@ -525,7 +633,9 @@ ac_status_v1 ac_progress_record_v1(ac_progress_v1 *progress,
                          progress->rollback_count + rollback_count));
   progress->last_action = action;
   progress->repeated_error_signature = error_signature;
-  ++progress->reserved[0];
+  if (progress->reserved[0] != std::numeric_limits<uint32_t>::max()) {
+    ++progress->reserved[0];
+  }
   return AC_OK;
 }
 
@@ -609,6 +719,105 @@ ac_status_v1 ac_cog_runtime_serialize_v1(
   return writer.size() == AC_COG_RUNTIME_SERIALIZED_BYTES ? AC_OK : AC_ABI_MISMATCH;
 }
 
+ac_status_v1 ac_cog_runtime_deserialize_v1(
+    const uint8_t *payload,
+    size_t payload_size,
+    ac_cog_summary_v1 *cog,
+    ac_5c_state_v1 *five_c,
+    ac_progress_v1 *progress,
+    ac_specialist_summary_v1 *specialists) {
+  if (payload == nullptr || cog == nullptr || five_c == nullptr || progress == nullptr ||
+      specialists == nullptr || payload_size != AC_COG_RUNTIME_SERIALIZED_BYTES) {
+    return AC_INVALID_ARGUMENT;
+  }
+  const uint32_t expected_crc = static_cast<uint32_t>(payload[payload_size - 4]) |
+      (static_cast<uint32_t>(payload[payload_size - 3]) << 8u) |
+      (static_cast<uint32_t>(payload[payload_size - 2]) << 16u) |
+      (static_cast<uint32_t>(payload[payload_size - 1]) << 24u);
+  if (crc32(payload, payload_size - 4) != expected_crc) return AC_CHECKSUM_MISMATCH;
+  Reader reader(payload, payload_size - 4);
+  uint8_t magic[8];
+  uint32_t abi_version = 0;
+  if (!reader.bytes(magic, sizeof(magic)) || std::memcmp(magic, kCogMagic, 8) != 0 ||
+      !reader.u32(&abi_version)) {
+    return AC_INVALID_ARGUMENT;
+  }
+  if (abi_version != AC_ABI_VERSION) return AC_ABI_MISMATCH;
+  ac_cog_summary_v1 decoded_cog{};
+  ac_5c_state_v1 decoded_five_c{};
+  ac_progress_v1 decoded_progress{};
+  ac_specialist_summary_v1 decoded_specialists{};
+  decoded_cog.struct_size = sizeof(decoded_cog);
+  decoded_five_c.struct_size = sizeof(decoded_five_c);
+  decoded_progress.struct_size = sizeof(decoded_progress);
+#define AC_READ_U16(field) if (!reader.u16(&(field))) return AC_INVALID_ARGUMENT
+#define AC_READ_U32(field) if (!reader.u32(&(field))) return AC_INVALID_ARGUMENT
+#define AC_READ_U64(field) if (!reader.u64(&(field))) return AC_INVALID_ARGUMENT
+  AC_READ_U16(decoded_cog.schema_version);
+  AC_READ_U16(decoded_cog.open_goals);
+  AC_READ_U16(decoded_cog.mandatory_open);
+  AC_READ_U16(decoded_cog.mandatory_satisfied);
+  AC_READ_U16(decoded_cog.blocked_or_failed);
+  AC_READ_U16(decoded_cog.invariant_violations);
+  AC_READ_U16(decoded_cog.active_hypotheses);
+  AC_READ_U16(decoded_cog.competing_hypotheses);
+  AC_READ_U16(decoded_cog.contradictions);
+  AC_READ_U16(decoded_cog.evidence_count);
+  AC_READ_U16(decoded_cog.unresolved_count);
+  AC_READ_U16(decoded_cog.open_frontier);
+  AC_READ_U16(decoded_cog.observed_state_count);
+  AC_READ_U16(decoded_cog.completion_permille);
+  AC_READ_U16(decoded_cog.stagnant_steps);
+  AC_READ_U16(decoded_cog.repeated_error_count);
+  AC_READ_U16(decoded_cog.repeated_action_count);
+  AC_READ_U16(decoded_cog.verifier_state_code);
+  AC_READ_U16(decoded_cog.halt_success_legal);
+  for (uint16_t &value : decoded_cog.reserved) AC_READ_U16(value);
+  AC_READ_U16(decoded_five_c.schema_version);
+  AC_READ_U16(decoded_five_c.constraint_count);
+  AC_READ_U64(decoded_five_c.immutable_digest_low);
+  AC_READ_U64(decoded_five_c.immutable_digest_high);
+  AC_READ_U32(decoded_five_c.flags);
+  AC_READ_U32(decoded_five_c.violation_count);
+  AC_READ_U32(decoded_five_c.last_violation_id);
+  for (uint32_t &value : decoded_five_c.reserved) AC_READ_U32(value);
+  AC_READ_U16(decoded_progress.open_obligations);
+  AC_READ_U16(decoded_progress.completed_obligations);
+  AC_READ_U16(decoded_progress.new_evidence_count);
+  AC_READ_U16(decoded_progress.new_hypothesis_count);
+  AC_READ_U16(decoded_progress.frontier_expansion_count);
+  AC_READ_U16(decoded_progress.repeated_action_count);
+  AC_READ_U16(decoded_progress.verifier_state);
+  AC_READ_U16(decoded_progress.rollback_count);
+  AC_READ_U32(decoded_progress.repeated_error_signature);
+  AC_READ_U16(decoded_progress.stagnation_cycles);
+  AC_READ_U16(decoded_progress.flags);
+  AC_READ_U32(decoded_progress.last_action);
+  for (uint32_t &value : decoded_progress.reserved) AC_READ_U32(value);
+  AC_READ_U32(decoded_specialists.cold_count);
+  AC_READ_U32(decoded_specialists.warm_count);
+  AC_READ_U32(decoded_specialists.hot_count);
+  AC_READ_U32(decoded_specialists.resident_ram_bytes);
+#undef AC_READ_U16
+#undef AC_READ_U32
+#undef AC_READ_U64
+  constexpr uint32_t kKnownFiveCFlags = AC_5C_STATE_FAIL_CLOSED |
+      AC_5C_STATE_VERIFIER_REQUIRED | AC_5C_STATE_ROLLBACK_REQUIRED;
+  if (reader.cursor() != reader.size() ||
+      decoded_cog.schema_version != AC_COG_SCHEMA_VERSION ||
+      decoded_five_c.schema_version != AC_5C_SCHEMA_VERSION ||
+      decoded_cog.completion_permille > 1000u || decoded_cog.halt_success_legal > 1u ||
+      (decoded_progress.flags & ~AC_PROGRESS_STAGNATED) != 0u ||
+      (decoded_five_c.flags & ~kKnownFiveCFlags) != 0u) {
+    return AC_INVALID_STATE;
+  }
+  *cog = decoded_cog;
+  *five_c = decoded_five_c;
+  *progress = decoded_progress;
+  *specialists = decoded_specialists;
+  return AC_OK;
+}
+
 ac_status_v1 ac_execute_action_v1(ac_workspace_v1 *workspace,
                                   uint32_t action,
                                   uint64_t argument_id) {
@@ -682,9 +891,7 @@ ac_status_v1 ac_session_serialize_v1(const ac_session_v1 *session,
                                      size_t *written) {
   if (written != nullptr) *written = AC_SESSION_SERIALIZED_BYTES;
   if (session == nullptr || output == nullptr || session->struct_size != sizeof(*session) ||
-      session->abi_version != AC_ABI_VERSION || !valid_workspace(&session->workspace) ||
-      session->active_entity_count > AC_SESSION_ENTITY_CAP ||
-      session->pending_clarification_count > AC_SESSION_CLARIFICATION_CAP) {
+      session->abi_version != AC_ABI_VERSION || !valid_session_state(*session)) {
     return AC_INVALID_ARGUMENT;
   }
   if (output_size < AC_SESSION_SERIALIZED_BYTES) return AC_BUFFER_TOO_SMALL;
@@ -758,10 +965,7 @@ ac_status_v1 ac_session_deserialize_v1(const uint8_t *payload,
       !reader.u32(&decoded.workspace.invalid_action_count) ||
       !reader.u32(&decoded.workspace.flags) ||
       !reader.u32(&decoded.workspace.terminal_disposition)) return AC_INVALID_ARGUMENT;
-  if (!valid_workspace(&decoded.workspace) ||
-      decoded.active_entity_count > AC_SESSION_ENTITY_CAP ||
-      decoded.pending_clarification_count > AC_SESSION_CLARIFICATION_CAP ||
-      decoded.session_id[AC_SESSION_ID_BYTES - 1] != '\0') return AC_INVALID_STATE;
+  if (!valid_session_state(decoded)) return AC_INVALID_STATE;
   *session = decoded;
   return AC_OK;
 }

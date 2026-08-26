@@ -355,6 +355,13 @@ AC_API ac_status_v1 ac_cog_runtime_serialize_v1(
     uint8_t *output,
     size_t output_size,
     size_t *written);
+AC_API ac_status_v1 ac_cog_runtime_deserialize_v1(
+    const uint8_t *payload,
+    size_t payload_size,
+    ac_cog_summary_v1 *cog,
+    ac_5c_state_v1 *five_c,
+    ac_progress_v1 *progress,
+    ac_specialist_summary_v1 *specialists);
 
 /* Exact bounded transition. argument_id is required only for SELECT_EVIDENCE. */
 AC_API ac_status_v1 ac_execute_action_v1(

@@ -69,6 +69,7 @@ class SandboxedToolExecutor:
         repository_roots: Sequence[Path] = (),
         command_allowlist: Mapping[str, Sequence[str]] | None = None,
         knowledge: KnowledgeSearch | None = None,
+        available_tools: frozenset[ToolKind] | None = None,
     ) -> None:
         self.sandbox_root = sandbox_root.resolve()
         self.sandbox_root.mkdir(parents=True, exist_ok=True)
@@ -77,6 +78,9 @@ class SandboxedToolExecutor:
             name: tuple(command) for name, command in (command_allowlist or {}).items()
         }
         self.knowledge = knowledge
+        self.available_tools = (
+            frozenset(ToolKind) if available_tools is None else available_tools
+        )
         self._last_result: ToolResult | None = None
         self._integration_authorizations: set[str] = set()
 
@@ -157,6 +161,8 @@ class SandboxedToolExecutor:
         return result
 
     def _execute(self, request: ToolRequest) -> ToolResult:
+        if request.kind not in self.available_tools:
+            raise ToolSafetyError(f"tool is unavailable on this runtime: {request.kind}")
         if request.kind is ToolKind.CREATE_SANDBOX:
             name = self._safe_name(self._string(request, "name"), label="sandbox name")
             destination = self._within(self.sandbox_root, name)

@@ -34,3 +34,19 @@ unchanged. The native COG field order exactly matches the 19-u16
 The ABI is fixed-width and versioned. Session persistence is a canonical
 little-endian byte stream with CRC-32; it is not a dump of compiler-dependent
 struct padding. The V14 cognitive snapshot follows the same rule.
+
+V15 hardens the same ABI without changing its legal V14 wire image: selected
+evidence is pinned against K=32 eviction, VERIFIED and TERMINAL workspaces reject
+candidate mutation, session decoding revalidates runtime invariants, and
+`ac_cog_runtime_deserialize_v1` decodes the exact 180-byte COG projection without
+raw struct casts. The production-facing host entrypoints are:
+
+```sh
+aethersparse aethercore compile
+aethersparse aethercore pack --help
+aethersparse aethercore qualify
+aethersparse aethercore service
+```
+
+Historical mission scripts remain available for published-result
+reproducibility; these four commands are the consolidated V15 operational path.

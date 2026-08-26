@@ -1,0 +1,64 @@
+{
+  "branch": "work/aethercore-v15-operational-system",
+  "classification": "V15_READY_WITH_STORAGE_EXPERIMENT_PENDING",
+  "controller": {
+    "active_parameters": 1292,
+    "architecture": "typed legal-mask COG structured perceptron",
+    "autonomous_total": "242/260",
+    "autonomous_tuning": "138/150",
+    "stored_parameters": 1292,
+    "weights": "int8"
+  },
+  "deployment": {
+    "cold_pack_semantics": "immutable_page_addressed",
+    "profiles": {
+      "COMPACT": "two_level_paged",
+      "PERFORMANCE": "direct_compact_resident"
+    },
+    "projected_psram_headroom_bytes": 27132767,
+    "projected_resident_bytes": 6421665,
+    "selected_cache_bytes": 2097152
+  },
+  "device_boundary": {
+    "device_a": "Waveshare ESP32-P4/C6 3.5-inch Tactility terminal; UI only",
+    "device_b": "Waveshare ESP32-P4-WIFI6 SKU 32020 accessory; cognition"
+  },
+  "factory_pending": [
+    "Pack-v2 physical I/O",
+    "Kingston A2 control",
+    "exact custom Device-A BSP build"
+  ],
+  "native": {
+    "allocation_free_core": true,
+    "cog_deserialize": "BYTE_EXACT",
+    "external_abi": "C",
+    "language": "C++17",
+    "selected_policy_bound": true
+  },
+  "qualification_source_sha": "93b22ff27a0304f41f323b32832bee667c937583",
+  "schema_version": "aethercore.architecture-registry.v15",
+  "service": {
+    "entrypoint": "aethercore-server",
+    "protocol": "aethercore-tactility.v2",
+    "transport": "C6-hosted ESP-NOW",
+    "user_memory_policy": "explicit authorization only"
+  },
+  "source_main_sha": "c3aa2ef61e6ae77a12063e47221c6e4decae3762",
+  "source_main_tree_sha": "09888952949745677b6a1b4939b90f14ccfe83d8",
+  "state": {
+    "authoritative_schema": "aethercore.operational-state.v1",
+    "cog_projection_bytes": 180,
+    "five_c": "immutable_root_boundary",
+    "memory_tiers": [
+      "EPHEMERAL",
+      "SHORT_TERM",
+      "WORKING",
+      "LONG_TERM"
+    ],
+    "residency": [
+      "COLD",
+      "WARM",
+      "HOT"
+    ]
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "candidate": {
+    "activation_representation": "signed fixed-point integer / 256",
+    "architecture": "three-head shared passage-context legal-argument specialist",
+    "authority": "may rank legal SELECT_CLAIM arguments only after frozen V14 selects SELECT_CLAIM",
+    "autonomous": {
+      "average_legal_candidate_scores": 156.3653846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 1.0,
+          "reachable_evaluated": 110,
+          "successful": 110
+        },
+        "tuning": {
+          "rate": 0.86,
+          "reachable_evaluated": 150,
+          "successful": 129
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 21
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9192307692307692,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 239,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 21
+    },
+    "best_candidate_epochs": 8,
+    "candidate_epoch_metrics": {
+      "1": {
+        "residual": 44,
+        "total_success": 216,
+        "tuning_success": 120
+      },
+      "16": {
+        "residual": 21,
+        "total_success": 239,
+        "tuning_success": 129
+      },
+      "2": {
+        "residual": 37,
+        "total_success": 223,
+        "tuning_success": 124
+      },
+      "32": {
+        "residual": 21,
+        "total_success": 239,
+        "tuning_success": 129
+      },
+      "4": {
+        "residual": 26,
+        "total_success": 234,
+        "tuning_success": 129
+      },
+      "8": {
+        "residual": 21,
+        "total_success": 239,
+        "tuning_success": 129
+      }
+    },
+    "combined_active_parameters_per_claim_decision": 1310,
+    "combined_stored_parameters": 1346,
+    "feature_count": 18,
+    "head_count": 3,
+    "residual": {
+      "by_answer_shape": {
+        "date": 6,
+        "definition": 1,
+        "quotation": 14
+      },
+      "by_category": {
+        "date": 6,
+        "misspelling": 1,
+        "quotation": 14
+      },
+      "case_ids_sha256_only": [
+        "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+        "7f051a41a0c4e052bed036467ba966d0d2fa2945b9be3cd27d46e5abd658008c",
+        "8fe6bc1f8c3588d1fa3ad77b915abac33ad1c31511018ecb06c64c1e803ecf6c",
+        "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+        "9eb6529197f5a2a7c198ee2bd61e0a98b3f1a2f7c5be22578ff9644a77f8eac6",
+        "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f",
+        "dcb39ff9a7e02fe7cca10e3492f7d0bbd97f56a097ea73c646da42dcd8fbf5da",
+        "e42c8c6863cb3276c2de3b052a4b79987577be405ed5e148e1c96c2e71dc6cb3"
+      ],
+      "count": 21,
+      "unique_case_count": 8
+    },
+    "specialist_active_parameters_per_claim_decision": 18,
+    "specialist_resident_parameters": 54,
+    "specialist_stored_parameters": 54,
+    "specialist_weight_representation": "int8",
+    "teacher_next_action": {
+      "development": {
+        "accuracy": 0.9964349376114082,
+        "correct": 559,
+        "decisions": 561
+      },
+      "tuning": {
+        "accuracy": 0.9557291666666666,
+        "correct": 734,
+        "decisions": 768
+      }
+    }
+  },
+  "capacity_ladder_disposition": {
+    "16k_run": false,
+    "256k_run": false,
+    "4k_run": false,
+    "64k_run": false,
+    "reason": "The measured hypothesis is one 18-feature local-context family. Escalation is prohibited unless this 54-byte branch demonstrates a positive capability/byte result; unused dense capacity is not an experiment."
+  },
+  "cross_source_policy": {
+    "conditional_only": [
+      "conflict",
+      "uncertainty",
+      "high-risk ambiguity",
+      "explicit verification request"
+    ],
+    "mandatory_reads_added": false
+  },
+  "deferred_architecture_disposition": {
+    "adaptive_depth": "DEFERRED_EXPLICIT_COG_HAS_NO_TEMPORAL_LOSS_SIGNAL",
+    "cognitive_lookup_memory": "UNTESTED_DEFER_UNTIL_LEAKAGE_SAFE_MEMORY_CONTRACT",
+    "dagger": "TESTED_REJECTED_DO_NOT_REPEAT_243_STATES_231_OF_260",
+    "early_halt": "KEEP_DETERMINISTIC_COG_VERIFIER_GATE",
+    "factorized_bilinear": "UNTESTED_NOT_JUSTIFIED_BEFORE_NARROW_CONTEXT_HEAD",
+    "shared_recurrent_core_1_2_4_8": "UNTESTED_NOT_AUTHORIZED_NO_PRIOR_STATE_LOSS"
+  },
+  "schema_version": "aethercore.v15-specialist-capacity-qualification.v1",
+  "scope": {
+    "authenticated_states": 260,
+    "development_states": 110,
+    "fit_partitions": [
+      "development"
+    ],
+    "frozen_v14_controller": true,
+    "operation_grammar_changed": false,
+    "sealed_partitions_loaded_or_used": 0,
+    "selection_partition": "tuning",
+    "semantic_address_changed": false,
+    "tuning_states": 150,
+    "verifier_changed": false
+  },
+  "selected": {
+    "architecture": "frozen V14 1292-int8-parameter COG legal-mask structured perceptron",
+    "autonomous": {
+      "average_legal_candidate_scores": 156.26153846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9454545454545454,
+          "reachable_evaluated": 110,
+          "successful": 104
+        },
+        "tuning": {
+          "rate": 0.92,
+          "reachable_evaluated": 150,
+          "successful": 138
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 18
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9307692307692308,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 242,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 18
+    },
+    "residual": {
+      "by_answer_shape": {
+        "date": 11,
+        "definition": 1,
+        "quotation": 6
+      },
+      "by_category": {
+        "date": 11,
+        "misspelling": 1,
+        "quotation": 6
+      },
+      "case_ids_sha256_only": [
+        "10884f43c746fbff7a01e69bd8972f1ad6041cea36b66506dc462693a23e422f",
+        "1c2fb0b0ed6213549c5d925c6422936eaaf6c14277ae8dd5d6687cd1173daefb",
+        "3e31cc6c74883838cf174b37106644450c6d3fd8c294fcd6bb42b709b82eb1ee",
+        "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+        "6ca83184a386ea4fa881d4b3dd5c44d877e925624e39a579865b52085272d515",
+        "6dba38af64c2d2f2f8bf9658395b58e601089f50146762a7660601f6d13e6db7",
+        "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+        "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f"
+      ],
+      "count": 18,
+      "unique_case_count": 8
+    }
+  },
+  "source_identity": {
+    "benchmark_sha256": "1e8b89427898df3c3e5efef55135192cf6d48240f0f568c95eb1570470ead113",
+    "mission5_sha256": "280b314b313b69c72583702898bf135b614d725405587725d4d5f047601327cd",
+    "replay_bundle_sha256": "099cd28b5c2a090d1b08d1e07d39e59ae6583854971c539085741fbb369f0246"
+  },
+  "status": "REJECTED_NO_CAPABILITY_BYTE_GAIN",
+  "v14_baseline": {
+    "architecture": "1292-int8-parameter COG legal-mask structured perceptron",
+    "autonomous": {
+      "average_legal_candidate_scores": 156.26153846153846,
+      "average_operations": 5.111538461538461,
+      "by_partition": {
+        "development": {
+          "rate": 0.9454545454545454,
+          "reachable_evaluated": 110,
+          "successful": 104
+        },
+        "tuning": {
+          "rate": 0.92,
+          "reachable_evaluated": 150,
+          "successful": 138
+        }
+      },
+      "failure_taxonomy": {
+        "WRONG_GROUNDED_ANSWER": 18
+      },
+      "invalid_action_attempts": 0,
+      "maximum_legal_candidate_scores": 204,
+      "p95_legal_candidate_scores": 201.0,
+      "p95_operations": 5.0,
+      "premature_halt": 0,
+      "rate": 0.9307692307692308,
+      "reachable_evaluated": 260,
+      "runaway_max_depth": 0,
+      "successful": 242,
+      "verifier_rejections": 0,
+      "wrong_grounded_claim_residual": 18
+    },
+    "residual": {
+      "by_answer_shape": {
+        "date": 11,
+        "definition": 1,
+        "quotation": 6
+      },
+      "by_category": {
+        "date": 11,
+        "misspelling": 1,
+        "quotation": 6
+      },
+      "case_ids_sha256_only": [
+        "10884f43c746fbff7a01e69bd8972f1ad6041cea36b66506dc462693a23e422f",
+        "1c2fb0b0ed6213549c5d925c6422936eaaf6c14277ae8dd5d6687cd1173daefb",
+        "3e31cc6c74883838cf174b37106644450c6d3fd8c294fcd6bb42b709b82eb1ee",
+        "55d2e09f649ab922d1d47caf62319f91ef76d7a5ff197788d2b98568202d95ef",
+        "6ca83184a386ea4fa881d4b3dd5c44d877e925624e39a579865b52085272d515",
+        "6dba38af64c2d2f2f8bf9658395b58e601089f50146762a7660601f6d13e6db7",
+        "97807d8d9cf136ba5527c7ec7b11555532356ca87cbd7a7250e2d4e6dee41cc9",
+        "b2b7c8135af2b143a738ac0e13d3378ef0b030184f38d019044c2fd44b36990f"
+      ],
+      "count": 18,
+      "unique_case_count": 8
+    }
+  }
+}

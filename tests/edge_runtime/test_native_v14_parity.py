@@ -15,6 +15,8 @@ from aethersparse.controller.adaptive_policy import (
 from aethersparse.controller.micro_ops import MicroAction, MicroState, execute_action, legal_actions
 from aethersparse.edge_runtime.native_v14 import (
     PROGRESS_STAGNATED,
+    NativeV14ContractError,
+    deserialize_cognitive_runtime,
     five_c_digest,
     serialize_cognitive_runtime,
 )
@@ -237,6 +239,14 @@ def compile_runtime(tmp_path: Path) -> ctypes.CDLL:
         ctypes.POINTER(ctypes.c_uint8),
         ctypes.c_size_t,
         ctypes.POINTER(ctypes.c_size_t),
+    ]
+    library.ac_cog_runtime_deserialize_v1.argtypes = [
+        ctypes.POINTER(ctypes.c_uint8),
+        ctypes.c_size_t,
+        ctypes.POINTER(CogSummary),
+        ctypes.POINTER(FiveCState),
+        ctypes.POINTER(Progress),
+        ctypes.POINTER(SpecialistSummary),
     ]
     return library
 
@@ -573,3 +583,95 @@ def test_compact_cog_5c_progress_wire_is_bit_exact(tmp_path: Path) -> None:
     ) == 0
     assert written.value == len(expected)
     assert bytes(output) == expected
+
+    decoded_cog = CogSummary()
+    decoded_five_c = FiveCState()
+    decoded_progress = Progress()
+    decoded_specialists = SpecialistSummary()
+    assert library.ac_cog_runtime_deserialize_v1(
+        output,
+        len(output),
+        ctypes.byref(decoded_cog),
+        ctypes.byref(decoded_five_c),
+        ctypes.byref(decoded_progress),
+        ctypes.byref(decoded_specialists),
+    ) == 0
+    assert decoded_cog.struct_size == ctypes.sizeof(CogSummary)
+    assert decoded_five_c.struct_size == ctypes.sizeof(FiveCState)
+    assert decoded_progress.struct_size == ctypes.sizeof(Progress)
+    round_trip = (ctypes.c_uint8 * len(expected))()
+    assert library.ac_cog_runtime_serialize_v1(
+        ctypes.byref(decoded_cog),
+        ctypes.byref(decoded_five_c),
+        ctypes.byref(decoded_progress),
+        ctypes.byref(decoded_specialists),
+        round_trip,
+        len(round_trip),
+        ctypes.byref(written),
+    ) == 0
+    assert bytes(round_trip) == expected
+    python_decoded = deserialize_cognitive_runtime(expected)
+    assert serialize_cognitive_runtime(*python_decoded) == expected
+
+
+@pytest.mark.parametrize(
+    ("offset", "format_", "value"),
+    [
+        (12 + 13 * 2, "<H", 1001),  # completion_permille
+        (12 + 18 * 2, "<H", 2),  # halt_success_legal
+        (76, "<I", 1 << 12),  # 5C flags
+        (138, "<H", 1 << 9),  # progress flags
+    ],
+)
+def test_cog_deserialize_rejects_crc_valid_semantic_forgery(
+    tmp_path: Path, offset: int, format_: str, value: int
+) -> None:
+    library = compile_runtime(tmp_path)
+    vector = json.loads(VECTOR_PATH.read_text(encoding="utf-8"))
+    payload = bytearray(
+        serialize_cognitive_runtime(
+            PyCogSummary(**vector["cog"]),
+            PyFiveCState(**vector["five_c"]),
+            PyProgress(open_obligations=4, completed_obligations=7),
+            PySpecialistSummary(**vector["specialists"]),
+        )
+    )
+    import struct
+    import zlib
+
+    struct.pack_into(format_, payload, offset, value)
+    struct.pack_into("<I", payload, len(payload) - 4, zlib.crc32(payload[:-4]))
+    wire = (ctypes.c_uint8 * len(payload)).from_buffer_copy(payload)
+    assert library.ac_cog_runtime_deserialize_v1(
+        wire,
+        len(wire),
+        ctypes.byref(CogSummary()),
+        ctypes.byref(FiveCState()),
+        ctypes.byref(Progress()),
+        ctypes.byref(SpecialistSummary()),
+    ) == 2
+    with pytest.raises(NativeV14ContractError):
+        deserialize_cognitive_runtime(bytes(payload))
+
+
+def test_progress_saturates_every_counter_without_v14_wrap(tmp_path: Path) -> None:
+    library = compile_runtime(tmp_path)
+    native = Progress()
+    native.struct_size = ctypes.sizeof(Progress)
+    native.repeated_action_count = 0xFFFF
+    native.new_evidence_count = 0xFFFF
+    native.new_hypothesis_count = 0xFFFF
+    native.frontier_expansion_count = 0xFFFF
+    native.rollback_count = 0xFFFF
+    native.reserved[0] = 0xFFFFFFFF
+    native.last_action = 7
+    native.repeated_error_signature = 99
+    assert library.ac_progress_record_v1(
+        ctypes.byref(native), 7, 99, 2, 1, 1, 1, 1, 0, 1
+    ) == 0
+    assert native.repeated_action_count == 0xFFFF
+    assert native.new_evidence_count == 0xFFFF
+    assert native.new_hypothesis_count == 0xFFFF
+    assert native.frontier_expansion_count == 0xFFFF
+    assert native.rollback_count == 0xFFFF
+    assert native.reserved[0] == 0xFFFFFFFF
