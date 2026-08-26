@@ -328,6 +328,7 @@ static bool phase6_trace(int evd_mode, size_t cache_bytes, const char *label) {
   ac_int8_policy_v2 policy = make_policy();
   evd_set_mode(evd_mode);
   packv2_stats_reset();
+  evd_dir_sd_reads_reset();
   Pager *pager = pager_create(cache_bytes);
   uint8_t *cand_buf = (uint8_t *)heap_caps_malloc(DECISION_CHUNK * CANDIDATE_RECORD_BYTES,
                                                   MALLOC_CAP_INTERNAL);
@@ -464,7 +465,9 @@ static bool phase6_trace(int evd_mode, size_t cache_bytes, const char *label) {
          "\"pages_read\":%llu,\"random_reads\":%llu,\"sequential_reads\":%llu,"
          "\"class_postings_misses\":%llu,\"class_surface_misses\":%llu,"
          "\"class_evidence_misses\":%llu,"
-         "\"evd_dir_sd_reads\":%llu,\"packv2_lookups\":%llu,"
+         "\"evd_dir_sd_reads\":%llu,\"io_ops\":%llu,"
+         "\"readahead_pages\":%llu,\"read_time_s\":%.3f,"
+         "\"packv2_lookups\":%llu,"
          "\"packv2_misses\":%llu,\"packv2_cpu_us\":%llu}\n",
          label, evd_mode, (unsigned)pager_capacity(pager),
          replay_seconds, (unsigned)cases_ok, (unsigned)s_trace.case_count,
@@ -480,6 +483,9 @@ static bool phase6_trace(int evd_mode, size_t cache_bytes, const char *label) {
          (unsigned long long)stats.class_misses[CLASS_SURFACE],
          (unsigned long long)stats.class_misses[CLASS_EVIDENCE],
          (unsigned long long)evd_dir_sd_reads(),
+         (unsigned long long)stats.io_ops,
+         (unsigned long long)stats.readahead_pages,
+         (double)stats.read_time_us / 1e6,
          (unsigned long long)v2.lookups, (unsigned long long)v2.misses,
          (unsigned long long)v2.cpu_us);
   bool logical_pass = decisions_matched == decisions_total &&

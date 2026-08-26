@@ -35,9 +35,11 @@ typedef struct {
   uint64_t cache_misses;
   uint64_t random_reads;    /* posting-list first-page misses */
   uint64_t sequential_reads;
-  uint64_t physical_reads;  /* actual pread() calls served by the pager */
+  uint64_t physical_reads;  /* pages filled from storage (4 KiB units) */
   uint64_t physical_bytes;
   uint64_t read_time_us;    /* time inside physical page reads */
+  uint64_t io_ops;          /* actual pread() calls (multi-page aware) */
+  uint64_t readahead_pages; /* pages filled speculatively beyond the request */
   uint32_t region_pages[4]; /* physical pages by region: 0=idx 1=ent 2=evd 3=other */
 } PagerStats;
 
@@ -137,6 +139,7 @@ const char *pack_root_path(void);
 /* Evidence-directory lookups that touched SD (any mode); must be 0 for a
  * whole PERFORMANCE-mode workload. */
 uint64_t evd_dir_sd_reads(void);
+void evd_dir_sd_reads_reset(void);
 
 /* The deployment region files (for benches). */
 RegionFile *pack_region_evidence(void);

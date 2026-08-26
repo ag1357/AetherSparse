@@ -54,9 +54,19 @@ static uint64_t s_evd_blobs_off;
 
 /* ------------------------------------------------------------------------- */
 
+/* Phase 8 multi-block readahead: FAT/VFS adds ~3.4 ms fixed cost per pread
+ * on this bus (measured: 4 KiB pread p50 3.9 ms vs 0.48 ms/4KiB streaming),
+ * so each miss fills up to PAGER_READAHEAD sequential pages with ONE pread
+ * and inserts them as cache pages. Logical content is unchanged (same pages,
+ * same bytes); the replay A/B verifies parity. physical_reads/physical_bytes
+ * stay page-granular for V14-reference comparability; io_ops counts pread
+ * calls, readahead_pages counts speculatively filled pages. */
+#define PAGER_READAHEAD 16u
+
 struct Pager {
   size_t page_count;
   uint8_t *store; /* page_count * PACK_PAGE, PSRAM */
+  uint8_t *staging; /* PAGER_READAHEAD * PACK_PAGE, PSRAM (NULL = disabled) */
   uint32_t *slot_region; /* per slot: region id */
   uint64_t *slot_page;   /* per slot: page number */
   uint64_t *slot_tick;   /* LRU tick */
@@ -87,6 +97,13 @@ Pager *pager_create(size_t capacity_bytes) {
                                                       MALLOC_CAP_INTERNAL);
     pager->slot_valid = (bool *)heap_caps_calloc(pager->page_count, 1,
                                                  MALLOC_CAP_INTERNAL);
+    /* Staging must be internal DMA-capable RAM: the SDMMC driver cannot DMA
+     * into PSRAM and degrades to slow bounce transfers (measured: ~45 ms per
+     * 64 KiB vs ~11 ms internal). Slots stay in PSRAM; only the 64 KiB
+     * staging buffer needs DMA reachability. */
+    pager->staging = (uint8_t *)heap_caps_malloc(PAGER_READAHEAD * PACK_PAGE,
+                                                 MALLOC_CAP_INTERNAL |
+                                                     MALLOC_CAP_DMA);
     if (!pager->store || !pager->slot_page || !pager->slot_tick ||
         !pager->slot_region || !pager->slot_valid) {
       pager_destroy(pager);
@@ -99,6 +116,7 @@ Pager *pager_create(size_t capacity_bytes) {
 void pager_destroy(Pager *pager) {
   if (!pager) return;
   free(pager->store);
+  free(pager->staging);
   free(pager->slot_page);
   free(pager->slot_tick);
   free(pager->slot_region);
@@ -148,35 +166,61 @@ const uint8_t *pager_page(Pager *pager, RegionFile *region, uint64_t page_no) {
   }
   pager->stats.cache_misses += 1;
   pager->stats.class_misses[pager->current_class & 3] += 1;
-  size_t slot = 0;
-  if (pager->page_count) {
-    uint64_t oldest = UINT64_MAX;
+  if (!pager->page_count || !pager->staging) {
+    bool ok = region_read(region, page_no * PACK_PAGE, s_zero_cache_page,
+                          PACK_PAGE);
+    pager->stats.io_ops += 1;
+    pager->stats.physical_reads += 1;
+    pager->stats.physical_bytes += PACK_PAGE;
+    pager->stats.region_pages[region->region_id & 3] += 1;
+    pager->stats.read_time_us += (uint64_t)(esp_timer_get_time() - start);
+    return ok ? s_zero_cache_page : nullptr;
+  }
+  /* One pread fills up to PAGER_READAHEAD sequential pages. */
+  uint64_t pages_left = (region->length - page_no * PACK_PAGE + PACK_PAGE - 1) /
+                        PACK_PAGE;
+  size_t fill = (size_t)(pages_left < PAGER_READAHEAD ? pages_left : PAGER_READAHEAD);
+  bool ok = region_read(region, page_no * PACK_PAGE, pager->staging,
+                        fill * PACK_PAGE);
+  pager->stats.io_ops += 1;
+  pager->stats.read_time_us += (uint64_t)(esp_timer_get_time() - start);
+  if (!ok) return nullptr;
+  const uint8_t *first = nullptr;
+  for (size_t j = 0; j < fill; j++) {
+    uint64_t p = page_no + j;
+    /* Refresh instead of duplicating an already-cached page. */
+    size_t slot = SIZE_MAX;
     for (size_t i = 0; i < pager->page_count; i++) {
-      if (!pager->slot_valid[i]) {
+      if (pager->slot_valid[i] && pager->slot_page[i] == p &&
+          pager->slot_region[i] == region->region_id) {
         slot = i;
         break;
       }
-      if (pager->slot_tick[i] < oldest) {
-        oldest = pager->slot_tick[i];
-        slot = i;
+    }
+    if (slot == SIZE_MAX) {
+      uint64_t oldest = UINT64_MAX;
+      slot = 0;
+      for (size_t i = 0; i < pager->page_count; i++) {
+        if (!pager->slot_valid[i]) { slot = i; break; }
+        if (pager->slot_tick[i] < oldest) {
+          oldest = pager->slot_tick[i];
+          slot = i;
+        }
       }
     }
-  }
-  uint8_t *dest = pager->page_count ? pager->store + slot * PACK_PAGE
-                                    : s_zero_cache_page;
-  bool ok = region_read(region, page_no * PACK_PAGE, dest, PACK_PAGE);
-  pager->stats.physical_reads += 1;
-  pager->stats.physical_bytes += PACK_PAGE;
-  pager->stats.region_pages[region->region_id & 3] += 1;
-  pager->stats.read_time_us += (uint64_t)(esp_timer_get_time() - start);
-  if (!ok) return nullptr;
-  if (pager->page_count) {
+    memcpy(pager->store + slot * PACK_PAGE, pager->staging + j * PACK_PAGE,
+           PACK_PAGE);
     pager->slot_valid[slot] = true;
-    pager->slot_page[slot] = page_no;
+    pager->slot_page[slot] = p;
     pager->slot_region[slot] = region->region_id;
     pager->slot_tick[slot] = ++pager->tick;
+    if (j == 0) first = pager->store + slot * PACK_PAGE;
   }
-  return dest;
+  pager->stats.physical_reads += fill;
+  pager->stats.physical_bytes += (uint64_t)fill * PACK_PAGE;
+  pager->stats.region_pages[region->region_id & 3] += (uint32_t)fill;
+  pager->stats.readahead_pages += fill - 1;
+  return first;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -906,6 +950,7 @@ uint64_t evd_directory_offset(void) { return s_evd_directory_off; }
 uint64_t evd_directory_length(void) { return s_evd_directory_len; }
 const char *pack_root_path(void) { return s_pack_root; }
 uint64_t evd_dir_sd_reads(void) { return s_evd_dir_sd_reads; }
+void evd_dir_sd_reads_reset(void) { s_evd_dir_sd_reads = 0; }
 
 static bool evd_find(uint32_t entity_idx, uint32_t *blob_off, uint32_t *blob_len,
                      uint32_t *count, Pager *pager) {
