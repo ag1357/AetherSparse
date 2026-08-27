@@ -1,6 +1,8 @@
 # Factory V15 Link Repair Handoff
 
-Qualified repair source SHA/tree: **PENDING CONNECTED-GITHUB PUBLICATION RECORD**
+Qualified repair source SHA: `bef1943c4c9e50d42589089af69fb983335de1ae`
+
+Qualified repair source tree: `74498c026597c2a0d22c065103e6ed08ffb3a41f`
 
 Classification: `LINK_REPAIR_READY_FOR_FACTORY`
 

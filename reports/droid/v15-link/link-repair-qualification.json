@@ -4,8 +4,8 @@
   "classification": "LINK_REPAIR_READY_FOR_FACTORY",
   "publication": {
     "branch": "work/aethercore-v15-link-architecture-repair",
-    "qualified_source_commit": "PENDING_CONNECTED_GITHUB_PUBLICATION",
-    "qualified_source_tree": "PENDING_CONNECTED_GITHUB_PUBLICATION"
+    "qualified_source_commit": "bef1943c4c9e50d42589089af69fb983335de1ae",
+    "qualified_source_tree": "74498c026597c2a0d22c065103e6ed08ffb3a41f"
   },
   "factory_parent": {
     "commit": "aa0cebc98d09d390c27cd39a69d158842d8132cd",

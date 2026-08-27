@@ -13,6 +13,8 @@ device.
 - Factory parent commit: `aa0cebc98d09d390c27cd39a69d158842d8132cd`
 - Factory parent tree: `a5d84c7ed1aee35ba41c923b89bbb3fcfd431dba`
 - Publication branch: `work/aethercore-v15-link-architecture-repair`
+- Qualified remote source commit: `bef1943c4c9e50d42589089af69fb983335de1ae`
+- Qualified remote source tree: `74498c026597c2a0d22c065103e6ed08ffb3a41f`
 - Pinned Tactility reference: `0ee2415f3b5a063fadc2015d50d0d1c1c8b0b6e1`
 - Scope: Device-A/Device-B network ownership and socket orientation only.
 
