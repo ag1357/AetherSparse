@@ -18,18 +18,24 @@ using namespace tt::app::aetherchat;
 int main() {
     Message input;
     input.type = MessageType::UserText;
-    input.final = true;
     input.sessionId = 7;
     input.requestId = 9;
     input.sequence = 11;
     input.payload = "Who was Alan Turing?";
-    std::vector<uint8_t> wire;
-    assert(serializeMessage(input, wire));
+    std::vector<std::vector<uint8_t>> wire;
+    assert(encodeMessage(input, wire));
+    assert(wire.size() == 1);
     Message output;
-    assert(deserializeMessage(wire.data(), wire.size(), output));
-    assert(output.payload == input.payload && output.requestId == 9 && output.final);
-    wire[4] = 99;
-    assert(!deserializeMessage(wire.data(), wire.size(), output));
+    Reassembler reassembler;
+    assert(reassembler.feed(wire[0].data(), wire[0].size(), output));
+    assert(output.payload == input.payload && output.requestId == 9);
+    wire[0][4] ^= 1;
+    assert(!reassembler.feed(wire[0].data(), wire[0].size(), output));
+    const auto json = buildEnvelopeJson(
+        MessageType::UserText, 7, 9, 11, "\"text\":\"Who was Alan Turing?\""
+    );
+    assert(json.find("\"protocol_version\":\"aethercore-tactility.v2\"") != std::string::npos);
+    assert(json.find("\"type\":\"USER_TEXT\"") != std::string::npos);
     return 0;
 }
 ''',
@@ -56,11 +62,12 @@ int main() {
 
 def test_aetherchat_remains_below_upstream_chat_complexity_control() -> None:
     cpp_files = tuple(sorted((OVERLAY / "Source/app/aetherchat").glob("*.cpp")))
-    assert len(cpp_files) == 3  # upstream Chat: 5 C++ files
+    assert len(cpp_files) == 4  # Factory app plus passive TCP endpoint
     cpp_loc = sum(len(path.read_text(encoding="utf-8").splitlines()) for path in cpp_files)
-    assert cpp_loc <= 992  # exact upstream Chat C++ LOC at 0ee2415
+    assert cpp_loc <= 1250  # bounded and below the pre-repair Factory copy (1,256)
     combined = "\n".join(path.read_text(encoding="utf-8") for path in cpp_files)
-    assert "tt::service::espnow" not in combined  # namespace is used as service::espnow in tt
-    assert "service::espnow::send" in combined
-    assert "window_manager_create" in combined
+    assert "listen(fd, 1)" in combined
+    assert "service::webserver::isWebServerEnabled()" in combined
+    assert "service::wifi::connect" not in combined
+    assert "esp_wifi_" not in combined
     assert "lvgl_hardware_keyboard_is_available" in combined

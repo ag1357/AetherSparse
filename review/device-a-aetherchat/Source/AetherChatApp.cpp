@@ -1,12 +1,11 @@
 // AetherChat: Device A front-end for AetherCore V15.
 //
 // User types here (Tactility on the Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5);
-// text travels as protocol v2 JSON envelopes in length-prefixed TCP frames
-// (FramedJsonCodec parity) to Device B's softAP at 192.168.4.1:9000, where
-// p4_aethercore runs natively. This is the Option A transport: the radio is
-// the board's ESP32-C6 co-processor via esp-hosted/esp_wifi_remote, driven
-// through Tactility's WiFi service. The ESP-NOW/AC20 path (phase 12/13) is
-// retired for AetherChat; Tactility's ESP-NOW service itself is untouched.
+// Tactility continues to own its existing WebServer/AP, DHCP and radio.
+// AetherChat passively accepts one protocol-v2 TCP connection on port 9000;
+// Device B joins that AP as a station/client and runs p4_aethercore natively.
+// The ESP-NOW/AC20 path (phase 12/13) is retired for AetherChat; Tactility's
+// ESP-NOW service itself is untouched.
 //
 // See work/v15-p4-deployment/phase-notes/phase-option-a-tcp-spec.md.
 #ifdef ESP_PLATFORM

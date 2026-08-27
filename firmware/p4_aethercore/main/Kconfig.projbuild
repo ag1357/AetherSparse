@@ -1,6 +1,6 @@
 menu "AetherCore P4 runtime"
 
-    comment "AC_LINK_UART_* = retained ESP-NOW artifact, unused in Option A"
+    comment "AC_LINK_UART_* = retained ESP-NOW artifact, unused by TCP transport"
 
     config AC_LINK_UART_BAUD
         int "C6 link UART baud rate (ESP-NOW artifact, unused)"
@@ -14,25 +14,91 @@ menu "AetherCore P4 runtime"
         int "C6 link UART RX GPIO (ESP-NOW artifact, unused)"
         default 37
 
+    choice AC_LINK_TOPOLOGY
+        prompt "Device-B link topology"
+        default AC_LINK_PRODUCTION_STA_CLIENT
+        help
+            Production inverts the Factory test topology: Device A retains
+            Tactility's AP/WebServer ownership and this Device B joins it as a
+            hosted-C6 station, then opens the full-duplex TCP connection.
+
+        config AC_LINK_PRODUCTION_STA_CLIENT
+            bool "Production: Device B STA + TCP client"
+
+        config AC_LINK_LEGACY_B_AP_DIAGNOSTIC
+            bool "Diagnostic only: legacy Device B AP + TCP server"
+            help
+                Retains the physically investigated Factory topology solely
+                for rollback/diagnosis. It is not the production default.
+    endchoice
+
+    config AC_LINK_DEVICE_A_SSID
+        string "Device A Tactility AP SSID"
+        default ""
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+        help
+            Provision the exact SSID configured in Tactility WebServer
+            settings. The empty default fails closed; firmware does not guess
+            or rewrite the user's Tactility network configuration.
+
+    config AC_LINK_DEVICE_A_PASS
+        string "Device A Tactility AP passphrase"
+        default ""
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+        help
+            Provision the exact Tactility AP passphrase. It is never printed
+            by the Device-B runtime.
+
+    config AC_LINK_DEVICE_A_IPV4
+        string "Device A AP IPv4 address"
+        default "192.168.4.1"
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+
+    config AC_LINK_STA_CONNECT_TIMEOUT_MS
+        int "Initial Device A association/DHCP timeout (ms)"
+        default 30000
+        range 5000 180000
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+
+    config AC_LINK_RECONNECT_DELAY_MS
+        int "TCP reconnect delay (ms)"
+        default 2000
+        range 250 60000
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+
+    config AC_LINK_DIAGNOSTIC_ONLY
+        bool "Transport-only link diagnostic (NOT qualification)"
+        default n
+        depends on AC_LINK_PRODUCTION_STA_CLIENT
+        help
+            Joins Device A and exchanges bounded protocol-v2/HEALTH traffic
+            without mounting or verifying the knowledge pack and without
+            starting cognition. The runtime prints an unmistakable
+            LINK_DIAGNOSTIC_ONLY -- NOT AETHERCORE QUALIFICATION warning.
+
     config AC_TCP_AP_SSID
-        string "AetherCore private softAP SSID (Device B)"
+        string "Legacy diagnostic Device-B softAP SSID"
         default "AETHERCORE-V15"
+        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 
     config AC_TCP_AP_PASS
-        string "AetherCore private softAP WPA2 passphrase (bench link)"
+        string "Legacy diagnostic Device-B softAP WPA2 passphrase"
         default "aethercore-v15-link"
+        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 
     config AC_TCP_AP_CHANNEL
-        int "AetherCore private softAP channel"
+        int "Legacy diagnostic Device-B softAP channel"
         default 6
+        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 
     config AC_TCP_PORT
-        int "AetherCore TCP service port (bound to AP interface)"
+        int "AetherLink protocol-v2 TCP port"
         default 9000
 
     config AC_TCP_LOOPBACK_SELFTEST
         bool "Run the in-device loopback protocol self-test at boot"
         default y
+        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
         help
             Connects a local client socket to the service, sends a golden
             Python-codec SESSION_OPEN frame, and strictly decodes the

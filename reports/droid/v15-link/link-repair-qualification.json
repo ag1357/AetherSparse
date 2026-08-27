@@ -1,0 +1,108 @@
+{
+  "schema": "aethercore.v15-link-repair-qualification.v1",
+  "status": "WORK_QUALIFIED_PHYSICAL_PENDING",
+  "classification": "LINK_REPAIR_READY_FOR_FACTORY",
+  "publication": {
+    "branch": "work/aethercore-v15-link-architecture-repair",
+    "qualified_source_commit": "PENDING_CONNECTED_GITHUB_PUBLICATION",
+    "qualified_source_tree": "PENDING_CONNECTED_GITHUB_PUBLICATION"
+  },
+  "factory_parent": {
+    "commit": "aa0cebc98d09d390c27cd39a69d158842d8132cd",
+    "tree": "a5d84c7ed1aee35ba41c923b89bbb3fcfd431dba",
+    "verified": true
+  },
+  "selected_topology": {
+    "device_a_role": "tactility_owned_ap_plus_passive_single_client_tcp_server",
+    "device_b_role": "hosted_c6_sta_plus_persistent_tcp_client",
+    "device_a_ipv4": "192.168.4.1",
+    "tcp_port": 9000,
+    "full_duplex": true,
+    "cognition_device": "DEVICE_B"
+  },
+  "primary_finding": {
+    "confirmed": true,
+    "finding": "Device B was made the AP while Device A dismantled Tactility network ownership to become a station",
+    "repair": "retain Device-A Tactility AP ownership and invert Device B to STA/client"
+  },
+  "protocol_v2": {
+    "changed": false,
+    "prefix": "u32be",
+    "json_body_cap_bytes": 16384,
+    "golden_vector_count": 46,
+    "golden_vectors_sha256": "f5df619d6dbfe9a3b765db18c92a4f961d680c9615ee1246609be4354b403d09",
+    "python_codec_sha256": "0c0f32f1fc76a25d6073d8e35fbd90bf84deec35da8d54b5f5c6861b72d9ce04",
+    "native_codec_cpp_sha256": "7cc174d58d988d90fa99fc93819db9615f786677dfed233610776ed5dd86a425",
+    "native_codec_h_sha256": "4cdc83167836507b3ca0b5ddea3dd7d671e26c787f15da2a2f7ce5db6fb01d9d",
+    "native_service_cpp_sha256": "eb148e56c8983c53b7670f12ef50f0f0a555dbe3b2389ad73e310342fa20eb73",
+    "native_service_h_sha256": "f10a3c6c017d28fd6b864bd7ccfc85589ba8daac10d05d42b1347dec5e280615"
+  },
+  "preservation": {
+    "controller_changed": false,
+    "cog_changed": false,
+    "pack_v2_changed": false,
+    "memory_changed": false,
+    "semantic_address_changed": false,
+    "c6_firmware_dependency_changed": false,
+    "physical_storage_results_reopened": false
+  },
+  "preserved_factory_physical": {
+    "kingston_a2_sequential_read_mb_s": 8.27,
+    "kingston_a2_sequential_write_mb_s": 6.47,
+    "kingston_a2_random_4k_iops": 260,
+    "kingston_a2_random_4k_p50_ms": 3.9,
+    "kingston_a2_random_4k_p95_ms": 5.6,
+    "pack_v2_profile": "direct_compact_resident",
+    "resident_evidence_directory_bytes": 3311868,
+    "selected_evidence_directory_sd_reads": 0,
+    "selected_query_p50_ms": 603,
+    "selected_query_p95_ms": 972,
+    "speedup_vs_v14_paged_same_card": 2.31,
+    "remeasured_by_work": false
+  },
+  "static_gates": {
+    "device_a_passive_listener": "PASS",
+    "device_a_network_state_unchanged": "PASS",
+    "device_a_single_client_reconnect": "PASS",
+    "aetherchat_copies_synchronized": "PASS",
+    "device_b_sta_client_default": "PASS",
+    "device_b_configurable_credentials": "PASS",
+    "device_b_radio_before_sd": "PASS",
+    "device_b_static_stack_preserved": "PASS",
+    "legacy_b_ap_diagnostic_retained": "PASS",
+    "link_diagnostic_only_bypass": "PASS",
+    "protocol_hash_guard": "PASS",
+    "cognition_change_guard": "PASS"
+  },
+  "work_validation": {
+    "targeted_python": "26/26 PASS",
+    "full_python": "567 passed, 1 skipped, 568 collected",
+    "native_protocol_assertions": "625/625 PASS",
+    "native_protocol_fuzz_cases": 40000,
+    "legacy_native_link": "38/38 PASS",
+    "ruff": "PASS",
+    "mypy": "PASS (168 source files)",
+    "esp_idf_build": "NOT_RUN_TOOLCHAIN_UNAVAILABLE",
+    "physical_measurement_added": false
+  },
+  "physical_acceptance": {
+    "performed_by_work": false,
+    "device_b_sta_associated": "PENDING_FACTORY",
+    "device_b_dhcp_obtained": "PENDING_FACTORY",
+    "device_b_tcp_connected": "PENDING_FACTORY",
+    "device_a_client_accepted": "PENDING_FACTORY",
+    "health_capabilities": "PENDING_FACTORY",
+    "arbitrary_user_text": "PENDING_FACTORY",
+    "session_resume": "PENDING_FACTORY",
+    "cardkb2": "PENDING_FACTORY",
+    "user_memory_crud": "PENDING_FACTORY"
+  },
+  "physical_claims_added": false,
+  "factory_required": [
+    "build and flash link diagnostic image",
+    "verify station association, DHCP, TCP connect, and Device-A accept",
+    "disable diagnostic mode and flash production image",
+    "perform one full Pack-v2 verification",
+    "verify HEALTH, CAPABILITIES, arbitrary USER_TEXT, SESSION_RESUME, CardKB2, and memory CRUD"
+  ]
+}

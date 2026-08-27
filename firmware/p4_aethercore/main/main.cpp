@@ -54,7 +54,7 @@ static void read_boot_mode(char *out, size_t cap) {
 }
 
 /* Interactive service mode: verified pack + Pack-v2 + knowledge + memory
- * store + protocol v2 over the Option A TCP link. radio_ok reflects the
+ * store + protocol v2 over the Device-B STA/client link. radio_ok reflects the
  * pre-boot radio bring-up; fail-closed when the link never came up. */
 static void run_service_mode(bool radio_ok) {
   ac::runtime::RuntimeInfo info = {};
@@ -76,15 +76,18 @@ static void run_service_mode(bool radio_ok) {
     return;
   }
 
-  /* Option A transport (mission gate 2026-08-26): deterministic private
-   * softAP + single-client framed TCP on the factory C6. The ESP-NOW/SLIP
-   * link layer stays in-tree as an unused artifact. Radio bring-up already
-   * happened pre-SD-mount (radio_up); here we only open the listener. */
+  /* Device A keeps Tactility AP/WebServer ownership. The factory C6 on this
+   * Device B is already associated; release the persistent TCP client loop. */
   ac::runtime::service_set_response_sink(ac::linktcp::response_sink, nullptr);
   if (radio_ok) ac::linktcp::serve();
   printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"tcp "
          "%s:%d\",\"packv2\":%s}\n",
-         radio_ok ? "READY" : "LINK_FAILED", CONFIG_AC_TCP_AP_SSID,
+         radio_ok ? "READY" : "LINK_FAILED",
+#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
+         CONFIG_AC_LINK_DEVICE_A_IPV4,
+#else
+         "legacy-device-b-ap-listener",
+#endif
          CONFIG_AC_TCP_PORT, info.packv2_active ? "active" : "degraded");
   ESP_LOGI(TAG, "service mode ready (link %s)", radio_ok ? "serving" : "FAILED");
 }
@@ -504,19 +507,50 @@ extern "C" void app_main(void) {
   /* Radio bring-up MUST precede the SD mount (pack boot): the C6 link is
    * SDIO slot 1 on the shared SDMMC host and slot-1 card init fails once
    * slot 0 is mounted (hardware-verified; Tactility uses the same order).
-   * Blocks until the C6 link is connected and the AP is configured (the AP
-   * itself starts later, in serve(), after pack boot, so slot-1 event
-   * traffic never collides with the SD mount — shared host clock divider,
-   * see link_tcp.cpp). In qual mode the radio is simply never served. */
+   * Blocks until the C6 link is associated to Device A and has a DHCP address.
+   * The TCP client starts later, in serve(), after pack boot (or immediately
+   * in the explicit transport-only diagnostic build). */
+#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
+  ac::linktcp::Config lcfg = {
+      CONFIG_AC_LINK_DEVICE_A_SSID,
+      CONFIG_AC_LINK_DEVICE_A_PASS,
+      CONFIG_AC_LINK_DEVICE_A_IPV4,
+      0,
+      CONFIG_AC_TCP_PORT,
+      CONFIG_AC_LINK_RECONNECT_DELAY_MS,
+      CONFIG_AC_LINK_STA_CONNECT_TIMEOUT_MS,
+      false,
+#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
+      CONFIG_AC_LINK_DIAGNOSTIC_ONLY,
+#else
+      false,
+#endif
+  };
+#else
   ac::linktcp::Config lcfg = {
       CONFIG_AC_TCP_AP_SSID,
       CONFIG_AC_TCP_AP_PASS,
+      nullptr,
       CONFIG_AC_TCP_AP_CHANNEL,
       CONFIG_AC_TCP_PORT,
+      2000,
+      30000,
+#if CONFIG_AC_TCP_LOOPBACK_SELFTEST
       CONFIG_AC_TCP_LOOPBACK_SELFTEST,
+#else
+      false,
+#endif
+      false,
   };
+#endif
   bool radio_ok = ac::linktcp::radio_up(lcfg);
 
+#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
+  printf("LINK_DIAGNOSTIC_ONLY -- NOT AETHERCORE QUALIFICATION\n");
+  printf("MEAS {\"phase\":\"link_diagnostic\",\"qualification\":false,"
+         "\"pack_mounted\":false,\"cognition_started\":false}\n");
+  if (radio_ok) ac::linktcp::serve();
+#else
   /* Shared verified boot (mount + pack verify + Pack-v2), then the
    * card-selected mode: "qual" (cache ladder + A/B replay evidence) or
    * "service" (interactive protocol v2 runtime). */
@@ -533,6 +567,7 @@ extern "C" void app_main(void) {
       run_service_mode(radio_ok);
     }
   }
+#endif
 
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(60000));

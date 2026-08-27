@@ -1,6 +1,12 @@
 #pragma once
 
-#include <Tactility/app/aetherchat/AetherLinkProtocol.h>
+#ifdef ESP_PLATFORM
+#include <sdkconfig.h>
+#endif
+
+#if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SLAVE_SOC_WIFI_SUPPORTED)
+
+#include <Tactility/app/AppContext.h>
 
 #include <lvgl.h>
 
@@ -8,12 +14,14 @@
 
 namespace tt::app::aetherchat {
 
-struct Context;
+class AetherChatApp;
 
 enum class KeyboardMode : uint8_t { Auto, Show, Hide };
 
 class AetherChatView {
-    Context* context;
+
+    AetherChatApp* app;
+
     lv_obj_t* messageList = nullptr;
     lv_obj_t* input = nullptr;
     lv_obj_t* status = nullptr;
@@ -24,14 +32,15 @@ class AetherChatView {
     static void onReset(lv_event_t* event);
     static void onKeyboardMode(lv_event_t* event);
     static void onInputFocus(lv_event_t* event);
-    static void onClose(lv_event_t* event);
 
 public:
-    explicit AetherChatView(Context* contextValue) : context(contextValue) {}
-    void init(lv_obj_t* parent);
+    explicit AetherChatView(AetherChatApp* appValue) : app(appValue) {}
+    void init(AppContext& context, lv_obj_t* parent);
     void append(const std::string& text, bool own = false);
     void setStatus(const std::string& text);
     void applyKeyboardMode();
 };
 
 } // namespace tt::app::aetherchat
+
+#endif // CONFIG_SOC_WIFI_SUPPORTED || CONFIG_SLAVE_SOC_WIFI_SUPPORTED

@@ -1,4 +1,4 @@
-/* Option A link: hosted softAP + single-client framed TCP server.
+/* Selected link repair: hosted STA + persistent framed TCP client.
  *
  * Serial request loop = Python operational.py parity (one request at a
  * time; USER_CANCEL/RESET are ordinary follow-up queries). Backpressure is
@@ -20,7 +20,7 @@
  * (815 s pack verify) interleaves with slot-1 RX-streaming polls with
  * ZERO failures, but the slot-0 mount/card-init window (~1.5 s) glitches
  * concurrent slot-1 commands. Consequences, all applied here:
- *  1. the full radio bring-up (connect + AP config + AP start, retried)
+ *  1. the full radio bring-up (STA association + DHCP, retried)
  *     completes BEFORE the SD mount, while slot 0 is untouched;
  *  2. CONFIG_ESP_HOSTED_TRANSPORT_RESTART_ON_FAILURE is disabled, so the
  *     transient slot-1 failures inside the later SD mount window log +
@@ -38,10 +38,13 @@
 
 #include "link_tcp.h"
 
+#include <cerrno>
 #include <cstdio>
 #include <cstring>
+#include <new>
 
 #include "freertos/FreeRTOS.h"
+#include "freertos/event_groups.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
 
@@ -72,18 +75,49 @@ int g_client = -1;
 bool g_tx_first_pending = false;
 int64_t g_rx_complete_us = 0;
 uint32_t g_rx_index = 0;
-esp_netif_t *g_ap_netif = nullptr;
+esp_netif_t *g_wifi_netif = nullptr;
+EventGroupHandle_t g_wifi_events = nullptr;
+constexpr EventBits_t kStaHasIp = BIT0;
 
 /* Static task stacks: internal SRAM, never TCM (see header). */
 StackType_t g_service_stack[16384 / sizeof(StackType_t)];
 StaticTask_t g_service_tcb;
+#if CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 StackType_t g_loopback_stack[8192 / sizeof(StackType_t)];
 StaticTask_t g_loopback_tcb;
+#endif
 
-SemaphoreHandle_t g_radio_done = nullptr;   /* given after AP up/failed */
+SemaphoreHandle_t g_radio_done = nullptr;   /* given after radio ready/failed */
 SemaphoreHandle_t g_serve_go = nullptr;     /* given when pack boot done */
+#if CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 SemaphoreHandle_t g_listener_ready = nullptr; /* given once listening */
+#endif
 bool g_radio_ok = false;
+
+#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
+void wifi_event(void *, esp_event_base_t base, int32_t id, void *data) {
+  if (base == WIFI_EVENT && id == WIFI_EVENT_STA_DISCONNECTED) {
+    auto *event = static_cast<wifi_event_sta_disconnected_t *>(data);
+    xEventGroupClearBits(g_wifi_events, kStaHasIp);
+    /* Wake a blocked recv immediately. The service task owns close(); this
+     * event task only interrupts the stale stream so the reconnect loop can
+     * wait for DHCP and open a fresh socket without losing session state. */
+    if (g_client >= 0) shutdown(g_client, SHUT_RDWR);
+    printf("MEAS {\"link\":\"sta_disconnected\",\"reason\":%u}\n",
+           event ? (unsigned)event->reason : 0u);
+    /* Reassociation is automatic and does not touch runtime/session state. */
+    esp_err_t rc = esp_wifi_connect();
+    if (rc != ESP_OK && rc != ESP_ERR_WIFI_NOT_STARTED) {
+      ESP_LOGW(TAG, "STA reconnect request failed: %s", esp_err_to_name(rc));
+    }
+  } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
+    auto *event = static_cast<ip_event_got_ip_t *>(data);
+    printf("MEAS {\"link\":\"sta_got_ip\",\"ip\":\"" IPSTR "\"}\n",
+           IP2STR(&event->ip_info.ip));
+    xEventGroupSetBits(g_wifi_events, kStaHasIp);
+  }
+}
+#endif
 
 int send_all(int fd, const uint8_t *buf, size_t len) {
   size_t sent = 0;
@@ -133,11 +167,13 @@ void response_sink(void *ctx, ac::link::Ac20Type type, uint32_t request_id,
   }
   if (send_all(fd, hdr, 4) != 0 || send_all(fd, json_body, body_len) != 0) {
     ESP_LOGW(TAG, "client write failed; dropping response");
+    shutdown(fd, SHUT_RDWR); /* release serve_client into reconnect loop */
   }
 }
 
 namespace {
 
+#if CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC
 /* One-time loopback proof of the full server path (sockets + framing +
  * strict codec + dispatch) before any RF client is involved: connects to a
  * dedicated self-test listener on 127.0.0.1:(port+1), sends a golden
@@ -224,6 +260,46 @@ void loopback_task(void *) {
          (long long)(esp_timer_get_time() - t0) / 1000, err);
   vTaskDelete(NULL);
 }
+#endif
+
+#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
+bool send_diagnostic_health(int fd, const uint8_t *frame, size_t frame_len) {
+  /* Static/off-stack like the production codec path. This proves framing and
+   * bounded bidirectional transport only; it deliberately cannot initialize
+   * or call cognition. */
+  static aethercore::protocol_v2::ProtocolMessage req;
+  static aethercore::protocol_v2::ProtocolMessage out;
+  static uint8_t encoded[aethercore::protocol_v2::kMaxEncodedFrame];
+  auto de = aethercore::protocol_v2::DecodeFrame(frame, frame_len, req);
+  if (de != aethercore::protocol_v2::DecodeError::OK) return false;
+
+  new (&out) aethercore::protocol_v2::ProtocolMessage();
+  static constexpr char kProtocolVersion[] = "aethercore-tactility.v2";
+  static constexpr char kDiagnosticMessageId[] = "link-diagnostic-health";
+  out.poolPut(kProtocolVersion, sizeof(kProtocolVersion) - 1,
+              out.protocol_version);
+  out.poolPut(kDiagnosticMessageId, sizeof(kDiagnosticMessageId) - 1,
+              out.message_id);
+  if (req.has_request_id) {
+    out.poolPut(req.request_id.data, req.request_id.len, out.request_id);
+    out.has_request_id = true;
+  }
+  out.poolPut(req.session_id.data, req.session_id.len, out.session_id);
+  out.sequence = req.sequence;
+  out.type = aethercore::protocol_v2::MsgType::HEALTH;
+  out.poolPut("LINK_DIAGNOSTIC_ONLY", 20, out.p.health.status);
+  out.poolPut("transport-only-not-qualified", 28,
+              out.p.health.runtime_version);
+  out.p.health.service_generation = 1;
+  size_t encoded_len = 0;
+  if (aethercore::protocol_v2::EncodeFrame(out, encoded, sizeof(encoded),
+                                           encoded_len) !=
+      aethercore::protocol_v2::EncodeError::OK) {
+    return false;
+  }
+  return send_all(fd, encoded, encoded_len) == 0;
+}
+#endif
 
 void serve_client(int fd) {
   static uint8_t frame[4 + 16640]; /* internal SRAM (static), off-stack */
@@ -253,6 +329,15 @@ void serve_client(int fd) {
     g_tx_first_pending = true;
     printf("MEAS {\"link\":\"rx_complete\",\"rx\":%lu,\"bytes\":%lu}\n",
            (unsigned long)g_rx_index, (unsigned long)len);
+#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
+    if (g_cfg.diagnostic_only) {
+      bool ok = send_diagnostic_health(fd, frame, len + 4);
+      printf("MEAS {\"link\":\"diagnostic_health\",\"status\":\"%s\"}\n",
+             ok ? "sent" : "rejected");
+      if (!ok) return;
+      continue;
+    }
+#endif
     int64_t t_dispatch = g_rx_complete_us;
     /* The runtime strictly decodes (schema errors -> bounded ERROR frame)
      * and dispatches; responses leave via response_sink on this same task.
@@ -283,8 +368,6 @@ void service_task(void *) {
   int hrc = esp_hosted_init();
   printf("MEAS {\"link\":\"hosted_init\",\"rc\":%d}\n", hrc);
 
-  esp_netif_t *ap = esp_netif_create_default_wifi_ap();
-  g_ap_netif = ap;
   wifi_init_config_t wcfg = WIFI_INIT_CONFIG_DEFAULT();
   esp_err_t winit = ESP_FAIL;
   for (int i = 0; i < 8 && winit != ESP_OK; i++) {
@@ -296,13 +379,68 @@ void service_task(void *) {
   printf("MEAS {\"link\":\"wifi_init\",\"rc\":\"%s\"}\n",
          esp_err_to_name(winit));
 
+#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
+  g_wifi_events = xEventGroupCreate();
+  g_wifi_netif = esp_netif_create_default_wifi_sta();
+  ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED,
+                                             &wifi_event, nullptr));
+  ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
+                                             &wifi_event, nullptr));
+  esp_err_t werr = ESP_FAIL;
+  esp_err_t serr = ESP_FAIL;
+  esp_err_t cerr = ESP_FAIL;
+  const size_t ssid_len = g_cfg.network_ssid ? strlen(g_cfg.network_ssid) : 0;
+  const size_t pass_len = g_cfg.network_pass ? strlen(g_cfg.network_pass) : 0;
+  const bool credentials_valid =
+      ssid_len >= 1 && ssid_len <= sizeof(wifi_config_t{}.sta.ssid) &&
+      (pass_len == 0 || (pass_len >= 8 && pass_len <= 63));
+  if (winit == ESP_OK && credentials_valid &&
+      esp_wifi_set_mode(WIFI_MODE_STA) == ESP_OK) {
+    wifi_config_t sta_cfg = {};
+    memcpy(sta_cfg.sta.ssid, g_cfg.network_ssid, ssid_len);
+    if (pass_len > 0) memcpy(sta_cfg.sta.password, g_cfg.network_pass, pass_len);
+    sta_cfg.sta.threshold.authmode =
+        g_cfg.network_pass && g_cfg.network_pass[0] != '\0'
+            ? WIFI_AUTH_WPA2_PSK
+            : WIFI_AUTH_OPEN;
+    werr = esp_wifi_set_config(WIFI_IF_STA, &sta_cfg);
+  } else if (winit == ESP_OK) {
+    ESP_LOGE(TAG, "Device A AP credentials absent/invalid; failing closed");
+    werr = ESP_ERR_INVALID_ARG;
+  }
+  /* Association and DHCP complete before slot-0 SD mount begins. The
+   * password is intentionally never emitted. */
+  if (werr == ESP_OK) serr = esp_wifi_start();
+  if (serr == ESP_OK) cerr = esp_wifi_connect();
+  EventBits_t bits = 0;
+  if (cerr == ESP_OK) {
+    bits = xEventGroupWaitBits(g_wifi_events, kStaHasIp, pdFALSE, pdTRUE,
+                               pdMS_TO_TICKS(g_cfg.connect_timeout_ms));
+  }
+  esp_netif_ip_info_t ip = {};
+  if (g_wifi_netif) esp_netif_get_ip_info(g_wifi_netif, &ip);
+  printf("MEAS {\"link\":\"sta\",\"wifi_cfg\":\"%s\",\"start\":\"%s\","
+         "\"connect\":\"%s\",\"dhcp\":%s,\"ip\":\"" IPSTR "\"}\n",
+         esp_err_to_name(werr), esp_err_to_name(serr), esp_err_to_name(cerr),
+         (bits & kStaHasIp) ? "true" : "false", IP2STR(&ip.ip));
+  if (werr != ESP_OK || serr != ESP_OK || cerr != ESP_OK ||
+      !(bits & kStaHasIp)) {
+    printf("MEAS {\"link\":\"radio_failed\",\"mode\":\"sta_client\"}\n");
+    g_radio_ok = false;
+    xSemaphoreGive(g_radio_done);
+    vTaskDelete(nullptr);
+  }
+#else
+  /* Retained Factory rollback path. It is compiled only when the explicit
+   * LEGACY_B_AP_DIAGNOSTIC choice replaces the production default. */
+  g_wifi_netif = esp_netif_create_default_wifi_ap();
   esp_err_t werr = ESP_FAIL;
   if (winit == ESP_OK && esp_wifi_set_mode(WIFI_MODE_AP) == ESP_OK) {
     wifi_config_t ap_cfg = {0};
-    strlcpy((char *)ap_cfg.ap.ssid, g_cfg.ap_ssid, sizeof(ap_cfg.ap.ssid));
-    strlcpy((char *)ap_cfg.ap.password, g_cfg.ap_pass,
+    strlcpy((char *)ap_cfg.ap.ssid, g_cfg.network_ssid, sizeof(ap_cfg.ap.ssid));
+    strlcpy((char *)ap_cfg.ap.password, g_cfg.network_pass,
             sizeof(ap_cfg.ap.password));
-    ap_cfg.ap.ssid_len = strlen(g_cfg.ap_ssid);
+    ap_cfg.ap.ssid_len = strlen(g_cfg.network_ssid);
     ap_cfg.ap.channel = (uint8_t)g_cfg.ap_channel;
     ap_cfg.ap.authmode = WIFI_AUTH_WPA2_PSK;
     ap_cfg.ap.max_connection = 1; /* bounded client count (spec) */
@@ -324,9 +462,9 @@ void service_task(void *) {
     }
   }
   esp_netif_ip_info_t ip = {0};
-  esp_netif_get_ip_info(g_ap_netif, &ip);
+  esp_netif_get_ip_info(g_wifi_netif, &ip);
   printf("MEAS {\"link\":\"ap\",\"rc\":\"%s\",\"ssid\":\"%s\",\"channel\":%d,"
-         "\"ip\":\"" IPSTR "\"}\n", esp_err_to_name(serr), g_cfg.ap_ssid,
+         "\"ip\":\"" IPSTR "\"}\n", esp_err_to_name(serr), g_cfg.network_ssid,
          g_cfg.ap_channel, IP2STR(&ip.ip));
   if (werr != ESP_OK || serr != ESP_OK) {
     printf("MEAS {\"link\":\"radio_failed\",\"detail\":\"cfg %s start %s\"}\n",
@@ -335,14 +473,16 @@ void service_task(void *) {
     xSemaphoreGive(g_radio_done);
     vTaskDelete(NULL);
   }
+#endif
   g_radio_ok = true;
   xSemaphoreGive(g_radio_done);
 
-  /* Phase 2 (service): wait until the pack is verified + Pack-v2 resident,
-   * then run the one-time loopback self-test on a dedicated loopback
-   * listener and finally open the production listener. AP is up (phase 1). */
+  /* Phase 2: production waits until the pack is verified + Pack-v2 resident;
+   * LINK_DIAGNOSTIC_ONLY releases this gate immediately without touching SD.
+   * The already-associated STA then owns a persistent client/reconnect loop. */
   xSemaphoreTake(g_serve_go, portMAX_DELAY);
 
+#if CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC
   if (g_cfg.loopback_selftest) {
     int lb = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     int one = 1;
@@ -398,6 +538,53 @@ void service_task(void *) {
     g_client = -1;
     printf("MEAS {\"link\":\"client_closed\"}\n");
   }
+#else
+  struct sockaddr_in target = {};
+  target.sin_family = AF_INET;
+  target.sin_port = htons(g_cfg.tcp_port);
+  if (!g_cfg.device_a_ipv4 ||
+      inet_pton(AF_INET, g_cfg.device_a_ipv4, &target.sin_addr) != 1) {
+    printf("MEAS {\"link\":\"tcp_target\",\"rc\":\"invalid_ipv4\"}\n");
+    vTaskDelete(nullptr);
+  }
+  for (;;) {
+    /* Wait without consuming session/runtime state. The Wi-Fi event handler
+     * reassociates and DHCP restores this bit after a radio drop. */
+    xEventGroupWaitBits(g_wifi_events, kStaHasIp, pdFALSE, pdTRUE,
+                        portMAX_DELAY);
+    int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+    if (fd < 0) {
+      vTaskDelay(pdMS_TO_TICKS(g_cfg.reconnect_delay_ms));
+      continue;
+    }
+    int keepalive = 1;
+    setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &keepalive, sizeof(keepalive));
+    printf("MEAS {\"link\":\"tcp_connecting\",\"target\":\"%s:%d\"}\n",
+           g_cfg.device_a_ipv4, g_cfg.tcp_port);
+    if (connect(fd, reinterpret_cast<struct sockaddr *>(&target),
+                sizeof(target)) != 0) {
+      printf("MEAS {\"link\":\"tcp_connect\",\"status\":\"retry\","
+             "\"errno\":%d}\n", errno);
+      close(fd);
+      vTaskDelay(pdMS_TO_TICKS(g_cfg.reconnect_delay_ms));
+      continue;
+    }
+    g_client = fd;
+    printf("MEAS {\"link\":\"tcp_connected\",\"target\":\"%s:%d\","
+           "\"mode\":\"sta_client\"}\n", g_cfg.device_a_ipv4,
+           g_cfg.tcp_port);
+    serve_client(fd);
+    shutdown(fd, SHUT_RDWR);
+    close(fd);
+    g_client = -1;
+    g_tx_first_pending = false;
+    /* Any partial length/body is held only in serve_client's bounded scratch
+     * and has already been discarded. Device A reopens semantic state with
+     * SESSION_RESUME after this new socket is established. */
+    printf("MEAS {\"link\":\"tcp_disconnected\",\"session_state\":\"preserved\"}\n");
+    vTaskDelay(pdMS_TO_TICKS(g_cfg.reconnect_delay_ms));
+  }
+#endif
 }
 
 }  // namespace
@@ -406,12 +593,14 @@ bool radio_up(const Config &cfg) {
   g_cfg = cfg;
   g_radio_done = xSemaphoreCreateBinary();
   g_serve_go = xSemaphoreCreateBinary();
+#if CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC
   g_listener_ready = xSemaphoreCreateBinary();
+#endif
   if (xTaskCreateStatic(service_task, "ac_link_tcp",
                         sizeof(g_service_stack) / sizeof(StackType_t), NULL, 5,
                         g_service_stack, &g_service_tcb) == NULL)
     return false;
-  /* Block the caller (main task) until the AP is up or has failed: the SD
+  /* Block the caller until association + DHCP is complete or failed: the SD
    * mount must not start while slot-1 bring-up is in flight. */
   xSemaphoreTake(g_radio_done, portMAX_DELAY);
   return g_radio_ok;

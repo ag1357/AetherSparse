@@ -6,7 +6,8 @@
 
 #include <Tactility/app/aetherchat/AetherChatAppPrivate.h>
 
-#include <app/event.h>
+#include <Tactility/lvgl/Toolbar.h>
+
 #include <lvgl/devices/keyboard.h>
 #include <lvgl/widgets/toolbar.h>
 
@@ -16,6 +17,9 @@
 namespace tt::app::aetherchat {
 
 void AetherChatView::append(const std::string& text, bool own) {
+    if (messageList == nullptr) {
+        return;
+    }
     auto* label = lv_label_create(messageList);
     lv_label_set_text(label, text.c_str());
     lv_obj_set_width(label, lv_pct(100));
@@ -27,12 +31,16 @@ void AetherChatView::append(const std::string& text, bool own) {
 }
 
 void AetherChatView::setStatus(const std::string& text) {
-    lv_label_set_text(status, text.c_str());
+    if (status != nullptr) {
+        lv_label_set_text(status, text.c_str());
+    }
 }
 
 void AetherChatView::applyKeyboardMode() {
     auto* keyboard = lvgl_software_keyboard_get_last();
-    if (keyboard == nullptr || keyboard->object == nullptr) return;
+    if (keyboard == nullptr || keyboard->object == nullptr) {
+        return;
+    }
     if (keyboardMode == KeyboardMode::Hide ||
         (keyboardMode == KeyboardMode::Auto && lvgl_hardware_keyboard_is_available())) {
         lvgl_software_keyboard_hide(keyboard);
@@ -48,23 +56,32 @@ void AetherChatView::onInputFocus(lv_event_t* event) {
 void AetherChatView::onSend(lv_event_t* event) {
     auto* self = static_cast<AetherChatView*>(lv_event_get_user_data(event));
     const char* text = lv_textarea_get_text(self->input);
-    if (text != nullptr && std::strlen(text) > 0 &&
-        send(self->context, MessageType::UserText, text)) {
+    if (text == nullptr || std::strlen(text) == 0) {
+        return;
+    }
+    // One-in-flight backpressure (Option A spec): busy + ignore, no queue.
+    if (self->app->isBusy()) {
+        self->setStatus("Busy: awaiting response");
+        return;
+    }
+    if (self->app->sendUserText(text)) {
         self->append(std::string("You: ") + text, true);
         lv_textarea_set_text(self->input, "");
         self->setStatus("Working...");
+    } else {
+        self->setStatus(self->app->isLinkUp() ? "Send failed" : "Not connected");
     }
 }
 
 void AetherChatView::onCancel(lv_event_t* event) {
     auto* self = static_cast<AetherChatView*>(lv_event_get_user_data(event));
-    send(self->context, MessageType::UserCancel, "user");
+    self->app->sendCancel();
     self->setStatus("Cancelling...");
 }
 
 void AetherChatView::onReset(lv_event_t* event) {
     auto* self = static_cast<AetherChatView*>(lv_event_get_user_data(event));
-    send(self->context, MessageType::Reset, "user");
+    self->app->sendReset();
     lv_obj_clean(self->messageList);
     self->setStatus("Reset requested");
 }
@@ -79,16 +96,10 @@ void AetherChatView::onKeyboardMode(lv_event_t* event) {
     self->applyKeyboardMode();
 }
 
-void AetherChatView::onClose(lv_event_t* event) {
-    auto* self = static_cast<AetherChatView*>(lv_event_get_user_data(event));
-    AppEvent closeEvent {.type = APP_EVENT_CLOSE, .timestamp = 0, .result = {}};
-    app_event_emit(self->context->appInstanceId, &closeEvent);
-}
-
-void AetherChatView::init(lv_obj_t* parent) {
+void AetherChatView::init(AppContext& context, lv_obj_t* parent) {
     lv_obj_set_flex_flow(parent, LV_FLEX_FLOW_COLUMN);
-    auto* toolbar = lvgl_toolbar_create(parent, "AetherChat");
-    lvgl_toolbar_set_nav_action(toolbar, LV_SYMBOL_CLOSE, onClose, this);
+
+    auto* toolbar = lvgl::toolbar_create(parent, context);
     lvgl_toolbar_add_text_button_action(toolbar, "KB", onKeyboardMode, this);
 
     messageList = lv_list_create(parent);
@@ -101,10 +112,13 @@ void AetherChatView::init(lv_obj_t* parent) {
     auto* row = lv_obj_create(parent);
     lv_obj_set_flex_flow(row, LV_FLEX_FLOW_ROW);
     lv_obj_set_size(row, LV_PCT(100), LV_SIZE_CONTENT);
+
     input = lv_textarea_create(row);
     lv_obj_set_flex_grow(input, 1);
     lv_textarea_set_one_line(input, true);
-    lv_textarea_set_max_length(input, AETHERLINK_V1_PAYLOAD_BYTES);
+    // Protocol v2 bounds user text at MAX_USER_TEXT_BYTES; the TCP link
+    // carries any allowed message in a single frame (no fragmentation).
+    lv_textarea_set_max_length(input, MAX_USER_TEXT_BYTES);
     lv_textarea_set_placeholder_text(input, "Ask AetherCore...");
     lv_obj_add_event_cb(input, onInputFocus, LV_EVENT_FOCUSED, this);
 
@@ -122,4 +136,4 @@ void AetherChatView::init(lv_obj_t* parent) {
 
 } // namespace tt::app::aetherchat
 
-#endif
+#endif // CONFIG_SOC_WIFI_SUPPORTED || CONFIG_SLAVE_SOC_WIFI_SUPPORTED

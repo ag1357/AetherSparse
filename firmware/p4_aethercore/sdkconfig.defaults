@@ -34,7 +34,20 @@ CONFIG_FATFS_FS_LOCK=0
 # Long storage phases yield explicitly; keep the watchdog horizon generous.
 CONFIG_ESP_TASK_WDT_TIMEOUT_S=30
 
-# --- Option A transport (2026-08-26 gate): hosted factory-C6 softAP + TCP ---
+# --- Selected V15 link repair: hosted factory-C6 STA + TCP client ---
+# Device A keeps ownership of Tactility's existing AP/WebServer. Credentials
+# intentionally have no repository default: Factory provisions the exact
+# Tactility WebServer settings through Kconfig before flashing Device B.
+CONFIG_AC_LINK_PRODUCTION_STA_CLIENT=y
+# CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC is not set
+CONFIG_AC_LINK_DEVICE_A_SSID=""
+CONFIG_AC_LINK_DEVICE_A_PASS=""
+CONFIG_AC_LINK_DEVICE_A_IPV4="192.168.4.1"
+CONFIG_AC_TCP_PORT=9000
+CONFIG_AC_LINK_STA_CONNECT_TIMEOUT_MS=30000
+CONFIG_AC_LINK_RECONNECT_DELAY_MS=2000
+# CONFIG_AC_LINK_DIAGNOSTIC_ONLY is not set
+
 # Larger app partition: the hosted + wifi_remote + sockets stack grows the
 # image past the 1 MiB single-app partition.
 CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
