@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <new>
 #include <string>
 #include <vector>
 
@@ -42,6 +43,23 @@ std::string to_cpp(const aethercore::protocol_v2::Str &s) {
   return s.data ? std::string(s.data, s.len) : std::string();
 }
 
+/* Message + frame storage lives in static internal SRAM, never on a task
+ * stack: ProtocolMessage is ~24 KB (20 KB string pool + bounded payload
+ * union) and the encoded-frame buffer is 16 KB, far beyond any task stack.
+ * The serial request loop (one frame in flight, single link caller)
+ * guarantees these scratches are never concurrently live; make_response()
+ * fully resets the response scratch per use. Two scratches are required
+ * because the decoded request stays alive while its response is built. */
+ProtocolMessage &decode_scratch() {
+  static ProtocolMessage m;
+  return m;
+}
+
+ProtocolMessage &resp_scratch() {
+  static ProtocolMessage m;
+  return m;
+}
+
 Ac20Type to_wire(MsgType t) { return static_cast<Ac20Type>(static_cast<int>(t)); }
 
 void emit_meas(const char *kind, const ProtocolMessage &req, const char *detail) {
@@ -55,7 +73,10 @@ void emit_meas(const char *kind, const ProtocolMessage &req, const char *detail)
  * request_id = request.request_id or message_id, session+sequence echo. */
 void make_response(const ProtocolMessage &req, MsgType type, const char *suffix,
                    ProtocolMessage *out) {
-  *out = ProtocolMessage{};
+  /* Construct in place: `*out = ProtocolMessage{}` would materialize the
+   * ~24 KB message as a STACK temporary (observed stack-protection fault on
+   * the 16 KiB link task). ProtocolMessage is trivially destructible. */
+  new (out) ProtocolMessage();
   std::string mid = to_cpp(req.message_id) + "-" + suffix;
   std::string rid =
       req.has_request_id ? to_cpp(req.request_id) : to_cpp(req.message_id);
@@ -73,7 +94,7 @@ void make_response(const ProtocolMessage &req, MsgType type, const char *suffix,
 
 void send_response(const ProtocolMessage &msg) {
   if (!g_sink) return;
-  uint8_t frame[aethercore::protocol_v2::kMaxEncodedFrame];
+  static uint8_t frame[aethercore::protocol_v2::kMaxEncodedFrame];
   size_t frame_len = 0;
   if (aethercore::protocol_v2::EncodeFrame(msg, frame, sizeof(frame),
                                            frame_len) !=
@@ -88,7 +109,7 @@ void send_response(const ProtocolMessage &msg) {
 
 void send_error(const ProtocolMessage &req, const char *code,
                 const char *message, bool recoverable) {
-  ProtocolMessage out;
+  ProtocolMessage &out = resp_scratch();
   make_response(req, MsgType::ERROR, "error", &out);
   out.p.error.code.data = out.pool;
   out.poolPut(code, strlen(code), out.p.error.code);
@@ -255,7 +276,7 @@ void persist_memory() {
 void memory_status(const ProtocolMessage &req, const char *operation,
                    bool success, const std::vector<std::string> &ids,
                    const std::string &detail) {
-  ProtocolMessage out;
+  ProtocolMessage &out = resp_scratch();
   make_response(req, MsgType::MEMORY_STATUS, "memory", &out);
   out.poolPut(operation, strlen(operation), out.p.memory_status.operation);
   out.p.memory_status.success = success;
@@ -354,7 +375,7 @@ bool user_memory_messages(const ProtocolMessage &req, const std::string &text) {
 /* ------------------------- health / capabilities -------------------------- */
 
 void send_health(const ProtocolMessage &req) {
-  ProtocolMessage out;
+  ProtocolMessage &out = resp_scratch();
   make_response(req, MsgType::HEALTH, "health", &out);
   const char *status =
       g_ready ? (g_info.packv2_active ? "READY" : "DEGRADED_V14_LOOKUP")
@@ -367,7 +388,7 @@ void send_health(const ProtocolMessage &req) {
 }
 
 void send_capabilities(const ProtocolMessage &req) {
-  ProtocolMessage out;
+  ProtocolMessage &out = resp_scratch();
   make_response(req, MsgType::CAPABILITIES, "capabilities", &out);
   const char *pv = "aethercore-tactility.v2";
   const char *hw = "WAVESHARE_ESP32_P4_WIFI6_ACCESSORY_SKU_32020";
@@ -401,7 +422,7 @@ void send_capabilities(const ProtocolMessage &req) {
 void handle_query(const ProtocolMessage &req, const std::string &text) {
   ServiceResponse r = g_core.Query(to_cpp(req.session_id), text);
   if (r.disposition == "CLARIFY") {
-    ProtocolMessage out;
+    ProtocolMessage &out = resp_scratch();
     make_response(req, MsgType::CLARIFICATION_REQUEST, "response", &out);
     out.poolPut(r.clarify_question.data(), r.clarify_question.size(),
                 out.p.clarification_request.question);
@@ -418,13 +439,13 @@ void handle_query(const ProtocolMessage &req, const std::string &text) {
     emit_meas("clarify", req, "");
     return;
   }
-  ProtocolMessage delta;
+  ProtocolMessage &delta = resp_scratch();
   make_response(req, MsgType::ASSISTANT_TEXT_DELTA, "response", &delta);
   delta.poolPut(r.text.data(), r.text.size(), delta.p.assistant_text_delta.text);
   delta.p.assistant_text_delta.final = true;
   send_response(delta);
   if (!r.evidence_handle_ids.empty()) {
-    ProtocolMessage ev;
+    ProtocolMessage &ev = resp_scratch();
     make_response(req, MsgType::EVIDENCE_SUMMARY, "evidence", &ev);
     ev.p.evidence_summary.handle_ids.count = 0;
     for (const auto &h : r.evidence_handle_ids) {
@@ -529,7 +550,7 @@ void service_handle_message(ac::link::Ac20Type type, uint32_t request_id,
   frame[2] = (uint8_t)(body_len >> 8);
   frame[3] = (uint8_t)(body_len);
   memcpy(frame + 4, body, body_len);
-  ProtocolMessage msg;
+  ProtocolMessage &msg = decode_scratch();
   DecodeError e = aethercore::protocol_v2::DecodeFrame(frame, body_len + 4, msg);
   if (e != DecodeError::OK) {
     g_errors++;

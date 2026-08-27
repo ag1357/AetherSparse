@@ -223,6 +223,17 @@ const uint8_t *pager_page(Pager *pager, RegionFile *region, uint64_t page_no) {
   return first;
 }
 
+#if CONFIG_ESP_HOSTED_SDIO_HOST_INTERFACE
+/* esp-hosted owns the shared SDMMC host peripheral (C6 link on slot 1)
+ * and initialized it before us. Never let the FAT mount helper re-init
+ * or de-init the host controller — a de-init would tear down slot 1
+ * (same workaround as esp-hosted's host_sdcard_with_hosted example for
+ * ESP-IDF issue 16233; on 5.5.1 the init side is skipped internally but
+ * de-init is not). */
+static esp_err_t sdmmc_host_init_shared(void) { return ESP_OK; }
+static esp_err_t sdmmc_host_deinit_shared(void) { return ESP_OK; }
+#endif
+
 /* ------------------------------------------------------------------------- */
 
 bool sd_mount(void) {
@@ -238,7 +249,9 @@ bool sd_mount(void) {
    * (SDMMC_FREQ_DEFAULT); the vendor example reports "Speed: 20.00 MHz
    * (limit: 20.00 MHz)" on this exact board. A failed mount attempt wedges
    * the slot driver (send_op_cond timeout on retry), so we start with the
-   * known-good frequency and fully deinit between attempts. */
+   * known-good frequency and fully deinit between attempts (deinit is
+   * suppressed when the SDMMC host is shared with esp-hosted, see the
+   * kHostSharedWithHosted path below). */
   /* The Waveshare ESP32-P4-WIFI6 powers the TF slot through the chip's
    * on-chip LDO channel 4; without this power-control handle the card never
    * comes up (send_op_cond timeout), matching the vendor 09_sdmmc example. */
@@ -250,11 +263,21 @@ bool sd_mount(void) {
     return false;
   }
 
+#if CONFIG_ESP_HOSTED_SDIO_HOST_INTERFACE
+  constexpr bool kHostSharedWithHosted = true;
+#else
+  constexpr bool kHostSharedWithHosted = false;
+#endif
+
   const int freqs[] = {SDMMC_FREQ_DEFAULT, SDMMC_FREQ_HIGHSPEED};
   for (size_t attempt = 0; attempt < 2; attempt++) {
     sdmmc_host_t host = SDMMC_HOST_DEFAULT();
     host.max_freq_khz = freqs[attempt];
     host.pwr_ctrl_handle = pwr_ctrl;
+    if (kHostSharedWithHosted) {
+      host.init = &sdmmc_host_init_shared;
+      host.deinit = &sdmmc_host_deinit_shared;
+    }
     sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
     slot_config.width = 4;
     slot_config.clk = SD_CLK;
@@ -276,8 +299,14 @@ bool sd_mount(void) {
     ESP_LOGW(TAG, "mount attempt %d at %d kHz failed: %s", (int)attempt,
              freqs[attempt], esp_err_to_name(err));
     /* A failed esp_vfs_fat_sdmmc_mount leaves the slot/host half-initialized;
-     * without a full deinit the next attempt times out in send_op_cond. */
-    sdmmc_host_deinit();
+     * without a full deinit the next attempt times out in send_op_cond.
+     * When the host is shared with esp-hosted the raw deinit is off-limits
+     * (it would kill the C6 link on slot 1); the mount helper's host.deinit
+     * override above already ran as a no-op, and slot-local state is reset
+     * by the next attempt's init_slot. */
+    if (!kHostSharedWithHosted) {
+      sdmmc_host_deinit();
+    }
   }
   return false;
 }

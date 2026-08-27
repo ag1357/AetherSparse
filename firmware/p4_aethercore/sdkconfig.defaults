@@ -55,3 +55,20 @@ CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D3_4BIT_BUS_SLOT_1=17
 CONFIG_ESP_HOSTED_GPIO_SLAVE_RESET_SLAVE=54
 CONFIG_ESP_HOSTED_ENABLE_PEER_DATA_TRANSFER=y
 CONFIG_ESP_WIFI_REMOTE_ENABLED=y
+
+# Known-working Device A config: the hosted SDIO mempool slab fails on
+# this PSRAM build (early-boot slab alloc -> "HS_MP: mempool create failed:
+# no mem" crash loop). Tactility runs with the mempool disabled; match it.
+# CONFIG_ESP_HOSTED_USE_MEMPOOL is not set
+
+# The SD card (slot 0) and the C6 link (slot 1) share the SDMMC host clock
+# divider with no cross-slot locking (IDF legacy sdmmc driver). A transient
+# slot-1 command failure while slot 0 mounts must be retried, not turned
+# into a host CPU reset (observed boot loop 2026-08-27; hosted's own
+# host_sdcard_with_hosted example documents the sharing constraints).
+# CONFIG_ESP_HOSTED_TRANSPORT_RESTART_ON_FAILURE is not set
+
+# CONFIG_ESP_NETIF_LOOPBACK stays unset: enabling it breaks the link step
+# with esp_wifi_remote (undefined esp_netif_netstack_* symbols). The
+# loopback self-test therefore uses a dedicated 127.0.0.1 listener instead
+# of the AP netif's own address (see link_tcp.cpp).

@@ -54,8 +54,9 @@ static void read_boot_mode(char *out, size_t cap) {
 }
 
 /* Interactive service mode: verified pack + Pack-v2 + knowledge + memory
- * store + protocol v2 over the C6 ESP-NOW/UART bridge. */
-static void run_service_mode(void) {
+ * store + protocol v2 over the Option A TCP link. radio_ok reflects the
+ * pre-boot radio bring-up; fail-closed when the link never came up. */
+static void run_service_mode(bool radio_ok) {
   ac::runtime::RuntimeInfo info = {};
   info.pack_verified = true;
   info.packv2_active = evd_mode() == EVD_MODE_V2_DIRECT;
@@ -77,22 +78,15 @@ static void run_service_mode(void) {
 
   /* Option A transport (mission gate 2026-08-26): deterministic private
    * softAP + single-client framed TCP on the factory C6. The ESP-NOW/SLIP
-   * link layer stays in-tree as an unused artifact. Everything below runs
-   * on static-stack tasks (TCM flash-write trap, probe-verified). */
+   * link layer stays in-tree as an unused artifact. Radio bring-up already
+   * happened pre-SD-mount (radio_up); here we only open the listener. */
   ac::runtime::service_set_response_sink(ac::linktcp::response_sink, nullptr);
-  ac::linktcp::Config lcfg = {
-      CONFIG_AC_TCP_AP_SSID,
-      CONFIG_AC_TCP_AP_PASS,
-      CONFIG_AC_TCP_AP_CHANNEL,
-      CONFIG_AC_TCP_PORT,
-      CONFIG_AC_TCP_LOOPBACK_SELFTEST,
-  };
-  bool link_ok = ac::linktcp::start(lcfg);
+  if (radio_ok) ac::linktcp::serve();
   printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"tcp "
          "%s:%d\",\"packv2\":%s}\n",
-         link_ok ? "READY" : "READY_NO_LINK", CONFIG_AC_TCP_AP_SSID,
+         radio_ok ? "READY" : "LINK_FAILED", CONFIG_AC_TCP_AP_SSID,
          CONFIG_AC_TCP_PORT, info.packv2_active ? "active" : "degraded");
-  ESP_LOGI(TAG, "service mode ready (link task %s)", link_ok ? "started" : "FAILED");
+  ESP_LOGI(TAG, "service mode ready (link %s)", radio_ok ? "serving" : "FAILED");
 }
 
 /* The linker collects unused function sections, which would understate the
@@ -507,6 +501,22 @@ extern "C" void app_main(void) {
 
   run_parity();
 
+  /* Radio bring-up MUST precede the SD mount (pack boot): the C6 link is
+   * SDIO slot 1 on the shared SDMMC host and slot-1 card init fails once
+   * slot 0 is mounted (hardware-verified; Tactility uses the same order).
+   * Blocks until the C6 link is connected and the AP is configured (the AP
+   * itself starts later, in serve(), after pack boot, so slot-1 event
+   * traffic never collides with the SD mount — shared host clock divider,
+   * see link_tcp.cpp). In qual mode the radio is simply never served. */
+  ac::linktcp::Config lcfg = {
+      CONFIG_AC_TCP_AP_SSID,
+      CONFIG_AC_TCP_AP_PASS,
+      CONFIG_AC_TCP_AP_CHANNEL,
+      CONFIG_AC_TCP_PORT,
+      CONFIG_AC_TCP_LOOPBACK_SELFTEST,
+  };
+  bool radio_ok = ac::linktcp::radio_up(lcfg);
+
   /* Shared verified boot (mount + pack verify + Pack-v2), then the
    * card-selected mode: "qual" (cache ladder + A/B replay evidence) or
    * "service" (interactive protocol v2 runtime). */
@@ -520,7 +530,7 @@ extern "C" void app_main(void) {
       bool qual_ok = run_qual_phases();
       ESP_LOGI(TAG, "qual phases %s", qual_ok ? "complete" : "incomplete");
     } else {
-      run_service_mode();
+      run_service_mode(radio_ok);
     }
   }
 
