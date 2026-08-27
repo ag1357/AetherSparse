@@ -72,8 +72,10 @@ bool AetherLinkTcp::stopRequested(uint32_t delayMs) const {
 
 bool AetherLinkTcp::isTactilityApReady() const {
     const auto webSettings = settings::webserver::loadOrGetDefault();
-    return webSettings.wifiEnabled &&
-        webSettings.webServerEnabled &&
+    // Factory port note: this Tactility tree's WebServerService never reads
+    // the persisted wifiEnabled flag and no UI writes it (stays false), so
+    // AP readiness here is: WebServer enabled + AP mode + service running.
+    return webSettings.webServerEnabled &&
         webSettings.wifiMode == settings::webserver::WiFiMode::AccessPoint &&
         service::webserver::isWebServerEnabled();
 }
