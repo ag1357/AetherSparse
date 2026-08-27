@@ -33,3 +33,25 @@ CONFIG_FATFS_FS_LOCK=0
 
 # Long storage phases yield explicitly; keep the watchdog horizon generous.
 CONFIG_ESP_TASK_WDT_TIMEOUT_S=30
+
+# --- Option A transport (2026-08-26 gate): hosted factory-C6 softAP + TCP ---
+# Larger app partition: the hosted + wifi_remote + sockets stack grows the
+# image past the 1 MiB single-app partition.
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+
+# Identical hosted component configuration to the known-working Device A
+# Tactility build and the verified p4_c6_probe (SDIO slot 1, C6 reset on
+# P4 GPIO54). No BT on Device B (no BLE consumer there).
+CONFIG_ESP_HOSTED_ENABLED=y
+CONFIG_ESP_HOSTED_CP_TARGET_ESP32C6=y
+CONFIG_ESP_HOSTED_P4_DEV_BOARD_FUNC_BOARD=y
+CONFIG_ESP_HOSTED_PRIV_SDIO_OPTION=y
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_CLK_SLOT_1=18
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_CMD_SLOT_1=19
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D0_SLOT_1=14
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D1_4BIT_BUS_SLOT_1=15
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D2_4BIT_BUS_SLOT_1=16
+CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D3_4BIT_BUS_SLOT_1=17
+CONFIG_ESP_HOSTED_GPIO_SLAVE_RESET_SLAVE=54
+CONFIG_ESP_HOSTED_ENABLE_PEER_DATA_TRANSFER=y
+CONFIG_ESP_WIFI_REMOTE_ENABLED=y

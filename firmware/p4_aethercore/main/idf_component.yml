@@ -1,0 +1,6 @@
+dependencies:
+  # Option A transport: identical versions to the known-working Device A
+  # Tactility build and to the verified p4_c6_probe run.
+  espressif/esp_hosted: "2.12.11"
+  espressif/esp_wifi_remote: "1.2.3"
+  idf: ">=5.5"

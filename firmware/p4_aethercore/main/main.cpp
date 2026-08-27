@@ -27,8 +27,7 @@
 #include <string.h>
 
 #include "aethercore_runtime.h"
-#include "link/slip_link.h"
-#include "link/slip_uart.h"
+#include "link_tcp.h"
 #include "pack_io.h"
 #include "parity_vectors_v14.h"
 #include "policy_v14_selected.h"
@@ -76,28 +75,24 @@ static void run_service_mode(void) {
     return;
   }
 
-  static ac::link::Link g_link;
-  g_link.on_message(
-      [](ac::link::Ac20Type type, uint32_t req, uint32_t sess,
-         const uint8_t *body, size_t len, void *) {
-        ac::runtime::service_handle_message(type, req, sess, body, len);
-      },
-      nullptr);
-  ac::runtime::service_set_response_sink(
-      [](void *, ac::link::Ac20Type type, uint32_t req, uint32_t sess,
-         const uint8_t *body, size_t n) {
-        ac::link::link_uart_send(&g_link, type, req, sess, body, n);
-      },
-      nullptr);
-  bool link_ok = ac::link::link_uart_start(&g_link, 1, CONFIG_AC_LINK_UART_TX_PIN,
-                                           CONFIG_AC_LINK_UART_RX_PIN,
-                                           CONFIG_AC_LINK_UART_BAUD);
-  printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"uart1 @%d "
-         "tx=%d rx=%d\",\"packv2\":%s}\n",
-         link_ok ? "READY" : "READY_NO_LINK", CONFIG_AC_LINK_UART_BAUD,
-         CONFIG_AC_LINK_UART_TX_PIN, CONFIG_AC_LINK_UART_RX_PIN,
-         info.packv2_active ? "active" : "degraded");
-  ESP_LOGI(TAG, "service mode ready (link %s)", link_ok ? "up" : "FAILED");
+  /* Option A transport (mission gate 2026-08-26): deterministic private
+   * softAP + single-client framed TCP on the factory C6. The ESP-NOW/SLIP
+   * link layer stays in-tree as an unused artifact. Everything below runs
+   * on static-stack tasks (TCM flash-write trap, probe-verified). */
+  ac::runtime::service_set_response_sink(ac::linktcp::response_sink, nullptr);
+  ac::linktcp::Config lcfg = {
+      CONFIG_AC_TCP_AP_SSID,
+      CONFIG_AC_TCP_AP_PASS,
+      CONFIG_AC_TCP_AP_CHANNEL,
+      CONFIG_AC_TCP_PORT,
+      CONFIG_AC_TCP_LOOPBACK_SELFTEST,
+  };
+  bool link_ok = ac::linktcp::start(lcfg);
+  printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"tcp "
+         "%s:%d\",\"packv2\":%s}\n",
+         link_ok ? "READY" : "READY_NO_LINK", CONFIG_AC_TCP_AP_SSID,
+         CONFIG_AC_TCP_PORT, info.packv2_active ? "active" : "degraded");
+  ESP_LOGI(TAG, "service mode ready (link task %s)", link_ok ? "started" : "FAILED");
 }
 
 /* The linker collects unused function sections, which would understate the

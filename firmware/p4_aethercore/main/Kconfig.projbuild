@@ -1,23 +1,41 @@
 menu "AetherCore P4 runtime"
 
+    comment "AC_LINK_UART_* = retained ESP-NOW artifact, unused in Option A"
+
     config AC_LINK_UART_BAUD
-        int "C6 link UART baud rate"
+        int "C6 link UART baud rate (ESP-NOW artifact, unused)"
         default 921600
-        help
-            Must match espnow-bridge-c6 BRIDGE_UART_BAUD on Device B's C6.
 
     config AC_LINK_UART_TX_PIN
-        int "C6 link UART TX GPIO (P4 -> C6 GPIO4/RX)"
+        int "C6 link UART TX GPIO (ESP-NOW artifact, unused)"
         default 36
-        help
-            Physical jumper-wire selection made at bring-up; must match the
-            wired header pin and the bridge's RX pin.
 
     config AC_LINK_UART_RX_PIN
-        int "C6 link UART RX GPIO (P4 <- C6 GPIO5/TX)"
+        int "C6 link UART RX GPIO (ESP-NOW artifact, unused)"
         default 37
+
+    config AC_TCP_AP_SSID
+        string "AetherCore private softAP SSID (Device B)"
+        default "AETHERCORE-V15"
+
+    config AC_TCP_AP_PASS
+        string "AetherCore private softAP WPA2 passphrase (bench link)"
+        default "aethercore-v15-link"
+
+    config AC_TCP_AP_CHANNEL
+        int "AetherCore private softAP channel"
+        default 6
+
+    config AC_TCP_PORT
+        int "AetherCore TCP service port (bound to AP interface)"
+        default 9000
+
+    config AC_TCP_LOOPBACK_SELFTEST
+        bool "Run the in-device loopback protocol self-test at boot"
+        default y
         help
-            Physical jumper-wire selection made at bring-up; must match the
-            wired header pin and the bridge's TX pin.
+            Connects a local client socket to the service, sends a golden
+            Python-codec SESSION_OPEN frame, and strictly decodes the
+            HEALTH+CAPABILITIES responses. Emits MEAS loopback:ok/fail.
 
 endmenu
