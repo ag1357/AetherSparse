@@ -23,6 +23,7 @@
 #include "esp_psram.h"
 #include "esp_system.h"
 #include "esp_timer.h"
+#include "driver/gpio.h"
 
 #include <string.h>
 
@@ -543,9 +544,8 @@ extern "C" void app_main(void) {
       false,
   };
 #endif
-  bool radio_ok = ac::linktcp::radio_up(lcfg);
-
 #if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
+  bool radio_ok = ac::linktcp::radio_up(lcfg);
   printf("LINK_DIAGNOSTIC_ONLY -- NOT AETHERCORE QUALIFICATION\n");
   printf("MEAS {\"phase\":\"link_diagnostic\",\"qualification\":false,"
          "\"pack_mounted\":false,\"cognition_started\":false}\n");
@@ -553,9 +553,32 @@ extern "C" void app_main(void) {
 #else
   /* Shared verified boot (mount + pack verify + Pack-v2), then the
    * card-selected mode: "qual" (cache ladder + A/B replay evidence) or
-   * "service" (interactive protocol v2 runtime). */
+   * "service" (interactive protocol v2 runtime).
+   *
+   * Boot order is pack FIRST, radio SECOND: slot-0 SD mount/verify traffic
+   * wedges the hosted C6 SDIO link (slot 1) when the radio is already
+   * active (measured: every radio-first boot lost the C6 data path in the
+   * mount window; the 802.11 association survived but TCP SYNs died into
+   * errno 113 and the sdio error storm). Bringing hosted up after the pack
+   * is resident keeps the shared host quiet during hosted init. */
   bool boot_ok = run_pack_boot();
   ESP_LOGI(TAG, "pack boot %s", boot_ok ? "complete" : "FAILED (see MEAS lines)");
+  /* The SD slot-0 mount browns out the C6 co-processor on the shared rail;
+   * the crashed slave never reboots itself and every later hosted RPC dies
+   * (errno 113 + sdio storm). The hosted driver's boot-time slave reset ran
+   * BEFORE the mount, so pulse the slave-reset line (GPIO54, per
+   * ESP_HOSTED_SDIO_RESET_SLAVE_GPIO range) again now that the rail is
+   * quiet, then let hosted init see a fresh ROM-booted C6. */
+  gpio_config_t rst_cfg = {};
+  rst_cfg.pin_bit_mask = 1ULL << 54;
+  rst_cfg.mode = GPIO_MODE_OUTPUT;
+  gpio_config(&rst_cfg);
+  gpio_set_level((gpio_num_t)54, 0);
+  vTaskDelay(pdMS_TO_TICKS(300));
+  gpio_set_level((gpio_num_t)54, 1);
+  vTaskDelay(pdMS_TO_TICKS(3000));
+  printf("MEAS {\"phase\":\"link\",\"event\":\"slave_reset_pulsed\",\"gpio\":54}\n");
+  bool radio_ok = ac::linktcp::radio_up(lcfg);
   if (boot_ok) {
     char mode[16];
     read_boot_mode(mode, sizeof(mode));

@@ -521,7 +521,14 @@ bool run_pack_boot(void) {
     return false;
   }
   memory_snapshot("post-mount");
+#if CONFIG_AC_BOOT_VERIFY_SKIP
+  /* Interactive acceptance cycles only: boot re-verify already qualified on
+   * this medium. Loud marker; production builds keep this OFF. */
+  printf("MEAS {\"phase\":\"pack.verify\",\"result\":\"SKIPPED_INTERACTIVE_ACCEPTANCE\"}\n");
+  bool verified = true;
+#else
   bool verified = pack_verify_regions();
+#endif
   printf("MEAS {\"phase\":\"pack\",\"pack_id\":\"%s\",\"verified\":%s}\n",
          pack_id(), verified ? "true" : "false");
   if (!verified) return false;

@@ -66,6 +66,16 @@ menu "AetherCore P4 runtime"
         range 250 60000
         depends on AC_LINK_PRODUCTION_STA_CLIENT
 
+    config AC_BOOT_VERIFY_SKIP
+        bool "Skip boot pack re-verify (interactive acceptance only)"
+        default n
+        help
+            Skips the ~820 s boot-time pack region re-verify after it has
+            already been qualified on this medium, so interactive link
+            acceptance cycles in seconds instead of minutes. Prints a loud
+            SKIPPED_INTERACTIVE_ACCEPTANCE marker. Production/qualification
+            builds must leave this OFF (fail-closed verify on boot).
+
     config AC_LINK_DIAGNOSTIC_ONLY
         bool "Transport-only link diagnostic (NOT qualification)"
         default n
