@@ -4,11 +4,9 @@
 #include <sdkconfig.h>
 #endif
 
-#if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SLAVE_SOC_WIFI_SUPPORTED)
-
 #include "AetherChatView.h"
 #include "AetherLinkProtocol.h"
-#include "AetherLinkTcp.h"
+#include "AetherLinkAccessory.h"
 
 #include <Tactility/app/App.h>
 
@@ -19,7 +17,7 @@ namespace tt::app::aetherchat {
 class AetherChatApp final : public App {
 
     AetherChatView view = AetherChatView(this);
-    AetherLinkTcp link;
+    AetherLinkAccessory link;
 
     uint32_t sessionId = 0;         // generated in onCreate, retained across reconnects
     uint32_t nextRequestId = 1;
@@ -61,5 +59,3 @@ public:
 };
 
 } // namespace tt::app::aetherchat
-
-#endif // CONFIG_SOC_WIFI_SUPPORTED || CONFIG_SLAVE_SOC_WIFI_SUPPORTED

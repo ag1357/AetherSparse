@@ -9,7 +9,19 @@ The overlay follows Tactility `0.8.0-dev` application conventions and keeps
 Device A limited to UI, keyboard/touch and transport. Cognition remains on the
 accessory Device B.
 
-## Selected offline link
+## Selected accessory link
+
+`integrations/tactility/aetherchat` is authoritative; the Factory review copy
+is synchronized at `review/device-a-aetherchat`. AetherChat consumes the
+Tactility-owned `AccessoryLinkService` and never initializes USB, Wi-Fi,
+WebServer, ESP-Hosted, or a radio.
+
+Production is Device A USB host to a replaceable Device B CDC-ACM device.
+UART carries the same framed stream as a universal fallback. TCP below is
+retained under `Deprecated/` only as historical Factory evidence and is outside
+the production source/include globs.
+
+## Deprecated wireless link record
 
 Tactility's existing WebServer service is the sole owner of:
 

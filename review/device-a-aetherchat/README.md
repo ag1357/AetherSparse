@@ -9,6 +9,9 @@ headers and sources in the two locations are intentionally byte-identical;
 this flat mirror when producing Factory patches because the custom Device-A
 tree is not identical to pinned upstream Tactility.
 
-The selected transport is a passive one-client listener on TCP port 9000. It
-uses Tactility's configured WebServer/AP only as an existing network and never
-owns the radio, AP, DHCP, HTTP server or station association lifecycle.
+The selected transport is the Tactility-owned AccessoryLink USB-host service.
+AetherChat is only a client of that service and never owns USB, Wi-Fi, the
+WebServer, ESP-Hosted, or a radio. Device B is a replaceable compute accessory;
+CDC-ACM is current production and UART is the same-stream fallback. The former
+TCP files remain only under `Deprecated/`, outside the production Factory
+source/include layout.

@@ -1,70 +1,39 @@
 menu "AetherCore P4 runtime"
 
-    comment "AC_LINK_UART_* = retained ESP-NOW artifact, unused by TCP transport"
+    comment "Device B is a replaceable compute accessory; USB is production"
 
     config AC_LINK_UART_BAUD
-        int "C6 link UART baud rate (ESP-NOW artifact, unused)"
+        int "Universal AetherLink UART fallback baud"
         default 921600
 
     config AC_LINK_UART_TX_PIN
-        int "C6 link UART TX GPIO (ESP-NOW artifact, unused)"
-        default 36
+        int "Universal UART TX GPIO (-1 until carrier-provisioned)"
+        default -1
 
     config AC_LINK_UART_RX_PIN
-        int "C6 link UART RX GPIO (ESP-NOW artifact, unused)"
-        default 37
+        int "Universal UART RX GPIO (-1 until carrier-provisioned)"
+        default -1
 
     choice AC_LINK_TOPOLOGY
         prompt "Device-B link topology"
-        default AC_LINK_PRODUCTION_STA_CLIENT
+        default AC_LINK_USB_CDC_DEVICE
         help
-            Production inverts the Factory test topology: Device A retains
-            Tactility's AP/WebServer ownership and this Device B joins it as a
-            hosted-C6 station, then opens the full-duplex TCP connection.
+            Protocol-v2 remains above a byte-stream interface. USB CDC-ACM
+            device is selected for the current P4 accessory; UART is the
+            universal fallback. TCP is retained as historical diagnostics.
 
-        config AC_LINK_PRODUCTION_STA_CLIENT
-            bool "Production: Device B STA + TCP client"
+        config AC_LINK_USB_CDC_DEVICE
+            bool "Production: Device B USB CDC-ACM device"
 
-        config AC_LINK_LEGACY_B_AP_DIAGNOSTIC
-            bool "Diagnostic only: legacy Device B AP + TCP server"
+        config AC_LINK_UART_FALLBACK
+            bool "Fallback: raw UART byte stream"
+
+        config AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
+            bool "Deprecated diagnostic: Device B C6 + TCP"
             help
-                Retains the physically investigated Factory topology solely
-                for rollback/diagnosis. It is not the production default.
+                Retains the Factory evidence in source for rollback/diagnosis.
+                It is never selected by production defaults.
     endchoice
-
-    config AC_LINK_DEVICE_A_SSID
-        string "Device A Tactility AP SSID"
-        default ""
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
-        help
-            Provision the exact SSID configured in Tactility WebServer
-            settings. The empty default fails closed; firmware does not guess
-            or rewrite the user's Tactility network configuration.
-
-    config AC_LINK_DEVICE_A_PASS
-        string "Device A Tactility AP passphrase"
-        default ""
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
-        help
-            Provision the exact Tactility AP passphrase. It is never printed
-            by the Device-B runtime.
-
-    config AC_LINK_DEVICE_A_IPV4
-        string "Device A AP IPv4 address"
-        default "192.168.4.1"
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
-
-    config AC_LINK_STA_CONNECT_TIMEOUT_MS
-        int "Initial Device A association/DHCP timeout (ms)"
-        default 30000
-        range 5000 180000
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
-
-    config AC_LINK_RECONNECT_DELAY_MS
-        int "TCP reconnect delay (ms)"
-        default 2000
-        range 250 60000
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
 
     config AC_BOOT_VERIFY_SKIP
         bool "Skip boot pack re-verify (interactive acceptance only)"
@@ -76,30 +45,20 @@ menu "AetherCore P4 runtime"
             SKIPPED_INTERACTIVE_ACCEPTANCE marker. Production/qualification
             builds must leave this OFF (fail-closed verify on boot).
 
-    config AC_LINK_DIAGNOSTIC_ONLY
-        bool "Transport-only link diagnostic (NOT qualification)"
-        default n
-        depends on AC_LINK_PRODUCTION_STA_CLIENT
-        help
-            Joins Device A and exchanges bounded protocol-v2/HEALTH traffic
-            without mounting or verifying the knowledge pack and without
-            starting cognition. The runtime prints an unmistakable
-            LINK_DIAGNOSTIC_ONLY -- NOT AETHERCORE QUALIFICATION warning.
-
     config AC_TCP_AP_SSID
         string "Legacy diagnostic Device-B softAP SSID"
         default "AETHERCORE-V15"
-        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
+        depends on AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
 
     config AC_TCP_AP_PASS
         string "Legacy diagnostic Device-B softAP WPA2 passphrase"
         default "aethercore-v15-link"
-        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
+        depends on AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
 
     config AC_TCP_AP_CHANNEL
         int "Legacy diagnostic Device-B softAP channel"
         default 6
-        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
+        depends on AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
 
     config AC_TCP_PORT
         int "AetherLink protocol-v2 TCP port"
@@ -108,7 +67,7 @@ menu "AetherCore P4 runtime"
     config AC_TCP_LOOPBACK_SELFTEST
         bool "Run the in-device loopback protocol self-test at boot"
         default y
-        depends on AC_LINK_LEGACY_B_AP_DIAGNOSTIC
+        depends on AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
         help
             Connects a local client socket to the service, sends a golden
             Python-codec SESSION_OPEN frame, and strictly decodes the

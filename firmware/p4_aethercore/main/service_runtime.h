@@ -1,6 +1,7 @@
 /* Device B service runtime (V15): wires the native service core (Phase 9),
- * memory subsystem (Phase 10), protocol v2 codec (Phase 11) and the AC20/SLIP
- * link (Phase 12) into the operational request handler, mirroring
+ * memory subsystem (Phase 10), protocol v2 codec (Phase 11) and the
+ * transport-independent AetherLink stream into the operational handler,
+ * mirroring
  * src/aethersparse/agent/operational.py semantics exactly:
  *
  *   SESSION_OPEN/RESUME -> HEALTH + CAPABILITIES
@@ -11,9 +12,9 @@
  *   USER_CANCEL/RESET   -> vertical "cancel"/"reset" utterance (as Python)
  *   HEALTH/CAPABILITIES -> live self-model from runtime state
  *
- * Transport note: AC20 frames carry the protocol v2 JSON body WITHOUT the
- * u32be stream prefix (the AC20 header carries the length); bodies are the
- * exact bytes the Python FramedJsonCodec codec produces/parses.
+ * Transport note: USB/UART/TCP stream links carry the frozen four-byte u32be
+ * prefix. The historical AC20 datagram envelope remains available only for
+ * archived diagnostics. JSON bodies are byte-identical in either case.
  */
 #pragma once
 
@@ -53,7 +54,7 @@ bool service_init(const char *knowledge_path, const char *state_path,
 
 void service_set_response_sink(ResponseSink sink, void *ctx);
 
-/* Entry point for one reassembled AC20 message (JSON body, no prefix).
+/* Entry point for one complete protocol-v2 JSON body (no stream prefix).
  * Malformed bodies produce an ERROR response; they never crash the loop. */
 void service_handle_message(ac::link::Ac20Type type, uint32_t request_id,
                             uint32_t session_id, const uint8_t *body,

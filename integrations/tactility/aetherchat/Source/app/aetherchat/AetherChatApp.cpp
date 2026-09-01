@@ -1,18 +1,14 @@
 // AetherChat: Device A front-end for AetherCore V15.
 //
 // User types here (Tactility on the Waveshare ESP32-P4-WIFI6-Touch-LCD-3.5);
-// Tactility continues to own its existing WebServer/AP, DHCP and radio.
-// AetherChat passively accepts one protocol-v2 TCP connection on port 9000;
-// Device B joins that AP as a station/client and runs p4_aethercore natively.
-// The ESP-NOW/AC20 path (phase 12/13) is retired for AetherChat; Tactility's
-// ESP-NOW service itself is untouched.
+// Tactility owns the AccessoryLink/USB-host service and hardware lifetime.
+// AetherChat consumes framed protocol-v2 messages only; cognition, Pack-v2,
+// memory and knowledge remain on the removable Device-B compute accessory.
 //
 // See work/v15-p4-deployment/phase-notes/phase-option-a-tcp-spec.md.
 #ifdef ESP_PLATFORM
 #include <sdkconfig.h>
 #endif
-
-#if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SLAVE_SOC_WIFI_SUPPORTED)
 
 #include <Tactility/app/aetherchat/AetherChatAppPrivate.h>
 
@@ -37,14 +33,14 @@ void AetherChatApp::onCreate(AppContext& appContext) {
         sessionId = 1;
     }
 
-    AetherLinkTcp::Callbacks callbacks = {
+    AetherLinkAccessory::Callbacks callbacks = {
         .onLinkUp = [this] { onLinkUp(); },
         .onLinkDown = [this] { onLinkDown(); },
         .onFrame = [this](const char* json, size_t length) { onFrame(json, length); },
         .onState = [this](const char* text) { onLinkState(text); },
     };
     if (!link.start(callbacks)) {
-        LOG_E(TAG, "Failed to start TCP link backend");
+        LOG_E(TAG, "Failed to subscribe to Tactility AccessoryLink service");
     }
 }
 
@@ -283,5 +279,3 @@ extern const AppManifest manifest = {
 };
 
 } // namespace tt::app::aetherchat
-
-#endif // CONFIG_SOC_WIFI_SUPPORTED || CONFIG_SLAVE_SOC_WIFI_SUPPORTED

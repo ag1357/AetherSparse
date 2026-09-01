@@ -34,54 +34,18 @@ CONFIG_FATFS_FS_LOCK=0
 # Long storage phases yield explicitly; keep the watchdog horizon generous.
 CONFIG_ESP_TASK_WDT_TIMEOUT_S=30
 
-# --- Selected V15 link repair: hosted factory-C6 STA + TCP client ---
-# Device A keeps ownership of Tactility's existing AP/WebServer. Credentials
-# intentionally have no repository default: Factory provisions the exact
-# Tactility WebServer settings through Kconfig before flashing Device B.
-CONFIG_AC_LINK_PRODUCTION_STA_CLIENT=y
-# CONFIG_AC_LINK_LEGACY_B_AP_DIAGNOSTIC is not set
-CONFIG_AC_LINK_DEVICE_A_SSID=""
-CONFIG_AC_LINK_DEVICE_A_PASS=""
-CONFIG_AC_LINK_DEVICE_A_IPV4="192.168.4.1"
-CONFIG_AC_TCP_PORT=9000
-CONFIG_AC_LINK_STA_CONNECT_TIMEOUT_MS=30000
-CONFIG_AC_LINK_RECONNECT_DELAY_MS=2000
-# CONFIG_AC_LINK_DIAGNOSTIC_ONLY is not set
+# --- Selected V15 accessory link: native P4 USB CDC-ACM device ---
+CONFIG_AC_LINK_USB_CDC_DEVICE=y
+# CONFIG_AC_LINK_UART_FALLBACK is not set
+# CONFIG_AC_LINK_DEPRECATED_TCP_DIAGNOSTIC is not set
+CONFIG_TINYUSB_CDC_ENABLED=y
+CONFIG_TINYUSB_CDC_COUNT=1
+CONFIG_TINYUSB_CDC_RX_BUFSIZE=1024
+CONFIG_TINYUSB_CDC_TX_BUFSIZE=1024
 
-# Larger app partition: the hosted + wifi_remote + sockets stack grows the
-# image past the 1 MiB single-app partition.
+# Retain the larger app partition used by the qualified production image.
 CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
 
-# Identical hosted component configuration to the known-working Device A
-# Tactility build and the verified p4_c6_probe (SDIO slot 1, C6 reset on
-# P4 GPIO54). No BT on Device B (no BLE consumer there).
-CONFIG_ESP_HOSTED_ENABLED=y
-CONFIG_ESP_HOSTED_CP_TARGET_ESP32C6=y
-CONFIG_ESP_HOSTED_P4_DEV_BOARD_FUNC_BOARD=y
-CONFIG_ESP_HOSTED_PRIV_SDIO_OPTION=y
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_CLK_SLOT_1=18
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_CMD_SLOT_1=19
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D0_SLOT_1=14
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D1_4BIT_BUS_SLOT_1=15
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D2_4BIT_BUS_SLOT_1=16
-CONFIG_ESP_HOSTED_PRIV_SDIO_PIN_D3_4BIT_BUS_SLOT_1=17
-CONFIG_ESP_HOSTED_GPIO_SLAVE_RESET_SLAVE=54
-CONFIG_ESP_HOSTED_ENABLE_PEER_DATA_TRANSFER=y
-CONFIG_ESP_WIFI_REMOTE_ENABLED=y
-
-# Known-working Device A config: the hosted SDIO mempool slab fails on
-# this PSRAM build (early-boot slab alloc -> "HS_MP: mempool create failed:
-# no mem" crash loop). Tactility runs with the mempool disabled; match it.
-# CONFIG_ESP_HOSTED_USE_MEMPOOL is not set
-
-# The SD card (slot 0) and the C6 link (slot 1) share the SDMMC host clock
-# divider with no cross-slot locking (IDF legacy sdmmc driver). A transient
-# slot-1 command failure while slot 0 mounts must be retried, not turned
-# into a host CPU reset (observed boot loop 2026-08-27; hosted's own
-# host_sdcard_with_hosted example documents the sharing constraints).
-# CONFIG_ESP_HOSTED_TRANSPORT_RESTART_ON_FAILURE is not set
-
-# CONFIG_ESP_NETIF_LOOPBACK stays unset: enabling it breaks the link step
-# with esp_wifi_remote (undefined esp_netif_netstack_* symbols). The
-# loopback self-test therefore uses a dedicated 127.0.0.1 listener instead
-# of the AP netif's own address (see link_tcp.cpp).
+# Production invariant: the accessory link never initializes C6/Hosted/Wi-Fi.
+# CONFIG_ESP_HOSTED_ENABLED is not set
+# CONFIG_ESP_WIFI_REMOTE_ENABLED is not set

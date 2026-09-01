@@ -3,23 +3,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 REVIEW = ROOT / "review" / "device-a-aetherchat"
 OVERLAY = ROOT / "integrations" / "tactility" / "aetherchat"
-REVIEW_TCP = REVIEW / "Source" / "AetherLinkTcp.cpp"
-OVERLAY_TCP = OVERLAY / "Source" / "app" / "aetherchat" / "AetherLinkTcp.cpp"
+REVIEW_TCP = REVIEW / "Deprecated" / "AetherLinkTcp.cpp"
+OVERLAY_TCP = OVERLAY / "Deprecated" / "AetherLinkTcp.cpp"
 
 
 def test_device_a_overlay_and_factory_review_copy_are_synchronized() -> None:
     private_names = (
         "AetherChatAppPrivate.h",
         "AetherChatView.h",
+        "AetherLinkAccessory.h",
         "AetherLinkProtocol.h",
-        "AetherLinkTcp.h",
         "protocol_v2_wire.h",
     )
     source_names = (
         "AetherChatApp.cpp",
         "AetherChatView.cpp",
+        "AetherLinkAccessory.cpp",
         "AetherLinkProtocol.cpp",
-        "AetherLinkTcp.cpp",
     )
     for name in private_names:
         assert (REVIEW / "Private" / name).read_bytes() == (
@@ -29,10 +29,17 @@ def test_device_a_overlay_and_factory_review_copy_are_synchronized() -> None:
         assert (REVIEW / "Source" / name).read_bytes() == (
             OVERLAY / "Source" / "app" / "aetherchat" / name
         ).read_bytes()
+    for name in ("AetherLinkTcp.h", "AetherLinkTcp.cpp"):
+        assert (REVIEW / "Deprecated" / name).read_bytes() == (
+            OVERLAY / "Deprecated" / name
+        ).read_bytes()
 
 
-def test_device_a_transport_never_owns_tactility_networking() -> None:
-    source = REVIEW_TCP.read_text(encoding="utf-8")
+def test_selected_device_a_transport_never_owns_network_or_usb_hardware() -> None:
+    source = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in (REVIEW / "Source").glob("*.cpp")
+    )
     forbidden = (
         'stopService("WebServer")',
         'startService("WebServer")',
@@ -41,20 +48,21 @@ def test_device_a_transport_never_owns_tactility_networking() -> None:
         "service::wifi::connect",
         "service::wifi::disconnect",
         "esp_wifi_",
+        "usb_host_install",
+        "tinyusb",
+        "listen(fd, 1)",
+        "service::webserver::isWebServerEnabled()",
     )
     for token in forbidden:
         assert token not in source
 
-    assert "settings::webserver::loadOrGetDefault()" in source
-    assert "settings::webserver::WiFiMode::AccessPoint" in source
-    assert "service::webserver::isWebServerEnabled()" in source
-    assert 'setState("Enable Tactility Web Server / Access Point")' in source
-    assert "webSettings.apPassword" not in source
+    assert "service::accessorylink::subscribe" in source
+    assert "service::accessorylink::sendFrame" in source
 
 
-def test_device_a_is_a_bounded_reconnecting_tcp_server() -> None:
+def test_deprecated_tcp_diagnostic_is_preserved_outside_production() -> None:
     source = REVIEW_TCP.read_text(encoding="utf-8")
-    header = (REVIEW / "Private" / "AetherLinkTcp.h").read_text(encoding="utf-8")
+    header = (REVIEW / "Deprecated" / "AetherLinkTcp.h").read_text(encoding="utf-8")
 
     assert "static constexpr uint16_t LISTEN_PORT = 9000;" in header
     assert "static constexpr size_t MAX_FRAME_BYTES = 16384;" in header
@@ -66,7 +74,7 @@ def test_device_a_is_a_bounded_reconnecting_tcp_server() -> None:
     assert 'setState("Link: waiting for Device B reconnect")' in source
 
 
-def test_device_a_disconnect_discards_partial_frame_and_keeps_wire_exact() -> None:
+def test_deprecated_tcp_keeps_historical_wire_evidence() -> None:
     source = REVIEW_TCP.read_text(encoding="utf-8")
 
     assert "putLengthHeader" in source

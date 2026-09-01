@@ -23,12 +23,16 @@
 #include "esp_psram.h"
 #include "esp_system.h"
 #include "esp_timer.h"
-#include "driver/gpio.h"
-
 #include <string.h>
 
 #include "aethercore_runtime.h"
+#if CONFIG_AC_LINK_USB_CDC_DEVICE
+#include "link_usb_cdc.h"
+#elif CONFIG_AC_LINK_UART_FALLBACK
+#include "link_uart_stream.h"
+#elif CONFIG_AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
 #include "link_tcp.h"
+#endif
 #include "pack_io.h"
 #include "parity_vectors_v14.h"
 #include "policy_v14_selected.h"
@@ -55,9 +59,8 @@ static void read_boot_mode(char *out, size_t cap) {
 }
 
 /* Interactive service mode: verified pack + Pack-v2 + knowledge + memory
- * store + protocol v2 over the Device-B STA/client link. radio_ok reflects the
- * pre-boot radio bring-up; fail-closed when the link never came up. */
-static void run_service_mode(bool radio_ok) {
+ * store + protocol v2 over the selected transport-independent AetherLink. */
+static void run_service_mode(bool link_ok) {
   ac::runtime::RuntimeInfo info = {};
   info.pack_verified = true;
   info.packv2_active = evd_mode() == EVD_MODE_V2_DIRECT;
@@ -77,20 +80,25 @@ static void run_service_mode(bool radio_ok) {
     return;
   }
 
-  /* Device A keeps Tactility AP/WebServer ownership. The factory C6 on this
-   * Device B is already associated; release the persistent TCP client loop. */
+#if CONFIG_AC_LINK_USB_CDC_DEVICE
+  ac::runtime::service_set_response_sink(ac::linkusb::response_sink, nullptr);
+  if (link_ok) ac::linkusb::serve();
+  const char *transport = "usb-cdc-acm-device";
+#elif CONFIG_AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
   ac::runtime::service_set_response_sink(ac::linktcp::response_sink, nullptr);
-  if (radio_ok) ac::linktcp::serve();
-  printf("MEAS {\"phase\":\"service\",\"status\":\"%s\",\"link\":\"tcp "
-         "%s:%d\",\"packv2\":%s}\n",
-         radio_ok ? "READY" : "LINK_FAILED",
-#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
-         CONFIG_AC_LINK_DEVICE_A_IPV4,
+  if (link_ok) ac::linktcp::serve();
+  const char *transport = "deprecated-tcp-diagnostic";
 #else
-         "legacy-device-b-ap-listener",
+  ac::runtime::service_set_response_sink(ac::linkuart::response_sink, nullptr);
+  if (link_ok) ac::linkuart::serve();
+  const char *transport = "uart-fallback-contract";
 #endif
-         CONFIG_AC_TCP_PORT, info.packv2_active ? "active" : "degraded");
-  ESP_LOGI(TAG, "service mode ready (link %s)", radio_ok ? "serving" : "FAILED");
+  printf("MEAS {\"phase\":\"service\",\"status\":\"%s\","
+         "\"link\":\"%s\",\"packv2\":%s,\"c6_initialized\":false}\n",
+         link_ok ? "READY" : "LINK_FAILED", transport,
+         info.packv2_active ? "active" : "degraded");
+  ESP_LOGI(TAG, "service mode ready (%s, link %s)", transport,
+           link_ok ? "serving" : "FAILED");
 }
 
 /* The linker collects unused function sections, which would understate the
@@ -505,29 +513,12 @@ extern "C" void app_main(void) {
 
   run_parity();
 
-  /* Radio bring-up MUST precede the SD mount (pack boot): the C6 link is
-   * SDIO slot 1 on the shared SDMMC host and slot-1 card init fails once
-   * slot 0 is mounted (hardware-verified; Tactility uses the same order).
-   * Blocks until the C6 link is associated to Device A and has a DHCP address.
-   * The TCP client starts later, in serve(), after pack boot (or immediately
-   * in the explicit transport-only diagnostic build). */
-#if CONFIG_AC_LINK_PRODUCTION_STA_CLIENT
-  ac::linktcp::Config lcfg = {
-      CONFIG_AC_LINK_DEVICE_A_SSID,
-      CONFIG_AC_LINK_DEVICE_A_PASS,
-      CONFIG_AC_LINK_DEVICE_A_IPV4,
-      0,
-      CONFIG_AC_TCP_PORT,
-      CONFIG_AC_LINK_RECONNECT_DELAY_MS,
-      CONFIG_AC_LINK_STA_CONNECT_TIMEOUT_MS,
-      false,
-#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
-      CONFIG_AC_LINK_DIAGNOSTIC_ONLY,
-#else
-      false,
-#endif
-  };
-#else
+  /* Selected accessory architecture: Device B is a USB device and the C6 is
+   * deliberately not initialized.  USB and slot-0 SDMMC are independent P4
+   * peripherals, so Pack-v2 retains its qualified 4-bit storage path. */
+#if CONFIG_AC_LINK_USB_CDC_DEVICE
+  bool link_ok = ac::linkusb::start();
+#elif CONFIG_AC_LINK_DEPRECATED_TCP_DIAGNOSTIC
   ac::linktcp::Config lcfg = {
       CONFIG_AC_TCP_AP_SSID,
       CONFIG_AC_TCP_AP_PASS,
@@ -543,42 +534,17 @@ extern "C" void app_main(void) {
 #endif
       false,
   };
-#endif
-#if CONFIG_AC_LINK_DIAGNOSTIC_ONLY
-  bool radio_ok = ac::linktcp::radio_up(lcfg);
-  printf("LINK_DIAGNOSTIC_ONLY -- NOT AETHERCORE QUALIFICATION\n");
-  printf("MEAS {\"phase\":\"link_diagnostic\",\"qualification\":false,"
-         "\"pack_mounted\":false,\"cognition_started\":false}\n");
-  if (radio_ok) ac::linktcp::serve();
+  bool link_ok = ac::linktcp::radio_up(lcfg);
 #else
-  /* Shared verified boot (mount + pack verify + Pack-v2), then the
-   * card-selected mode: "qual" (cache ladder + A/B replay evidence) or
-   * "service" (interactive protocol v2 runtime).
-   *
-   * Boot order is pack FIRST, radio SECOND: slot-0 SD mount/verify traffic
-   * wedges the hosted C6 SDIO link (slot 1) when the radio is already
-   * active (measured: every radio-first boot lost the C6 data path in the
-   * mount window; the 802.11 association survived but TCP SYNs died into
-   * errno 113 and the sdio error storm). Bringing hosted up after the pack
-   * is resident keeps the shared host quiet during hosted init. */
+  bool link_ok = ac::linkuart::start(CONFIG_AC_LINK_UART_BAUD,
+      CONFIG_AC_LINK_UART_TX_PIN, CONFIG_AC_LINK_UART_RX_PIN);
+#endif
+
+  /* Shared verified boot (mount + pack verify + Pack-v2), then card-selected
+   * qualification or interactive service.  The historical C6/slot-1
+   * coexistence workaround is intentionally absent from production boot. */
   bool boot_ok = run_pack_boot();
   ESP_LOGI(TAG, "pack boot %s", boot_ok ? "complete" : "FAILED (see MEAS lines)");
-  /* The SD slot-0 mount browns out the C6 co-processor on the shared rail;
-   * the crashed slave never reboots itself and every later hosted RPC dies
-   * (errno 113 + sdio storm). The hosted driver's boot-time slave reset ran
-   * BEFORE the mount, so pulse the slave-reset line (GPIO54, per
-   * ESP_HOSTED_SDIO_RESET_SLAVE_GPIO range) again now that the rail is
-   * quiet, then let hosted init see a fresh ROM-booted C6. */
-  gpio_config_t rst_cfg = {};
-  rst_cfg.pin_bit_mask = 1ULL << 54;
-  rst_cfg.mode = GPIO_MODE_OUTPUT;
-  gpio_config(&rst_cfg);
-  gpio_set_level((gpio_num_t)54, 0);
-  vTaskDelay(pdMS_TO_TICKS(300));
-  gpio_set_level((gpio_num_t)54, 1);
-  vTaskDelay(pdMS_TO_TICKS(3000));
-  printf("MEAS {\"phase\":\"link\",\"event\":\"slave_reset_pulsed\",\"gpio\":54}\n");
-  bool radio_ok = ac::linktcp::radio_up(lcfg);
   if (boot_ok) {
     char mode[16];
     read_boot_mode(mode, sizeof(mode));
@@ -587,10 +553,9 @@ extern "C" void app_main(void) {
       bool qual_ok = run_qual_phases();
       ESP_LOGI(TAG, "qual phases %s", qual_ok ? "complete" : "incomplete");
     } else {
-      run_service_mode(radio_ok);
+      run_service_mode(link_ok);
     }
   }
-#endif
 
   for (;;) {
     vTaskDelay(pdMS_TO_TICKS(60000));

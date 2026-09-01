@@ -392,7 +392,13 @@ void send_capabilities(const ProtocolMessage &req) {
   make_response(req, MsgType::CAPABILITIES, "capabilities", &out);
   const char *pv = "aethercore-tactility.v2";
   const char *hw = "WAVESHARE_ESP32_P4_WIFI6_ACCESSORY_SKU_32020";
-  const char *transport = "ESP_NOW_C6_UART_BRIDGE";
+#if CONFIG_AC_LINK_USB_CDC_DEVICE
+  const char *transport = "USB_CDC_ACM";
+#elif CONFIG_AC_LINK_UART_FALLBACK
+  const char *transport = "UART_STREAM";
+#else
+  const char *transport = "DEPRECATED_TCP_DIAGNOSTIC";
+#endif
   out.poolPut(pv, strlen(pv), out.p.capabilities.protocol_version);
   out.poolPut(hw, strlen(hw), out.p.capabilities.hardware_class);
   const char *tools[] = {"SEARCH_KNOWLEDGE", "REPORT_RESULT"};

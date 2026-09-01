@@ -1,0 +1,98 @@
+{
+  "schema": "aethercore.v15-usb-accessory-link-qualification.v1",
+  "classification": "USB_ACCESSORY_LINK_HARDWARE_BLOCKED",
+  "status": "SOFTWARE_QUALIFIED_PHYSICAL_USB_BLOCKED",
+  "publication": {
+    "branch": "work/aethercore-v15-usb-accessory-link",
+    "qualified_software_commit": "54786d94255a3cca41dccbd70477a68d3b73b0b8",
+    "qualified_software_tree": "28f493cb10aa52b52055ed1c028fea84021b25d9",
+    "final_report_commit": "RESOLVE_FROM_PUBLISHED_BRANCH"
+  },
+  "parent": {
+    "commit": "b5805d8deae14f884f979a2d2b7ac1c84bf8edb1",
+    "tree": "a6e0e8d92783c2f7b7c061f594979b95051620d5",
+    "verified": true
+  },
+  "architecture": {
+    "device_a": "permanent_tactility_terminal_usb_host",
+    "device_b": "replaceable_compute_accessory_usb_device",
+    "production_transport": "USB_CDC_ACM",
+    "fallback_transport": "UART_RAW_BYTE_STREAM",
+    "deprecated_transport": "DEVICE_B_C6_TCP_WIRELESS_DIAGNOSTIC",
+    "protocol_above_transport": true,
+    "c6_selected_production": false
+  },
+  "transport_contract": {
+    "methods": ["open", "close", "read", "write", "connected", "capabilities", "cancel"],
+    "prefix": "u32be",
+    "body": "bounded_json",
+    "body_cap_bytes": 16384,
+    "partial_frame_discard_on_disconnect": true,
+    "one_in_flight": true,
+    "protocol_version": "aethercore-tactility.v2"
+  },
+  "device_a": {
+    "aetherchat_owns_usb_hardware": false,
+    "service": "Tactility AccessoryLinkService",
+    "cdc_candidate_authority": "protocol_version_plus_CAPABILITIES",
+    "unrelated_serial_rejection": "PASS_HOST_TEST",
+    "custom_tactility_cdc_host_backend": "PENDING_EXACT_FACTORY_TREE"
+  },
+  "device_b": {
+    "backend": "ESP32_P4_TINYUSB_CDC_ACM_DEVICE",
+    "esp_hosted_initialized": false,
+    "c6_initialized": false,
+    "wifi_initialized": false,
+    "tcp_initialized": false,
+    "kingston_sdmmc_changed": false,
+    "pack_v2_changed": false
+  },
+  "hardware_validation": {
+    "device_a_native_usb_pair": "J6_USB1P1_N_P",
+    "device_a_type_c_host": false,
+    "device_a_type_c_reason": "CC1_CC2_pull_down_sink_UFP_and_no_verified_host_VBUS_source",
+    "device_b_native_usb_pair": "P1_USBD_N_P",
+    "device_b_type_c_native_p4_usb": false,
+    "device_b_type_c_function": "CH343_USB_UART",
+    "safe_direct_cable": false,
+    "blocker": "no_role_correct_current_limited_backfeed_protected_VBUS_path_between_exact_boards",
+    "approved_current_usb_power_arrangement": "NONE_UNTIL_INTERPOSER_OR_BOARD_REVISION"
+  },
+  "physical_rules": {
+    "join_exposed_5v_rails": false,
+    "direct_type_c_to_type_c": false,
+    "data_only_usb_lead_without_vbus_validation": false,
+    "uart_interim": "separately_powered_3v3_TX_RX_crossed_plus_GND_only"
+  },
+  "preservation": {
+    "semantic_address_changed": false,
+    "controller_changed": false,
+    "specialists_changed": false,
+    "memory_design_changed": false,
+    "pack_v2_algorithm_changed": false,
+    "knowledge_corpus_changed": false,
+    "storage_experiments_reopened": false
+  },
+  "frozen_hashes_sha256": {
+    "pack_io_cpp": "ed998e89fe9fcc083cef3863a7c0ad82bb2a6fb2cec9e1f113c94e2aae3cc864",
+    "pack_v2_cpp": "182475feae23c01e64e7323dadbd39bbead22855e409e0c5d43be81bc6518d74",
+    "policy_v14_selected_h": "f26ad8fddd54c01da14311b2cb6f0e90099c6fe7382b651546dd0dc53fc61b80",
+    "memory_native_cpp": "512d27ffa5ef799ca6e39482ad5061696071134f132a6f95e18efdbb46409293",
+    "protocol_v2_cpp": "7cc174d58d988d90fa99fc93819db9615f786677dfed233610776ed5dd86a425",
+    "protocol_vectors": "f5df619d6dbfe9a3b765db18c92a4f961d680c9615ee1246609be4354b403d09"
+  },
+  "validation": {
+    "focused_python": "21/21_PASS",
+    "full_python": "569_PASS_1_SKIP_570_COLLECTED",
+    "ruff_modified_python_paths": "PASS",
+    "mypy_strict": "PASS_168_SOURCE_FILES",
+    "transport_stream_host": "PASS",
+    "tactility_accessory_service_host": "PASS",
+    "native_protocol": "625/625_PASS",
+    "native_protocol_fuzz_cases": 40000,
+    "esp_idf_build": "NOT_RUN_TOOLCHAIN_UNAVAILABLE",
+    "physical_usb": "BLOCKED_NO_SAFE_CURRENT_BOARD_INTERCONNECT"
+  },
+  "next_action": "design_and_review_role_correct_current_limited_backfeed_protected_USB_interposer_then_integrate_CDC_host_in_exact_Tactility_tree",
+  "immediate_nonwireless_fallback": "provision_and_qualify_same_AetherLink_frames_over_direct_P4_UART"
+}

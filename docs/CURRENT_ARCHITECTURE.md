@@ -1,18 +1,30 @@
 
-# Current AetherCore architecture — V15 candidate
+# Current AetherCore architecture — V15 USB accessory correction
 
-Source main is `c3aa2ef61e6ae77a12063e47221c6e4decae3762` (tree `09888952949745677b6a1b4939b90f14ccfe83d8`). The Work candidate is
-`work/aethercore-v15-operational-system` at qualification source `93b22ff27a0304f41f323b32832bee667c937583`. It is classified
-`V15_READY_WITH_STORAGE_EXPERIMENT_PENDING`.
+The accessory-link correction branches from
+`b5805d8deae14f884f979a2d2b7ac1c84bf8edb1` (tree
+`a6e0e8d92783c2f7b7c061f594979b95051620d5`) on
+`work/aethercore-v15-usb-accessory-link`. The cognition and storage results at
+that parent remain frozen; this revision corrects only the replaceable-accessory
+boundary.
 
 ## Device boundary
 
 - Device A is the Waveshare ESP32-P4/C6 3.5-inch Tactility appliance. It owns UI,
   touch/CardKB2 input, media, and transport only.
-- Device B is the separate Waveshare ESP32-P4-WIFI6 SKU 32020 accessory. It owns
+- Device B is a **replaceable compute accessory**. The current implementation is
+  the Waveshare ESP32-P4-WIFI6 SKU 32020, but future Device B hardware may be an
+  MCU, Linux module, accelerator, FPGA/bridge, or another controller. It owns
   Semantic Address, COG, policy, evidence, memory, tools, and knowledge packs.
-- The selected link is the existing C6-hosted ESP-NOW service; there is no
-  Device-A-to-Device-B cognition GPIO link.
+- AetherLink is a transport-independent byte stream. Protocol v2 remains above
+  it unchanged. USB CDC-ACM is the selected production backend, UART is the
+  universal fallback, and the old C6/TCP implementation is a non-default
+  historical diagnostic only.
+- Production Device B does not initialize ESP-Hosted, its C6, Wi-Fi, or TCP.
+- The exact current boards need a role-correct, current-limited and
+  backfeed-protected interposer/carrier before a safe direct USB physical test.
+  Until then, provisioned P4-to-P4 UART can exercise the same AetherLink framing
+  without returning to wireless.
 
 ## Operational cognition
 
@@ -41,10 +53,13 @@ at most one paged leaf read per lookup.
 ## Service and terminal
 
 `aethercore-server` exposes protocol v2 with resume, capabilities, memory status,
-bounded frames, cancellation, and explicit failures. AetherChat is a 3-file,
-344-line overlay against Tactility 0.8.0-dev, below the existing Chat app's 5 files
-and 992 lines. CardKB2 uses factory BLE-HID mode (`Fn+Sym+4`), USB-C power, and no
-GPIO or firmware replacement.
+bounded frames, cancellation, and explicit failures. AetherChat consumes a
+Tactility-owned AccessoryLink service; the app never owns USB-host hardware or a
+radio. Candidate CDC devices are only discovery hints and must prove protocol
+version plus `CAPABILITIES` before the service enters READY. CardKB2 remains a
+Device-A input concern.
 
 The exact user custom Waveshare Tactility BSP source was not present in Work, so
-the physical Device-A build remains a Factory gate and no GPIO values are invented.
+the physical Device-A build remains a Factory gate and no conflicting GPIO values
+are invented. The pinned Tactility source proves a shared USB-host controller and
+multi-class client model but does not yet include the required CDC-ACM host client.

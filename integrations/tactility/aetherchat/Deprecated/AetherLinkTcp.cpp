@@ -1,3 +1,4 @@
+/* DEPRECATED_TRANSPORT: retained outside production source globs as Factory evidence only. */
 #ifdef ESP_PLATFORM
 #include <sdkconfig.h>
 #endif

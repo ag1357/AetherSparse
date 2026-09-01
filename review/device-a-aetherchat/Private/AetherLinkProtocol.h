@@ -5,7 +5,7 @@
 // phase-notes/phase12-13-transport-tactility.md). The deployment pivoted to
 // Option A (local IP/TCP toward Device B's softAP, see
 // phase-notes/phase-option-a-tcp-spec.md): the JSON envelope is now carried
-// as u32be length-prefixed frames by AetherLinkTcp, and the AC20
+// as u32be length-prefixed frames by the selected AetherLink transport, and the AC20
 // encode/reassembly helpers below are retained only as the ESP-NOW artifact.
 //
 // Envelopes are UTF-8 compact JSON per the protocol v2 message model,

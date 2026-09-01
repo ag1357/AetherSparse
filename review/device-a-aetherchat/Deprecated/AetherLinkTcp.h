@@ -1,4 +1,4 @@
-// Passive AetherLink endpoint for Device A.
+// DEPRECATED_TRANSPORT: archived outside production includes; not production.
 //
 // Tactility's WebServer service remains the sole owner of the ESP32-C6 radio,
 // AP netif, DHCP service and 192.168.4.1 address. AetherChat only listens on a

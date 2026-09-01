@@ -62,12 +62,13 @@ int main() {
 
 def test_aetherchat_remains_below_upstream_chat_complexity_control() -> None:
     cpp_files = tuple(sorted((OVERLAY / "Source/app/aetherchat").glob("*.cpp")))
-    assert len(cpp_files) == 4  # Factory app plus passive TCP endpoint
+    assert len(cpp_files) == 4  # app/view/protocol plus service consumer
     cpp_loc = sum(len(path.read_text(encoding="utf-8").splitlines()) for path in cpp_files)
-    assert cpp_loc <= 1250  # bounded and below the pre-repair Factory copy (1,256)
+    assert cpp_loc <= 850
     combined = "\n".join(path.read_text(encoding="utf-8") for path in cpp_files)
-    assert "listen(fd, 1)" in combined
-    assert "service::webserver::isWebServerEnabled()" in combined
+    assert "listen(fd, 1)" not in combined
+    assert "service::webserver::isWebServerEnabled()" not in combined
+    assert "service::accessorylink::subscribe" in combined
     assert "service::wifi::connect" not in combined
     assert "esp_wifi_" not in combined
     assert "lvgl_hardware_keyboard_is_available" in combined
