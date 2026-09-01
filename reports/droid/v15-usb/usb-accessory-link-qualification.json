@@ -4,8 +4,8 @@
   "status": "SOFTWARE_QUALIFIED_PHYSICAL_USB_BLOCKED",
   "publication": {
     "branch": "work/aethercore-v15-usb-accessory-link",
-    "qualified_software_commit": "54786d94255a3cca41dccbd70477a68d3b73b0b8",
-    "qualified_software_tree": "28f493cb10aa52b52055ed1c028fea84021b25d9",
+    "published_qualified_content_commit": "60751b6de4ebe20cf85ee03a7a490d32bf307dbe",
+    "published_qualified_content_tree": "8e56fad63e002eca3045de8d177bd6a96accd582",
     "final_report_commit": "RESOLVE_FROM_PUBLISHED_BRANCH"
   },
   "parent": {

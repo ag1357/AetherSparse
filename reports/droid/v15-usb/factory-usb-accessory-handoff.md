@@ -4,9 +4,9 @@ Classification: `USB_ACCESSORY_LINK_HARDWARE_BLOCKED`
 
 Branch: `work/aethercore-v15-usb-accessory-link`
 
-Qualified software SHA/tree:
-`54786d94255a3cca41dccbd70477a68d3b73b0b8` /
-`28f493cb10aa52b52055ed1c028fea84021b25d9`.
+Published qualified-content SHA/tree:
+`60751b6de4ebe20cf85ee03a7a490d32bf307dbe` /
+`8e56fad63e002eca3045de8d177bd6a96accd582`.
 
 ## Stop condition
 

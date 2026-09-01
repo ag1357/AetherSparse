@@ -15,8 +15,8 @@ failure.
 - Required source commit: `b5805d8deae14f884f979a2d2b7ac1c84bf8edb1`
 - Required source tree: `a6e0e8d92783c2f7b7c061f594979b95051620d5`
 - Branch: `work/aethercore-v15-usb-accessory-link`
-- Qualified software commit: `54786d94255a3cca41dccbd70477a68d3b73b0b8`
-- Qualified software tree: `28f493cb10aa52b52055ed1c028fea84021b25d9`
+- Published qualified-content commit: `60751b6de4ebe20cf85ee03a7a490d32bf307dbe`
+- Published qualified-content tree: `8e56fad63e002eca3045de8d177bd6a96accd582`
 - Pinned Tactility reference: `0ee2415f3b5a063fadc2015d50d0d1c1c8b0b6e1`
 
 The qualified parent and tree were verified before branching. Main was not modified.
