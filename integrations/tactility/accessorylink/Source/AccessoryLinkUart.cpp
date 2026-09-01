@@ -58,8 +58,12 @@ int uartRead(void* context, uint8_t* data, size_t cap, uint32_t timeoutMs) {
 
 int uartWrite(void* context, const uint8_t* data, size_t length, uint32_t timeoutMs) {
     auto* device = static_cast<Device*>(context);
-    return uart_controller_write_bytes(device, data, length, pdMS_TO_TICKS(timeoutMs)) == ERROR_NONE
-        ? static_cast<int>(length) : 0;
+    const error_t err = uart_controller_write_bytes(device, data, length, pdMS_TO_TICKS(timeoutMs));
+    // Physical bring-up diagnostic: every A->B write is visible on console.
+    LOG_I(TAG, "tx %u bytes err=%d first=%02x %02x %02x %02x", (unsigned)length, (int)err,
+        length > 0 ? data[0] : 0, length > 1 ? data[1] : 0,
+        length > 2 ? data[2] : 0, length > 3 ? data[3] : 0);
+    return err == ERROR_NONE ? static_cast<int>(length) : 0;
 }
 
 bool uartOpen(void* context) {
@@ -141,7 +145,9 @@ public:
         LOG_I(TAG, "AetherLink UART backend open: %s (UART1, TX GPIO2, RX GPIO3, 921600 8N1)",
             UART_DEVICE_NAME);
         gPumpRunning = true;
-        gPump = thread_alloc_full("accessorylink_uart", 3072, pumpMain, nullptr, tskNO_AFFINITY);
+        // Tactility thread stack_size is BYTES; poll() alone carries a 1 KiB
+        // RX buffer, and 3072 faulted (stack protection) under load.
+        gPump = thread_alloc_full("accessorylink_uart", 8192, pumpMain, nullptr, tskNO_AFFINITY);
         if (!gPump || thread_start(gPump) != ERROR_NONE) {
             LOG_E(TAG, "pump thread start failed");
             gPumpRunning = false;

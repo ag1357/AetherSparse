@@ -40,13 +40,30 @@ void task(void *) {
   for (;;) {
     const int count = read(nullptr, fragment, sizeof(fragment), 250);
     if (count <= 0) continue;
+    /* Physical-bring-up diagnostic: proves bytes arrive (vs wiring/baud) and
+     * whether the first header bytes are plausible (u32be length <= 16 KiB). */
+    ESP_LOGI(TAG, "rx %d bytes first=%02x %02x %02x %02x %02x %02x %02x %02x",
+             count, count > 0 ? fragment[0] : 0, count > 1 ? fragment[1] : 0,
+             count > 2 ? fragment[2] : 0, count > 3 ? fragment[3] : 0,
+             count > 4 ? fragment[4] : 0, count > 5 ? fragment[5] : 0,
+             count > 6 ? fragment[6] : 0, count > 7 ? fragment[7] : 0);
     size_t offset = 0;
     while (offset < static_cast<size_t>(count)) {
       size_t used = 0;
       const auto status = g_decoder.feed(fragment + offset,
           static_cast<size_t>(count) - offset, &used);
       offset += used;
-      if (status == ac::aetherlink::DecodeStatus::kMalformedLength) break;
+      if (status == ac::aetherlink::DecodeStatus::kMalformedLength) {
+        /* Boot-time line noise lands as stray 0x00 bytes before the peer's
+         * UART driver starts driving TX; without a resync the length-prefixed
+         * stream desyncs permanently (observed on first physical bring-up).
+         * Drop the decoder state and the RX FIFO; the peer's next frame
+         * starts on a clean boundary. */
+        g_decoder.reset();
+        uart_flush_input(kPort);
+        ESP_LOGW(TAG, "malformed frame; decoder reset + RX flushed");
+        break;
+      }
       if (status == ac::aetherlink::DecodeStatus::kFrameReady) {
         ac::runtime::service_handle_message(ac::link::Ac20Type::UserText, 0, 0,
             g_decoder.payload(), g_decoder.payload_size());
