@@ -2677,14 +2677,24 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
       if (c == '"' || c == '\\') escaped.push_back('\\');
       escaped.push_back(c);
     }
+    /* Controller op trace (directive: every successful answer reports the
+     * executed operation chain, not just a step count). */
+    std::string ops;
+    for (uint32_t op : resp.operations) {
+      if (!ops.empty()) ops.push_back(',');
+      char nbuf[8];
+      snprintf(nbuf, sizeof(nbuf), "%lu", (unsigned long)op);
+      ops += nbuf;
+      if (ops.size() > 96) break;
+    }
     snprintf(line, sizeof(line),
              "MEAS {\"phase\":\"service.query\",\"session\":\"%s\","
              "\"disposition\":\"%s\",\"candidates\":%u,\"claims\":%u,"
-             "\"steps\":%u,\"address_us\":%llu,\"controller_us\":%llu,"
-             "\"total_us\":%llu}",
+             "\"steps\":%u,\"ops\":[%s],\"address_us\":%llu,"
+             "\"controller_us\":%llu,\"total_us\":%llu}",
              escaped.c_str(), resp.disposition.c_str(),
              (unsigned)candidate_ids.size(), (unsigned)workspace_claims,
-             (unsigned)controller_steps,
+             (unsigned)controller_steps, ops.c_str(),
              (unsigned long long)(t_address_done - t_address_start),
              (unsigned long long)(t_done - t_controller_start),
              (unsigned long long)(t_done - t_start));
