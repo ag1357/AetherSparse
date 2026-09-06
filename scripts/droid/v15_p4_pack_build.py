@@ -241,7 +241,12 @@ def build_evidence(
     docs: dict[str, int] = {}
     occurrence_count = 0
     sources = [path] + ([supplement_path] if supplement_path else [])
-    for source_path in sources:
+    for source_index, source_path in enumerate(sources):
+        # Occurrences from an entity's own article (self-lead supplement)
+        # carry flags=1 in the record header's final field: a structural
+        # corpus signal (primary source for the entity) the device scores
+        # generically, independent of topic.
+        flags = 1 if source_index == 1 else 0
         with gzip.open(source_path, "rt", encoding="utf-8") as source:
             for line in source:
                 record = json.loads(line)
@@ -260,7 +265,7 @@ def build_evidence(
                     STATE_CODES.get(record["resolution_state"], 0),
                     len(mention),
                     len(context),
-                    0,
+                    flags,
                 )
                 blob += mention
                 blob += context

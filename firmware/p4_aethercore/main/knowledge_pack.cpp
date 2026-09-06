@@ -409,11 +409,13 @@ bool IsWhenQuery(const std::string &query_lower) {
  * (fetch_final.py): coverage (near mention = full weight), structural
  * bonuses (title lead, canonical mention, copula with substance,
  * biographical year-parenthetical, date-entry prefix for when-queries),
- * junk demerits (numbered lists, digit/paren density, fiction markers). */
+ * junk demerits (numbered lists, digit/paren density, fiction markers),
+ * plus a generic primary-source bonus for occurrences the pack flags as
+ * coming from the entity's own article (occ_flags & 1). */
 int ScoreOccurrence(const std::string &ctx, const std::string &raw,
                     const std::string &mention, const std::string &title_lower,
                     const std::vector<std::string> &informative,
-                    bool when_query) {
+                    bool when_query, int occ_flags) {
   if (ctx.size() < 30) return -1;
   std::string cl = Lower(ctx);
   std::string ml = Lower(mention);
@@ -504,6 +506,7 @@ int ScoreOccurrence(const std::string &ctx, const std::string &raw,
       break;
     }
   }
+  if (occ_flags & 1) score += 6;  // entity's own article (primary source)
   return score;
 }
 
@@ -782,9 +785,10 @@ bool PackProvider::FetchRecords(
       if (!evd_blob_read(pager_, blob_off, blob_len, pos, header, 12, &got) ||
           got < 12)
         break;
-      uint16_t mention_len, context_len;
+      uint16_t mention_len, context_len, occ_flags;
       memcpy(&mention_len, header + 6, 2);
       memcpy(&context_len, header + 8, 2);
+      memcpy(&occ_flags, header + 10, 2);
       uint32_t rec_len = 12 + (uint32_t)mention_len + (uint32_t)context_len;
       if (pos + rec_len > blob_len) break;
 
@@ -809,7 +813,7 @@ bool PackProvider::FetchRecords(
 
       std::string ctx = CleanWikitext(raw);
       int s = ScoreOccurrence(ctx, raw, mention, title_lower, informative,
-                              when_query);
+                              when_query, occ_flags);
       if (s > best_score) {
         best_score = s;
         best_ctx = ctx;
@@ -818,7 +822,7 @@ bool PackProvider::FetchRecords(
       }
       std::vector<std::string> empty;
       int s2 = ScoreOccurrence(ctx, raw, mention, title_lower, empty,
-                               when_query);
+                               when_query, occ_flags);
       if (s2 > fb_score) {
         fb_score = s2;
         fb_ctx = ctx;

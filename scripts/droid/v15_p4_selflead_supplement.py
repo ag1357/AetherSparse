@@ -132,6 +132,25 @@ def lead_window(prose: str, title: str) -> str | None:
     title_words = [
         w.casefold() for w in re.split(r"[\s()]+", title) if len(w) >= 4
     ]
+    if title_words:
+        # Drop a leading caption fragment: a short prefix without sentence
+        # punctuation, ending in a word char, immediately before the first
+        # standalone title word that is followed by a new sentence start.
+        head = prose[:600].casefold()
+        hits = [(head.find(w), w) for w in title_words if head.find(w) >= 0]
+        if hits:
+            pos, word = min(hits)
+            prefix = prose[:pos]
+            nxt = prose[pos + len(word):].lstrip()[:1]
+            if (
+                0 < pos <= 120
+                and len(prefix.split()) >= 2
+                and not any(p in prefix for p in ".!?")
+                and prefix.rstrip()[-1:].isalnum()
+                and nxt
+                and (nxt.isupper() or nxt.isdigit())
+            ):
+                prose = prose[pos + len(word):].lstrip()
     if title_words and not any(w in prose[:400].casefold() for w in title_words):
         return None  # lead prose does not mention the entity early: skip
     ends: list[int] = []

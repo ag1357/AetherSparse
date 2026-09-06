@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 PAGE = 4096
-EVD_MAGIC = b"AEVD0501"
+EVD_MAGIC = b"ACP1EVD1"
 
 
 def sha256_span(path: Path, offset: int, length: int) -> str:
