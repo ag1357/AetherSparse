@@ -29,6 +29,8 @@
 namespace aethercore {
 namespace service {
 
+class KnowledgeProvider;  // service/knowledge_provider.h
+
 // Service-level bounds (Python uses 8/16/32 for the corresponding lists).
 constexpr size_t kMaxSessions = 16;
 constexpr size_t kMaxCandidates = 8;    // conversation candidate cap
@@ -82,6 +84,14 @@ class ServiceCore {
   // (the frozen V14 artifact; see main/policy_v14_selected.h).
   bool Init(std::vector<GroundedRecord> records, const int8_t* policy_weights,
             size_t policy_weight_count, std::string* error);
+  // V15 production path: no static fixture vector; semantic addressing and
+  // per-query record retrieval are delegated to the pack-backed provider.
+  // The provider must outlive the core. When a query resolves to entity
+  // candidates but no relation, the core synthesizes the general
+  // "describe" relation instead of abstaining.
+  bool InitWithProvider(KnowledgeProvider* provider,
+                        const int8_t* policy_weights, size_t policy_weight_count,
+                        std::string* error);
   // Both setters are valid after a successful Init().
   void SetMeasSink(MeasSink sink, void* ctx);
   void SetClock(ClockFn clock, void* ctx);

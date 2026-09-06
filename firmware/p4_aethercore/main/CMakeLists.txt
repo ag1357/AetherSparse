@@ -12,6 +12,7 @@ endif()
 
 idf_component_register(
   SRCS "main.cpp" "pack_io.cpp" "pack_v2.cpp" "trace_runner.cpp"
+       "knowledge_pack.cpp"
        "service_runtime.cpp" ${AC_LINK_SRCS}
        "memory/memory_native.cpp"
        "protocol/protocol_v2.cpp"

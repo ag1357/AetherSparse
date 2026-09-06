@@ -35,6 +35,15 @@ menu "AetherCore P4 runtime"
                 It is never selected by production defaults.
     endchoice
 
+    config AC_SERVICE_CONSOLE_REPL
+        bool "Dev: stdin console REPL for the interactive service"
+        default n
+        help
+            Runs one query per console line through the full ServiceCore
+            pipeline (identical to the link path) and prints disposition,
+            verifier state, evidence handles and text. Qualification/dev
+            only; production builds leave this OFF.
+
     config AC_BOOT_VERIFY_SKIP
         bool "Skip boot pack re-verify (interactive acceptance only)"
         default n

@@ -10,8 +10,11 @@
 #include <string>
 #include <vector>
 
+#include "esp_timer.h"
+
 #include "memory/memory_native.h"
 #include "protocol/protocol_v2.h"
+#include "service/knowledge_provider.h"
 #include "service/service_core.h"
 
 namespace ac::runtime {
@@ -468,6 +471,36 @@ void handle_query(const ProtocolMessage &req, const std::string &text) {
             r.has_failure ? r.failure_reason.c_str() : "");
 }
 
+/* Service-core query telemetry (latency breakdowns + anti-theater evidence)
+ * lands on the same console stream as the other MEAS lines. */
+void meas_print(void *, const char *line) { printf("%s\n", line); }
+
+/* Monotonic microsecond clock for the service core's latency telemetry. */
+uint64_t clock_us(void *) { return (uint64_t)esp_timer_get_time(); }
+
+/* Memory: load persisted state or start fresh (loud either way). Shared by
+ * the fixture init (host-test parity) and the V15 pack-backed init. */
+void memory_init_shared() {
+  static acmem::Manager memory_static;
+  static acmem::UserMemory user_static(&memory_static);
+  g_memory = &memory_static;
+  g_user_mem = &user_static;
+  acmem::MemoryError le{};
+  if (!g_state_path.empty() &&
+      acmem::store_load(g_state_path.c_str(), g_memory, &le)) {
+    g_info.memory_persistent = true;
+    printf("MEAS {\"phase\":\"memory\",\"event\":\"loaded\",\"records\":%zu,"
+           "\"epoch\":%llu}\n",
+           g_memory->records(true).size(),
+           (unsigned long long)g_memory->epoch());
+  } else {
+    g_info.memory_persistent = false;
+    printf("MEAS {\"phase\":\"memory\",\"event\":\"session_only\","
+           "\"detail\":\"%s\"}\n",
+           le.detail.empty() ? "no state file" : le.detail.c_str());
+  }
+}
+
 }  // namespace
 
 /* ------------------------- public API ------------------------------------- */
@@ -508,27 +541,54 @@ bool service_init(const char *knowledge_path, const char *state_path,
     snprintf(err, err_cap, "service core init: %s", cerr.c_str());
     return false;
   }
-  /* Memory: load persisted state or start fresh (loud either way). */
-  static acmem::Manager memory_static;
-  static acmem::UserMemory user_static(&memory_static);
-  g_memory = &memory_static;
-  g_user_mem = &user_static;
-  acmem::MemoryError le{};
-  if (!g_state_path.empty() &&
-      acmem::store_load(g_state_path.c_str(), g_memory, &le)) {
-    g_info.memory_persistent = true;
-    printf("MEAS {\"phase\":\"memory\",\"event\":\"loaded\",\"records\":%zu,"
-           "\"epoch\":%llu}\n",
-           g_memory->records(true).size(),
-           (unsigned long long)g_memory->epoch());
-  } else {
-    g_info.memory_persistent = false;
-    printf("MEAS {\"phase\":\"memory\",\"event\":\"session_only\","
-           "\"detail\":\"%s\"}\n",
-           le.detail.empty() ? "no state file" : le.detail.c_str());
-  }
+  g_core.SetMeasSink(meas_print, nullptr);
+  g_core.SetClock(clock_us, nullptr);
+  memory_init_shared();
   g_ready = true;
   return true;
+}
+
+bool service_init_pack(aethercore::service::KnowledgeProvider *provider,
+                       const char *state_path, const int8_t *policy_weights,
+                       size_t policy_weight_count, const RuntimeInfo &info,
+                       char *err, size_t err_cap) {
+  g_info = info;
+  g_state_path = state_path ? state_path : "";
+  std::string cerr;
+  if (!g_core.InitWithProvider(provider, policy_weights, policy_weight_count,
+                               &cerr)) {
+    snprintf(err, err_cap, "service core init: %s", cerr.c_str());
+    return false;
+  }
+  g_core.SetMeasSink(meas_print, nullptr);
+  g_core.SetClock(clock_us, nullptr);
+  printf("MEAS {\"phase\":\"service\",\"knowledge\":\"pack-v2-provider\","
+         "\"fixture\":\"none\"}\n");
+  memory_init_shared();
+  g_ready = true;
+  return true;
+}
+
+void service_console_query(const char *text) {
+  if (!g_ready || text == nullptr || text[0] == 0) return;
+  ServiceResponse r = g_core.Query("console", text);
+  printf("CONSOLE_QUERY {\"text\":\"%s\"}\n", text);
+  printf("CONSOLE_RESULT {\"disposition\":\"%s\",\"grounded\":%s,"
+         "\"verifier_accepted\":%s",
+         r.disposition.c_str(), r.grounded ? "true" : "false",
+         r.verifier_accepted ? "true" : "false");
+  if (r.has_failure) {
+    printf(",\"failure\":\"%s\"", r.failure_reason.c_str());
+  }
+  if (!r.evidence_handle_ids.empty()) {
+    printf(",\"evidence\":[\"%s\"", r.evidence_handle_ids[0].c_str());
+    for (size_t i = 1; i < r.evidence_handle_ids.size(); i++) {
+      printf(",\"%s\"", r.evidence_handle_ids[i].c_str());
+    }
+    printf("]");
+  }
+  printf("}\n");
+  printf("CONSOLE_TEXT %s\n", r.text.c_str());
 }
 
 void service_set_response_sink(ResponseSink sink, void *ctx) {

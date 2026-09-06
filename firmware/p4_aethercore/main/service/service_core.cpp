@@ -23,6 +23,8 @@
 
 #include "service_core.h"
 
+#include "knowledge_provider.h"
+
 #include <algorithm>
 #include <cmath>
 #include <initializer_list>
@@ -655,6 +657,8 @@ struct ServiceCore::Impl {
   };
 
   std::vector<GroundedRecord> records;
+  KnowledgeProvider* provider = nullptr;  // V15 pack-backed retrieval (owned by caller)
+  std::vector<GroundedRecord> query_records;  // per-query provider fetch scratch
   const int8_t* weights = nullptr;  // [34][38] row-major, ops 32..65
   std::vector<Surface> surfaces;    // sorted by normalized
   std::map<std::string, int> surface_by_norm;
@@ -2278,14 +2282,18 @@ struct ServiceCore::Impl {
     return out;
   }
 
-  void BuildWorkspace(const std::vector<std::string>& entity_ids,
+  // `source` is the active record view: the static fixture vector on the
+  // host-test path, or the per-query provider fetch on the V15 pack path.
+  // Claim::record_index indexes into `source`.
+  void BuildWorkspace(const std::vector<GroundedRecord>& source,
+                      const std::vector<std::string>& entity_ids,
                       const std::string& relation, MicroState* state) const {
     state->frame_entities = entity_ids;
     state->frame_relations.assign(1, relation);
     std::string shape = "unknown";
     bool first = true;
-    for (size_t r = 0; r < records.size(); r++) {
-      const GroundedRecord& record = records[r];
+    for (size_t r = 0; r < source.size(); r++) {
+      const GroundedRecord& record = source[r];
       if (!Contains(entity_ids, record.entity_id) ||
           record.relation != relation) {
         continue;
@@ -2435,6 +2443,33 @@ bool ServiceCore::Init(std::vector<GroundedRecord> records_in,
   return true;
 }
 
+bool ServiceCore::InitWithProvider(KnowledgeProvider* provider,
+                                   const int8_t* policy_weights,
+                                   size_t policy_weight_count,
+                                   std::string* error) {
+  if (provider == nullptr) {
+    if (error) *error = "knowledge provider must not be null";
+    return false;
+  }
+  if (policy_weights == nullptr || policy_weight_count != 34u * 38u) {
+    if (error) *error = "policy weight table must be 34 x 38 int8";
+    return false;
+  }
+  Impl* impl = new (std::nothrow) Impl();
+  if (impl == nullptr) {
+    if (error) *error = "allocation failed";
+    return false;
+  }
+  // No static records, no in-RAM fixture index: addressing and retrieval
+  // are delegated to the provider per query.
+  impl->provider = provider;
+  impl->weights = policy_weights;
+  impl->sessions.resize(kMaxSessions);
+  delete impl_;
+  impl_ = impl;
+  return true;
+}
+
 ServiceResponse ServiceCore::Query(const std::string& session_id,
                                    const std::string& text) {
   ServiceResponse resp;
@@ -2460,7 +2495,27 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
   }
 
   uint64_t t_address_start = self.NowUs();
-  std::vector<Impl::Hyp> candidates = self.Address(text);
+  std::vector<Impl::Hyp> candidates;
+  if (self.provider != nullptr) {
+    /* Referent-pronoun queries ("When was she born?") are addressed with
+     * the most recently resolved entity's title appended, so the corpus
+     * address step sees the referent explicitly; the conversation engine
+     * still owns referent bookkeeping. */
+    std::string address_input = text;
+    if (!before.resolved.empty() && HasReferentPronoun(text)) {
+      address_input += " ";
+      address_input += before.resolved.back().label;
+    }
+    std::vector<AddressHyp> hits;
+    self.provider->Address(address_input, &hits);
+    for (const AddressHyp& hit : hits) {
+      candidates.push_back(
+          Impl::Hyp{hit.entity_id, hit.label, hit.confidence,
+                    hit.matched_surface});
+    }
+  } else {
+    candidates = self.Address(text);
+  }
   uint64_t t_address_done = self.NowUs();
 
   Impl::Action action =
@@ -2472,6 +2527,15 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
   if (!action.entity_ids.empty()) {
     cog.Satisfy(kOblIdentifySubject);
     cog.unresolved_count = 0;  // SUBJECT_ENTITY / DISCOURSE_REFERENCE removed
+  }
+  // V15 pack path: a query with a strong grounded address but no relation
+  // ("Tell me about Mars") takes the general DESCRIBE/SUMMARY relation over
+  // per-query retrieved evidence instead of abstaining. The fixture path is
+  // unchanged: it keeps requiring a relation from the static record set.
+  if (self.provider != nullptr && action.kind == Impl::Action::kContinue &&
+      !action.entity_ids.empty() && !action.has_relation) {
+    action.has_relation = true;
+    action.relation = "describe";
   }
   if (action.has_relation) {
     cog.Satisfy(kOblEstablishRelation);
@@ -2511,8 +2575,19 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
            "I do not have a grounded address and relation for that request.",
            false, true);
   } else {
+    // Active record view: static fixture (host tests) or per-query provider
+    // fetch (V15 pack path). Fetched records satisfy the identical verifier
+    // contract; record_index in claims refers to this vector.
+    const std::vector<GroundedRecord>* active_records = &self.records;
+    if (self.provider != nullptr) {
+      self.query_records.clear();
+      self.provider->FetchRecords(action.entity_ids, text,
+                                  &self.query_records);
+      active_records = &self.query_records;
+    }
     Impl::MicroState state;
-    self.BuildWorkspace(action.entity_ids, action.relation, &state);
+    self.BuildWorkspace(*active_records, action.entity_ids, action.relation,
+                        &state);
     workspace_claims = state.claims.size();
     if (state.claims.empty()) {
       resp.has_failure = true;
@@ -2556,7 +2631,8 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
                  "answer plan.",
                  false, true);
         } else {
-          const GroundedRecord& record = self.records[first_claim->record_index];
+          const GroundedRecord& record =
+              (*active_records)[first_claim->record_index];
           std::string answer_text;
           std::vector<std::string> handle_ids;
           std::string grounding_failure;

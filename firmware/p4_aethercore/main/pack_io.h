@@ -108,16 +108,42 @@ bool idx_query_address(Pager *pager, const char *normalized_surface,
 bool idx_surface_entity(Pager *pager, uint32_t surface_id, uint32_t *entity_idx_out,
                         uint16_t *state_out);
 
+/* Interactive retrieval view of the address contract (V15 service path):
+ * the same gram union and (-overlap, surface id) top-64 ranking as
+ * idx_query_address, but returning the ranked candidates grouped per
+ * entity. Returns the number of candidates written (<= max_out). */
+typedef struct {
+  uint32_t entity_idx;
+  uint32_t surface_id;   /* 1-based surface with the best gram overlap */
+  uint32_t overlap;      /* shared trigram count for that surface */
+  uint16_t surface_len;  /* surface bytes (gram count ~= surface_len + 2) */
+} AddressCandidate;
+
+uint32_t idx_address_candidates(Pager *pager, const char *normalized_surface,
+                                AddressCandidate *out, uint32_t max_out);
+/* Normalized surface string for a 1-based surface id (bounded). */
+bool idx_surface_text(Pager *pager, uint32_t surface_id, char *out, size_t cap);
+
 /* Canonical objects (ACP1ENT1). */
 bool ent_open(void);
 uint32_t ent_count(void);
 bool ent_key_at(uint32_t entity_idx, uint64_t *key_out);
+/* Canonical title for an entity index (bounded, direct region reads). */
+bool ent_title_at(uint32_t entity_idx, char *out, size_t cap);
 
 /* Evidence (ACP1EVD1). */
 bool evd_open(void);
 uint32_t evd_occurrences(Pager *pager, uint32_t entity_idx, bool *found_out);
+/* Evidence directory entry for an entity (respects the active EVD mode). */
+bool evd_lookup(Pager *pager, uint32_t entity_idx, uint32_t *blob_off,
+                uint32_t *blob_len, uint32_t *count);
 /* Read up to `length` bytes of an entity's occurrence blob (latency probe). */
 bool evd_blob_head(Pager *pager, uint32_t entity_idx, uint8_t *buffer, size_t length,
+                   size_t *read_out);
+/* Read up to `length` bytes at `rel_off` inside a blob located by a prior
+ * evd_lookup (streaming occurrence walk; pages through the pager). */
+bool evd_blob_read(Pager *pager, uint32_t blob_off, uint32_t blob_len,
+                   uint32_t rel_off, uint8_t *buffer, size_t length,
                    size_t *read_out);
 
 /* Evidence-directory lookup mode (V15 Pack-v2). The V14 paged binary search

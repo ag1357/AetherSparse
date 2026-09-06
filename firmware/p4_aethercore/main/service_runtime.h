@@ -23,6 +23,12 @@
 
 #include "link/slip_link.h"
 
+namespace aethercore {
+namespace service {
+class KnowledgeProvider;
+}  // namespace service
+}  // namespace aethercore
+
 namespace ac::runtime {
 
 struct RuntimeInfo {
@@ -52,7 +58,20 @@ bool service_init(const char *knowledge_path, const char *state_path,
                   const int8_t *policy_weights, size_t policy_weight_count,
                   const RuntimeInfo &info, char *err, size_t err_cap);
 
+/* V15 production init: pack-backed knowledge provider instead of the static
+ * JSON fixture (which remains only for host tests). Same memory-store and
+ * fail-closed semantics as service_init. */
+bool service_init_pack(aethercore::service::KnowledgeProvider *provider,
+                       const char *state_path, const int8_t *policy_weights,
+                       size_t policy_weight_count, const RuntimeInfo &info,
+                       char *err, size_t err_cap);
+
 void service_set_response_sink(ResponseSink sink, void *ctx);
+
+/* Dev/qualification console path: run one query through the full service
+ * core and print disposition + text + evidence handles to the console.
+ * Used by the optional stdin REPL (CONFIG_AC_SERVICE_CONSOLE_REPL). */
+void service_console_query(const char *text);
 
 /* Entry point for one complete protocol-v2 JSON body (no stream prefix).
  * Malformed bodies produce an ERROR response; they never crash the loop. */

@@ -923,31 +923,169 @@ bool idx_query_address(Pager *pager, const char *surface, AddressResult *out) {
   return true;
 }
 
-bool idx_surface_entity(Pager *pager, uint32_t surface_id, uint32_t *entity_idx_out,
-                        uint16_t *state_out) {
+/* Raw 16-byte surface directory entry (`<I H H I I`: entity_idx, state,
+ * surface_len, pool_off, reserved) for a 1-based surface id. */
+static bool surface_entry_read(Pager *pager, uint32_t surface_id, uint8_t out[16]) {
   uint64_t byte_offset = s_surface_off + (uint64_t)(surface_id - 1) * 16;
   pager_set_class(pager, CLASS_SURFACE);
   const uint8_t *page = pager_page(pager, &s_region_index, byte_offset / PACK_PAGE);
   pager_set_class(pager, CLASS_OTHER);
   if (!page) return false;
-  const uint8_t *entry = page + (byte_offset % PACK_PAGE);
+  memcpy(out, page + (byte_offset % PACK_PAGE), 16);
+  return true;
+}
+
+bool idx_surface_entity(Pager *pager, uint32_t surface_id, uint32_t *entity_idx_out,
+                        uint16_t *state_out) {
+  uint8_t entry[16];
+  if (!surface_entry_read(pager, surface_id, entry)) return false;
   memcpy(entity_idx_out, entry, 4);
   memcpy(state_out, entry + 4, 2);
   return true;
 }
 
+bool idx_surface_text(Pager *pager, uint32_t surface_id, char *out, size_t cap) {
+  if (out == nullptr || cap == 0) return false;
+  uint8_t entry[16];
+  if (!surface_entry_read(pager, surface_id, entry)) return false;
+  uint16_t len = 0;
+  uint32_t pool_off = 0;
+  memcpy(&len, entry + 6, 2);
+  memcpy(&pool_off, entry + 8, 4);
+  /* The surface pool follows the fixed-size entries inside the directory. */
+  uint64_t base = s_surface_off + (uint64_t)s_surface_count * 16 + pool_off;
+  size_t want = (size_t)len < cap - 1 ? (size_t)len : cap - 1;
+  size_t done = 0;
+  while (done < want) {
+    uint64_t byte_offset = base + done;
+    pager_set_class(pager, CLASS_SURFACE);
+    const uint8_t *page = pager_page(pager, &s_region_index,
+                                     byte_offset / PACK_PAGE);
+    pager_set_class(pager, CLASS_OTHER);
+    if (!page) return false;
+    size_t in_page = PACK_PAGE - (byte_offset % PACK_PAGE);
+    size_t take = want - done < in_page ? want - done : in_page;
+    memcpy(out + done, page + (byte_offset % PACK_PAGE), take);
+    done += take;
+  }
+  out[done] = 0;
+  return true;
+}
+
+/* Interactive retrieval view of the address contract: the same gram union
+ * and the same (-overlap, surface id) top-64 ranking as idx_query_address,
+ * but returning the ranked candidates themselves (grouped per entity) for
+ * the live service. idx_query_address stays the frozen replay contract. */
+uint32_t idx_address_candidates(Pager *pager, const char *normalized_surface,
+                                AddressCandidate *out, uint32_t max_out) {
+  if (out == nullptr || max_out == 0) return 0;
+  uint64_t digest = 0;
+  uint32_t cand_count = 0;
+  uint32_t *ids = nullptr;
+  uint32_t id_count = 0;
+  if (!idx_query_union(pager, normalized_surface, &digest, &cand_count, &ids,
+                       &id_count)) {
+    return 0;
+  }
+
+  /* run-length pass over the sorted ids: per-id overlap count, keep the best
+   * 64 by (-count, surface id), identical to idx_query_address */
+  uint32_t top_ids[64];
+  uint32_t top_counts[64];
+  size_t top_n = 0;
+  size_t i = 0;
+  while (i < id_count) {
+    uint32_t id = ids[i];
+    uint32_t overlap = 1;
+    while (i + overlap < id_count && ids[i + overlap] == id) overlap++;
+    i += overlap;
+    size_t pos = top_n;
+    if (top_n < 64) {
+      pos = top_n++;
+    } else if (overlap > top_counts[63] ||
+               (overlap == top_counts[63] && id < top_ids[63])) {
+      pos = 63;
+    } else {
+      continue;
+    }
+    while (pos > 0 &&
+           (overlap > top_counts[pos - 1] ||
+            (overlap == top_counts[pos - 1] && id < top_ids[pos - 1]))) {
+      if (pos < 64) {
+        top_ids[pos] = top_ids[pos - 1];
+        top_counts[pos] = top_counts[pos - 1];
+      }
+      pos--;
+    }
+    top_ids[pos] = id;
+    top_counts[pos] = overlap;
+  }
+  free(ids);
+
+  /* Resolve to entities, first occurrence wins (top order is best-overlap
+   * order), unresolved surfaces (NO_ENTITY) skipped. */
+  uint32_t kept = 0;
+  for (size_t t = 0; t < top_n && kept < max_out; t++) {
+    uint8_t entry[16];
+    if (!surface_entry_read(pager, top_ids[t], entry)) return kept;
+    uint32_t entity_idx = 0;
+    uint16_t surface_len = 0;
+    memcpy(&entity_idx, entry, 4);
+    memcpy(&surface_len, entry + 6, 2);
+    if (entity_idx == 0xFFFFFFFFu) continue;
+    bool seen = false;
+    for (uint32_t e = 0; e < kept; e++) {
+      if (out[e].entity_idx == entity_idx) {
+        seen = true;
+        break;
+      }
+    }
+    if (seen) continue;
+    out[kept].entity_idx = entity_idx;
+    out[kept].surface_id = top_ids[t];
+    out[kept].overlap = top_counts[t];
+    out[kept].surface_len = surface_len;
+    kept++;
+  }
+  return kept;
+}
+
 /* ------------------------------------------------------------------------- */
+
+static uint64_t s_ent_pool_off = 0;
 
 bool ent_open(void) {
   uint8_t header[PACK_PAGE];
   if (!read_header(&s_region_entities, header)) return false;
   if (memcmp(header, ENT_MAGIC, 8) != 0) return false;
   memcpy(&s_entity_count, header + 12, 4);
+  memcpy(&s_ent_pool_off, header + 32, 8);
   ESP_LOGI(TAG, "entities: %u", s_entity_count);
   return true;
 }
 
 uint32_t ent_count(void) { return s_entity_count; }
+
+bool ent_title_at(uint32_t entity_idx, char *out, size_t cap) {
+  if (out == nullptr || cap == 0 || entity_idx >= s_entity_count) return false;
+  /* Entry `<Q I H H I`: key, title pool offset, title length, reserved. */
+  uint8_t entry[20];
+  if (!region_read(&s_region_entities, PACK_PAGE + (uint64_t)entity_idx * 20,
+                   entry, sizeof(entry))) {
+    return false;
+  }
+  uint32_t pool_off = 0;
+  uint16_t title_len = 0;
+  memcpy(&pool_off, entry + 8, 4);
+  memcpy(&title_len, entry + 12, 2);
+  size_t want = (size_t)title_len < cap - 1 ? (size_t)title_len : cap - 1;
+  if (want > 0 &&
+      !region_read(&s_region_entities, s_ent_pool_off + pool_off, out, want)) {
+    return false;
+  }
+  out[want] = 0;
+  return true;
+}
 
 bool ent_key_at(uint32_t entity_idx, uint64_t *key_out) {
   if (entity_idx >= s_entity_count) return false;
@@ -1029,12 +1167,21 @@ uint32_t evd_occurrences(Pager *pager, uint32_t entity_idx, bool *found_out) {
   return found ? count : 0;
 }
 
-bool evd_blob_head(Pager *pager, uint32_t entity_idx, uint8_t *buffer,
-                   size_t length, size_t *read_out) {
-  uint32_t off = 0, len = 0, count = 0;
-  if (!evd_find(entity_idx, &off, &len, &count, pager)) return false;
-  size_t want = len < length ? len : length;
-  uint64_t start = s_evd_blobs_off + off;
+bool evd_lookup(Pager *pager, uint32_t entity_idx, uint32_t *blob_off,
+                uint32_t *blob_len, uint32_t *count) {
+  return evd_find(entity_idx, blob_off, blob_len, count, pager);
+}
+
+bool evd_blob_read(Pager *pager, uint32_t blob_off, uint32_t blob_len,
+                   uint32_t rel_off, uint8_t *buffer, size_t length,
+                   size_t *read_out) {
+  if (rel_off >= blob_len) {
+    if (read_out) *read_out = 0;
+    return true;
+  }
+  size_t want = blob_len - rel_off;
+  if (want > length) want = length;
+  uint64_t start = s_evd_blobs_off + blob_off + rel_off;
   size_t done = 0;
   while (done < want) {
     uint64_t byte_offset = start + done;
@@ -1048,4 +1195,11 @@ bool evd_blob_head(Pager *pager, uint32_t entity_idx, uint8_t *buffer,
   }
   if (read_out) *read_out = done;
   return true;
+}
+
+bool evd_blob_head(Pager *pager, uint32_t entity_idx, uint8_t *buffer,
+                   size_t length, size_t *read_out) {
+  uint32_t off = 0, len = 0, count = 0;
+  if (!evd_find(entity_idx, &off, &len, &count, pager)) return false;
+  return evd_blob_read(pager, off, len, 0, buffer, length, read_out);
 }

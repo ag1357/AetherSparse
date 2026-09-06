@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include "aethercore_runtime.h"
+#include "knowledge_pack.h"
 #if CONFIG_AC_LINK_USB_CDC_DEVICE
 #include "link_usb_cdc.h"
 #elif CONFIG_AC_LINK_UART_FALLBACK
@@ -58,8 +59,40 @@ static void read_boot_mode(char *out, size_t cap) {
     snprintf(out, cap, "service");
 }
 
-/* Interactive service mode: verified pack + Pack-v2 + knowledge + memory
- * store + protocol v2 over the selected transport-independent AetherLink. */
+#if CONFIG_AC_SERVICE_CONSOLE_REPL
+/* Dev/qualification REPL: one query per line on the debug console, through
+ * the identical ServiceCore pipeline the link uses (service_console_query
+ * prints disposition, verifier state, evidence handles and text). */
+static void console_repl_task(void *) {
+  static char line[512];
+  size_t used = 0;
+  for (;;) {
+    /* The USB CDC console VFS can return partial lines (RX chunk
+     * boundaries), so accumulate until a newline actually arrives. */
+    if (fgets(line + used, sizeof(line) - used, stdin) == nullptr) {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      continue;
+    }
+    used += strlen(line + used);
+    char *nl = (char *)memchr(line, '\n', used);
+    if (!nl) {
+      if (used >= sizeof(line) - 1) used = 0;  // overflow: drop the line
+      continue;
+    }
+    *nl = 0;
+    used = 0;
+    size_t n = strlen(line);
+    while (n > 0 && line[n - 1] == '\r') line[--n] = 0;
+    if (n == 0) continue;
+    ac::runtime::service_console_query(line);
+  }
+}
+#endif
+
+/* Interactive service mode: verified pack + Pack-v2 + pack-backed knowledge
+ * provider + memory store + protocol v2 over the selected
+ * transport-independent AetherLink. The V13 JSON fixture is no longer part
+ * of the production path (host tests keep it via service_init). */
 static void run_service_mode(bool link_ok) {
   ac::runtime::RuntimeInfo info = {};
   info.pack_verified = true;
@@ -69,16 +102,32 @@ static void run_service_mode(bool link_ok) {
   info.psram_free = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
   info.internal_free = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
 
+  /* Per-query pack retrieval: 1.5 MiB PSRAM page cache + 8 KiB occurrence
+   * scratch; bounded independent of corpus size. */
+  static ac::knowledge::PackProvider s_provider;
   char err[160];
-  if (!ac::runtime::service_init(
-          "/sdcard/aethercore-service/knowledge/v13-grounded-records.json",
-          "/sdcard/aethercore-state/state.json", kAcV14PolicyWeights,
-          AC_V14_POLICY_PARAMETER_COUNT, info, err, sizeof(err))) {
+  if (!s_provider.start(1536 * 1024)) {
+    printf("MEAS {\"phase\":\"service\",\"status\":\"INIT_FAILED\","
+           "\"detail\":\"pack provider start failed\"}\n");
+    ESP_LOGE(TAG, "pack provider start failed");
+    return;
+  }
+  if (!ac::runtime::service_init_pack(
+          &s_provider, "/sdcard/aethercore-state/state.json",
+          kAcV14PolicyWeights, AC_V14_POLICY_PARAMETER_COUNT, info, err,
+          sizeof(err))) {
     printf("MEAS {\"phase\":\"service\",\"status\":\"INIT_FAILED\","
            "\"detail\":\"%s\"}\n", err);
     ESP_LOGE(TAG, "service init failed: %s", err);
     return;
   }
+#if CONFIG_AC_SERVICE_CONSOLE_REPL
+  static StackType_t repl_stack[16384 / sizeof(StackType_t)];
+  static StaticTask_t repl_tcb;
+  xTaskCreateStatic(console_repl_task, "console_repl",
+                    sizeof(repl_stack) / sizeof(repl_stack[0]), nullptr, 4,
+                    repl_stack, &repl_tcb);
+#endif
 
 #if CONFIG_AC_LINK_USB_CDC_DEVICE
   ac::runtime::service_set_response_sink(ac::linkusb::response_sink, nullptr);
