@@ -2528,10 +2528,10 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
     cog.Satisfy(kOblIdentifySubject);
     cog.unresolved_count = 0;  // SUBJECT_ENTITY / DISCOURSE_REFERENCE removed
   }
-  // V15 pack path: a query with a strong grounded address but no relation
-  // ("Tell me about Mars") takes the general DESCRIBE/SUMMARY relation over
-  // per-query retrieved evidence instead of abstaining. The fixture path is
-  // unchanged: it keeps requiring a relation from the static record set.
+  // V15 pack path: a query with a strong grounded address but no explicit
+  // relation takes the general DESCRIBE/SUMMARY relation over per-query
+  // retrieved evidence instead of abstaining. This is entity-agnostic: it
+  // fires for any addressed entity, with no topic or query-form branching.
   if (self.provider != nullptr && action.kind == Impl::Action::kContinue &&
       !action.entity_ids.empty() && !action.has_relation) {
     action.has_relation = true;

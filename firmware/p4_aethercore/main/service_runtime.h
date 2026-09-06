@@ -50,17 +50,11 @@ typedef void (*ResponseSink)(void *ctx, ac::link::Ac20Type type,
                              uint32_t request_id, uint32_t session_id,
                              const uint8_t *json_body, size_t body_len);
 
-/* Initialize: load knowledge records + memory store, init service core with
- * the frozen V14 int8 policy. Returns false (fail-closed, error in `err`) on
- * knowledge/record failure; memory-store failure degrades to session-only
- * memory with a loud MEAS marker (never a crash). */
-bool service_init(const char *knowledge_path, const char *state_path,
-                  const int8_t *policy_weights, size_t policy_weight_count,
-                  const RuntimeInfo &info, char *err, size_t err_cap);
-
-/* V15 production init: pack-backed knowledge provider instead of the static
- * JSON fixture (which remains only for host tests). Same memory-store and
- * fail-closed semantics as service_init. */
+/* V15 production init: pack-backed knowledge provider (per-query retrieval
+ * over the Semantic Address v2 + Pack-v2 corpus). Same memory-store and
+ * fail-closed semantics as the retired fixture init. The V13 JSON fixture
+ * path is not part of the production knowledge path; host-side tests that
+ * need fixture records construct ServiceCore directly. */
 bool service_init_pack(aethercore::service::KnowledgeProvider *provider,
                        const char *state_path, const int8_t *policy_weights,
                        size_t policy_weight_count, const RuntimeInfo &info,

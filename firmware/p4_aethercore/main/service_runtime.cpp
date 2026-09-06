@@ -505,49 +505,6 @@ void memory_init_shared() {
 
 /* ------------------------- public API ------------------------------------- */
 
-bool service_init(const char *knowledge_path, const char *state_path,
-                  const int8_t *policy_weights, size_t policy_weight_count,
-                  const RuntimeInfo &info, char *err, size_t err_cap) {
-  g_info = info;
-  g_state_path = state_path ? state_path : "";
-  /* Knowledge records (fail closed). */
-  FILE *f = fopen(knowledge_path, "rb");
-  if (!f) {
-    snprintf(err, err_cap, "knowledge file missing: %s", knowledge_path);
-    return false;
-  }
-  std::string json;
-  char buf[4096];
-  size_t n;
-  while ((n = fread(buf, 1, sizeof(buf), f)) > 0) {
-    json.append(buf, n);
-    if (json.size() > (1u << 20)) {
-      fclose(f);
-      snprintf(err, err_cap, "knowledge file too large");
-      return false;
-    }
-  }
-  fclose(f);
-  std::vector<aethercore::service::GroundedRecord> records;
-  std::string perr;
-  if (!aethercore::service::ParseGroundedRecordsJson(json.data(), json.size(),
-                                                     &records, &perr)) {
-    snprintf(err, err_cap, "knowledge parse: %s", perr.c_str());
-    return false;
-  }
-  std::string cerr;
-  if (!g_core.Init(std::move(records), policy_weights, policy_weight_count,
-                   &cerr)) {
-    snprintf(err, err_cap, "service core init: %s", cerr.c_str());
-    return false;
-  }
-  g_core.SetMeasSink(meas_print, nullptr);
-  g_core.SetClock(clock_us, nullptr);
-  memory_init_shared();
-  g_ready = true;
-  return true;
-}
-
 bool service_init_pack(aethercore::service::KnowledgeProvider *provider,
                        const char *state_path, const int8_t *policy_weights,
                        size_t policy_weight_count, const RuntimeInfo &info,
