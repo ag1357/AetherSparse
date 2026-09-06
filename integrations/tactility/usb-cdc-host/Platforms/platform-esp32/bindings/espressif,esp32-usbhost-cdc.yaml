@@ -1,0 +1,16 @@
+description: ESP32 USB Host CDC-ACM class driver
+
+compatible: "espressif,esp32-usbhost-cdc"
+
+properties:
+  vid:
+    type: int
+    default: 0
+    description: |
+      USB vendor ID discovery hint for the accessory to open (0 = any).
+      Protocol negotiation above this driver is authoritative for identity.
+  pid:
+    type: int
+    default: 0
+    description: |
+      USB product ID discovery hint for the accessory to open (0 = any).
