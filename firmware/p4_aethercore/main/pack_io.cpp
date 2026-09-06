@@ -274,10 +274,12 @@ bool sd_mount(void) {
     sdmmc_host_t host = SDMMC_HOST_DEFAULT();
     host.max_freq_khz = freqs[attempt];
     host.pwr_ctrl_handle = pwr_ctrl;
+#if CONFIG_ESP_HOSTED_SDIO_HOST_INTERFACE
     if (kHostSharedWithHosted) {
       host.init = &sdmmc_host_init_shared;
       host.deinit = &sdmmc_host_deinit_shared;
     }
+#endif
     sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
     slot_config.width = 4;
     slot_config.clk = SD_CLK;

@@ -16,7 +16,6 @@
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "tinyusb.h"
-#include "tinyusb_cdc_acm.h"
 #include "tusb_cdc_acm.h"
 
 #include "link/aetherlink_stream.h"
@@ -35,19 +34,10 @@ bool g_attached = false;
 ac::aetherlink::FrameDecoder g_decoder;
 ac::aetherlink::Transport g_transport{};
 
-void device_event(tinyusb_event_t *event, void *) {
-  if (event == nullptr) return;
-  if (event->id == TINYUSB_EVENT_ATTACHED) {
-    g_attached = true;
-    printf("MEAS {\"link\":\"usb_attached\"}\n");
-  } else if (event->id == TINYUSB_EVENT_DETACHED) {
-    g_attached = false;
-    g_decoder.reset();
-    if (g_service_task != nullptr) xTaskNotifyGive(g_service_task);
-    printf("MEAS {\"link\":\"usb_detached\",\"partial_discarded\":true}\n");
-  }
-}
-
+/* esp_tinyusb 1.7.6 exposes no device-event callback in tinyusb_config_t.
+ * Attach/detach edges are derived from tud_mounted() polls in service_task;
+ * physical detach also drops tud_mounted(), so DTR state is not required
+ * for link liveness. */
 void cdc_rx(int, cdcacm_event_t *) {
   if (g_service_task != nullptr) xTaskNotifyGive(g_service_task);
 }
@@ -71,7 +61,7 @@ int transport_read(void *, uint8_t *bytes, size_t capacity,
 
 int transport_write(void *, const uint8_t *bytes, size_t length,
                     uint32_t timeout_ms) {
-  if (bytes == nullptr || length == 0 || !tud_cdc_n_connected(0)) return -1;
+  if (bytes == nullptr || length == 0 || !tud_mounted()) return -1;
   size_t sent = 0;
   const int64_t deadline = esp_timer_get_time() +
                            static_cast<int64_t>(timeout_ms) * 1000;
@@ -85,7 +75,8 @@ int transport_write(void *, const uint8_t *bytes, size_t length,
 }
 
 bool transport_connected(void *) {
-  return g_attached && tud_cdc_n_connected(0);
+  /* Data flows regardless of host DTR state; bus attachment is authoritative. */
+  return g_attached && tud_mounted();
 }
 uint32_t transport_capabilities(void *) {
   return ac::aetherlink::kCapabilityByteStream |
@@ -100,7 +91,19 @@ void transport_cancel(void *) {
 void service_task(void *) {
   g_service_task = xTaskGetCurrentTaskHandle();
   static uint8_t fragment[1024];
+  bool was_mounted = false;
   for (;;) {
+    const bool mounted = tud_mounted();
+    if (mounted != was_mounted) {
+      was_mounted = mounted;
+      g_attached = mounted;
+      if (mounted) {
+        printf("MEAS {\"link\":\"usb_attached\"}\n");
+      } else {
+        g_decoder.reset();
+        printf("MEAS {\"link\":\"usb_detached\",\"partial_discarded\":true}\n");
+      }
+    }
     if (!g_transport.connected(g_transport.context)) {
       g_decoder.reset();
       vTaskDelay(pdMS_TO_TICKS(100));
@@ -140,8 +143,7 @@ bool start() {
   tinyusb_config_t tusb_cfg = {};
   tusb_cfg.external_phy = false;
   tusb_cfg.self_powered = false;
-  tusb_cfg.vbus_monitor_io = 0;
-  tusb_cfg.event_cb = device_event;
+  tusb_cfg.vbus_monitor_io = -1;
   if (tinyusb_driver_install(&tusb_cfg) != ESP_OK) {
     ESP_LOGE(TAG, "tinyusb_driver_install failed");
     return false;
