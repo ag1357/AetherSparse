@@ -458,6 +458,150 @@ bool FramerIncomplete(const std::string& normalized) {
 }
 
 /* ---------------------------------------------------------------- */
+/* Provider request typing                                           */
+
+bool HasAnyToken(const std::vector<std::string>& tokens,
+                 std::initializer_list<const char*> choices) {
+  for (const char* choice : choices) {
+    if (ContainsWordToken(tokens, choice)) return true;
+  }
+  return false;
+}
+
+void AddLocationConstraintTerms(const std::string& text,
+                                std::vector<std::string>* terms) {
+  size_t i = 0;
+  while (i < text.size()) {
+    while (i < text.size() && !IsWordChar(text[i])) i++;
+    size_t begin = i;
+    while (i < text.size() && IsWordChar(text[i])) i++;
+    if (begin == i) break;
+    const std::string prep = Lowercase(text.substr(begin, i - begin));
+    if (prep != "in" && prep != "at" && prep != "near" && prep != "from") {
+      continue;
+    }
+    while (i < text.size() && IsSpace(text[i])) i++;
+    size_t value_begin = i;
+    size_t words = 0;
+    size_t value_end = i;
+    while (i < text.size() && words < 5 &&
+           IsCapitalizedWordStart(text[i])) {
+      while (i < text.size() &&
+             (IsWordChar(text[i]) || text[i] == '\'' || text[i] == '-')) {
+        i++;
+      }
+      value_end = i;
+      words++;
+      size_t spaces = i;
+      while (spaces < text.size() && IsSpace(text[spaces])) spaces++;
+      if (spaces >= text.size() || !IsCapitalizedWordStart(text[spaces])) break;
+      i = spaces;
+    }
+    if (words > 0 && value_end > value_begin) {
+      terms->push_back(text.substr(value_begin, value_end - value_begin));
+    }
+  }
+}
+
+void AddQuotedConstraintTerms(const std::string& text,
+                              std::vector<std::string>* terms) {
+  size_t open = text.find('"');
+  if (open == std::string::npos) return;
+  size_t close = text.find('"', open + 1);
+  if (close != std::string::npos && close > open + 1) {
+    terms->push_back(text.substr(open + 1, close - open - 1));
+  }
+}
+
+RequestFrame InferProviderRequest(const std::string& text) {
+  RequestFrame frame;
+  frame.query_text = text;
+  const std::vector<std::string> tokens = WordTokens(Lowercase(text));
+
+  const bool when = HasAnyToken(tokens, {"when", "date", "year"});
+  const bool where = HasAnyToken(tokens, {"where", "place", "location"});
+  const bool quantity = HasAnyToken(tokens, {"many", "much", "number",
+                                             "population", "distance",
+                                             "height"});
+  const bool quotation = HasAnyToken(tokens, {"quote", "quotation", "said",
+                                              "stated", "wrote"});
+  const bool comparison = HasAnyToken(tokens, {"compare", "difference",
+                                               "larger", "smaller", "older",
+                                               "newer"});
+  const bool cause = HasAnyToken(tokens, {"why", "reason", "cause", "because"});
+  const bool membership =
+      HasAnyToken(tokens, {"member", "belongs", "included"});
+  const bool birth = HasAnyToken(tokens, {"born", "birth", "birthplace"});
+  const bool death = HasAnyToken(tokens, {"died", "death"});
+
+  if (birth && when) {
+    frame.relation_family = "birth_date";
+    frame.answer_shape = "date";
+  } else if (birth && where) {
+    frame.relation_family = "birth_place";
+    frame.answer_shape = "location";
+  } else if (death && when) {
+    frame.relation_family = "death_date";
+    frame.answer_shape = "date";
+  } else if (death && where) {
+    frame.relation_family = "death_place";
+    frame.answer_shape = "location";
+  } else if (where) {
+    frame.relation_family = "location";
+    frame.answer_shape = "location";
+  } else if (when) {
+    frame.relation_family = "date";
+    frame.answer_shape = "date";
+  } else if (quantity) {
+    frame.relation_family = "quantity";
+    frame.answer_shape = "quantity";
+  } else if (quotation) {
+    frame.relation_family = "quotation";
+    frame.answer_shape = "quotation";
+  } else if (comparison) {
+    frame.relation_family = "comparison";
+    frame.answer_shape = "comparison";
+  } else if (cause) {
+    frame.relation_family = "cause";
+    frame.answer_shape = "definition";
+  } else if (membership) {
+    frame.relation_family = "membership";
+    frame.answer_shape = "definition";
+  } else {
+    frame.relation_family = "describe";
+    frame.answer_shape = "quotation";
+    frame.general_description = true;
+  }
+
+  frame.explicit_intent =
+      when || where || quantity || quotation || comparison || cause ||
+      membership || birth || death || FramerHasRelationCue(text);
+
+  // Constraints are concrete lexical values, not inferred facts. A candidate
+  // can satisfy the constraint bit only if every value occurs in its exact
+  // evidence text.
+  for (const std::string& token : tokens) {
+    if (token.size() != 4) continue;
+    bool all_digits = true;
+    for (char c : token) all_digits = all_digits && c >= '0' && c <= '9';
+    if (all_digits) frame.constraint_terms.push_back(token);
+  }
+  AddLocationConstraintTerms(text, &frame.constraint_terms);
+  AddQuotedConstraintTerms(text, &frame.constraint_terms);
+  if (!frame.constraint_terms.empty()) {
+    frame.required_obligations |= kSupportConstraints;
+  }
+  return frame;
+}
+
+void InheritRequestSemantics(const RequestFrame& prior, const std::string& text,
+                             RequestFrame* current) {
+  *current = prior;
+  current->query_text = text;
+  current->explicit_intent = false;
+}
+
+/* ---------------------------------------------------------------- */
 /* COG-lite: the six core obligations + optional constraint extras   */
 
 enum ObligationSlot {
@@ -580,6 +724,18 @@ bool Contains(const std::vector<std::string>& values, const std::string& item) {
 
 }  // namespace
 
+const char* SupportLevelName(SupportLevel level) {
+  switch (level) {
+    case SupportLevel::kFull:
+      return "FULL";
+    case SupportLevel::kPartial:
+      return "PARTIAL";
+    case SupportLevel::kNone:
+    default:
+      return "NONE";
+  }
+}
+
 /* ================================================================== */
 /* ServiceCore::Impl                                                   */
 
@@ -601,6 +757,8 @@ struct ServiceCore::Impl {
     std::string question;
     std::vector<Choice> choices;
     std::string original_query;
+    bool has_request = false;
+    RequestFrame request;
   };
 
   struct ResolvedEnt {
@@ -617,6 +775,8 @@ struct ServiceCore::Impl {
     std::vector<ResolvedEnt> resolved;
     bool has_prev_relation = false;
     std::string prev_relation;
+    bool has_prev_request = false;
+    RequestFrame prev_request;
     bool has_pending = false;
     Pending pending;
     uint32_t turn_count = 0;
@@ -1101,6 +1261,21 @@ struct ServiceCore::Impl {
           break;
         }
       }
+      if (selected_choice == nullptr && !normalized.empty()) {
+        size_t numeric = 0;
+        bool digits = true;
+        for (char c : normalized) {
+          if (c < '0' || c > '9') {
+            digits = false;
+            break;
+          }
+          numeric = numeric * 10 + size_t(c - '0');
+        }
+        if (digits && numeric >= 1 &&
+            numeric <= state.pending.choices.size()) {
+          selected_choice = &state.pending.choices[numeric - 1];
+        }
+      }
       if (selected_choice != nullptr) {
         candidates.push_back(Hyp{selected_choice->entity_id,
                                  selected_choice->label, 1.0, query});
@@ -1204,6 +1379,7 @@ struct ServiceCore::Impl {
 
   static std::string ShapeOf(const std::string& answer_kind) {
     if (answer_kind == "DATE") return "date";
+    if (answer_kind == "LOCATION") return "location";
     if (answer_kind == "QUANTITY") return "quantity";
     if (answer_kind == "LIST") return "list";
     if (answer_kind == "COMPARISON") return "comparison";
@@ -1220,6 +1396,8 @@ struct ServiceCore::Impl {
     std::string span_id;     // single source span per fixture record
     double confidence = 1.0;
     size_t record_index = 0;
+    EvidenceSupport support = EvidenceSupport::kDirectSupport;
+    uint32_t supported_obligations = UINT32_MAX;
   };
   struct SpanRec {
     std::string span_id;
@@ -1236,6 +1414,7 @@ struct ServiceCore::Impl {
     bool facet_object = true;      // definition/date/... path
     bool facet_quantity = false;   // quantity path
     bool facet_quotation = false;  // quotation path
+    uint32_t required_support = 0;
     // workspace
     std::vector<Claim> claims;
     std::vector<SpanRec> spans;
@@ -1277,12 +1456,21 @@ struct ServiceCore::Impl {
 
   bool ClaimCanPassStaticVerifier(const MicroState& state,
                                   const Claim& claim) const {
+    if (claim.support != EvidenceSupport::kDirectSupport ||
+        (claim.supported_obligations & state.required_support) !=
+            state.required_support) {
+      return false;
+    }
     if (!state.frame_entities.empty() &&
         !Contains(state.frame_entities, claim.subject)) {
       return false;  // object_entity_id absent on this plane
     }
     if (!state.frame_relations.empty() &&
         !Contains(state.frame_relations, claim.relation)) {
+      return false;
+    }
+    if (!state.answer_shape.empty() &&
+        claim.answer_shape != state.answer_shape) {
       return false;
     }
     std::string surface = ClaimValue(claim, state.answer_shape);
@@ -1891,6 +2079,10 @@ struct ServiceCore::Impl {
       if (!state.frame_relations.empty()) {
         ok = ok && Contains(state.frame_relations, claim->relation);
       }
+      ok = ok && claim->answer_shape == shape;
+      ok = ok && claim->support == EvidenceSupport::kDirectSupport &&
+           (claim->supported_obligations & state.required_support) ==
+               state.required_support;
       if (shape == "date") {
         ok = ok && HasYearToken(binding.planned->surface) &&
              HasYearToken(claim->value);
@@ -2287,18 +2479,22 @@ struct ServiceCore::Impl {
   // Claim::record_index indexes into `source`.
   void BuildWorkspace(const std::vector<GroundedRecord>& source,
                       const std::vector<std::string>& entity_ids,
-                      const std::string& relation, MicroState* state) const {
+                      const std::string& relation,
+                      const std::string& requested_shape,
+                      uint32_t required_support, bool retain_competitors,
+                      MicroState* state) const {
     state->frame_entities = entity_ids;
     state->frame_relations.assign(1, relation);
-    std::string shape = "unknown";
+    state->required_support = required_support;
+    std::string shape = requested_shape.empty() ? "unknown" : requested_shape;
     bool first = true;
     for (size_t r = 0; r < source.size(); r++) {
       const GroundedRecord& record = source[r];
       if (!Contains(entity_ids, record.entity_id) ||
-          record.relation != relation) {
+          (!retain_competitors && record.relation != relation)) {
         continue;
       }
-      if (first) {
+      if (first && requested_shape.empty()) {
         shape = ShapeOf(record.answer_kind);
         first = false;
       }
@@ -2321,6 +2517,8 @@ struct ServiceCore::Impl {
         claim.span_id = span.span_id;
         claim.confidence = record.confidence;
         claim.record_index = r;
+        claim.support = record.support;
+        claim.supported_obligations = record.supported_obligations;
         state->claims.push_back(claim);
       }
     }
@@ -2360,7 +2558,7 @@ struct ServiceCore::Impl {
     const std::string& relation =
         record.relation_text.empty() ? std::string("is") : record.relation_text;
     if (kind == "FACTUAL_VALUE" || kind == "ENTITY" || kind == "DATE" ||
-        kind == "QUANTITY") {
+        kind == "LOCATION" || kind == "QUANTITY") {
       *text = subject + " " + relation + " " + values.front() + ".";
     } else if (kind == "LIST") {
       *text = subject + ": ";
@@ -2489,9 +2687,28 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
   CogLite cog = InterpretLite(normalized, prior);
 
   std::string relation;
-  bool has_relation = self.RelationOf(text, &relation);
-  if (!has_relation && before.has_pending) {
-    has_relation = self.RelationOf(before.pending.original_query, &relation);
+  bool has_relation = false;
+  RequestFrame provider_request;
+  bool pending_has_request = before.has_pending && before.pending.has_request;
+  RequestFrame pending_request =
+      pending_has_request ? before.pending.request : RequestFrame();
+  if (self.provider != nullptr) {
+    provider_request = InferProviderRequest(text);
+    if (pending_has_request) {
+      provider_request = pending_request;
+      provider_request.query_text = text;
+    } else if (!provider_request.explicit_intent && before.has_prev_request &&
+               (IsWhatAbout(text) || HasReferentPronoun(text) ||
+                before.has_current_query)) {
+      InheritRequestSemantics(before.prev_request, text, &provider_request);
+    }
+    relation = provider_request.relation_family;
+    has_relation = !relation.empty();
+  } else {
+    has_relation = self.RelationOf(text, &relation);
+    if (!has_relation && before.has_pending) {
+      has_relation = self.RelationOf(before.pending.original_query, &relation);
+    }
   }
 
   uint64_t t_address_start = self.NowUs();
@@ -2520,6 +2737,13 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
 
   Impl::Action action =
       self.Accept(before, text, candidates, has_relation, relation);
+  if (self.provider != nullptr &&
+      action.kind == Impl::Action::kAskClarification) {
+    before.pending.has_request = true;
+    before.pending.request = provider_request;
+    action.clarification.has_request = true;
+    action.clarification.request = provider_request;
+  }
 
   std::vector<std::string> candidate_ids;
   for (const Impl::Hyp& hyp : candidates) candidate_ids.push_back(hyp.entity_id);
@@ -2528,14 +2752,9 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
     cog.Satisfy(kOblIdentifySubject);
     cog.unresolved_count = 0;  // SUBJECT_ENTITY / DISCOURSE_REFERENCE removed
   }
-  // V15 pack path: a query with a strong grounded address but no explicit
-  // relation takes the general DESCRIBE/SUMMARY relation over per-query
-  // retrieved evidence instead of abstaining. This is entity-agnostic: it
-  // fires for any addressed entity, with no topic or query-form branching.
-  if (self.provider != nullptr && action.kind == Impl::Action::kContinue &&
-      !action.entity_ids.empty() && !action.has_relation) {
-    action.has_relation = true;
-    action.relation = "describe";
+  if (self.provider != nullptr && action.kind == Impl::Action::kContinue) {
+    before.has_prev_request = true;
+    before.prev_request = provider_request;
   }
   if (action.has_relation) {
     cog.Satisfy(kOblEstablishRelation);
@@ -2579,88 +2798,194 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
     // fetch (V15 pack path). Fetched records satisfy the identical verifier
     // contract; record_index in claims refers to this vector.
     const std::vector<GroundedRecord>* active_records = &self.records;
+    bool retrieval_failed = false;
+    bool retrieval_cancelled = false;
+    bool retrieval_complete = true;
     if (self.provider != nullptr) {
       self.query_records.clear();
-      self.provider->FetchRecords(action.entity_ids, text,
-                                  &self.query_records);
+      FetchOptions options;
+      retrieval_complete = false;
+      for (size_t round = 0; round < 8; round++) {
+        FetchResult part;
+        self.provider->FetchRecords(action.entity_ids, provider_request, options,
+                                    &part);
+        for (GroundedRecord& record : part.records) {
+          bool duplicate = false;
+          for (const GroundedRecord& existing : self.query_records) {
+            if (existing.evidence.handle_id == record.evidence.handle_id) {
+              duplicate = true;
+              break;
+            }
+          }
+          if (!duplicate) {
+            self.query_records.push_back(std::move(record));
+          }
+        }
+        std::stable_sort(
+            self.query_records.begin(), self.query_records.end(),
+            [](const GroundedRecord& a, const GroundedRecord& b) {
+              if (a.support != b.support) {
+                return int(a.support) > int(b.support);
+              }
+              if (a.relevance_score != b.relevance_score) {
+                return a.relevance_score > b.relevance_score;
+              }
+              if (a.entity_id != b.entity_id) return a.entity_id < b.entity_id;
+              return a.occurrence_index < b.occurrence_index;
+            });
+        if (self.query_records.size() > 8) self.query_records.resize(8);
+        if (part.status == RetrievalStatus::kComplete) {
+          retrieval_complete = true;
+          break;
+        }
+        if (part.status == RetrievalStatus::kCancelled) {
+          retrieval_cancelled = true;
+          break;
+        }
+        if (part.status == RetrievalStatus::kIoError ||
+            part.status == RetrievalStatus::kCorrupt) {
+          retrieval_failed = true;
+          break;
+        }
+        if (part.status != RetrievalStatus::kBudgetExhausted ||
+            !part.next_cursor.valid) {
+          retrieval_failed = true;
+          break;
+        }
+        options.cursor = part.next_cursor;
+      }
       active_records = &self.query_records;
     }
-    Impl::MicroState state;
-    self.BuildWorkspace(*active_records, action.entity_ids, action.relation,
-                        &state);
-    workspace_claims = state.claims.size();
-    if (state.claims.empty()) {
+    if (retrieval_cancelled) {
       resp.has_failure = true;
-      resp.failure_reason = "VALUE_UNAVAILABLE";
+      resp.failure_reason = "RETRIEVAL_CANCELLED";
+      finish("CANCELLED", "Retrieval cancelled.", false, true);
+    } else if (retrieval_failed) {
+      resp.has_failure = true;
+      resp.failure_reason = "RETRIEVAL_ERROR";
       finish("ABSTAIN",
-             "I found the entity, but no exact grounded claim for that relation.",
+             "The knowledge source could not complete this retrieval.",
              false, true);
     } else {
-      cog.Satisfy(kOblLocateClaim);
-      cog.Satisfy(kOblMatchAnswerType);
-      // learned controller loop (vertical: <= max_controller_steps)
-      for (size_t step = 0; step < self.max_steps; step++) {
-        Impl::MicroAction selected;
-        if (!self.PolicySelect(state, &selected)) break;
-        if (resp.operations.size() < kMaxOpsLog) {
-          resp.operations.push_back(selected.op);
-        }
-        controller_steps++;
-        if (!self.Execute(state, selected)) break;  // defensive; mask-legal only
-        if (state.has_terminal) break;
-      }
-      if (state.terminal != "ANSWER" || !state.verification_passed) {
+      Impl::MicroState state;
+      const bool provider_mode = self.provider != nullptr;
+      self.BuildWorkspace(
+          *active_records, action.entity_ids, action.relation,
+          provider_mode ? provider_request.answer_shape : std::string(),
+          provider_mode ? provider_request.required_obligations : 0,
+          provider_mode, &state);
+      workspace_claims = state.claims.size();
+      if (state.claims.empty()) {
         resp.has_failure = true;
-        resp.failure_reason =
-            state.has_terminal ? state.terminal : "CONTROLLER_INCOMPLETE";
-        finish("ABSTAIN",
-               "The learned controller did not produce a verifier-accepted "
-               "answer plan.",
-               false, true);
+        resp.failure_reason = "VALUE_UNAVAILABLE";
+        finish(
+            "ABSTAIN",
+            "I found the entity, but no exact grounded claim for that relation.",
+            false, true);
       } else {
-        const Impl::Claim* first_claim =
-            self.FindClaim(state, state.plan_claim_ids.empty()
-                                      ? std::string()
-                                      : state.plan_claim_ids.front());
-        if (first_claim == nullptr) {
-          // Python raises RuntimeError here; fail closed identically-shaped.
+        bool full_support = !provider_mode;
+        if (provider_mode) {
+          full_support = false;
+          for (const Impl::Claim& claim : state.claims) {
+            if (self.ClaimCanPassStaticVerifier(state, claim)) {
+              full_support = true;
+              break;
+            }
+          }
+        }
+        if (!full_support) {
           resp.has_failure = true;
-          resp.failure_reason = "CONTROLLER_INCOMPLETE";
-          finish("ABSTAIN",
-                 "The learned controller did not produce a verifier-accepted "
-                 "answer plan.",
-                 false, true);
+          resp.failure_reason =
+              retrieval_complete ? "PARTIAL_SUPPORT" : "RETRIEVAL_INCOMPLETE";
+          resp.support_level = SupportLevel::kPartial;
+          for (const GroundedRecord& record : *active_records) {
+            if (!record.evidence.handle_id.empty()) {
+              PushUnique(&resp.evidence_handle_ids, record.evidence.handle_id);
+            }
+            if (resp.evidence_handle_ids.size() >= 4) break;
+          }
+          finish(
+              "ABSTAIN",
+              "I found grounded related background, but it does not satisfy "
+              "the requested answer type and relation.",
+              !resp.evidence_handle_ids.empty(), true);
         } else {
-          const GroundedRecord& record =
-              (*active_records)[first_claim->record_index];
-          std::string answer_text;
-          std::vector<std::string> handle_ids;
-          std::string grounding_failure;
-          if (!self.Realize(record, state.plan_values, &answer_text,
-                            &handle_ids, &grounding_failure)) {
+          cog.Satisfy(kOblLocateClaim);
+          cog.Satisfy(kOblMatchAnswerType);
+          // learned controller loop (vertical: <= max_controller_steps)
+          for (size_t step = 0; step < self.max_steps; step++) {
+            Impl::MicroAction selected;
+            if (!self.PolicySelect(state, &selected)) break;
+            if (resp.operations.size() < kMaxOpsLog) {
+              resp.operations.push_back(selected.op);
+            }
+            controller_steps++;
+            if (!self.Execute(state, selected)) {
+              break;  // defensive; mask-legal only
+            }
+            if (state.has_terminal) break;
+          }
+          if (state.terminal != "ANSWER" || !state.verification_passed) {
             resp.has_failure = true;
-            resp.failure_reason = grounding_failure;
+            resp.failure_reason =
+                state.has_terminal ? state.terminal : "CONTROLLER_INCOMPLETE";
             finish("ABSTAIN",
-                   "The verified plan could not be copied from exact evidence.",
+                   "The learned controller did not produce a "
+                   "verifier-accepted answer plan.",
                    false, true);
           } else {
-            cog.evidence_count = 1;
-            cog.Satisfy(kOblBindClaim);
-            cog.Satisfy(kOblVerifyEvidence);
-            cog.verifier_state_code = 2;  // ACCEPTED
-            if (!cog.CanHaltSuccess()) {
-              resp.verifier_accepted = true;
+            const Impl::Claim* first_claim = self.FindClaim(
+                state, state.plan_claim_ids.empty()
+                           ? std::string()
+                           : state.plan_claim_ids.front());
+            if (first_claim == nullptr) {
+              // Python raises RuntimeError here; fail closed identically.
               resp.has_failure = true;
-              resp.failure_reason = "COG_OBLIGATIONS_OPEN";
+              resp.failure_reason = "CONTROLLER_INCOMPLETE";
               finish("ABSTAIN",
-                     "The exact answer is grounded, but mandatory cognitive "
-                     "obligations remain.",
+                     "The learned controller did not produce a "
+                     "verifier-accepted answer plan.",
                      false, true);
             } else {
-              self.RecordAnswer(before, record.evidence.handle_id);
-              resp.verifier_accepted = true;
-              resp.evidence_handle_ids = handle_ids;
-              finish("ANSWER", answer_text, true, true);
+              const GroundedRecord& record =
+                  (*active_records)[first_claim->record_index];
+              std::string answer_text;
+              std::vector<std::string> handle_ids;
+              std::string grounding_failure;
+              if (!self.Realize(record, state.plan_values, &answer_text,
+                                &handle_ids, &grounding_failure)) {
+                resp.has_failure = true;
+                resp.failure_reason = grounding_failure;
+                finish(
+                    "ABSTAIN",
+                    "The verified plan could not be copied from exact evidence.",
+                    false, true);
+              } else {
+                cog.evidence_count = 1;
+                cog.Satisfy(kOblBindClaim);
+                cog.Satisfy(kOblVerifyEvidence);
+                if ((record.supported_obligations & kSupportConstraints) != 0) {
+                  cog.Satisfy(kOblTemporal);
+                  cog.Satisfy(kOblLocation);
+                  cog.Satisfy(kOblAttribution);
+                }
+                cog.verifier_state_code = 2;  // ACCEPTED
+                if (!cog.CanHaltSuccess()) {
+                  resp.verifier_accepted = true;
+                  resp.has_failure = true;
+                  resp.failure_reason = "COG_OBLIGATIONS_OPEN";
+                  finish("ABSTAIN",
+                         "The exact answer is grounded, but mandatory "
+                         "cognitive obligations remain.",
+                         false, true);
+                } else {
+                  self.RecordAnswer(before, record.evidence.handle_id);
+                  resp.verifier_accepted = true;
+                  resp.evidence_handle_ids = handle_ids;
+                  resp.support_level = SupportLevel::kFull;
+                  finish("ANSWER", answer_text, true, true);
+                }
+              }
             }
           }
         }
@@ -2682,17 +3007,19 @@ ServiceResponse ServiceCore::Query(const std::string& session_id,
     std::string ops;
     for (uint32_t op : resp.operations) {
       if (!ops.empty()) ops.push_back(',');
-      char nbuf[8];
+      char nbuf[16];
       snprintf(nbuf, sizeof(nbuf), "%lu", (unsigned long)op);
       ops += nbuf;
       if (ops.size() > 96) break;
     }
     snprintf(line, sizeof(line),
              "MEAS {\"phase\":\"service.query\",\"session\":\"%s\","
-             "\"disposition\":\"%s\",\"candidates\":%u,\"claims\":%u,"
+             "\"disposition\":\"%s\",\"support\":\"%s\","
+             "\"candidates\":%u,\"claims\":%u,"
              "\"steps\":%u,\"ops\":[%s],\"address_us\":%llu,"
              "\"controller_us\":%llu,\"total_us\":%llu}",
              escaped.c_str(), resp.disposition.c_str(),
+             SupportLevelName(resp.support_level),
              (unsigned)candidate_ids.size(), (unsigned)workspace_claims,
              (unsigned)controller_steps, ops.c_str(),
              (unsigned long long)(t_address_done - t_address_start),

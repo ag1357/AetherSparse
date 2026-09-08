@@ -29,6 +29,12 @@ constexpr size_t kMaxSupportedValues = 8;
 constexpr size_t kMaxStringBytes = 2048;
 constexpr size_t kMaxJsonDepth = 16;
 
+enum class EvidenceSupport {
+  kNone,
+  kRelatedBackground,
+  kDirectSupport,
+};
+
 struct EvidenceHandleRec {
   std::string handle_id;
   std::string source_namespace;
@@ -50,6 +56,13 @@ struct GroundedRecord {
   std::vector<std::string> values;
   EvidenceHandleRec evidence;
   double confidence = 1.0;
+  // Retrieval metadata is outside the quoted evidence/value planes. Static
+  // fixture records default to direct support so their parity contract is
+  // unchanged.
+  EvidenceSupport support = EvidenceSupport::kDirectSupport;
+  uint32_t supported_obligations = UINT32_MAX;
+  int relevance_score = 0;
+  uint32_t occurrence_index = 0;
 };
 
 // Parse the fixture document (array of grounded records).  Returns false and

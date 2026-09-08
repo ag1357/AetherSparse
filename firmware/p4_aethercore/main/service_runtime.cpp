@@ -138,11 +138,6 @@ void skip_ws(const std::string &s, size_t *i) {
   while (*i < s.size() && isspace((unsigned char)s[*i])) (*i)++;
 }
 
-bool word_boundary_or_end(const std::string &s, size_t i) {
-  return i >= s.size() || isspace((unsigned char)s[i]) || s[i] == '?' ||
-         s[i] == '.' || s[i] == '!';
-}
-
 /* ^\s*(list|show)\s+(my\s+)?memor(y|ies)\s*[?.!]?\s*$ */
 bool match_list_memory(const std::string &s) {
   size_t i = 0;
@@ -463,7 +458,10 @@ void handle_query(const ProtocolMessage &req, const std::string &text) {
                  ev.p.evidence_summary.handle_ids
                      .items[ev.p.evidence_summary.handle_ids.count++]);
     }
-    const char *summary = "Exact evidence handles used by the accepted plan.";
+    const char *summary =
+        r.support_level == aethercore::service::SupportLevel::kFull
+            ? "Exact evidence handles used by the accepted plan."
+            : "Grounded related background; requested obligations remain open.";
     ev.poolPut(summary, strlen(summary), ev.p.evidence_summary.summary);
     send_response(ev);
   }
@@ -530,9 +528,11 @@ void service_console_query(const char *text) {
   if (!g_ready || text == nullptr || text[0] == 0) return;
   ServiceResponse r = g_core.Query("console", text);
   printf("CONSOLE_QUERY {\"text\":\"%s\"}\n", text);
-  printf("CONSOLE_RESULT {\"disposition\":\"%s\",\"grounded\":%s,"
-         "\"verifier_accepted\":%s",
-         r.disposition.c_str(), r.grounded ? "true" : "false",
+  printf("CONSOLE_RESULT {\"disposition\":\"%s\",\"support\":\"%s\","
+         "\"grounded\":%s,\"verifier_accepted\":%s",
+         r.disposition.c_str(),
+         aethercore::service::SupportLevelName(r.support_level),
+         r.grounded ? "true" : "false",
          r.verifier_accepted ? "true" : "false");
   if (r.has_failure) {
     printf(",\"failure\":\"%s\"", r.failure_reason.c_str());

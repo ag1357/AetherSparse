@@ -46,11 +46,20 @@ constexpr size_t kMaxAddressResults = 32;   // address_cap used by vertical
 constexpr size_t kMaxQueryBytes = 2048;     // AetherCoreRequest text bound
 constexpr size_t kMaxSessionIdBytes = 128;  // AetherCoreRequest session bound
 
+enum class SupportLevel {
+  kNone,
+  kPartial,
+  kFull,
+};
+
+const char* SupportLevelName(SupportLevel level);
+
 struct ServiceResponse {
   std::string disposition;  // ANSWER|CLARIFY|ABSTAIN|CANCELLED|RESET
   std::string session_id;
   std::string text;
   bool grounded = false;
+  SupportLevel support_level = SupportLevel::kNone;
   std::vector<std::string> evidence_handle_ids;
   std::vector<std::string> candidate_ids;
   std::vector<int> operations;
@@ -86,9 +95,9 @@ class ServiceCore {
             size_t policy_weight_count, std::string* error);
   // V15 production path: no static fixture vector; semantic addressing and
   // per-query record retrieval are delegated to the pack-backed provider.
-  // The provider must outlive the core. When a query resolves to entity
-  // candidates but no relation, the core synthesizes the general
-  // "describe" relation instead of abstaining.
+  // The provider must outlive the core. Provider-mode request semantics are
+  // inferred before retrieval and inherited as a complete typed frame across
+  // follow-ups.
   bool InitWithProvider(KnowledgeProvider* provider,
                         const int8_t* policy_weights, size_t policy_weight_count,
                         std::string* error);

@@ -20,6 +20,8 @@
  */
 #pragma once
 
+#include <stdint.h>
+
 #include <string>
 #include <vector>
 
@@ -35,6 +37,66 @@ struct AddressHyp {
   std::string matched_surface;
 };
 
+// Question semantics are established before retrieval and remain independent
+// of whatever records happen to exist in the corpus. `relation_family` is a
+// generic relation id (for example describe, birth_date, or location);
+// `answer_shape` uses the service controller vocabulary
+// (definition/date/location/quantity/quotation).
+enum SupportObligation : uint32_t {
+  kSupportSubject = 1u << 0,
+  kSupportRelation = 1u << 1,
+  kSupportAnswerType = 1u << 2,
+  kSupportConstraints = 1u << 3,
+  kSupportEvidence = 1u << 4,
+};
+
+struct RequestFrame {
+  std::string query_text;
+  std::string relation_family;
+  std::string answer_shape;
+  uint32_t required_obligations =
+      kSupportSubject | kSupportRelation | kSupportAnswerType |
+      kSupportEvidence;
+  std::vector<std::string> constraint_terms;
+  bool general_description = false;
+  bool explicit_intent = false;
+};
+
+enum class RetrievalStatus {
+  kComplete,
+  kBudgetExhausted,
+  kCancelled,
+  kIoError,
+  kCorrupt,
+};
+
+struct RetrievalCursor {
+  bool valid = false;
+  size_t entity_slot = 0;
+  uint32_t relative_blob_offset = 0;
+  uint32_t occurrence_index = 0;
+};
+
+typedef bool (*CancelProbe)(void* context);
+
+struct FetchOptions {
+  size_t max_candidates = 8;
+  uint32_t occurrence_budget = 1024;
+  uint32_t blob_byte_budget = 4u * 1024u * 1024u;
+  size_t max_passage_bytes = 2048;
+  RetrievalCursor cursor;
+  CancelProbe cancel_probe = nullptr;
+  void* cancel_context = nullptr;
+};
+
+struct FetchResult {
+  std::vector<GroundedRecord> records;
+  RetrievalStatus status = RetrievalStatus::kComplete;
+  RetrievalCursor next_cursor;
+  uint32_t occurrences_scanned = 0;
+  uint32_t blob_bytes_scanned = 0;
+};
+
 class KnowledgeProvider {
  public:
   virtual ~KnowledgeProvider() = default;
@@ -43,11 +105,14 @@ class KnowledgeProvider {
   virtual bool Address(const std::string& text,
                        std::vector<AddressHyp>* out) = 0;
 
-  // Per-query grounded records for the selected entities, bounded by the
-  // record/span/claim caps of the service workspace.
-  virtual bool FetchRecords(const std::vector<std::string>& entity_ids,
-                            const std::string& query_text,
-                            std::vector<GroundedRecord>* out) = 0;
+  // Per-query grounded records for the selected entities. The provider must
+  // preserve `request` semantics and return bounded competing evidence, not
+  // a preselected answer. Unsupported knowledge is represented by an empty
+  // COMPLETE result; transport/storage failure uses an explicit status.
+  virtual void FetchRecords(const std::vector<std::string>& entity_ids,
+                            const RequestFrame& request,
+                            const FetchOptions& options,
+                            FetchResult* result) = 0;
 };
 
 }  // namespace service

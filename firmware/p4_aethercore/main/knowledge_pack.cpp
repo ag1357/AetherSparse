@@ -5,6 +5,7 @@
 #include "knowledge_pack.h"
 
 #include <ctype.h>
+#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -23,6 +24,7 @@ constexpr size_t kMaxSnippetBytes = 360;     // realized quotation window
 constexpr size_t kMaxQueryNorm = 400;        // bytes into the address index
 constexpr uint32_t kMaxAddressCandidates = 8;
 constexpr size_t kCopulaMinSubstance = 16;   // chars after copula verb
+constexpr int kUnusableScore = INT_MIN / 4;
 
 /* Generic English function words (standard IR stopwords; not topic rules). */
 const char *const kStopwords[] = {
@@ -39,9 +41,6 @@ const char *const kStopwords[] = {
     "was",     "we",    "were",   "what",  "when",  "where",  "which",
     "who",     "why",   "will",   "with",  "would", "you",    "your",
 };
-
-/* When-question markers (question type, not topic). */
-const char *const kWhenWords[] = {"when", "born", "died", "date", "year"};
 
 /* Fiction/speculation markers: mild demerit so attributed fictional
  * statements lose ties to plain factual statements (presentational
@@ -386,37 +385,19 @@ bool HasYearPrefix(const std::string &cl, size_t mpos) {
   return d == 0 || !isalnum((unsigned char)cl[d - 1]);
 }
 
-bool IsWhenQuery(const std::string &query_lower) {
-  size_t pos = 0;
-  while (pos < query_lower.size()) {
-    while (pos < query_lower.size() &&
-           !isalnum((unsigned char)query_lower[pos]))
-      pos++;
-    size_t end = pos;
-    while (end < query_lower.size() &&
-           isalnum((unsigned char)query_lower[end]))
-      end++;
-    std::string word = query_lower.substr(pos, end - pos);
-    for (const char *w : kWhenWords) {
-      if (word == w) return true;
-    }
-    pos = end;
-  }
-  return false;
-}
-
-/* Occurrence score; -1 = unusable. Mirrors the host-validated algorithm
+/* Occurrence score; kUnusableScore = unusable. Mirrors the host-validated
+ * algorithm
  * (fetch_final.py): coverage (near mention = full weight), structural
  * bonuses (title lead, canonical mention, copula with substance,
  * biographical year-parenthetical, date-entry prefix for when-queries),
  * junk demerits (numbered lists, digit/paren density, fiction markers),
- * plus a generic primary-source bonus for occurrences the pack flags as
- * coming from the entity's own article (occ_flags & 1). */
+ * plus a conditional encyclopedia self-article prior for general
+ * description requests (occ_flags & 1). */
 int ScoreOccurrence(const std::string &ctx, const std::string &raw,
                     const std::string &mention, const std::string &title_lower,
                     const std::vector<std::string> &informative,
-                    bool when_query, int occ_flags) {
-  if (ctx.size() < 30) return -1;
+                    bool when_query, bool general_description, int occ_flags) {
+  if (ctx.size() < 30) return kUnusableScore;
   std::string cl = Lower(ctx);
   std::string ml = Lower(mention);
   size_t mpos = ml.empty() ? std::string::npos : cl.find(ml);
@@ -445,7 +426,9 @@ int ScoreOccurrence(const std::string &ctx, const std::string &raw,
       size_t from = mpos > 16 ? mpos - 16 : 0;
       near_year = HasYearNear(cl, from, mpos + ml.size() + 16);
     }
-    if (!near_year) return -1;  // gated: no informative token near this occ
+    if (!near_year) {
+      return kUnusableScore;  // gated: no informative token near this occ
+    }
   }
 
   int score = cov;
@@ -506,7 +489,7 @@ int ScoreOccurrence(const std::string &ctx, const std::string &raw,
       break;
     }
   }
-  if (occ_flags & 1) score += 6;  // entity's own article (primary source)
+  if (general_description && (occ_flags & 1)) score += 6;
   return score;
 }
 
@@ -590,6 +573,157 @@ std::string PickSnippet(const std::string &context,
   if (out.size() > 2 && out.compare(out.size() - 2, 2, " .") == 0)
     out.resize(out.size() - 2);
   return out;
+}
+
+bool IsAsciiWordBoundary(const std::string &text, size_t begin, size_t end) {
+  bool left = begin == 0 || !isalnum((unsigned char)text[begin - 1]);
+  bool right = end >= text.size() || !isalnum((unsigned char)text[end]);
+  return left && right;
+}
+
+bool FindYearValue(const std::string &context, const std::string &relation,
+                   std::string *out) {
+  const std::string lower = Lower(context);
+  const char *anchors[3] = {};
+  size_t anchor_count = 0;
+  if (relation.compare(0, 6, "birth_") == 0) {
+    anchors[anchor_count++] = "born";
+    anchors[anchor_count++] = "birth";
+  } else if (relation.compare(0, 6, "death_") == 0) {
+    anchors[anchor_count++] = "died";
+    anchors[anchor_count++] = "death";
+  }
+  size_t anchor = std::string::npos;
+  for (size_t i = 0; i < anchor_count; i++) {
+    size_t found = lower.find(anchors[i]);
+    if (found != std::string::npos &&
+        (anchor == std::string::npos || found < anchor)) {
+      anchor = found;
+    }
+  }
+  size_t from = anchor == std::string::npos || anchor < 96 ? 0 : anchor - 96;
+  size_t to = anchor == std::string::npos
+                  ? context.size()
+                  : std::min(context.size(), anchor + 128);
+  size_t best = std::string::npos;
+  size_t best_distance = SIZE_MAX;
+  for (size_t i = from; i + 4 <= to; i++) {
+    if (!isdigit((unsigned char)context[i]) ||
+        !isdigit((unsigned char)context[i + 1]) ||
+        !isdigit((unsigned char)context[i + 2]) ||
+        !isdigit((unsigned char)context[i + 3]) ||
+        !IsAsciiWordBoundary(context, i, i + 4)) {
+      continue;
+    }
+    int year = (context[i] - '0') * 1000 + (context[i + 1] - '0') * 100 +
+               (context[i + 2] - '0') * 10 + (context[i + 3] - '0');
+    if (year < 1000 || year > 2100) continue;
+    size_t distance =
+        anchor == std::string::npos ? i : (i < anchor ? anchor - i : i - anchor);
+    if (distance < best_distance) {
+      best = i;
+      best_distance = distance;
+    }
+  }
+  if (best == std::string::npos) return false;
+  *out = context.substr(best, 4);
+  return true;
+}
+
+bool IsLocationLeadChar(unsigned char c) {
+  return (c >= 'A' && c <= 'Z') || c >= 0x80;
+}
+
+bool FindLocationValue(const std::string &context, const std::string &relation,
+                       std::string *out) {
+  const std::string lower = Lower(context);
+  const char *anchors[5] = {};
+  size_t anchor_count = 0;
+  if (relation == "birth_place") {
+    anchors[anchor_count++] = "born in ";
+    anchors[anchor_count++] = "birthplace is ";
+  } else if (relation == "death_place") {
+    anchors[anchor_count++] = "died in ";
+    anchors[anchor_count++] = "death place is ";
+  } else {
+    anchors[anchor_count++] = "located in ";
+    anchors[anchor_count++] = "is in ";
+    anchors[anchor_count++] = "lies in ";
+  }
+  size_t value_start = std::string::npos;
+  for (size_t i = 0; i < anchor_count; i++) {
+    size_t found = lower.find(anchors[i]);
+    if (found != std::string::npos) {
+      size_t candidate = found + strlen(anchors[i]);
+      if (candidate < context.size() &&
+          IsLocationLeadChar((unsigned char)context[candidate]) &&
+          (value_start == std::string::npos || candidate < value_start)) {
+        value_start = candidate;
+      }
+    }
+  }
+  if (value_start == std::string::npos &&
+      (relation == "birth_place" || relation == "death_place")) {
+    const char *event =
+        relation == "birth_place" ? "born" : "died";
+    size_t event_pos = lower.find(event);
+    if (event_pos != std::string::npos) {
+      size_t search_end = std::min(lower.size(), event_pos + 128);
+      size_t prep = lower.find(" in ", event_pos + strlen(event));
+      if (prep != std::string::npos && prep + 4 < search_end &&
+          IsLocationLeadChar((unsigned char)context[prep + 4])) {
+        value_start = prep + 4;
+      }
+    }
+  }
+  if (value_start == std::string::npos) return false;
+  size_t end = value_start;
+  while (end < context.size() && end - value_start < 120) {
+    char c = context[end];
+    if (c == '.' || c == ';' || c == '\n' || c == '(') break;
+    end++;
+  }
+  while (end > value_start &&
+         (context[end - 1] == ' ' || context[end - 1] == ',')) {
+    end--;
+  }
+  if (end <= value_start || end - value_start < 2) return false;
+  *out = context.substr(value_start, end - value_start);
+  return true;
+}
+
+bool FindQuantityValue(const std::string &context, std::string *out) {
+  for (size_t i = 0; i < context.size(); i++) {
+    if (!isdigit((unsigned char)context[i])) continue;
+    size_t end = i + 1;
+    while (end < context.size() &&
+           (isdigit((unsigned char)context[end]) || context[end] == ',' ||
+            context[end] == '.')) {
+      end++;
+    }
+    size_t unit = end;
+    while (unit < context.size() && context[unit] == ' ') unit++;
+    while (unit < context.size() &&
+           ((context[unit] >= 'A' && context[unit] <= 'Z') ||
+            (context[unit] >= 'a' && context[unit] <= 'z') ||
+            context[unit] == '%' || context[unit] == '/')) {
+      unit++;
+    }
+    if (unit > end) end = unit;
+    *out = context.substr(i, end - i);
+    return true;
+  }
+  return false;
+}
+
+bool ConstraintsSupported(
+    const std::string &context,
+    const aethercore::service::RequestFrame &request) {
+  const std::string lower = Lower(context);
+  for (const std::string &term : request.constraint_terms) {
+    if (lower.find(Lower(term)) == std::string::npos) return false;
+  }
+  return true;
 }
 
 std::string EntityIdFor(uint32_t entity_idx) {
@@ -725,19 +859,77 @@ bool PackProvider::Address(
   return true;
 }
 
-bool PackProvider::FetchRecords(
-    const std::vector<std::string> &entity_ids, const std::string &query_text,
-    std::vector<aethercore::service::GroundedRecord> *out) {
-  out->clear();
-  if (!pager_) return false;
-  std::string tokens = query_text;
-  std::vector<std::string> content_tokens = ContentTokens(tokens);
-  std::string query_lower = Lower(query_text);
-  bool when_query = IsWhenQuery(query_lower);
+void PackProvider::FetchRecords(
+    const std::vector<std::string> &entity_ids,
+    const aethercore::service::RequestFrame &request,
+    const aethercore::service::FetchOptions &options,
+    aethercore::service::FetchResult *result) {
+  using aethercore::service::EvidenceSupport;
+  using aethercore::service::GroundedRecord;
+  using aethercore::service::RetrievalStatus;
+  result->records.clear();
+  result->status = RetrievalStatus::kComplete;
+  result->next_cursor = {};
+  result->occurrences_scanned = 0;
+  result->blob_bytes_scanned = 0;
+  if (!pager_) {
+    result->status = RetrievalStatus::kIoError;
+    return;
+  }
+  std::vector<std::string> content_tokens = ContentTokens(request.query_text);
+  const bool when_query = request.answer_shape == "date";
+  const size_t candidate_cap =
+      std::min<size_t>(options.max_candidates, 8);
 
-  size_t fetched = 0;
-  for (const std::string &id : entity_ids) {
-    if (fetched >= aethercore::service::kMaxRecords) break;
+  struct Candidate {
+    std::string entity_id;
+    std::string title;
+    std::string context;
+    std::string mention;
+    std::string value;
+    std::string relation;
+    std::string answer_kind;
+    std::string relation_text;
+    uint32_t entity_idx = 0;
+    uint32_t blob_off = 0;
+    uint32_t blob_len = 0;
+    uint32_t context_rel_off = 0;
+    uint16_t context_len = 0;
+    uint32_t occurrence = 0;
+    int score = 0;
+    EvidenceSupport support = EvidenceSupport::kRelatedBackground;
+    uint32_t supported_obligations = 0;
+  };
+  std::vector<Candidate> candidates;
+  auto keep_candidate = [&](Candidate candidate) {
+    for (const Candidate &existing : candidates) {
+      if (existing.entity_idx == candidate.entity_idx &&
+          existing.context == candidate.context) {
+        return;
+      }
+    }
+    candidates.push_back(std::move(candidate));
+    std::stable_sort(candidates.begin(), candidates.end(),
+                     [](const Candidate &a, const Candidate &b) {
+                       if (a.support != b.support)
+                         return int(a.support) > int(b.support);
+                       if (a.score != b.score) return a.score > b.score;
+                       if (a.entity_idx != b.entity_idx)
+                         return a.entity_idx < b.entity_idx;
+                       return a.occurrence < b.occurrence;
+                     });
+    if (candidates.size() > candidate_cap) candidates.resize(candidate_cap);
+  };
+
+  size_t entity_slot =
+      options.cursor.valid ? options.cursor.entity_slot : 0;
+  uint32_t resume_pos =
+      options.cursor.valid ? options.cursor.relative_blob_offset : 0;
+  uint32_t resume_occ =
+      options.cursor.valid ? options.cursor.occurrence_index : 0;
+  bool stopped = false;
+  for (; entity_slot < entity_ids.size() && !stopped; entity_slot++) {
+    const std::string &id = entity_ids[entity_slot];
     uint32_t entity_idx = 0;
     if (!ParseEntityId(id, &entity_idx)) continue;
     int64_t t0 = esp_timer_get_time();
@@ -748,6 +940,8 @@ bool PackProvider::FetchRecords(
     if (!evd_lookup(pager_, entity_idx, &blob_off, &blob_len, &occ_total)) {
       printf("MEAS {\"phase\":\"knowledge.fetch\",\"entity\":%lu,"
              "\"found\":false}\n", (unsigned long)entity_idx);
+      resume_pos = 0;
+      resume_occ = 0;
       continue;
     }
 
@@ -772,31 +966,58 @@ bool PackProvider::FetchRecords(
       if (!in_title) informative.push_back(t);
     }
 
-    /* Stream the FULL occurrence blob through the pager (no head cap):
-     * each record is cleaned, scored, and only the best context is kept.
-     * Per-query state is two strings plus the pager pages. */
-    std::string best_ctx, best_mention, fb_ctx, fb_mention;
-    int best_score = -1, fb_score = -1;
-    size_t best_k = 0, fb_k = 0, occ_seen = 0;
-    uint32_t pos = 0;
+    uint32_t pos = resume_pos;
+    uint32_t occ_seen = resume_occ;
     while (pos + 12 <= blob_len) {
+      if (options.cancel_probe &&
+          options.cancel_probe(options.cancel_context)) {
+        result->status = RetrievalStatus::kCancelled;
+        result->next_cursor =
+            {true, entity_slot, pos, occ_seen};
+        stopped = true;
+        break;
+      }
       uint8_t header[12];
       size_t got = 0;
       if (!evd_blob_read(pager_, blob_off, blob_len, pos, header, 12, &got) ||
-          got < 12)
+          got < 12) {
+        result->status = RetrievalStatus::kIoError;
+        stopped = true;
         break;
+      }
       uint16_t mention_len, context_len, occ_flags;
       memcpy(&mention_len, header + 6, 2);
       memcpy(&context_len, header + 8, 2);
       memcpy(&occ_flags, header + 10, 2);
       uint32_t rec_len = 12 + (uint32_t)mention_len + (uint32_t)context_len;
-      if (pos + rec_len > blob_len) break;
+      if (pos + rec_len > blob_len) {
+        result->status = RetrievalStatus::kCorrupt;
+        stopped = true;
+        break;
+      }
+      if (result->occurrences_scanned >= options.occurrence_budget ||
+          result->blob_bytes_scanned + rec_len >
+              options.blob_byte_budget) {
+        result->status = RetrievalStatus::kBudgetExhausted;
+        result->next_cursor = {true, entity_slot, pos, occ_seen};
+        stopped = true;
+        break;
+      }
 
       std::string mention;
       if (mention_len > 0 && mention_len <= 128) {
         mention.resize(mention_len);
-        evd_blob_read(pager_, blob_off, blob_len, pos + 12,
-                      (uint8_t *)mention.data(), mention_len, &got);
+        if (!evd_blob_read(pager_, blob_off, blob_len, pos + 12,
+                           (uint8_t *)mention.data(), mention_len, &got)) {
+          result->status = RetrievalStatus::kIoError;
+          stopped = true;
+          break;
+        }
+        if (got != mention_len) {
+          result->status = RetrievalStatus::kIoError;
+          stopped = true;
+          break;
+        }
         mention.resize(got);
       }
       std::string raw;
@@ -804,83 +1025,183 @@ bool PackProvider::FetchRecords(
           context_len < kMaxContextKept ? context_len : kMaxContextKept;
       if (want_ctx > 0) {
         raw.resize(want_ctx);
-        evd_blob_read(pager_, blob_off, blob_len, pos + 12 + mention_len,
-                      (uint8_t *)raw.data(), want_ctx, &got);
+        if (!evd_blob_read(pager_, blob_off, blob_len,
+                           pos + 12 + mention_len, (uint8_t *)raw.data(),
+                           want_ctx, &got)) {
+          result->status = RetrievalStatus::kIoError;
+          stopped = true;
+          break;
+        }
+        if (got != want_ctx) {
+          result->status = RetrievalStatus::kIoError;
+          stopped = true;
+          break;
+        }
         raw.resize(got);
       }
+      const uint32_t occurrence = occ_seen;
+      const uint32_t context_rel_off = pos + 12 + mention_len;
       pos += rec_len;
       occ_seen++;
+      result->occurrences_scanned++;
+      result->blob_bytes_scanned += rec_len;
 
       std::string ctx = CleanWikitext(raw);
       int s = ScoreOccurrence(ctx, raw, mention, title_lower, informative,
-                              when_query, occ_flags);
-      if (s > best_score) {
-        best_score = s;
-        best_ctx = ctx;
-        best_mention = mention;
-        best_k = occ_seen - 1;
+                              when_query, request.general_description,
+                              occ_flags);
+      int s2 = s;
+      if (!informative.empty()) {
+        static const std::vector<std::string> kNoTokens;
+        s2 = ScoreOccurrence(ctx, raw, mention, title_lower, kNoTokens,
+                             when_query, request.general_description,
+                             occ_flags);
       }
-      std::vector<std::string> empty;
-      int s2 = ScoreOccurrence(ctx, raw, mention, title_lower, empty,
-                               when_query, occ_flags);
-      if (s2 > fb_score) {
-        fb_score = s2;
-        fb_ctx = ctx;
-        fb_mention = mention;
-        fb_k = occ_seen - 1;
+      if (s == kUnusableScore && s2 == kUnusableScore) continue;
+
+      Candidate candidate;
+      candidate.entity_id = id;
+      candidate.title = title;
+      candidate.context = ctx;
+      candidate.mention = mention;
+      candidate.entity_idx = entity_idx;
+      candidate.blob_off = blob_off;
+      candidate.blob_len = blob_len;
+      candidate.context_rel_off = context_rel_off;
+      candidate.context_len = context_len;
+      candidate.occurrence = occurrence;
+      candidate.score = s != kUnusableScore ? s : s2;
+      candidate.relation = request.relation_family;
+      candidate.supported_obligations =
+          aethercore::service::kSupportSubject |
+          aethercore::service::kSupportEvidence;
+
+      bool direct = false;
+      if (request.general_description && s2 != kUnusableScore) {
+        candidate.value = PickSnippet(ctx, mention, content_tokens);
+        candidate.answer_kind = "QUOTATION";
+        candidate.relation_text = "describes";
+        direct = !candidate.value.empty();
+      } else if (s != kUnusableScore && request.answer_shape == "date") {
+        direct = FindYearValue(ctx, request.relation_family,
+                               &candidate.value);
+        candidate.answer_kind = "DATE";
+        candidate.relation_text =
+            request.relation_family == "birth_date" ? "was born in"
+            : request.relation_family == "death_date" ? "died in"
+                                                       : "is dated";
+      } else if (s != kUnusableScore && request.answer_shape == "location") {
+        direct = FindLocationValue(ctx, request.relation_family,
+                                   &candidate.value);
+        candidate.answer_kind = "LOCATION";
+        candidate.relation_text =
+            request.relation_family == "birth_place" ? "was born in"
+            : request.relation_family == "death_place" ? "died in"
+                                                        : "is located in";
+      } else if (s != kUnusableScore && request.answer_shape == "quantity") {
+        direct = FindQuantityValue(ctx, &candidate.value);
+        candidate.answer_kind = "QUANTITY";
+        candidate.relation_text = "has value";
+      } else if (s != kUnusableScore &&
+                 request.answer_shape == "quotation") {
+        candidate.value = PickSnippet(ctx, mention, content_tokens);
+        candidate.answer_kind = "QUOTATION";
+        candidate.relation_text = "is";
+        direct = !candidate.value.empty();
       }
+      if (direct) {
+        candidate.support = EvidenceSupport::kDirectSupport;
+        candidate.supported_obligations |=
+            aethercore::service::kSupportRelation |
+            aethercore::service::kSupportAnswerType;
+        if (request.constraint_terms.empty() ||
+            ConstraintsSupported(ctx, request)) {
+          candidate.supported_obligations |=
+              aethercore::service::kSupportConstraints;
+        }
+      } else {
+        candidate.support = EvidenceSupport::kRelatedBackground;
+        candidate.relation = "describe";
+        candidate.answer_kind = "QUOTATION";
+        candidate.relation_text = "describes";
+        candidate.value = PickSnippet(ctx, mention, content_tokens);
+      }
+      if (!candidate.value.empty()) keep_candidate(std::move(candidate));
     }
-
-    bool used_fallback = best_ctx.empty() && !fb_ctx.empty();
-    const std::string &context = used_fallback ? fb_ctx : best_ctx;
-    const std::string &mention = used_fallback ? fb_mention : best_mention;
-    size_t pick = used_fallback ? fb_k : best_k;
-    if (context.empty()) continue;
-
-    std::string snippet = PickSnippet(context, mention, content_tokens);
-    if (snippet.empty()) continue;
-
-    aethercore::service::GroundedRecord record;
-    record.entity_id = id;
-    record.canonical_title = title;
-    record.address_surfaces.push_back(title);
-    record.relation = "describe";
-    record.relation_text = "describes";
-    record.answer_kind = "QUOTATION";
-    record.values.push_back(snippet);
-    char handle[64];
-    snprintf(handle, sizeof(handle), "packv2:%lu:%lu:%u",
-             (unsigned long)entity_idx, (unsigned long)pick,
-             (unsigned)(blob_off));
-    record.evidence.handle_id = handle;
-    record.evidence.source_namespace = "pack-v2";
-    record.evidence.canonical_object_id = id;
-    record.evidence.source_version = pack_id();
-    char locator[64];
-    snprintf(locator, sizeof(locator), "evd:%lu:%lu",
-             (unsigned long)blob_off, (unsigned long)blob_len);
-    record.evidence.source_locator = locator;
-    record.evidence.exact_text = context;
-    record.confidence = 1.0;
-    out->push_back(record);
-    fetched++;
-
+    if (!stopped && pos != blob_len) {
+      result->status = RetrievalStatus::kCorrupt;
+      stopped = true;
+    }
     pager_stats(pager_, &after);
     int64_t t1 = esp_timer_get_time();
     printf("MEAS {\"phase\":\"knowledge.fetch\",\"entity\":%lu,"
            "\"blob_off\":%lu,\"blob_len\":%lu,\"occ_total\":%lu,"
-           "\"occ_seen\":%zu,\"pick\":%zu,\"score\":%d,\"fb\":%s,"
-           "\"ctx\":%zu,\"snippet\":%zu,"
+           "\"occ_seen\":%lu,\"shortlist\":%zu,\"status\":%d,"
            "\"reads\":%llu,\"us\":%llu}\n",
            (unsigned long)entity_idx, (unsigned long)blob_off,
-           (unsigned long)blob_len, (unsigned long)occ_total, occ_seen, pick,
-           used_fallback ? fb_score : best_score,
-           used_fallback ? "true" : "false",
-           context.size(), snippet.size(),
+           (unsigned long)blob_len, (unsigned long)occ_total,
+           (unsigned long)occ_seen, candidates.size(), int(result->status),
            (unsigned long long)(after.physical_reads - before.physical_reads),
            (unsigned long long)(t1 - t0));
+    resume_pos = 0;
+    resume_occ = 0;
   }
-  return true;
+
+  for (Candidate &candidate : candidates) {
+    // Bounded passage expansion rereads the selected occurrence only. The
+    // expanded text remains the exact evidence plane used by the verifier.
+    size_t expansion =
+        std::min<size_t>(candidate.context_len, options.max_passage_bytes);
+    if (expansion > kMaxContextKept) {
+      std::string raw(expansion, '\0');
+      size_t got = 0;
+      if (evd_blob_read(pager_, candidate.blob_off, candidate.blob_len,
+                        candidate.context_rel_off, (uint8_t *)raw.data(),
+                        expansion, &got) &&
+          got > 0) {
+        raw.resize(got);
+        std::string expanded = CleanWikitext(raw);
+        if (expanded.find(candidate.value) != std::string::npos) {
+          candidate.context = std::move(expanded);
+        }
+      }
+    }
+    GroundedRecord record;
+    record.entity_id = candidate.entity_id;
+    record.canonical_title = candidate.title;
+    record.address_surfaces.push_back(candidate.title);
+    record.relation = candidate.relation;
+    record.relation_text = candidate.relation_text;
+    record.answer_kind = candidate.answer_kind;
+    record.values.push_back(candidate.value);
+    char handle[64];
+    snprintf(handle, sizeof(handle), "packv2:%lu:%lu:%u",
+             (unsigned long)candidate.entity_idx,
+             (unsigned long)candidate.occurrence,
+             (unsigned)candidate.blob_off);
+    record.evidence.handle_id = handle;
+    record.evidence.source_namespace = "pack-v2";
+    record.evidence.canonical_object_id = candidate.entity_id;
+    record.evidence.source_version = pack_id();
+    char locator[64];
+    snprintf(locator, sizeof(locator), "evd:%lu:%lu",
+             (unsigned long)candidate.blob_off,
+             (unsigned long)candidate.blob_len);
+    record.evidence.source_locator = locator;
+    record.evidence.exact_text = candidate.context;
+    double confidence = 0.35 + 0.025 * double(candidate.score);
+    if (candidate.support == EvidenceSupport::kDirectSupport) {
+      confidence = std::clamp(confidence, 0.55, 0.95);
+    } else {
+      confidence = std::clamp(confidence, 0.15, 0.45);
+    }
+    record.confidence = confidence;
+    record.support = candidate.support;
+    record.supported_obligations = candidate.supported_obligations;
+    record.relevance_score = candidate.score;
+    record.occurrence_index = candidate.occurrence;
+    result->records.push_back(std::move(record));
+  }
 }
 
 }  // namespace knowledge

@@ -39,15 +39,13 @@ def test_protocol_v2_codec_and_golden_vectors_are_frozen() -> None:
     assert {path: sha(path) for path in expected} == expected
 
 
-def test_cognition_pack_storage_and_memory_are_source_identical() -> None:
+def test_frozen_pack_format_policy_and_memory_remain_source_identical() -> None:
     frozen = (
-        "firmware/p4_aethercore/main/pack_io.cpp",
         "firmware/p4_aethercore/main/pack_v2.cpp",
         "firmware/p4_aethercore/main/pack_v2.h",
         "firmware/p4_aethercore/main/policy_v14_selected.h",
         "firmware/p4_aethercore/main/memory/memory_native.cpp",
         "firmware/p4_aethercore/main/memory/memory_native.h",
-        "firmware/p4_aethercore/main/service/service_core.cpp",
     )
     for path in frozen:
         parent = subprocess.run(
@@ -55,6 +53,19 @@ def test_cognition_pack_storage_and_memory_are_source_identical() -> None:
             capture_output=True,
         ).stdout
         assert data(path) == parent, path
+
+
+def test_reconciled_storage_and_service_contracts_remain_generic() -> None:
+    storage = text("firmware/p4_aethercore/main/pack_io.cpp")
+    provider = text(
+        "firmware/p4_aethercore/main/service/knowledge_provider.h"
+    )
+    service = text("firmware/p4_aethercore/main/service/service_core.cpp")
+    assert "#if CONFIG_ESP_HOSTED_SDIO_HOST_INTERFACE" in storage
+    assert "struct RequestFrame" in provider
+    assert "enum class RetrievalStatus" in provider
+    assert "EvidenceSupport::kDirectSupport" in service
+    assert "SupportLevel::kPartial" in service
 
 
 def test_aetherchat_uses_service_and_keeps_session_semantics() -> None:

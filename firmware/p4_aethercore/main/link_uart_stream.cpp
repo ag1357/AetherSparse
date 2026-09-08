@@ -46,7 +46,14 @@ void task(void *) {
       const auto status = g_decoder.feed(fragment + offset,
           static_cast<size_t>(count) - offset, &used);
       offset += used;
-      if (status == ac::aetherlink::DecodeStatus::kMalformedLength) break;
+      if (status == ac::aetherlink::DecodeStatus::kMalformedLength) {
+        // Boot-time line noise can precede the peer UART driver. Reset both
+        // framing state and the RX FIFO so the next complete frame starts at
+        // a known u32be boundary.
+        cancel(nullptr);
+        ESP_LOGW(TAG, "malformed frame; decoder reset and RX flushed");
+        break;
+      }
       if (status == ac::aetherlink::DecodeStatus::kFrameReady) {
         ac::runtime::service_handle_message(ac::link::Ac20Type::UserText, 0, 0,
             g_decoder.payload(), g_decoder.payload_size());

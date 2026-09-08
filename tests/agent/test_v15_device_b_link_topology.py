@@ -34,7 +34,10 @@ def test_usb_starts_without_c6_and_pack_boot_remains() -> None:
 
 def test_hotplug_discards_partial_stream_state() -> None:
     usb = read("main/link_usb_cdc.cpp")
-    assert "TINYUSB_EVENT_DETACHED" in usb
+    # esp_tinyusb 1.7.6 has no device-event callback in tinyusb_config_t;
+    # mount-state edges are the authoritative attach/detach signal.
+    assert "tud_mounted()" in usb
+    assert "usb_detached" in usb
     assert "g_decoder.reset()" in usb
     assert "partial_discarded" in usb
 

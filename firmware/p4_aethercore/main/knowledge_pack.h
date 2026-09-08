@@ -3,11 +3,9 @@
  * Replaces the static V13 fixture vector in production: each query is
  * resolved through the on-device Semantic Address v2 trigram index
  * (ACP1IDX1) to a bounded candidate set, then evidence for the selected
- * entity is pulled from the Pack-v2/ACP1EVD1 occurrence blobs, and one
- * grounded record per entity is synthesized with values copied exactly
- * from the evidence context. Nothing outside the queried entities is
- * loaded into RAM: occurrence blobs are streamed through the pager and
- * only the best cleaned context is kept per entity.
+ * entity is pulled from the Pack-v2/ACP1EVD1 occurrence blobs. A bounded
+ * shortlist of competing evidence is synthesized with values copied exactly
+ * from source contexts. Nothing outside queried entities is loaded into RAM.
  */
 #pragma once
 
@@ -34,9 +32,11 @@ class PackProvider : public aethercore::service::KnowledgeProvider {
 
   bool Address(const std::string &text,
                std::vector<aethercore::service::AddressHyp> *out) override;
-  bool FetchRecords(const std::vector<std::string> &entity_ids,
-                    const std::string &query_text,
-                    std::vector<aethercore::service::GroundedRecord> *out) override;
+  void FetchRecords(
+      const std::vector<std::string> &entity_ids,
+      const aethercore::service::RequestFrame &request,
+      const aethercore::service::FetchOptions &options,
+      aethercore::service::FetchResult *result) override;
 
  private:
   Pager *pager_ = nullptr;
