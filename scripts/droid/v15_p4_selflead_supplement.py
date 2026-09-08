@@ -241,12 +241,16 @@ def main() -> None:
                 else:
                     skipped_no_prose += 1
                 continue
+            # The mention is the entity's surface as it appears in its own
+            # article: the title without a trailing parenthetical qualifier
+            # ("Survivor (song)" appears in its lead as "Survivor").
+            mention = re.sub(r"\s*\([^)]*\)\s*$", "", title).strip() or title
             out.write(
                 json.dumps(
                     {
                         "canonical_entity_id": entity_id,
                         "source_document_id": doc_id,
-                        "mention": title,
+                        "mention": mention,
                         "context": window,
                         "source_split": "fit",
                         "resolution_state": "canonical",
