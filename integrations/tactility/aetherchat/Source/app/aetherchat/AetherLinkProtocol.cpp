@@ -1,4 +1,5 @@
 #include <Tactility/app/aetherchat/AetherLinkProtocol.h>
+#include <Tactility/json/Reader.h>
 
 #include <algorithm>
 #include <cstdio>
@@ -29,6 +30,70 @@ const char* typeToJsonName(MessageType type) {
         case MessageType::Capabilities: return "CAPABILITIES";
     }
     return "ERROR";
+}
+
+bool parseJsonString(const std::string& json, size_t& pos, std::string& out) {
+    if (pos >= json.size() || json[pos] != '"') {
+        return false;
+    }
+    std::string value;
+    for (size_t i = pos + 1; i < json.size(); ++i) {
+        char c = json[i];
+        if (c == '"') {
+            pos = i + 1;
+            out = value;
+            return true;
+        }
+        if (c == '\\' && i + 1 < json.size()) {
+            char esc = json[++i];
+            switch (esc) {
+                case '"': value += '"'; break;
+                case '\\': value += '\\'; break;
+                case '/': value += '/'; break;
+                case 'b': value += '\b'; break;
+                case 'f': value += '\f'; break;
+                case 'n': value += '\n'; break;
+                case 'r': value += '\r'; break;
+                case 't': value += '\t'; break;
+                case 'u':
+                    // Only handle ASCII \u00XX; raw UTF-8 passes through.
+                    if (i + 4 < json.size()) {
+                        unsigned code = 0;
+                        bool ok = true;
+                        for (int n = 1; n <= 4; ++n) {
+                            char h = json[i + n];
+                            code <<= 4U;
+                            if (h >= '0' && h <= '9') code |= (unsigned)(h - '0');
+                            else if (h >= 'a' && h <= 'f') code |= (unsigned)(h - 'a' + 10);
+                            else if (h >= 'A' && h <= 'F') code |= (unsigned)(h - 'A' + 10);
+                            else { ok = false; break; }
+                        }
+                        if (ok) {
+                            i += 4;
+                            if (code < 0x80U) {
+                                value += static_cast<char>(code);
+                            } else if (code < 0x800U) {
+                                value += static_cast<char>(0xC0U | (code >> 6U));
+                                value += static_cast<char>(0x80U | (code & 0x3FU));
+                            } else {
+                                value += static_cast<char>(0xE0U | (code >> 12U));
+                                value += static_cast<char>(0x80U | ((code >> 6U) & 0x3FU));
+                                value += static_cast<char>(0x80U | (code & 0x3FU));
+                            }
+                            break;
+                        }
+                    }
+                    value += esc;
+                    break;
+                default:
+                    value += esc;
+                    break;
+            }
+        } else {
+            value += c;
+        }
+    }
+    return false;
 }
 
 } // namespace
@@ -117,64 +182,39 @@ bool jsonExtractString(const std::string& json, const char* key, std::string& ou
     if (pos == std::string::npos) {
         return false;
     }
-    // Consume until the closing quote, handling JSON escapes.
-    std::string value;
-    for (size_t i = pos + 1; i < json.size(); ++i) {
-        char c = json[i];
-        if (c == '"') {
-            out = value;
-            return true;
-        }
-        if (c == '\\' && i + 1 < json.size()) {
-            char esc = json[++i];
-            switch (esc) {
-                case '"': value += '"'; break;
-                case '\\': value += '\\'; break;
-                case '/': value += '/'; break;
-                case 'b': value += '\b'; break;
-                case 'f': value += '\f'; break;
-                case 'n': value += '\n'; break;
-                case 'r': value += '\r'; break;
-                case 't': value += '\t'; break;
-                case 'u':
-                    // Only handle ASCII \u00XX; multi-byte UTF-8 passes through raw anyway.
-                    if (i + 4 < json.size()) {
-                        unsigned code = 0;
-                        bool ok = true;
-                        for (int n = 1; n <= 4; ++n) {
-                            char h = json[i + n];
-                            code <<= 4U;
-                            if (h >= '0' && h <= '9') code |= (unsigned)(h - '0');
-                            else if (h >= 'a' && h <= 'f') code |= (unsigned)(h - 'a' + 10);
-                            else if (h >= 'A' && h <= 'F') code |= (unsigned)(h - 'A' + 10);
-                            else { ok = false; break; }
-                        }
-                        if (ok) {
-                            i += 4;
-                            if (code < 0x80U) {
-                                value += static_cast<char>(code);
-                            } else if (code < 0x800U) {
-                                value += static_cast<char>(0xC0U | (code >> 6U));
-                                value += static_cast<char>(0x80U | (code & 0x3FU));
-                            } else {
-                                value += static_cast<char>(0xE0U | (code >> 12U));
-                                value += static_cast<char>(0x80U | ((code >> 6U) & 0x3FU));
-                                value += static_cast<char>(0x80U | (code & 0x3FU));
-                            }
-                            break;
-                        }
-                    }
-                    value += esc;
-                    break;
-                default:
-                    value += esc;
-                    break;
-            }
-        } else {
-            value += c;
-        }
+    return parseJsonString(json, pos, out);
+}
+
+bool jsonExtractStringArray(
+    const std::string& json,
+    const char* key,
+    std::vector<std::string>& out
+) {
+    constexpr size_t MAX_VALUES = 8;
+    out.clear();
+    cJSON* root = cJSON_ParseWithLength(json.c_str(), json.size());
+    if (root == nullptr) {
+        return false;
     }
-    return false;
+    const cJSON* container = root;
+    const cJSON* payload = cJSON_GetObjectItemCaseSensitive(root, "payload");
+    if (cJSON_IsObject(payload)) {
+        container = payload;
+    }
+    const cJSON* values = cJSON_GetObjectItemCaseSensitive(container, key);
+    const int count = cJSON_GetArraySize(values);
+    if (!cJSON_IsArray(values) || count < 0 || static_cast<size_t>(count) > MAX_VALUES) {
+        cJSON_Delete(root);
+        return false;
+    }
+    std::vector<std::string> parsed;
+    const bool valid = tt::json::Reader(container).readStringArray(key, parsed);
+    cJSON_Delete(root);
+    if (!valid) {
+        return false;
+    }
+    out.swap(parsed);
+    return true;
 }
 
 bool jsonExtractBool(const std::string& json, const char* key, bool& out) {

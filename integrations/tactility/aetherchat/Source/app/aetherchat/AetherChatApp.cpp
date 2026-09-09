@@ -218,6 +218,14 @@ void AetherChatApp::handleMessage(const Message& message) {
             if (jsonExtractString(message.payload, "question", text)) {
                 view.append(std::string("Clarification: ") + text);
             }
+            {
+                std::vector<std::string> choices;
+                if (jsonExtractStringArray(message.payload, "choices", choices)) {
+                    for (const std::string& choice : choices) {
+                        view.append(choice);
+                    }
+                }
+            }
             view.setStatus("Needs input");
             break;
         case MessageType::EvidenceSummary:

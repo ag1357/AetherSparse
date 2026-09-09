@@ -87,6 +87,19 @@ def test_device_a_aetherchat_only_consumes_accessory_service() -> None:
     assert "CAPABILITIES" in service  # authoritative accessory negotiation
 
 
+def test_device_a_renders_bounded_clarification_choices() -> None:
+    base = "integrations/tactility/aetherchat/"
+    app = text(base + "Source/app/aetherchat/AetherChatApp.cpp")
+    protocol = text(base + "Source/app/aetherchat/AetherLinkProtocol.cpp")
+    header = text(base + "Private/Tactility/app/aetherchat/AetherLinkProtocol.h")
+    assert "jsonExtractStringArray" in header
+    assert "constexpr size_t MAX_VALUES = 8" in protocol
+    assert "cJSON_IsArray(values)" in protocol
+    assert "json::Reader(container).readStringArray" in protocol
+    assert 'jsonExtractStringArray(message.payload, "choices", choices)' in app
+    assert "view.append(choice)" in app
+
+
 def test_factory_review_copy_is_synchronized_for_selected_files() -> None:
     pairs = (
         (
@@ -97,8 +110,13 @@ def test_factory_review_copy_is_synchronized_for_selected_files() -> None:
             "Private/Tactility/app/aetherchat/AetherLinkAccessory.h",
             "Private/AetherLinkAccessory.h",
         ),
+        (
+            "Private/Tactility/app/aetherchat/AetherLinkProtocol.h",
+            "Private/AetherLinkProtocol.h",
+        ),
         ("Source/app/aetherchat/AetherChatApp.cpp", "Source/AetherChatApp.cpp"),
         ("Source/app/aetherchat/AetherLinkAccessory.cpp", "Source/AetherLinkAccessory.cpp"),
+        ("Source/app/aetherchat/AetherLinkProtocol.cpp", "Source/AetherLinkProtocol.cpp"),
     )
     overlay = ROOT / "integrations" / "tactility" / "aetherchat"
     review = ROOT / "review" / "device-a-aetherchat"

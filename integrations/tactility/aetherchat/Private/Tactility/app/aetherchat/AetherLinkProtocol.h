@@ -61,6 +61,14 @@ std::string jsonEscape(const std::string& text);
 // authoritative validation happens on Device B; Device A only renders text.
 bool jsonExtractString(const std::string& json, const char* key, std::string& out);
 
+// Extract a bounded JSON array of string values. Used for clarification
+// choices; returns false for malformed or oversized arrays.
+bool jsonExtractStringArray(
+    const std::string& json,
+    const char* key,
+    std::vector<std::string>& out
+);
+
 // Extract a boolean field ("key":true/false). Returns false if absent.
 bool jsonExtractBool(const std::string& json, const char* key, bool& out);
 
