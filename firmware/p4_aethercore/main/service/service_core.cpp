@@ -336,6 +336,17 @@ bool FramerHasRelationCue(const std::string& normalized) {
   return false;
 }
 
+bool ExplicitDescriptionRequest(const std::string& normalized) {
+  std::string folded = Lowercase(normalized);
+  static const char* const kCues[] = {
+      "describe", "explain", "tell me about", "who is", "who was",
+  };
+  for (const char* cue : kCues) {
+    if (folded.find(cue) != std::string::npos) return true;
+  }
+  return false;
+}
+
 // YEAR_RE: \b(?:1[0-9]{3}|20[0-9]{2}|2100)\b
 bool HasYearToken(const std::string& normalized) {
   for (const std::string& word : WordTokens(normalized)) {
@@ -575,7 +586,8 @@ RequestFrame InferProviderRequest(const std::string& text) {
 
   frame.explicit_intent =
       when || where || quantity || quotation || comparison || cause ||
-      membership || birth || death || FramerHasRelationCue(text);
+      membership || birth || death || FramerHasRelationCue(text) ||
+      ExplicitDescriptionRequest(text);
 
   // Constraints are concrete lexical values, not inferred facts. A candidate
   // can satisfy the constraint bit only if every value occurs in its exact

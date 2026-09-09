@@ -272,6 +272,15 @@ void TestFrameInheritance() {
         "inherit:complete-frame");
   Check(second.text.find("1791") != std::string::npos,
         "inherit:new-subject-old-obligation");
+
+  ServiceResponse explicit_description =
+      service.Query("inherit", "Tell me about Ada Lovelace");
+  Check(!provider.requests.empty() &&
+            provider.requests.back().relation_family == "describe" &&
+            provider.requests.back().general_description,
+        "inherit:explicit-description-opens-new-frame");
+  Check(explicit_description.disposition == "ABSTAIN",
+        "inherit:explicit-description-does-not-use-prior-date");
 }
 
 void TestEmptyVersusFailure() {
