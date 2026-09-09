@@ -63,6 +63,13 @@ def test_transport_framing_is_shared_and_protocol_cap_unchanged() -> None:
     assert "SLIP" not in uart.split("identical", 1)[-1]
 
 
+def test_response_envelope_preserves_complete_protocol_version() -> None:
+    runtime = text("firmware/p4_aethercore/main/service_runtime.cpp")
+    assert 'kProtocolVersion[] = "aethercore-tactility.v2"' in runtime
+    assert "sizeof(kProtocolVersion) - 1" in runtime
+    assert 'poolPut("aethercore-tactility.v2", 22' not in runtime
+
+
 def test_device_a_aetherchat_only_consumes_accessory_service() -> None:
     app = text("integrations/tactility/aetherchat/Source/app/aetherchat/AetherChatApp.cpp")
     wrapper = text(

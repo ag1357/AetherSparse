@@ -39,6 +39,7 @@ std::string g_state_path;
 uint64_t g_requests = 0;
 uint64_t g_errors = 0;
 bool g_ready = false;
+constexpr char kProtocolVersion[] = "aethercore-tactility.v2";
 
 /* ------------------------- helpers --------------------------------------- */
 
@@ -84,7 +85,8 @@ void make_response(const ProtocolMessage &req, MsgType type, const char *suffix,
   std::string rid =
       req.has_request_id ? to_cpp(req.request_id) : to_cpp(req.message_id);
   std::string sid = to_cpp(req.session_id);
-  out->poolPut("aethercore-tactility.v2", 22, out->protocol_version);
+  out->poolPut(kProtocolVersion, sizeof(kProtocolVersion) - 1,
+               out->protocol_version);
   out->poolPut(mid.data(), mid.size(), out->message_id);
   if (!rid.empty()) {
     out->poolPut(rid.data(), rid.size(), out->request_id);
@@ -388,7 +390,6 @@ void send_health(const ProtocolMessage &req) {
 void send_capabilities(const ProtocolMessage &req) {
   ProtocolMessage &out = resp_scratch();
   make_response(req, MsgType::CAPABILITIES, "capabilities", &out);
-  const char *pv = "aethercore-tactility.v2";
   const char *hw = "WAVESHARE_ESP32_P4_WIFI6_ACCESSORY_SKU_32020";
 #if CONFIG_AC_LINK_USB_CDC_DEVICE
   const char *transport = "USB_CDC_ACM";
@@ -397,7 +398,8 @@ void send_capabilities(const ProtocolMessage &req) {
 #else
   const char *transport = "DEPRECATED_TCP_DIAGNOSTIC";
 #endif
-  out.poolPut(pv, strlen(pv), out.p.capabilities.protocol_version);
+  out.poolPut(kProtocolVersion, sizeof(kProtocolVersion) - 1,
+              out.p.capabilities.protocol_version);
   out.poolPut(hw, strlen(hw), out.p.capabilities.hardware_class);
   const char *tools[] = {"SEARCH_KNOWLEDGE", "REPORT_RESULT"};
   out.p.capabilities.tools.count = 0;
