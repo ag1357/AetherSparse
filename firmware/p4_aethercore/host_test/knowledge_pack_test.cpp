@@ -319,6 +319,45 @@ void TestConditionalSelfArticlePrior() {
         "self-prior:general-only");
 }
 
+void TestDescriptionSubjectBinding() {
+  g_blob.clear();
+  g_title = "Melon";
+  AppendOccurrence(
+      "melon",
+      "Gac is a perennial fruit that is a type of melon grown in Southeast "
+      "Asia.");
+  AppendOccurrence(
+      "Melon",
+      "Melon is the edible fruit of several flowering plants in the family "
+      "Cucurbitaceae.");
+  AppendOccurrence(
+      "Melon",
+      "A melon is any of various plants of the family Cucurbitaceae with "
+      "sweet edible fruit.",
+      1);
+  auto provider = StartedProvider();
+  aethercore::service::FetchOptions options;
+  aethercore::service::FetchResult result;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("Tell me about Melon", "describe", "definition", true), options,
+      &result);
+  const auto* object_mention = FindOccurrence(result, 0);
+  const auto* subject_definition = FindOccurrence(result, 1);
+  const auto* self_lead = FindOccurrence(result, 2);
+  Check(object_mention &&
+            object_mention->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            subject_definition &&
+            subject_definition->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            self_lead &&
+            self_lead->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport,
+        "relations:description-requires-subject-attribution");
+  g_title = "Ada Lovelace";
+}
+
 void TestNegativeUsableScore() {
   g_blob.clear();
   AppendOccurrence(
@@ -483,6 +522,7 @@ int main() {
   TestSubjectBoundBiographicalRelations();
   TestGenericTypedPredicatesAndInitials();
   TestConditionalSelfArticlePrior();
+  TestDescriptionSubjectBinding();
   TestNegativeUsableScore();
   TestResumeMatchesFull();
   TestCancelAndCorrupt();

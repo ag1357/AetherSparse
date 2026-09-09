@@ -692,6 +692,30 @@ size_t RelationPredicates(const std::string &relation,
   return 0;
 }
 
+bool DescriptionSupportsSubject(const std::string &context,
+                                const std::string &mention,
+                                const std::string &title_lower,
+                                bool self_article) {
+  if (self_article) return true;
+  const std::string lower = Lower(context);
+  const std::string mention_lower = Lower(mention);
+  static const char *const kPredicates[] = {
+      "are", "is", "refers", "was", "were",
+  };
+  for (const char *predicate : kPredicates) {
+    size_t pos = 0;
+    while ((pos = lower.find(predicate, pos)) != std::string::npos) {
+      size_t end = pos + strlen(predicate);
+      if (IsAsciiWordBoundary(lower, pos, end) &&
+          SubjectBoundEvent(lower, mention_lower, title_lower, pos)) {
+        return true;
+      }
+      pos++;
+    }
+  }
+  return false;
+}
+
 bool YearAt(const std::string &context, size_t pos) {
   if (pos + 4 > context.size()) return false;
   if (!isdigit((unsigned char)context[pos]) ||
@@ -1268,7 +1292,9 @@ void PackProvider::FetchRecords(
         candidate.value = PickSnippet(ctx, mention, content_tokens);
         candidate.answer_kind = "QUOTATION";
         candidate.relation_text = "describes";
-        direct = !candidate.value.empty();
+        direct = !candidate.value.empty() &&
+                 DescriptionSupportsSubject(ctx, mention, title_lower,
+                                            (occ_flags & 1) != 0);
       } else if (request.answer_shape == "date") {
         direct = FindYearValue(ctx, mention, title_lower,
                                request.relation_family, (occ_flags & 1) != 0,
