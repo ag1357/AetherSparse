@@ -25,6 +25,9 @@ constexpr size_t kMaxQueryNorm = 400;        // bytes into the address index
 constexpr uint32_t kMaxAddressCandidates = 8;
 constexpr size_t kCopulaMinSubstance = 16;   // chars after copula verb
 constexpr int kUnusableScore = INT_MIN / 4;
+constexpr uint32_t kMinAddressOverlap = 4;
+constexpr double kMinSurfaceContainment = 0.35;
+constexpr double kMinAddressConfidence = 0.50;
 
 /* Generic English function words (standard IR stopwords; not topic rules). */
 const char *const kStopwords[] = {
@@ -581,115 +584,296 @@ bool IsAsciiWordBoundary(const std::string &text, size_t begin, size_t end) {
   return left && right;
 }
 
-bool FindYearValue(const std::string &context, const std::string &relation,
-                   std::string *out) {
-  const std::string lower = Lower(context);
-  const char *anchors[3] = {};
-  size_t anchor_count = 0;
-  if (relation.compare(0, 6, "birth_") == 0) {
-    anchors[anchor_count++] = "born";
-    anchors[anchor_count++] = "birth";
-  } else if (relation.compare(0, 6, "death_") == 0) {
-    anchors[anchor_count++] = "died";
-    anchors[anchor_count++] = "death";
+bool SubjectBridgeWord(const std::string &word) {
+  static const char *const kAllowed[] = {
+      "also", "are", "first", "had", "has", "is", "later",
+      "not",  "originally", "reportedly", "that", "was", "were", "who",
+  };
+  for (const char *allowed : kAllowed) {
+    if (word == allowed) return true;
   }
-  size_t anchor = std::string::npos;
-  for (size_t i = 0; i < anchor_count; i++) {
-    size_t found = lower.find(anchors[i]);
-    if (found != std::string::npos &&
-        (anchor == std::string::npos || found < anchor)) {
-      anchor = found;
+  return false;
+}
+
+bool BridgeBindsSubject(const std::string &lower, size_t begin, size_t end) {
+  if (end < begin || end - begin > 160) return false;
+  std::string word;
+  for (size_t i = begin; i <= end; i++) {
+    unsigned char c = i < end ? (unsigned char)lower[i] : 0;
+    if (c == '.' || c == '!' || c == '?' || c == ';' || c == '\n')
+      return false;
+    if (isalpha(c)) {
+      word.push_back((char)c);
+    } else if (!word.empty()) {
+      if (!SubjectBridgeWord(word)) return false;
+      word.clear();
     }
   }
-  size_t from = anchor == std::string::npos || anchor < 96 ? 0 : anchor - 96;
-  size_t to = anchor == std::string::npos
-                  ? context.size()
-                  : std::min(context.size(), anchor + 128);
-  size_t best = std::string::npos;
-  size_t best_distance = SIZE_MAX;
-  for (size_t i = from; i + 4 <= to; i++) {
-    if (!isdigit((unsigned char)context[i]) ||
-        !isdigit((unsigned char)context[i + 1]) ||
-        !isdigit((unsigned char)context[i + 2]) ||
-        !isdigit((unsigned char)context[i + 3]) ||
-        !IsAsciiWordBoundary(context, i, i + 4)) {
-      continue;
-    }
-    int year = (context[i] - '0') * 1000 + (context[i + 1] - '0') * 100 +
-               (context[i + 2] - '0') * 10 + (context[i + 3] - '0');
-    if (year < 1000 || year > 2100) continue;
-    size_t distance =
-        anchor == std::string::npos ? i : (i < anchor ? anchor - i : i - anchor);
-    if (distance < best_distance) {
-      best = i;
-      best_distance = distance;
-    }
-  }
-  if (best == std::string::npos) return false;
-  *out = context.substr(best, 4);
   return true;
 }
 
-bool IsLocationLeadChar(unsigned char c) {
-  return (c >= 'A' && c <= 'Z') || c >= 0x80;
+bool PhrasePrecedesEvent(const std::string &lower, const std::string &phrase,
+                         size_t event_pos) {
+  if (phrase.empty() || event_pos == 0) return false;
+  size_t pos = lower.rfind(phrase, event_pos - 1);
+  while (pos != std::string::npos) {
+    size_t phrase_end = pos + phrase.size();
+    if (phrase_end <= event_pos &&
+        IsAsciiWordBoundary(lower, pos, phrase_end) &&
+        BridgeBindsSubject(lower, phrase_end, event_pos)) {
+      return true;
+    }
+    if (pos == 0) break;
+    pos = lower.rfind(phrase, pos - 1);
+  }
+  return false;
 }
 
-bool FindLocationValue(const std::string &context, const std::string &relation,
-                       std::string *out) {
+/* Backlink evidence can mention the target near an event about somebody
+ * else. Require a target mention before the predicate with only a small
+ * auxiliary bridge ("X was born", "X, who was born"), never merely anywhere
+ * in the sentence. */
+bool SubjectBoundEvent(const std::string &lower,
+                       const std::string &mention_lower,
+                       const std::string &title_lower, size_t event_pos) {
+  return PhrasePrecedesEvent(lower, mention_lower, event_pos) ||
+         PhrasePrecedesEvent(lower, title_lower, event_pos);
+}
+
+size_t PredicateEnd(const std::string &context, size_t begin) {
+  size_t limit = std::min(context.size(), begin + 160);
+  for (size_t i = begin; i < limit; i++) {
+    if (context[i] == '.' || context[i] == '!' || context[i] == '?' ||
+        context[i] == ';' || context[i] == '\n') {
+      return i;
+    }
+  }
+  return limit;
+}
+
+bool PredicateContinuesAt(const std::string &lower, size_t pos) {
+  static const char *const kStops[] = {
+      " and ", " but ", " while ", " whereas ", " who ",
+      " which ", " where ", " then ",
+  };
+  for (const char *stop : kStops) {
+    if (StartsWithAt(lower, pos, stop)) return false;
+  }
+  return true;
+}
+
+size_t RelationPredicates(const std::string &relation,
+                          const char **predicates) {
+  if (relation == "birth_date" || relation == "birth_place") {
+    predicates[0] = "born";
+    return 1;
+  }
+  if (relation == "death_date" || relation == "death_place") {
+    predicates[0] = "died";
+    return 1;
+  }
+  if (relation == "date") {
+    static const char *const kDate[] = {
+        "began", "created", "established", "formed",
+        "founded", "opened", "published", "released",
+    };
+    for (size_t i = 0; i < sizeof(kDate) / sizeof(kDate[0]); i++)
+      predicates[i] = kDate[i];
+    return sizeof(kDate) / sizeof(kDate[0]);
+  }
+  if (relation == "location") {
+    static const char *const kLocation[] = {
+        "based", "headquartered", "lies", "located", "situated",
+    };
+    for (size_t i = 0; i < sizeof(kLocation) / sizeof(kLocation[0]); i++)
+      predicates[i] = kLocation[i];
+    return sizeof(kLocation) / sizeof(kLocation[0]);
+  }
+  return 0;
+}
+
+bool YearAt(const std::string &context, size_t pos) {
+  if (pos + 4 > context.size()) return false;
+  if (!isdigit((unsigned char)context[pos]) ||
+      !isdigit((unsigned char)context[pos + 1]) ||
+      !isdigit((unsigned char)context[pos + 2]) ||
+      !isdigit((unsigned char)context[pos + 3]) ||
+      !IsAsciiWordBoundary(context, pos, pos + 4)) {
+    return false;
+  }
+  int year = (context[pos] - '0') * 1000 + (context[pos + 1] - '0') * 100 +
+             (context[pos + 2] - '0') * 10 + (context[pos + 3] - '0');
+  return year >= 1000 && year <= 2100;
+}
+
+bool FindSelfLeadYear(const std::string &context, const std::string &lower,
+                      const std::string &relation, std::string *out) {
+  size_t open = context.find('(');
+  if (open == std::string::npos || open == 0 || open > 160) return false;
+  size_t close = context.find(')', open + 1);
+  if (close == std::string::npos || close - open > 112) return false;
+
+  size_t after = close + 1;
+  while (after < context.size() &&
+         (context[after] == ' ' || context[after] == ',')) {
+    after++;
+  }
+  if (!StartsWithAt(lower, after, "was ") &&
+      !StartsWithAt(lower, after, "is ")) {
+    return false;
+  }
+
+  size_t years[2] = {std::string::npos, std::string::npos};
+  size_t count = 0;
+  for (size_t i = open + 1; i + 4 <= close && count < 2; i++) {
+    if (YearAt(context, i)) {
+      years[count++] = i;
+      i += 3;
+    }
+  }
+  if (relation == "birth_date" && count >= 1) {
+    *out = context.substr(years[0], 4);
+    return true;
+  }
+  if (relation == "death_date" && count >= 2) {
+    *out = context.substr(years[1], 4);
+    return true;
+  }
+  return false;
+}
+
+bool FindYearValue(const std::string &context, const std::string &mention,
+                   const std::string &title_lower,
+                   const std::string &relation, bool self_article,
+                   std::string *out) {
   const std::string lower = Lower(context);
-  const char *anchors[5] = {};
-  size_t anchor_count = 0;
-  if (relation == "birth_place") {
-    anchors[anchor_count++] = "born in ";
-    anchors[anchor_count++] = "birthplace is ";
-  } else if (relation == "death_place") {
-    anchors[anchor_count++] = "died in ";
-    anchors[anchor_count++] = "death place is ";
-  } else {
-    anchors[anchor_count++] = "located in ";
-    anchors[anchor_count++] = "is in ";
-    anchors[anchor_count++] = "lies in ";
-  }
-  size_t value_start = std::string::npos;
-  for (size_t i = 0; i < anchor_count; i++) {
-    size_t found = lower.find(anchors[i]);
-    if (found != std::string::npos) {
-      size_t candidate = found + strlen(anchors[i]);
-      if (candidate < context.size() &&
-          IsLocationLeadChar((unsigned char)context[candidate]) &&
-          (value_start == std::string::npos || candidate < value_start)) {
-        value_start = candidate;
+  const std::string mention_lower = Lower(mention);
+  const char *predicates[8] = {};
+  size_t predicate_count = RelationPredicates(relation, predicates);
+  for (size_t p = 0; p < predicate_count; p++) {
+    const char *event = predicates[p];
+    size_t event_pos = 0;
+    while ((event_pos = lower.find(event, event_pos)) != std::string::npos) {
+      size_t event_end = event_pos + strlen(event);
+      if (!IsAsciiWordBoundary(lower, event_pos, event_end)) {
+        event_pos++;
+        continue;
       }
+      if (!SubjectBoundEvent(lower, mention_lower, title_lower, event_pos)) {
+        event_pos++;
+        continue;
+      }
+      size_t to = PredicateEnd(context, event_end);
+      for (size_t i = event_end; i + 4 <= to; i++) {
+        if (!PredicateContinuesAt(lower, i)) break;
+        if (YearAt(context, i)) {
+          *out = context.substr(i, 4);
+          return true;
+        }
+      }
+      event_pos++;
     }
   }
-  if (value_start == std::string::npos &&
-      (relation == "birth_place" || relation == "death_place")) {
-    const char *event =
-        relation == "birth_place" ? "born" : "died";
-    size_t event_pos = lower.find(event);
-    if (event_pos != std::string::npos) {
-      size_t search_end = std::min(lower.size(), event_pos + 128);
-      size_t prep = lower.find(" in ", event_pos + strlen(event));
-      if (prep != std::string::npos && prep + 4 < search_end &&
-          IsLocationLeadChar((unsigned char)context[prep + 4])) {
-        value_start = prep + 4;
-      }
-    }
+
+  /* Flag 1 is generated uniformly from canonical self-article leads. A
+   * leading parenthetical followed by a copula has ordered biographical
+   * slots: first year is birth, second is death. */
+  if (self_article &&
+      (relation == "birth_date" || relation == "death_date")) {
+    return FindSelfLeadYear(context, lower, relation, out);
   }
-  if (value_start == std::string::npos) return false;
+  return false;
+}
+
+bool HasProperLocationToken(const std::string &context, size_t begin,
+                            size_t end) {
+  for (size_t i = begin; i < end; i++) {
+    unsigned char c = (unsigned char)context[i];
+    bool word_start =
+        i == begin || !isalpha((unsigned char)context[i - 1]);
+    if (word_start && ((c >= 'A' && c <= 'Z') || c >= 0x80)) return true;
+  }
+  return false;
+}
+
+bool ExtractLocationSpan(const std::string &context, const std::string &lower,
+                         size_t value_start, size_t clause_end,
+                         std::string *out) {
+  while (value_start < clause_end && context[value_start] == ' ')
+    value_start++;
+  if (value_start >= clause_end ||
+      (!isalpha((unsigned char)context[value_start]) &&
+       (unsigned char)context[value_start] < 0x80)) {
+    return false;
+  }
   size_t end = value_start;
-  while (end < context.size() && end - value_start < 120) {
+  while (end < clause_end && end - value_start < 120) {
     char c = context[end];
     if (c == '.' || c == ';' || c == '\n' || c == '(') break;
+    if (StartsWithAt(lower, end, " and ") ||
+        StartsWithAt(lower, end, " where ") ||
+        StartsWithAt(lower, end, " who ")) {
+      break;
+    }
     end++;
   }
   while (end > value_start &&
          (context[end - 1] == ' ' || context[end - 1] == ',')) {
     end--;
   }
-  if (end <= value_start || end - value_start < 2) return false;
+  if (end <= value_start || end - value_start < 2 ||
+      !HasProperLocationToken(context, value_start, end)) {
+    return false;
+  }
   *out = context.substr(value_start, end - value_start);
   return true;
+}
+
+bool FindLocationValue(const std::string &context, const std::string &mention,
+                       const std::string &title_lower,
+                       const std::string &relation, std::string *out) {
+  const std::string lower = Lower(context);
+  const std::string mention_lower = Lower(mention);
+  const char *predicates[8] = {};
+  size_t predicate_count = RelationPredicates(relation, predicates);
+  for (size_t p = 0; p < predicate_count; p++) {
+    const char *event = predicates[p];
+    size_t event_pos = 0;
+    while ((event_pos = lower.find(event, event_pos)) != std::string::npos) {
+      size_t event_end = event_pos + strlen(event);
+      if (!IsAsciiWordBoundary(lower, event_pos, event_end)) {
+        event_pos++;
+        continue;
+      }
+      if (!SubjectBoundEvent(lower, mention_lower, title_lower, event_pos)) {
+        event_pos++;
+        continue;
+      }
+      size_t predicate_end = PredicateEnd(context, event_end);
+      size_t prep = event_end;
+      while (prep < predicate_end) {
+        if (!PredicateContinuesAt(lower, prep)) break;
+        size_t value_start = std::string::npos;
+        static const char *const kPrepositions[] = {
+            " in ", " at ", " on ", " near ",
+        };
+        for (const char *preposition : kPrepositions) {
+          if (StartsWithAt(lower, prep, preposition)) {
+            value_start = prep + strlen(preposition);
+            break;
+          }
+        }
+        if (value_start != std::string::npos &&
+            ExtractLocationSpan(context, lower, value_start, predicate_end,
+                                out)) {
+          return true;
+        }
+        prep++;
+      }
+      event_pos++;
+    }
+  }
+  return false;
 }
 
 bool FindQuantityValue(const std::string &context, std::string *out) {
@@ -792,11 +976,9 @@ bool PackProvider::Address(
   uint32_t n = idx_address_candidates(pager_, address_text.c_str(), cands,
                                       kMaxAddressCandidates);
 
-  /* Floors: a candidate must share at least 4 trigrams and cover at least
-   * 0.35 of its surface (containment). Confidence combines absolute
-   * containment with overlap relative to the best candidate, so genuinely
-   * tied names (polysemy) stay close and trigger clarification while weak
-   * partial matches fall below the conversation plausibility threshold. */
+  /* Unresolved exact surfaces remain in this competition, so a weak fuzzy
+   * entity cannot silently replace a stronger corpus surface without an
+   * entity object. */
   uint32_t best_overlap = 0;
   for (uint32_t i = 0; i < n; i++) {
     if (cands[i].overlap > best_overlap) best_overlap = cands[i].overlap;
@@ -809,12 +991,17 @@ bool PackProvider::Address(
   size_t kept_n = 0;
   for (uint32_t i = 0; i < n && kept_n < kMaxAddressCandidates; i++) {
     const AddressCandidate &c = cands[i];
+    if (c.entity_idx == UINT32_MAX) continue;
     double grams = (double)c.surface_len + 2.0;  // padded trigram estimate
     double containment = grams > 0.0 ? (double)c.overlap / grams : 0.0;
-    if (c.overlap < 4 || containment < 0.35) continue;
+    if (c.overlap < kMinAddressOverlap ||
+        containment < kMinSurfaceContainment) {
+      continue;
+    }
     double confidence =
         containment * (best_overlap ? (double)c.overlap / best_overlap : 0.0);
     if (confidence > 1.0) confidence = 1.0;
+    if (confidence < kMinAddressConfidence) continue;
     kept[kept_n].cand = c;
     kept[kept_n].confidence = confidence;
     kept_n++;
@@ -1082,17 +1269,18 @@ void PackProvider::FetchRecords(
         candidate.answer_kind = "QUOTATION";
         candidate.relation_text = "describes";
         direct = !candidate.value.empty();
-      } else if (s != kUnusableScore && request.answer_shape == "date") {
-        direct = FindYearValue(ctx, request.relation_family,
+      } else if (request.answer_shape == "date") {
+        direct = FindYearValue(ctx, mention, title_lower,
+                               request.relation_family, (occ_flags & 1) != 0,
                                &candidate.value);
         candidate.answer_kind = "DATE";
         candidate.relation_text =
             request.relation_family == "birth_date" ? "was born in"
             : request.relation_family == "death_date" ? "died in"
                                                        : "is dated";
-      } else if (s != kUnusableScore && request.answer_shape == "location") {
-        direct = FindLocationValue(ctx, request.relation_family,
-                                   &candidate.value);
+      } else if (request.answer_shape == "location") {
+        direct = FindLocationValue(ctx, mention, title_lower,
+                                   request.relation_family, &candidate.value);
         candidate.answer_kind = "LOCATION";
         candidate.relation_text =
             request.relation_family == "birth_place" ? "was born in"

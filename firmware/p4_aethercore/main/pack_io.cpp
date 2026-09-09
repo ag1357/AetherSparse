@@ -1023,7 +1023,9 @@ uint32_t idx_address_candidates(Pager *pager, const char *normalized_surface,
   free(ids);
 
   /* Resolve to entities, first occurrence wins (top order is best-overlap
-   * order), unresolved surfaces (NO_ENTITY) skipped. */
+   * order). Preserve one unresolved surface (NO_ENTITY): the provider uses
+   * its overlap as competing mass so a weaker fuzzy entity cannot replace
+   * an exact surface that lacks a canonical object. */
   uint32_t kept = 0;
   for (size_t t = 0; t < top_n && kept < max_out; t++) {
     uint8_t entry[16];
@@ -1032,7 +1034,6 @@ uint32_t idx_address_candidates(Pager *pager, const char *normalized_surface,
     uint16_t surface_len = 0;
     memcpy(&entity_idx, entry, 4);
     memcpy(&surface_len, entry + 6, 2);
-    if (entity_idx == 0xFFFFFFFFu) continue;
     bool seen = false;
     for (uint32_t e = 0; e < kept; e++) {
       if (out[e].entity_idx == entity_idx) {

@@ -17,6 +17,8 @@ namespace {
 
 std::vector<uint8_t> g_blob;
 std::string g_title = "Ada Lovelace";
+std::vector<AddressCandidate> g_address_candidates;
+std::string g_surface_text;
 bool g_cancel = false;
 
 void AppendU16(uint16_t value) {
@@ -112,6 +114,182 @@ void TestWhereAndWhen() {
   Check(date && date->relation == "birth_date" &&
             date->answer_kind == "DATE" && date->values.front() == "1815",
         "when:extract-date");
+}
+
+void TestSymmetricAddressCoverage() {
+  auto provider = StartedProvider();
+  g_address_candidates = {{0, 1, 6, 14}};
+  g_surface_text = "florida senate";
+  std::vector<aethercore::service::AddressHyp> weak;
+  Check(provider.Address("florbnicate zxqv", &weak) && weak.empty(),
+        "address:reject-weak-query-coverage");
+
+  g_address_candidates = {{0, 1, 14, 12}};
+  g_surface_text = "ada lovelace";
+  std::vector<aethercore::service::AddressHyp> exact;
+  Check(provider.Address("Ada Lovelace", &exact) && exact.size() == 1 &&
+            exact.front().entity_id == "packv2:e0",
+        "address:retain-full-query-coverage");
+
+  g_address_candidates = {
+      {UINT32_MAX, 1, 13, 11},
+      {0, 2, 8, 9},
+  };
+  std::vector<aethercore::service::AddressHyp> shadowed;
+  Check(provider.Address("Alan Turing", &shadowed) && shadowed.empty(),
+        "address:unresolved-exact-blocks-weaker-fuzzy-entity");
+  g_address_candidates.clear();
+  g_surface_text.clear();
+}
+
+void TestSubjectBoundBiographicalRelations() {
+  g_blob.clear();
+  g_title = "Marie Curie";
+  AppendOccurrence(
+      "Marie Curie",
+      "1910 - Otto Wallach for his work. 1911 - Marie Curie for her "
+      "discovery of radium. 1919 - Another event.");
+  AppendOccurrence(
+      "Marie",
+      "Personal life. Curie was born in Paris. Marie and Pierre Curie "
+      "were her parents.");
+  AppendOccurrence(
+      "Marie Curie",
+      "Maria Salomea Sklodowska-Curie (7 November 1867 - 4 July 1934) "
+      "was a Polish physicist and chemist.",
+      1);
+  AppendOccurrence(
+      "Marie Curie",
+      "Marie Curie, born in partitioned Poland (Russian Empire), won "
+      "major scientific prizes.");
+  AppendOccurrence(
+      "Marie Curie",
+      "Marie Curie collaborated with Pierre Curie, who was born in Paris.");
+  AppendOccurrence(
+      "Marie Curie",
+      "Marie Curie was born in Paris and won a major prize in 1903.");
+  AppendOccurrence(
+      "Marie Curie",
+      "Marie Curie was born and later lived in Paris for many years.");
+  auto provider = StartedProvider();
+  aethercore::service::FetchOptions options;
+
+  aethercore::service::FetchResult birth_date;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("When was Marie Curie born?", "birth_date", "date"), options,
+      &birth_date);
+  const auto* unrelated_year = FindOccurrence(birth_date, 0);
+  const auto* self_lead = FindOccurrence(birth_date, 2);
+  const auto* intervening_date = FindOccurrence(birth_date, 5);
+  Check(unrelated_year &&
+            unrelated_year->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            intervening_date &&
+            intervening_date->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            self_lead &&
+            self_lead->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            self_lead->values.front() == "1867",
+        "relations:ordered-self-lead-birth-slot");
+
+  aethercore::service::FetchResult death_date;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("When did Marie Curie die?", "death_date", "date"), options,
+      &death_date);
+  const auto* death_lead = FindOccurrence(death_date, 2);
+  Check(death_lead &&
+            death_lead->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            death_lead->values.front() == "1934",
+        "relations:ordered-self-lead-death-slot");
+
+  aethercore::service::FetchResult birth_place;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("Where was Marie Curie born?", "birth_place", "location"),
+      options, &birth_place);
+  const auto* other_subject = FindOccurrence(birth_place, 1);
+  const auto* bound_subject = FindOccurrence(birth_place, 3);
+  const auto* embedded_subject = FindOccurrence(birth_place, 4);
+  const auto* intervening_place = FindOccurrence(birth_place, 6);
+  Check(other_subject &&
+            other_subject->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            embedded_subject &&
+            embedded_subject->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            intervening_place &&
+            intervening_place->support ==
+                aethercore::service::EvidenceSupport::kRelatedBackground &&
+            bound_subject &&
+            bound_subject->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            bound_subject->values.front() == "partitioned Poland",
+        "relations:event-and-subject-share-clause");
+
+  g_title = "Ada Lovelace";
+}
+
+void TestGenericTypedPredicatesAndInitials() {
+  g_blob.clear();
+  g_title = "Eiffel Tower";
+  AppendOccurrence(
+      "Eiffel Tower",
+      "The Eiffel Tower is located in Paris, France. It is a wrought-iron "
+      "landmark.");
+  AppendOccurrence(
+      "Eiffel Tower",
+      "The Eiffel Tower was opened in 1889 for an international exposition.");
+  auto provider = StartedProvider();
+  aethercore::service::FetchOptions options;
+
+  aethercore::service::FetchResult location;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("Where is the Eiffel Tower?", "location", "location"), options,
+      &location);
+  const auto* place = FindOccurrence(location, 0);
+  Check(place &&
+            place->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            place->values.front() == "Paris, France",
+        "relations:generic-location-predicate");
+
+  aethercore::service::FetchResult date;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("When did the Eiffel Tower open?", "date", "date"), options,
+      &date);
+  const auto* opened = FindOccurrence(date, 1);
+  Check(opened &&
+            opened->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            opened->values.front() == "1889",
+        "relations:generic-date-predicate");
+
+  g_blob.clear();
+  g_title = "J. Robert Oppenheimer";
+  AppendOccurrence(
+      "J. Robert Oppenheimer",
+      "J. Robert Oppenheimer was born in New York City and became a "
+      "theoretical physicist.");
+  aethercore::service::FetchResult initial;
+  provider.FetchRecords(
+      {"packv2:e0"},
+      Request("Where was J. Robert Oppenheimer born?", "birth_place",
+              "location"),
+      options, &initial);
+  const auto* initial_place = FindOccurrence(initial, 0);
+  Check(initial_place &&
+            initial_place->support ==
+                aethercore::service::EvidenceSupport::kDirectSupport &&
+            initial_place->values.front() == "New York City",
+        "relations:initials-remain-subject-bound");
+
+  g_title = "Ada Lovelace";
 }
 
 void TestConditionalSelfArticlePrior() {
@@ -248,10 +426,18 @@ void TestPassageExpansion() {
 Pager* pager_create(size_t) { return new Pager(); }
 void pager_destroy(Pager* pager) { delete pager; }
 void pager_stats(Pager*, PagerStats* out) { memset(out, 0, sizeof(*out)); }
-uint32_t idx_address_candidates(Pager*, const char*, AddressCandidate*, uint32_t) {
-  return 0;
+uint32_t idx_address_candidates(Pager*, const char*, AddressCandidate* out,
+                                uint32_t cap) {
+  uint32_t count =
+      std::min<uint32_t>(cap, uint32_t(g_address_candidates.size()));
+  for (uint32_t i = 0; i < count; i++) out[i] = g_address_candidates[i];
+  return count;
 }
-bool idx_surface_text(Pager*, uint32_t, char*, size_t) { return false; }
+bool idx_surface_text(Pager*, uint32_t surface_id, char* out, size_t cap) {
+  if (surface_id != 1 || g_surface_text.empty() || cap == 0) return false;
+  snprintf(out, cap, "%s", g_surface_text.c_str());
+  return true;
+}
 bool ent_title_at(uint32_t entity_idx, char* out, size_t cap) {
   if (entity_idx != 0 || cap == 0) return false;
   snprintf(out, cap, "%s", g_title.c_str());
@@ -293,6 +479,9 @@ const char* pack_id(void) { return "acpack:test"; }
 
 int main() {
   TestWhereAndWhen();
+  TestSymmetricAddressCoverage();
+  TestSubjectBoundBiographicalRelations();
+  TestGenericTypedPredicatesAndInitials();
   TestConditionalSelfArticlePrior();
   TestNegativeUsableScore();
   TestResumeMatchesFull();
